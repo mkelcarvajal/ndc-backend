@@ -10,30 +10,28 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $primaryKey = 'principal_id';
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+    protected $table = 'sys.sql_logins';
+
+    public $timestamps = false;
+
     protected $hidden = [
-        'password', 'remember_token',
+        'password_hash', 'sid', 'type', 'type_desc', 'create_date', 'modify_date', 'default_database_name', 'default_language_name', 'credential_id', 'is_policy_checked', 'is_expiration_checked'
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function usuarios()
+    {
+        return $this->belongsTo('App\Usuarios', 'name', 'Segu_Usr_Cuenta');
+    }
+
+    public function token()
+    {
+        return $this->belongsTo('App\Token', 'principal_id', 'id_user');
+    }
+
+    public function tokenSave()
+    {
+        return $this->hasOne(Token::class);
+    }
 }
