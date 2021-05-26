@@ -7,7 +7,6 @@
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
@@ -168,12 +167,55 @@
                         <div class="collapse navbar-collapse" id="topnav-menu-content">
                             <ul class="metismenu" id="menu-bar">
                                 <li class="menu-title">Navigation</li>
+
                                 <li>
-                                    <a href="desp-ficha">
-                                        <i data-feather="archive"></i>
+                                    <a href="#">
+                                        <i data-feather="home"></i>
                                         <span class="badge badge-success float-right">1</span>
-                                        <span> Despachar Ficha </span>
+                                        <span> Dashboard </span>
                                     </a>
+                                </li>
+                                <li class="menu-title">Apps</li>
+                                <li>
+                                    <a href="#">
+                                        <i data-feather="calendar"></i>
+                                        <span> Calendar </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);">
+                                        <i data-feather="inbox"></i>
+                                        <span> Email </span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+
+                                    <ul class="nav-second-level" aria-expanded="false">
+                                        <li>
+                                            <a href="#">Inbox</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Read</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Compose</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);">
+                                        <i data-feather="briefcase"></i>
+                                        <span> Projects </span>
+                                        <span class="menu-arrow"></span>
+                                    </a>
+    
+                                    <ul class="nav-second-level" aria-expanded="false">
+                                        <li>
+                                            <a href="project-list.html">List</a>
+                                        </li>
+                                        <li>
+                                            <a href="project-detail.html">Detail</a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </div>
@@ -213,8 +255,7 @@
 
         <!-- App js -->
         <script src="assets/js/app.min.js"></script>
-        
-        @yield("scripts")
+
 
     </body>
 
