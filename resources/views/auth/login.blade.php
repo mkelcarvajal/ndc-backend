@@ -6,14 +6,12 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>PPV</title>
+  <title>Trasabilidad de Fichas Clínicas</title>
   <link rel="icon" type="image/png" href="img/icono.png" sizes="32x32">
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="css/sb-admin-2.css">
   {{-- Fuente --}}
   <link rel="stylesheet" type="text/css" href="css/css.css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i"> 
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
-  <title>PPV</title>
   <link href="{{asset('loginpu/css/coming-soon.min.css')}}" rel="stylesheet">
 </head>
 <body>
@@ -29,7 +27,7 @@
           <div class="masthead-content text-white py-5 py-md-0">
             <br><br>
           <img src="{{asset('loginpu/img/hcc.png')}}" class="responsive" style="width:150px; height:80px; margin-top:-380px;">
-            <h1 class="mb-3">PPV</h1>
+            <h1 class="mb-3">Trasabilidad de Fichas</h1>
             <p class="mb-5">Sistemas Informaticos Hospital Carlos Cisternas CALAMA &reg;</p>
             <main class="py-4" id="vueValidate">
               @if(session('info'))
@@ -56,7 +54,6 @@
              {{ Form::submit('Iniciar Sesión', ['class' => 'btn btn-secondary btn-block']) }}
              {!! Form::close() !!}
              <hr>
-             {{ phpinfo() }}
             </div>
           </div>
         </div>

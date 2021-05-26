@@ -16,11 +16,6 @@ class Usuarios extends Model
 
     public $timestamps = false;
 
-    public function profesional()
-    {
-        return $this->belongsTo('App\Profesional', 'Segu_Usr_RUT', 'SER_PRO_Rut');
-    }
-
     protected $keyType= 'string';
 
     protected $hidden = [
