@@ -12,7 +12,7 @@ class LoginHccProvider implements UserProvider
 {
     public function retrieveById($identifier)
     {
-        $user = User::with('token', 'usuarios.profesional')->where('principal_id', $identifier)->first();
+        $user = User::with('token', 'usuarios')->where('principal_id', $identifier)->first();
         if(!$user)
         {
             return null;
