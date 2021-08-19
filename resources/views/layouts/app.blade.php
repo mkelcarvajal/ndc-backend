@@ -139,23 +139,20 @@
                           <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Socios</div>
                           <ul class="pcoded-item pcoded-left-item">
                               <li>
-                                  <a href="#" class="waves-effect waves-dark">
-                                      <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                      <span class="pcoded-mtext" data-i18n="nav.form-components.main">Form Components</span>
+                                  <a href="addSocio" class="waves-effect waves-dark">
+                                      <span class="pcoded-micon"><i class="fa fa-user-plus"></i></span>
+                                      <span class="pcoded-mtext" data-i18n="nav.form-components.main">Agregar Socio</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                               </li>
                               <li>
-                                  <a href="#" class="waves-effect waves-dark">
-                                      <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                      <span class="pcoded-mtext" data-i18n="nav.form-components.main">Basic Table</span>
-                                      <span class="pcoded-mcaret"></span>
-                                  </a>
-                              </li>
-        
+                                <a href="listaSocio" class="waves-effect waves-dark">
+                                    <span class="pcoded-micon"><i class="fa fa-file-text-o"></i></span>
+                                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Lista Socios</span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                            </li>
                           </ul>
-
-        
                       </div>
                   </nav>
                   <div class="pcoded-content">
@@ -178,13 +175,12 @@
                               </div>
                           </div>
                       </div>
-                    
+                      @yield("content")
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @yield("content")
 
     <!-- Required Jquery -->
     <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
