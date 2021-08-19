@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+<link rel="stylesheet" type="text/css" href="css/jquery.select2.min.css">
+
 <div class="pcoded-inner-content">
     <div class="main-body">
         <div class="page-wrapper">
@@ -69,4 +71,6 @@
         </div>
     </div>
 </div>
+@section('script')
+@endsection
 @endsection
