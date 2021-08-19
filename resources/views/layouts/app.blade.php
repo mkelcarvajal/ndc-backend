@@ -8,15 +8,27 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-      <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-      <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
-      <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-      <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-      <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
-      <link rel="stylesheet" type="text/css" href="assets/icon/font-awesome/css/font-awesome.min.css">
-      <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
-      <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+       <!-- Favicon icon -->
+       <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+       <!-- Google font-->
+       <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+       <!-- waves.css -->
+       <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+         <!-- Required Fremwork -->
+         <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+         <!-- waves.css -->
+         <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+         <!-- themify icon -->
+         <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+         <!-- Font Awesome -->
+         <link rel="stylesheet" type="text/css" href="assets/icon/font-awesome/css/font-awesome.min.css">
+         <!-- scrollbar.css -->
+         <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+           <!-- am chart export.css -->
+           <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+         <!-- Style.css -->
+         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
   </head>
 
   <body>
@@ -80,7 +92,7 @@
           <nav class="navbar header-navbar pcoded-header">
               <div class="navbar-wrapper">
                   <div class="navbar-logo ml-3" >
-                      <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="home">
+                      <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
                           <i class="ti-menu"></i>
                       </a>
                       <a href="home" style="font-size: 25px">
@@ -120,7 +132,6 @@
                   </div>
               </div>
           </nav>
-
           <div class="pcoded-main-container">
               <div class="pcoded-wrapper">
                   <nav class="pcoded-navbar">
@@ -128,8 +139,8 @@
                       <div class="pcoded-inner-navbar main-menu">
                           <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Menú</div>
                           <ul class="pcoded-item pcoded-left-item">
-                              <li class="active">
-                                  <a href="home" class="waves-effect waves-dark">
+                            <li class="{{ ! Route::is('home') ?: 'active' }}">
+                                <a href="home" class="waves-effect waves-dark">
                                       <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Inicio</span>
                                       <span class="pcoded-mcaret"></span>
@@ -138,14 +149,14 @@
                           </ul>
                           <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Socios</div>
                           <ul class="pcoded-item pcoded-left-item">
-                              <li>
+                              <li class="{{ ! Route::is('addSocio') ?: 'active' }}">
                                   <a href="addSocio" class="waves-effect waves-dark">
                                       <span class="pcoded-micon"><i class="fa fa-user-plus"></i></span>
                                       <span class="pcoded-mtext" data-i18n="nav.form-components.main">Agregar Socio</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                               </li>
-                              <li>
+                              <li class="{{ ! Route::is('listaSocio') ?: 'active' }}">
                                 <a href="listaSocio" class="waves-effect waves-dark">
                                     <span class="pcoded-micon"><i class="fa fa-file-text-o"></i></span>
                                     <span class="pcoded-mtext" data-i18n="nav.form-components.main">Lista Socios</span>
@@ -182,7 +193,6 @@
         </div>
     </div>
 
-    <!-- Required Jquery -->
     <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
     <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
@@ -198,10 +208,21 @@
     <script type="text/javascript" src="assets/js/SmoothScroll.js"></script>
     <script src="assets/js/jquery.mCustomScrollbar.concat.min.js "></script>
     <!-- Chart js -->
+    <script type="text/javascript" src="assets/js/chart.js/Chart.js"></script>
+    <!-- amchart js -->
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="assets/pages/widget/amchart/gauge.js"></script>
+    <script src="assets/pages/widget/amchart/serial.js"></script>
+    <script src="assets/pages/widget/amchart/light.js"></script>
+    <script src="assets/pages/widget/amchart/pie.min.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <!-- menu js -->
     <script src="assets/js/pcoded.min.js"></script>
     <script src="assets/js/vertical-layout.min.js "></script>
     <!-- custom js -->
+    <script type="text/javascript" src="assets/pages/dashboard/custom-dashboard.js"></script>
     <script type="text/javascript" src="assets/js/script.js "></script>
+
 @yield("script")
  
 </body>
