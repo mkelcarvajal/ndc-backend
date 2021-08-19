@@ -80,10 +80,10 @@
           <nav class="navbar header-navbar pcoded-header">
               <div class="navbar-wrapper">
                   <div class="navbar-logo ml-3" >
-                      <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                      <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="home">
                           <i class="ti-menu"></i>
                       </a>
-                      <a href="#" style="font-size: 25px">
+                      <a href="home" style="font-size: 25px">
                         <i class="fa fa-soccer-ball-o"></i>  
                           Sociges
                       </a>
@@ -124,12 +124,12 @@
           <div class="pcoded-main-container">
               <div class="pcoded-wrapper">
                   <nav class="pcoded-navbar">
-                      <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                      <div class="sidebar_toggle"><a href="home"><i class="icon-close icons"></i></a></div>
                       <div class="pcoded-inner-navbar main-menu">
                           <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Menú</div>
                           <ul class="pcoded-item pcoded-left-item">
                               <li class="active">
-                                  <a href="#" class="waves-effect waves-dark">
+                                  <a href="home" class="waves-effect waves-dark">
                                       <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Inicio</span>
                                       <span class="pcoded-mcaret"></span>
