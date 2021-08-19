@@ -140,11 +140,18 @@
                           <ul class="pcoded-item pcoded-left-item">
                               <li>
                                   <a href="addSocio" class="waves-effect waves-dark">
-                                      <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
+                                      <span class="pcoded-micon"><i class="fa fa-user-plus"></i></span>
                                       <span class="pcoded-mtext" data-i18n="nav.form-components.main">Agregar Socio</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                               </li>
+                              <li>
+                                <a href="listaSocio" class="waves-effect waves-dark">
+                                    <span class="pcoded-micon"><i class="fa fa-file-text-o"></i></span>
+                                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Lista Socios</span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                            </li>
                           </ul>
                       </div>
                   </nav>

@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 
 Route::get('addSocio','socioController@index');
+Route::get('listaSocio','socioController@lista_socios');
