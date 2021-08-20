@@ -1,9 +1,5 @@
 "use strict";
 $(document).ready(function() {
-    document.addEventListener('wheel', function(e) {
-        e.preventDefault();
-        doStuff(e);
-    }, { passive: false });
     // card js start
     $(".card-header-right .close-card").on('click', function() {
         var $this = $(this);
@@ -99,25 +95,10 @@ $(document).ready(function() {
         }
     });
 
-    // card js end
-    $.mCustomScrollbar.defaults.axis = "yx";
-    $("#styleSelector .style-cont").slimScroll({
-        setTop: "1px",
-        height:"calc(100vh - 520px)",
-    });
-    $(".main-menu").mCustomScrollbar({
-        setTop: "1px",
-        setHeight: "calc(100% - 56px)",
-    });
+ 
     /*chatbar js start*/
     /*chat box scroll*/
-    var a = $(window).height() - 80;
-    $(".main-friend-list").slimScroll({
-        height: a,
-        allowPageScroll: false,
-        wheelStep: 5,
-        color: '#1b8bf9'
-    });
+
 
     // search
     $("#search-friends").on("keyup", function() {
