@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<link rel="stylesheet" type="text/css" href="css/jquery.select2.min.css">
+<link rel="stylesheet" type="text/css" href="css/select2.min.css">
 
 <div class="pcoded-inner-content">
     <div class="main-body">
@@ -52,7 +52,7 @@
                                     </div>
                                     <br>
                                     <div class="form-group form-success">
-                                        <select class="select2" required="">
+                                        <select class="" required="">
                                             <option>Normal</option>
                                             <option>Premium</option>
                                             <option>Jugador</option>
@@ -71,6 +71,7 @@
         </div>
     </div>
 </div>
-@section('script')
+
 @endsection
+@section('script')
 @endsection

@@ -1,5 +1,9 @@
 "use strict";
 $(document).ready(function() {
+    document.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        doStuff(e);
+    }, { passive: false });
     // card js start
     $(".card-header-right .close-card").on('click', function() {
         var $this = $(this);

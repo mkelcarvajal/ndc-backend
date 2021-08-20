@@ -53,8 +53,8 @@
         </div>
     </div>
 </div>
-@section('script')
-<script type="text/javascript" src="js/select2.min.js "></script>
 
 @endsection
+@section('script')
+
 @endsection
