@@ -1,7 +1,10 @@
 @extends('layouts.app')
 @section('content')
-<link rel="stylesheet" type="text/css" href="css/jquery.select2.min.css">
-
+<style>
+    .table td {
+    cursor: pointer;
+}
+</style>
 <div class="pcoded-inner-content">
     <div class="main-body">
         <div class="page-wrapper">
@@ -14,33 +17,47 @@
                             </div>
                             <div class="card-block table-border-style">
                                 <div class="table-responsive">
-                                    <table class="table table-styling">
+                                    <table class="table table-styling table-hover">
                                         <thead>
-                                            <tr class="table-primary">
-                                                <th>#</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Username</th>
+                                            <tr>
+                                                <th>RUT</th>
+                                                <th>Nombre</th>
+                                                <th>E-Mail</th>
+                                                <th>Teléfono</th>
+                                                <th>Dirección</th>
+                                                <th>Tipo</th>
+                                                <th colspan="2">Acción</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <th scope="row">1</th>
                                                 <td>Mark</td>
+                                                <td>OttoOttoOttoOttoOttoOttoOttoOttoOttoOttoOtto</td>
+                                                <td>@mdo</td>
+                                                <td>@mdo</td>
+                                                <td>@mdo</td>
+                                                <td><button class="btn btn-outline-warning btn-round waves-effect waves-light mr-2"><i class="ti-pencil"></i> Modificar</button> <button class="btn btn-round waves-effect waves-light btn-outline-danger"> <i class="ti-trash"></i> Eliminar</button></td>
+
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>Mark</td>
                                                 <td>Otto</td>
                                                 <td>@mdo</td>
+                                                <td>@mdo</td>
+                                                <td>@mdo</td>
+                                                <td><button class="btn btn-outline-warning btn-round waves-effect waves-light mr-2"><i class="ti-pencil"></i> Modificar</button> <button class="btn btn-round waves-effect waves-light btn-outline-danger"> <i class="ti-trash"></i> Eliminar</button></td>
+
                                             </tr>
                                             <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
+                                                <th scope="row">1</th>
+                                                <td>Mark</td>
+                                                <td>Otto</td>
+                                                <td>@mdo</td>
+                                                <td>@mdo</td>
+                                                <td>@mdo</td>
+                                                <td><button class="btn btn-outline-warning btn-round waves-effect waves-light mr-2"><i class="ti-pencil"></i> Modificar</button> <button class="btn btn-round waves-effect waves-light btn-outline-danger"> <i class="ti-trash"></i> Eliminar</button></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -56,5 +73,6 @@
 
 @endsection
 @section('script')
+<script type="text/javascript" src="js/sweetalert2@11.js"></script>
 
 @endsection

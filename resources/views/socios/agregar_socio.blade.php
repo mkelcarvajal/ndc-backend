@@ -1,7 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<link rel="stylesheet" type="text/css" href="css/select2.min.css">
-
 <div class="pcoded-inner-content">
     <div class="main-body">
         <div class="page-wrapper">
@@ -16,43 +14,43 @@
                                 <form class="form-material">
                                     <br>
                                     <div class="form-group form-success">
-                                        <input type="text" class="form-control" required="">
+                                        <input type="text" class="form-control" required="" autocomplete="off">
                                         <span class="form-bar"></span>
                                         <label class="float-label">Nombre Completo</label>
                                     </div>
                                     <br>
                                     <div class="form-group form-success">
-                                        <input type="text" class="form-control" required="">
+                                        <input type="text" class="form-control" required="" autocomplete="off">
                                         <span class="form-bar"></span>
                                         <label class="float-label">RUT</label>
                                     </div>
                                     <br>
                                     <div class="form-group form-success">
-                                        <input type="text" class="form-control" required="">
+                                        <input type="text" class="form-control" required="" autocomplete="off">
                                         <span class="form-bar"></span>
                                         <label class="float-label">Dirección</label>
                                     </div>
                                     <br>
                                     <div class="form-group form-success">
-                                        <input type="text" class="form-control" required="">
+                                        <input type="text" class="form-control" required="" autocomplete="off">
                                         <span class="form-bar"></span>
                                         <label class="float-label">Teléfono</label>
                                     </div>
                                     <br>
                                     <div class="form-group form-success">
-                                        <input type="text" name="footer-email" class="form-control" required="">
+                                        <input type="text" name="footer-email" class="form-control" required="" autocomplete="off">
                                         <span class="form-bar"></span>
                                         <label class="float-label">Email (ejemplo@gmail.com)</label>
                                     </div>
                                     <br>
                                     <div class="form-group form-success">
-                                        <input type="password" name="footer-email" class="form-control" required="">
+                                        <input type="password" name="footer-email" class="form-control" required="" autocomplete="off">
                                         <span class="form-bar"></span>
                                         <label class="float-label">Contraseña</label>
                                     </div>
                                     <br>
                                     <div class="form-group form-success">
-                                        <select class="" required="">
+                                        <select class="form-control" required="" autocomplete="off">
                                             <option>Normal</option>
                                             <option>Premium</option>
                                             <option>Jugador</option>
@@ -74,4 +72,5 @@
 
 @endsection
 @section('script')
+<script type="text/javascript" src="js/sweetalert2@11.js"></script>
 @endsection
