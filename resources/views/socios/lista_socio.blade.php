@@ -30,35 +30,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($socios as $s)
                                             <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>OttoOttoOttoOttoOttoOttoOttoOttoOttoOttoOtto</td>
-                                                <td>@mdo</td>
-                                                <td>@mdo</td>
-                                                <td>@mdo</td>
-                                                <td><button class="btn btn-outline-warning btn-round waves-effect waves-light mr-2"><i class="ti-pencil"></i> Modificar</button> <button class="btn btn-round waves-effect waves-light btn-outline-danger"> <i class="ti-trash"></i> Eliminar</button></td>
-
+                                                <td>{{$s->rut}}</td>
+                                                <td>{{$s->nombre}}</td>
+                                                <td>{{$s->email}}</td>
+                                                <td>{{$s->telefono}}</td>
+                                                <td>{{$s->direccion}}</td>
+                                                <td>{{$s->tipo}}</td>
+                                                <td><button class="btn btn-outline-warning btn-round waves-effect waves-light mr-2" data-toggle="modal" data-target="#mod_modificar"><i class="ti-pencil"></i> Modificar</button> <button class="btn btn-round waves-effect waves-light btn-outline-danger"> <i class="ti-trash"></i> Eliminar</button></td>
                                             </tr>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                                <td>@mdo</td>
-                                                <td>@mdo</td>
-                                                <td><button class="btn btn-outline-warning btn-round waves-effect waves-light mr-2"><i class="ti-pencil"></i> Modificar</button> <button class="btn btn-round waves-effect waves-light btn-outline-danger"> <i class="ti-trash"></i> Eliminar</button></td>
-
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                                <td>@mdo</td>
-                                                <td>@mdo</td>
-                                                <td><button class="btn btn-outline-warning btn-round waves-effect waves-light mr-2"><i class="ti-pencil"></i> Modificar</button> <button class="btn btn-round waves-effect waves-light btn-outline-danger"> <i class="ti-trash"></i> Eliminar</button></td>
-                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -70,6 +52,7 @@
         </div>
     </div>
 </div>
+@include('modal.modal_mod')
 
 @endsection
 @section('script')
