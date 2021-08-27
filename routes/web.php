@@ -12,5 +12,6 @@ Route::get('/home', 'homeController@index')->name('home');
 Route::get('addSocio','socioController@index')->name('addSocio');
 Route::get('listaSocio','socioController@lista_socios')->name('listaSocio');
 Route::post('insSocio','socioController@insSocio')->name('insSocio');
+Route::post('updSocio','socioController@updSocio')->name('updSocio');
 
 Auth::routes();

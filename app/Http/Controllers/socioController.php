@@ -33,11 +33,50 @@ public function insSocio(Request $request){
                                 'tipo_usuario'=>$request['tipo'],
                                 'created_at'=>date('Y-m-d H:i:s')
                                 ]);
+
+
+    $ultimo= DB::table('users')->selectRaw('id')->max('id');
+
+    $verificar=DB::table('users')->selectRaw('id')->where('id',$ultimo->id)->first();
+
     
-    return redirect()->back()->with('message', 'Usuario Agregado Correctamente');
+    
+    // return redirect()->back()->with('message', 'Usuario Agregado Correctamente');
 
 }
 
+public function updSocio(Request $request){
+
+    $rut=DB::table('users')->selectRaw('rut')->wherenotin('id',[$request['id_mod']])->get();
+    
+    $esta='';
+    foreach($rut as $r){
+        if($r->rut == $request['rut_mod']){
+            $esta='si';
+        }
+    }
+    if($esta=='si'){
+        return redirect()->back()->with('message_error', 'Rut correspondiente a otro usuario registrado');
+
+    }
+    else if($esta==''){
+    DB::table('users')
+        ->where('id',$request['id_mod'])
+        ->update([
+            'name'=>$request['nombre_mod'],
+            'email'=>$request['email_mod'],
+            'rut'=>$request['rut_mod'],
+            'direccion'=>$request['dire_mod'],
+            'telefono'=>$request['fono_mod'],
+            'tipo_usuario'=>$request['tipo_mod'],
+            'updated_at'=>date('Y-m-d H:i:s')
+            ]);
+
+    return redirect()->back()->with('message', 'Usuario Modificado Correctamente');
+
+    }
+
+}
 
 
 }
