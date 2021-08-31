@@ -13,7 +13,16 @@
                               </button>
                             {{ session()->get('message') }}
                         </div>
-                    @endif<br>
+                        @endif
+                        @if(session()->has('message_error'))
+                            <div class="alert alert-danger">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                {{ session()->get('message_error') }}
+                            </div>
+                         @endif
+                    <br>
                         <div class="card">
                             <div class="card-header">
                                 <h5>Agregar Socio</h5>
@@ -24,7 +33,7 @@
                                     {{ csrf_field() }}
                                     <br>
                                     <div class="form-group form-success">
-                                        <input type="text" class="form-control" name="nombre" required="" autocomplete="off">
+                                        <input type="text" class="form-control" name="nombre" value="{{old('nombre') }}" required="" autocomplete="off">
                                         <span class="form-bar"></span>
                                         <label class="float-label">Nombre Completo</label>
                                     </div>
@@ -36,25 +45,25 @@
                                     </div>
                                     <br>
                                     <div class="form-group form-success">
-                                        <input type="text" class="form-control" name="direccion" required="" autocomplete="off">
+                                        <input type="text" class="form-control" name="direccion" required="" value="{{old('direccion') }}" autocomplete="off">
                                         <span class="form-bar"></span>
                                         <label class="float-label">Dirección</label>
                                     </div>
                                     <br>
                                     <div class="form-group form-success">
-                                        <input type="number" class="form-control" name="fono" required="" autocomplete="off">
+                                        <input type="number" class="form-control" name="fono" required="" value="{{old('fono') }}" autocomplete="off">
                                         <span class="form-bar"></span>
                                         <label class="float-label">Teléfono</label>
                                     </div>
                                     <br>
                                     <div class="form-group form-success">
-                                        <input type="text" class="form-control" name="email" required="" autocomplete="off">
+                                        <input type="text" class="form-control" name="email" required=""   value="{{old('email') }}" autocomplete="off">
                                         <span class="form-bar"></span>
                                         <label class="float-label">Email (ejemplo@gmail.com)</label>
                                     </div>
                                     <br>
                                     <div class="form-group form-success">
-                                        <input type="password"  class="form-control" name="contra" required="" autocomplete="off">
+                                        <input type="password"  class="form-control" name="contra"  required="" autocomplete="off">
                                         <span class="form-bar"></span>
                                         <label class="float-label">Contraseña</label>
                                     </div>

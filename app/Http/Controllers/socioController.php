@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Hash;
-
+use Input;
 class socioController extends Controller
 {
 
@@ -23,25 +23,33 @@ public function lista_socios(){
 }
 
 public function insSocio(Request $request){
-    DB::table('users')->insert(['name'=>$request['nombre'],
-                                'email'=>$request['email'],
-                                'email_verified_at'=>date('Y-m-d H:i:s'),
-                                'password'=>Hash::make($request['contra']),
-                                'rut'=>$request['rut'],
-                                'direccion'=>$request['direccion'],
-                                'telefono'=>$request['fono'],
-                                'tipo_usuario'=>$request['tipo'],
-                                'created_at'=>date('Y-m-d H:i:s')
-                                ]);
+
+    
+    $ultimo = DB::table('users')->selectRaw('rut')->where('rut',$request['rut'])->first();
+
+    if($ultimo->rut !== $request['rut']){
+        DB::table('users')->insert(['name'=>$request['nombre'],
+        'email'=>$request['email'],
+        'email_verified_at'=>date('Y-m-d H:i:s'),
+        'password'=>Hash::make($request['contra']),
+        'rut'=>$request['rut'],
+        'direccion'=>$request['direccion'],
+        'telefono'=>$request['fono'],
+        'tipo_usuario'=>$request['tipo'],
+        'created_at'=>date('Y-m-d H:i:s')
+        ]);
+        return redirect()->back()->with('message', 'Usuario Agregado Correctamente');
+
+    }
+    else{
+        return redirect()->back()->withInput()->with('message_error', 'Rut correspondiente a otro usuario registrado');
+
+    }
 
 
-    $ultimo= DB::table('users')->selectRaw('id')->max('id');
-
-    $verificar=DB::table('users')->selectRaw('id')->where('id',$ultimo->id)->first();
 
     
     
-    // return redirect()->back()->with('message', 'Usuario Agregado Correctamente');
 
 }
 
