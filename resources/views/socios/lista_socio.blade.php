@@ -57,7 +57,7 @@
                                                 <td><button class="btn btn-outline-warning btn-round waves-effect waves-light mr-2" type="button" onclick="modal_modificar('{{$s->id}}','{{$s->rut}}','{{$s->nombre}}','{{$s->email}}','{{$s->telefono}}','{{$s->direccion}}','{{$s->tipo}}');" >
                                                         <i class="ti-pencil"></i> Modificar
                                                     </button> 
-                                                    <button class="btn btn-round waves-effect waves-light btn-outline-danger"> 
+                                                    <button class="btn btn-round waves-effect waves-light btn-outline-danger" onclick="eliminar_usuario('{{$s->id}}')"> 
                                                         <i class="ti-trash"></i> Eliminar
                                                     </button>
                                                 </td>

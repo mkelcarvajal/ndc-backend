@@ -16,6 +16,7 @@
         <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
         <link rel="stylesheet" type="text/css" href="assets/icon/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/morris.js/css/morris.css">
   </head>
   <body>
   <div class="theme-loader">
@@ -149,6 +150,23 @@
                                 </a>
                             </li>
                           </ul>
+                          <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Balance</div>
+                          <ul class="pcoded-item pcoded-left-item">
+                            <li class="{{ ! Route::is('addBalance') ?: 'active' }}">
+                                <a href="addBalance" class="waves-effect waves-dark">
+                                    <span class="pcoded-micon"><i class="fa fa-plus-square"></i></span>
+                                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Ingresar Movimiento</span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                            </li>
+                            <li class="{{ ! Route::is('index_balance') ?: 'active' }}">
+                                <a href="index_balance" class="waves-effect waves-dark">
+                                    <span class="pcoded-micon"><i class="fa fa-money"></i></span>
+                                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Balance General</span>
+                                    <span class="pcoded-mcaret"></span>
+                                </a>
+                            </li>
+                        </ul>
                       </div>
                   </nav>
                   <div class="pcoded-content">
@@ -162,7 +180,7 @@
                                   <div class="col-md-4">
                                       <ul class="breadcrumb-title">
                                           <li class="breadcrumb-item">
-                                              <a href="index.html"> <i class="fa fa-home"></i> </a>
+                                              <a href="/"> <i class="fa fa-home"></i> </a>
                                           </li>
                                           <li class="breadcrumb-item"><a href="#!">Inicio</a>
                                           </li>
@@ -183,11 +201,16 @@
     <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js "></script>
     <script type="text/javascript" src="assets/pages/widget/excanvas.js "></script>
+    <script type="text/javascript" src="assets/js/morris.js/morris.js "></script>
+    <script type="text/javascript" src="assets/js/raphael/raphael.min.js "></script>
+
+
     <!-- waves js -->
     <script src="assets/pages/waves/js/waves.min.js"></script>
     <script src="assets/js/pcoded.min.js"></script>
     <script src="assets/js/vertical-layout.min.js "></script>
     <script type="text/javascript" src="assets/js/script.js "></script>
+    <script type="text/javascript" src="js/sweetalert2@11.js "></script>
 
 @yield("script")
  

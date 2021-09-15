@@ -22,12 +22,11 @@
                                 {{ session()->get('message_error') }}
                             </div>
                          @endif
-                    <br>
+                        <br>
                         <div class="card">
                             <div class="card-header">
                                 <h5>Agregar Socio</h5>
                             </div>
-                     
                             <div class="card-body">
                                 <form class="form-material" method="post" action="insSocio">
                                     {{ csrf_field() }}
@@ -39,7 +38,7 @@
                                     </div>
                                     <br>
                                     <div class="form-group form-success">
-                                        <input type="text" class="form-control" name="rut" id="rut" required="" oninput="checkRut(this)" autocomplete="off">
+                                        <input type="text" class="form-control" name="rut" id="rut" value="{{old('rut')}}" required="" oninput="checkRut(this)" autocomplete="off">
                                         <span class="form-bar"></span>
                                         <label class="float-label">RUT</label>
                                     </div>

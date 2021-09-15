@@ -25,9 +25,34 @@ public function lista_socios(){
 public function insSocio(Request $request){
 
     
-    $ultimo = DB::table('users')->selectRaw('rut')->where('rut',$request['rut'])->first();
+    $ultimo = DB::table('users')->selectRaw('rut,email')->where('rut',$request['rut'])->orWhere('email',$request['email'])->first();
+    
+    if($ultimo){
+        if($ultimo->rut !== $request['rut']){
+            if($ultimo->email !== $request['email']){
+                DB::table('users')->insert(['name'=>$request['nombre'],
+                'email'=>$request['email'],
+                'email_verified_at'=>date('Y-m-d H:i:s'),
+                'password'=>Hash::make($request['contra']),
+                'rut'=>$request['rut'],
+                'direccion'=>$request['direccion'],
+                'telefono'=>$request['fono'],
+                'tipo_usuario'=>$request['tipo'],
+                'created_at'=>date('Y-m-d H:i:s')
+                ]);
+                return redirect()->back()->with('message', 'Usuario Agregado Correctamente');
+            }
+            else{
+                return redirect()->back()->withInput()->with('message_error', 'E-Mail correspondiente a otro usuario registrado');
 
-    if($ultimo->rut !== $request['rut']){
+            }
+    
+        }
+        else{
+            return redirect()->back()->withInput()->with('message_error', 'Rut correspondiente a otro usuario registrado');
+        }
+    }
+    else{
         DB::table('users')->insert(['name'=>$request['nombre'],
         'email'=>$request['email'],
         'email_verified_at'=>date('Y-m-d H:i:s'),
@@ -41,15 +66,6 @@ public function insSocio(Request $request){
         return redirect()->back()->with('message', 'Usuario Agregado Correctamente');
 
     }
-    else{
-        return redirect()->back()->withInput()->with('message_error', 'Rut correspondiente a otro usuario registrado');
-
-    }
-
-
-
-    
-    
 
 }
 
@@ -83,9 +99,14 @@ public function updSocio(Request $request){
     return redirect()->back()->with('message', 'Usuario Modificado Correctamente');
 
     }
-
 }
 
+public function delSocio(Request $request){
+
+    DB::table('users')->where('id',$request['id_usuario'])->delete();
+
+    
+}
 
 }
 

@@ -17,6 +17,66 @@ function modal_modificar(id,rut,nombre,email,fono,dire,tipo){
 
 }
 
+function eliminar_usuario(id){
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+      
+      swalWithBootstrapButtons.fire({
+        title: '¿Esta seguro?',
+        text: "No se podran revertir los cambios",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si ',
+        cancelButtonText: ' No',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "delSocio",
+                type: "post",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: {
+                    'id_usuario': id,
+                },
+                beforeSend: function() {
+               
+                },
+                success: function(data) {
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+
+          swalWithBootstrapButtons.fire(
+            'Eliminado!',
+            'success'
+          ).then((result) =>{
+              window.location.href='listaSocio';
+          })
+     
+        
+        } else if (
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelado',
+            'error'
+          )
+        }
+      })
+
+
+
+}
 function checkRut(rut) {
     var valor = rut.value.replace('.','');
     valor = valor.replace('-','');
