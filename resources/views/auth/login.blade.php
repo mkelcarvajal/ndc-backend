@@ -6,7 +6,8 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Trasabilidad de Fichas Clínicas</title>
+  <title>OHT
+  </title>
   <link rel="icon" type="image/png" href="img/icono.png" sizes="32x32">
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="css/sb-admin-2.css">
@@ -27,8 +28,8 @@
           <div class="masthead-content text-white py-5 py-md-0">
             <br><br>
           <img src="{{asset('loginpu/img/hcc.png')}}" class="responsive" style="width:150px; height:80px; margin-top:-380px;">
-            <h1 class="mb-3">Trasabilidad de Fichas</h1>
-            <p class="mb-5">Sistemas Informaticos Hospital Carlos Cisternas CALAMA &reg;</p>
+            <h1 class="mb-3">OHT</h1>
+            <p class="mb-5">Pruebas &reg;</p>
             <main class="py-4" id="vueValidate">
               @if(session('info'))
             <div class="container">
