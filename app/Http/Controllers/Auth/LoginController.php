@@ -31,19 +31,21 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        $data=DB::select('exec login ?,?',[$request->input('user'),$request->input('password')]);
+            // $data=DB::select('exec login ?,?',[$request->input('user'),$request->input('password')]);
 
-        if(!empty($data)){
-            if($data[0]->clave == 1){
-                Auth::loginUsingId($data[0]->principal_id, true);
+        $data=DB::connection('mysql')->table('usuarios')->where('rut',$request->input('user'))->first();
+
+        if(isset($data)){
+            if($data->pass == $request->input('password')){
+                Auth::loginUsingId($data->id, true);
                 return redirect()->intended('home');
             } else {
-                return back()->withErrors(['password', 'Clave Erronea'])->withInput(request(['user']));
+                return back()->with('error','Clave Erronea')->withInput(request(['user']));
             }
             
         } else {
             //return "Usuario Inexistente";
-            return back()->withErrors(['user', 'Usuario Inexistente']);
+            return back()->with('errorusuario','Usuario Inexistente');
         }
         
     }
