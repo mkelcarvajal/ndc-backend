@@ -18,7 +18,7 @@
 <body>
   <div class="overlay"></div>
  <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-    <source src="{{asset('loginpu/mp4/bg.mp4')}}" type="video/mp4">
+    <source src="{{asset('loginpu/mp4/escritorio.mp4')}}" type="video/mp4">
   </video> 
   <div class="masthead">
     <div class="masthead-bg"></div>
@@ -27,7 +27,7 @@
         <div class="col-12 my-auto">
           <div class="masthead-content text-white py-5 py-md-0">
             <br><br>
-          <img src="{{asset('loginpu/img/hcc.png')}}" class="responsive" style="width:150px; height:80px; margin-top:-380px;">
+          <img src="{{asset('loginpu/img/ndc.png')}}" class="responsive" style="width:220px; height:100px; margin-top:-380px;">
             <h1 class="mb-3">OHT</h1>
             <p class="mb-5">Pruebas &reg;</p>
             <main class="py-4" id="vueValidate">
@@ -48,10 +48,21 @@
             {!! Form::open(['route' => 'login', 'method' => 'POST']) !!}
              <div class="form-group">
                <input type="text" class="form-control form-control-user" name="user" placeholder="Ingresa tu usuario" required autofocus >
+        
              </div>
              <div class="form-group">
                <input type="password" class="form-control form-control-user" name="password" placeholder="Ingresa tu Contraseña" required autocomplete='off'>
              </div>
+             @if ($message = Session::get('error'))
+             <div class="alert alert-danger">
+                <b> {{ $message }} </b>
+             </div>
+            @endif
+            @if ($message = Session::get('errorusuario'))
+            <div class="alert alert-danger">
+              <b> {{ $message }} </b>
+            </div>
+           @endif
              {{ Form::submit('Iniciar Sesión', ['class' => 'btn btn-secondary btn-block']) }}
              {!! Form::close() !!}
              <hr>
@@ -61,6 +72,6 @@
       </div>
     </div>
   </div>
-  <script src="{{ asset('js/app.js') }}"></script>
+  
 </body>
 </html>

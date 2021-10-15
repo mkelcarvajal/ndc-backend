@@ -66,7 +66,7 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu profile-dropdown-items dropdown-menu-right">
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <a href="logout" class="dropdown-item notify-item">
                                     <i data-feather="log-out" class="icon-dual icon-xs mr-2"></i>
                                     <span>Logout</span>
                                 </a>
