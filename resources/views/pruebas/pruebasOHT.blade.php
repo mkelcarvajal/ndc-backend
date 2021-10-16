@@ -53,6 +53,7 @@
                                                 <br><br>
                                                 <?php $contador=1 ?>
                                                 @foreach($preguntas as $p)
+
                                                     @if($t->id == $p->id_topico)
                                                     <div class="card">
                                                         <div class="card-header" style="color:white; background-color:green">
@@ -60,31 +61,42 @@
                                                         </div>
                                                         <div class="card-body">
                                                           <blockquote class="blockquote mb-0">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1{{$contador}}">
-                                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                                  Default radio
-                                                                </label>
+                                                              <div class="row d-flex justify-content-center">
+                                                                  <div class="col-2 align-items-start">
+                                                                      <br><br>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1{{$contador}}">
+                                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                                          Default radio
+                                                                        </label>
+                                                                    </div>  
+                                                                      <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2{{$contador}}" checked>
+                                                                        <label class="form-check-label" for="flexRadioDefault2">
+                                                                          Default checked radio
+                                                                        </label>
+                                                                      </div>
+                                                                      <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3{{$contador}}">
+                                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                                          Default radio
+                                                                        </label>
+                                                                      </div>
+                                                                      <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4{{$contador}}">
+                                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                                          Default radio
+                                                                        </label>
+                                                                      </div>
+                                                                  </div>
+                                                                  @if($p->imagen_pregunta == '0')
+                                                                  @else
+                                                                  <div class="col-2">
+                                                                    <img src="img_pruebas/{{$p->imagen_pregunta}}" style="float: right" width="200" height="200">
+                                                                  </div> 
+                                                                  @endif
+                                                                  
                                                               </div>
-                                                              <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2{{$contador}}" checked>
-                                                                <label class="form-check-label" for="flexRadioDefault2">
-                                                                  Default checked radio
-                                                                </label>
-                                                              </div>
-                                                              <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3{{$contador}}">
-                                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                                  Default radio
-                                                                </label>
-                                                              </div>
-                                                              <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4{{$contador}}">
-                                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                                  Default radio
-                                                                </label>
-                                                              </div>
-                                                              
                                                             {{-- <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer> --}}
                                                           </blockquote>
                                                         </div>
@@ -96,8 +108,7 @@
                                                     class="next-step" value="Siguiente" />
                                                 <input type="button" name="previous-step" 
                                                     class="previous-step" 
-                                                    value="Anterio" />
-                                          
+                                                    value="Anterior" />
                                             </fieldset>
                                             @endforeach
                                             <fieldset>
