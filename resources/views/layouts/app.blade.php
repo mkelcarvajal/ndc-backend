@@ -112,7 +112,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12">
-                                2021 &copy; All Rights Reserved. Crafted with <i class='uil uil-heart text-danger font-size-12'></i> by <a href="#" target="_blank">nino ticias</a>
+                                2021 &copy; All Rights Reserved. Crafted with <i class='uil uil-heart text-danger font-size-12'></i> by <a href="#" target="_blank">NDC PERSSO GROUP</a>
                             </div>
                         </div>
                     </div>
