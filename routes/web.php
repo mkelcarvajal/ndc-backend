@@ -11,6 +11,8 @@ Route::group(['middleware' => 'auth'], function ()
 Route::get('/', function () {return view('welcome');});
 Route::get('/indexPrueba', 'pruebasController@indexPrueba');
 Route::post('preguntas', 'pruebasController@preguntas');
+Route::post('registrarPreguntasElectrica', 'pruebasController@registrarPreguntasElectrica');
+Route::get('registroPdf', 'pruebasController@registroPdf');
 
 
 });

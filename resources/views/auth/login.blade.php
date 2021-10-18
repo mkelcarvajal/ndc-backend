@@ -13,7 +13,7 @@
   <link rel="stylesheet" type="text/css" href="css/sb-admin-2.css">
   {{-- Fuente --}}
   <link rel="stylesheet" type="text/css" href="css/css.css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i"> 
-  <link href="{{asset('loginpu/css/coming-soon.min.css')}}" rel="stylesheet">
+  <link href="{{asset('loginpu/css/coming-soon.css')}}" rel="stylesheet">
 </head>
 <body>
   <div class="overlay"></div>
