@@ -11,9 +11,8 @@
     @if(count($registro)>0)
     <div class="card">
         <div class="card-body">
-           <center><h3>Prueba ya realizada en la fecha: {{date("d/m/Y",strtotime($registro[0]->fecha_registro))}}</h3></center> 
+           <center><h3>Prueba realizada en la fecha: {{date("d/m/Y H:i",strtotime($registro[0]->fecha_registro))}}</h3></center> 
            <br><br>
-           <div>Registration closes in <span id="time">05:00</span> minutes!</div>
 
             <a type="button" href="registroPdf" class="btn btn-success btn-block" target="blank"><h4 style="color:white">Descargar Informe de Resultados</h4></a>
 
