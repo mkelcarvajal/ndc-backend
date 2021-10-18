@@ -2,7 +2,118 @@
 
 @section('content')
 <link href="css/oht.css" rel="stylesheet" type="text/css" />
+<style>
 
+.funkyradio div {
+  clear: both;
+  overflow: hidden;
+}
+
+.funkyradio label {
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid #D1D3D4;
+  font-weight: normal;
+}
+
+.funkyradio input[type="radio"]:empty,
+.funkyradio input[type="checkbox"]:empty {
+  display: none;
+}
+
+.funkyradio input[type="radio"]:empty ~ label,
+.funkyradio input[type="checkbox"]:empty ~ label {
+  position: relative;
+  line-height: 2.5em;
+  text-indent: 3.25em;
+  margin-top: 2em;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.funkyradio input[type="radio"]:empty ~ label:before,
+.funkyradio input[type="checkbox"]:empty ~ label:before {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  content: '';
+  width: 2.5em;
+  background: #D1D3D4;
+  border-radius: 3px 0 0 3px;
+}
+
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label,
+.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
+  color: #888;
+}
+
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
+.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
+  content: '\2714';
+  text-indent: .9em;
+  color: #C2C2C2;
+}
+
+.funkyradio input[type="radio"]:checked ~ label,
+.funkyradio input[type="checkbox"]:checked ~ label {
+  color: #777;
+}
+
+.funkyradio input[type="radio"]:checked ~ label:before,
+.funkyradio input[type="checkbox"]:checked ~ label:before {
+  content: '\2714';
+  text-indent: .9em;
+  color: #333;
+  background-color: #ccc;
+}
+
+.funkyradio input[type="radio"]:focus ~ label:before,
+.funkyradio input[type="checkbox"]:focus ~ label:before {
+  box-shadow: 0 0 0 3px #999;
+}
+
+.funkyradio-default input[type="radio"]:checked ~ label:before,
+.funkyradio-default input[type="checkbox"]:checked ~ label:before {
+  color: #333;
+  background-color: #ccc;
+}
+
+.funkyradio-primary input[type="radio"]:checked ~ label:before,
+.funkyradio-primary input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #337ab7;
+}
+
+.funkyradio-success input[type="radio"]:checked ~ label:before,
+.funkyradio-success input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #5cb85c;
+}
+
+.funkyradio-danger input[type="radio"]:checked ~ label:before,
+.funkyradio-danger input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #d9534f;
+}
+
+.funkyradio-warning input[type="radio"]:checked ~ label:before,
+.funkyradio-warning input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #f0ad4e;
+}
+
+.funkyradio-info input[type="radio"]:checked ~ label:before,
+.funkyradio-info input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #5bc0de;
+}
+
+</style>
 <div class="row page-title">
     <div class="col-12">
          {{-- <div class="card">
@@ -29,6 +140,7 @@
                                     col-lg-12 col-xl-12 text-center p-0 mt-3 mb-2">
                                     <div class="px-0 pt-4 pb-0 mt-3 mb-3">
                                         <form id="form">
+                                       
                                             <ul id="progressbar">
                                                 <li class="active" id="step0">
                                                     <strong>Inicio</strong>
@@ -52,46 +164,39 @@
                                                 <h2>{{$t->nombre}}</h2>
                                                 <br><br>
                                                 <?php $contador=1 ?>
+                                                
                                                 @foreach($preguntas as $p)
-
+                                                
                                                     @if($t->id == $p->id_topico)
                                                     <div class="card">
                                                         <div class="card-header" style="color:white; background-color:green">
-                                                            {{$contador}}.- {{$p->texto_pregunta}}
+                                                            {{$contador}}.- {{$p->texto_pregunta}} 
                                                         </div>
                                                         <div class="card-body">
                                                           <blockquote class="blockquote mb-0">
                                                               <div class="row d-flex justify-content-center">
-                                                                  <div class="col-2 align-items-start">
-                                                                      <br><br>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1{{$contador}}">
-                                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                                          Default radio
-                                                                        </label>
-                                                                    </div>  
-                                                                      <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2{{$contador}}" checked>
-                                                                        <label class="form-check-label" for="flexRadioDefault2">
-                                                                          Default checked radio
-                                                                        </label>
-                                                                      </div>
-                                                                      <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3{{$contador}}">
-                                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                                          Default radio
-                                                                        </label>
-                                                                      </div>
-                                                                      <div class="form-check">
-                                                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4{{$contador}}">
-                                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                                          Default radio
-                                                                        </label>
-                                                                      </div>
+                                                                  <div class="col-8 align-items-start">
+                                                                      <?php $letra='a'; ?>
+                                                                      <?php $numero=0; ?>
+
+                                                                    @foreach($alternativas as $a)
+                                                                        @if($p->id == $a->id)
+                                                                        <div class="funkyradio">
+                                                                            <div class="funkyradio-success">
+                                                                                <input type="radio" name="radio[{{$numero}}]"  />
+                                                                                <label for="radio[{{$numero}}]">{{$letra}}.- {{$a->texto_alternativa}} </label>
+                                                                            </div>
+                                                                        </div>  
+                                                                            <?php $letra++ ?>
+
+                                                                        @endif
+
+                                                                    @endforeach
+
                                                                   </div>
                                                                   @if($p->imagen_pregunta == '0')
                                                                   @else
-                                                                  <div class="col-2">
+                                                                  <div class="col-4">
                                                                     <img src="img_pruebas/{{$p->imagen_pregunta}}" style="float: right" width="200" height="200">
                                                                   </div> 
                                                                   @endif
