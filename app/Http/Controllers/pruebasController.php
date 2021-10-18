@@ -12,10 +12,11 @@ class pruebasController extends Controller
     {
         $pruebas = DB::connection('mysql')->table('prueba')->get();
         $topicos = DB::connection('mysql')->table('topico')->get();
-        $preguntas = DB::connection('mysql')->table('topico')->join('preguntas','topico.id','=','preguntas.id_topico')->get();
+        $preguntas = DB::connection('mysql')->table('preguntas')->leftjoin('topico','preguntas.id_topico','=','topico.id')->get();
+        $alternativas = DB::connection('mysql')->table('alternativas')->leftjoin('preguntas','alternativas.id_pregunta','=','preguntas.id')->get();
 
-        return view('pruebas.pruebasOHT',compact('pruebas','topicos','preguntas'));
 
+        return view('pruebas.pruebasOHT',compact('pruebas','topicos','preguntas','alternativas',));
     }
 
     public function preguntas(){
