@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Session;
 use DB;
 
 class LoginController extends Controller
@@ -37,6 +38,9 @@ class LoginController extends Controller
 
         if(isset($data)){
             if($data->pass == $request->input('password')){
+                Session::put('usuario', $data->rut);
+                Session::put('nombre', $data->nombre);
+                Session::put('id_usuario', $data->id);
                 Auth::loginUsingId($data->id, true);
                 return redirect()->intended('home');
             } else {
