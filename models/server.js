@@ -6,6 +6,8 @@ class Server {
 
     constructor() {
         this.app = express();
+        // CORS
+        this.app.use(cors());
         this.port = process.env.PORT;
         this.usersRoutePath = '/api/users';
         this.authPath = '/api/auth';
@@ -25,10 +27,6 @@ class Server {
     }
 
     middlewares() {
-        // CORS
-        this.app.use(cors({
-            origin: '*'
-        }));
         
         // Read and parse body
         this.app.use( express.json() );
