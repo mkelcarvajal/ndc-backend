@@ -26,9 +26,7 @@ class Server {
 
     middlewares() {
         // CORS
-        this.app.use(cors({
-            origin: ['http://localhost:4200', 'https://intranet.ndc.cl/']
-        }));
+        this.app.options('*', cors())
         // Read and parse body
         this.app.use( express.json() );
         // directorio publico
