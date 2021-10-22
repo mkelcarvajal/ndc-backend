@@ -12,14 +12,22 @@
     "@sendgrid/mail": "^7.4.6",
     "axios": "^0.21.4",
     "bcryptjs": "^2.4.3",
+    "convert-excel-to-json": "^1.7.0",
     "cors": "^2.8.5",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "express-validator": "^6.11.1",
     "google-auth-library": "^7.1.0",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.12.10",
+    "node-cron": "^3.0.0",
+    "pdfkit": "^0.12.3",
     "pg": "^8.7.1",
-    "typeorm": "^0.2.38"
+    "qr-image": "^3.2.0",
+    "qrcode": "^1.4.4",
+    "read-excel-file": "^5.2.17",
+    "typeorm": "^0.2.38",
+    "xlsx-parse-json": "^3.1.1"
   }
 }

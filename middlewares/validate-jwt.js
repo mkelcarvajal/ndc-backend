@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const {request, response} = require('express');
-const User = require('../models/user');
+const {getUserByIdRepository} = require('../repository/user.repository');
 
 const validateJWT = async (req = request, res = response, next) => {
 
@@ -14,21 +14,20 @@ const validateJWT = async (req = request, res = response, next) => {
 
     try {
 
-        const {uid} = jwt.verify(token, process.env.SECRETORPUBLICKEY);
-        const userPetition = await User.findById(uid);
-
-        if (!userPetition) {
-            return res.status(401).json({
+        const {id} = jwt.verify(token, process.env.SECRETORPUBLICKEY);
+        let userPetition = await getUserByIdRepository(id);
+        userPetition = userPetition.body.user;
+        if (userPetition === 0 || userPetition.length === 0 || userPetition === undefined) {
+           return res.status(401).json({
                 msg: 'User not exist in DB'
             })
         }
 
-        if (!userPetition.state) {
-            return res.status(401).json({
-                msg: 'User inactive'
-            })
-        }
-
+        // if (!userPetition.state) {
+        //     return res.status(401).json({
+        //         msg: 'User inactive'
+        //     })
+        // }
         req.userPetition = userPetition;
         next();
     } catch (e) {

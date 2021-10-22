@@ -3,7 +3,7 @@ const bcryptjs = require('bcryptjs');
 const User = require('../models/user');
 const {googleVerify} = require("../helpers/google-verify");
 const {generateJWT} = require("../helpers/utils");
-const {createUserRepository, getUserByIdRepository} = require('../repository/user.repository');
+const {createUserRepositoryMicrosoft, getUserByIdRepository} = require('../repository/user.repository');
 
 
 const login = async (req = request, res = response) => {
@@ -102,7 +102,7 @@ const microsoftSignIn = async (req = request, res = response) => {
     try {
         let user = await getUserByIdRepository(id);
         if (user === 0 || user.length === 0 || user.body.user === undefined) {
-            user = await createUserRepository(req);
+            user = await createUserRepositoryMicrosoft(req);
         }
 
         // if user have state false on DB
@@ -111,10 +111,10 @@ const microsoftSignIn = async (req = request, res = response) => {
         //         msg: 'Talk with an Admin, user blocked'
         //     });
         // }
-        const token = await generateJWT(user.id);
-    
+        const token = await generateJWT(user.body.user.id);
+        const usuario = user.body.user;
         res.json({
-            user,
+            user: usuario,
             token
         })
 
