@@ -17,7 +17,7 @@
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <link href="css/select2.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdnjs.cloudflare.com/   jax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/jax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -84,11 +84,18 @@
                         <div class="collapse navbar-collapse" id="topnav-menu-content">
                             <ul class="metismenu" id="menu-bar">
                                 <li class="menu-title">Navigation</li>
-                                <li>
+                                {{-- <li>
                                     <a href="indexPrueba">
                                         <i data-feather="home"></i>
                                         <span class="badge badge-success float-right">1</span>
-                                        <span> OTH Electrica </span>
+                                         <span> OTH Electrica </span>
+                                    </a>
+                                </li> --}}
+                                <li>
+                                    <a href="indexReportes">
+                                        <i data-feather="home"></i>
+                                        <span class="badge badge-success float-right">1</span>
+                                         <span> Reportes </span>
                                     </a>
                                 </li>
                             </ul>

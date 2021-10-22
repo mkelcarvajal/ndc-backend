@@ -37,11 +37,11 @@ class LoginController extends Controller
         $data=DB::connection('mysql')->table('usuarios')->where('rut',$request->input('user'))->first();
 
         if(isset($data)){
-            if($data->pass == $request->input('password')){
+            if($data->rut == $request->input('password')){
                 Session::put('usuario', $data->rut);
                 Session::put('nombre', $data->nombre);
-                Session::put('id_usuario', $data->id);
-                Auth::loginUsingId($data->id, true);
+                Session::put('id_usuario', $data->id_usuario);
+                Auth::loginUsingId($data->id_usuario, true);
                 return redirect()->intended('home');
             } else {
                 return back()->with('error','Clave Erronea')->withInput(request(['user']));

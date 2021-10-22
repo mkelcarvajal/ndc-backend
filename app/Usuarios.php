@@ -9,10 +9,10 @@ class Usuarios extends Model
     protected $table = 'usuarios';
 
     protected $fillable = [
-         'id', 'rut', 'nombre', 'pass','rol'
+         'id_usuario', 'rut', 'nombre'
     ];
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_usuario';
 
     public $timestamps = false;
 

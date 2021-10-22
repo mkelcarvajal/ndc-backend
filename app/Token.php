@@ -8,14 +8,14 @@ class Token extends Model
 {
     protected $table = 'usuarios';
 
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'id_usuario';
 
     protected $fillable = [
-         'id'
+         'id_usuario','nombre','rut'
     ];
 
     protected $hidden = [
-    	'id'
+    	'id_usuario','nombre','rut'
     ];
 
     public $timestamps = false;
