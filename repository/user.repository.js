@@ -95,7 +95,7 @@ const generateUserCertificateRepository = async (req) => {
 
 const getAllHistoricRepository = async () => {
     try {
-        const response = await pool.query('SELECT * FROM historicocert');
+        const response = await pool.query('select * from public.historicocert h where h.fechavencimiento::date >= CURRENT_DATE order by rutempresa;');
         return {
             message: 'Lista entregada con exito',
             body: response.rows

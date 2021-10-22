@@ -156,7 +156,7 @@ const generateUserCertificate = async (req = request, res = response) => {
         const response = JSON.parse(req.query.data);
         const stream = fs.createWriteStream(`./certificados/${response.nombrecompleto}.pdf`);
 
-        const qrimage = await qr.toDataURL(`https://intranet.ndc.cl/verificarcertificados/${response.nombrecompleto}/${response.idcurso}/${response.fechafinalizacion}/${response.fechavencimiento}/${response.puestotrabajo}/${response.rut}`);
+        const qrimage = await qr.toDataURL(`https://otec.ndc.cl/verificarcertificados/${response.nombrecompleto}/${response.idcurso}/${response.fechafinalizacion}/${response.fechavencimiento}/${response.puestotrabajo}/${response.rut}`);
 
         const doc = new PDFDocument({
             layout: "landscape",
