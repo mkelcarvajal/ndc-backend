@@ -27,7 +27,7 @@ class Server {
     middlewares() {
         // CORS
         this.app.use(cors({
-            origin: 'https://intranet.ndc.cl/'
+            origin: '*'
         }));
         
         // Read and parse body
