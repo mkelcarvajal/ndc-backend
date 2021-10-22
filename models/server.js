@@ -7,7 +7,9 @@ class Server {
     constructor() {
         this.app = express();
         // CORS
-        this.app.use(cors());
+        this.app.use(cors({
+            origin: 'https://otec.ndc.cl/'
+        }));
         this.port = process.env.PORT;
         this.usersRoutePath = '/api/users';
         this.authPath = '/api/auth';
