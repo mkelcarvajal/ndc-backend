@@ -48,7 +48,6 @@ router.put('/:id', [
 ], updateUser);
 
 router.post('/getcertificado', [
-    validateJWT,
     // //isAdminRole,
     // check('name', 'The name is required').not().isEmpty(),
     // check('email', 'This email is not valid').isEmail(),
