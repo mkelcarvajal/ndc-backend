@@ -156,7 +156,7 @@ async function buildPDF(response, dataCallback, endCallback) {
     doc.on('data', dataCallback);
     doc.on('end', endCallback);
 
-    const qrimage = await qr.toDataURL(`https://otec.ndc.cl/verificarcertificados/${response.idcurso}/${response.puestotrabajo}/${response.rut}`);
+    const qrimage = await qr.toDataURL(`http://localhost:3000/api/users/verificarcertificados/${response.idcurso}/${response.puestotrabajo}/${response.rut}/`);
 
     //persona nueva
     if (response.idcurso === 'cc49457f-da5d-40c4-8e06-271f7bed6819') {
@@ -291,10 +291,47 @@ const generateUserCertificate = async (req = request, res = response) => {
 }
 
 const verifyCertificate = async (req = request, res = response) => {
-    const result = await getUserByData(req.body);
-    res.json({
-        result
-    });
+    try {
+        const result = await getUserByData(req.params);
+        const nombrecompleto = result.user.nombrecompleto;
+        const rut = result.user.rut;
+        const fechavencimiento = moment(result.user.fechavencimiento).format('LL');
+        const nombrecurso = result.user.nombrecurso;
+        const fecha1 = moment(result.user.fechavencimiento).format('YYYY-MM-DD');
+        const fecha2 = moment().format('YYYY-MM-DD');
+        if (fecha1 >= fecha2) {
+            fs.readFile(path.join(__dirname, '../public/verificarcertificado.html'), 'utf8', function (err,data) {
+                if (err) {
+                return console.log(err);
+                }
+                const html = data.replace("{1}", nombrecompleto.toString());
+                const test = html.replace("{2}", nombrecurso.toString());
+                const test1 = test.replace("{3}", fechavencimiento.toString());
+                const test2 = test1.replace("{4}", rut.toString());
+                res.type('.html')
+                res.write(test2);
+            });
+        } else {
+            fs.readFile(path.join(__dirname, '../public/verificarcertificado-invalidos.html'), 'utf8', function (err,data) {
+                if (err) {
+                return console.log(err);
+                }
+                res.type('.html')
+                res.write(data);
+            });
+        }
+    } catch (e) {
+        fs.readFile(path.join(__dirname, '../public/verificarcertificado-invalidos.html'), 'utf8', function (err,data) {
+            if (err) {
+            return console.log(err);
+            }
+            res.type('.html')
+            res.write(data);
+        });
+    }
+
+    
+    
 }
 
 // cron.schedule('* 10 * * * *', function () {

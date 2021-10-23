@@ -108,8 +108,6 @@ const getAllHistoricRepository = async () => {
 const getUserByData = async (data) => {
     try {
         const response = await pool.query('SELECT * FROM historicocert WHERE fechavencimiento::date >= CURRENT_DATE AND rut = $1 AND puestotrabajo = $2 AND idcurso = $3 ', [data.rut, data.puestotrabajo, data.idcurso]);
-        console.log(data);
-        console.log(response.rows);
         return {
             user: response.rows[0]
         }

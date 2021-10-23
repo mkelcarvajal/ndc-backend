@@ -8,6 +8,10 @@ const {isAdminRole, haveRole} = require("../middlewares/validate-roles");
 
 const router = new Router();
 
+router.get('/verificarcertificados/:idcurso/:puestotrabajo/:rut', [
+    fieldValidator
+], verifyCertificate);
+
 router.get('/', [
     validateJWT,
     fieldValidator
@@ -30,6 +34,7 @@ router.get('/userCertificate', [
     // check('email').custom(email => emailExist(email)),
     fieldValidator
 ], generateUserCertificate);
+
 
 router.get('/:id', [
     validateJWT,
