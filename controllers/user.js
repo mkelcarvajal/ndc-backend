@@ -150,145 +150,141 @@ const getAllHistoric = async (req = request, res = response) => {
     });
 }
 
+function buildPDF(response, dataCallback, endCallback) {
+    const doc = new PDFDocument({ bufferPages: true, layout: "landscape", size: "A4", });
+  
+    doc.on('data', dataCallback);
+    doc.on('end', endCallback);
+  
+    const qrimage = await qr.toDataURL(`https://angular-ndc.herokuapp.com/verificarcertificados/${response.nombrecompleto}/${response.idcurso}/${response.fechafinalizacion}/${response.fechavencimiento}/${response.puestotrabajo}/${response.rut}`);
+
+    //persona nueva
+    if (response.idcurso === 'cc49457f-da5d-40c4-8e06-271f7bed6819') {
+        
+        doc.image("./images/diploma.jpg", 0, 0, { width: 842 });
+    
+        doc.moveDown();
+        doc.moveDown();
+        doc.fontSize(16).text(`CERTIFICADO`, {
+        align: 'center'
+        });
+    
+        doc.moveDown();
+        doc.moveDown();
+    
+        doc.fontSize(14).text('Se otorga el presente certificado al/la trabajador/a:', {
+        align: "center"
+        });
+    
+    
+        doc.moveDown();
+    
+        doc.fontSize(15).text(response.nombrecompleto, {
+        align: "center"
+        });
+    
+        doc.moveDown();
+        doc.moveDown();
+    
+        doc.fontSize(14).text('Por cumplir el curso de:', {
+        align: "center"
+        });
+    
+        doc.moveDown();
+    
+        doc.fontSize(14).text(response.nombrecurso, {
+        align: "center"
+        });
+    
+        doc.moveDown();
+    
+        if (response.fechafinalizacion !== null) {
+            doc.fontSize(14).text(`Realizado el: ${moment(response.fechafinalizacion).format('LL')}`, {
+            align: "center"
+            });
+        }
+        doc.fontSize(14).text(`Con fecha de vigencia hasta: ${moment(response.fechavencimiento).format('LL')}`, {
+        align: "center"
+        });
+    
+        doc.moveDown();
+        doc.fontSize(14).text(`El presente curso fue realizado por la empresa`, {
+        align: "center"
+        });
+        doc.fontSize(14).text('NDC PERSSO GROUP', {
+        align: "center"
+        });
+        doc.moveDown();
+        doc.moveDown();
+    
+        doc.fontSize(14).text('GERENCIA DE SEGURIDAD Y SALUD OCUPACIONAL', {
+        align: "center"
+        });
+        doc.moveDown();
+        doc.fontSize(14).text('TECK CARMEN DE ANDACOLLO', {
+        align: "center"
+        });
+
+        doc.moveDown();
+        doc.moveDown();
+
+        doc.image(qrimage, 400, 470, {fit: [60, 60], align: 'center', valign: 'center'})
+        .text('Centered', 430, 0);
+        
+    }
+
+    // Inducción de Mantención - TECK Carmen de Andacollo
+    if (response.idcurso === '65c61b1a-04c1-46e6-9d6e-41576a0ce14f') {
+        
+        doc.image("./images/diploma.jpg", 0, 0, { width: 842 });
+    
+        doc.moveDown();
+        doc.moveDown();
+        doc.moveDown();
+        doc.moveDown();
+        doc.fontSize(24).text(`CERTIFICADO`, {
+        align: 'center'
+        });
+    
+        doc.moveDown();
+        doc.moveDown();
+    
+        doc.fontSize(24).text('Se otorga el presente certificado a:', {
+        align: "center"
+        });        
+        doc.fontSize(24).text(response.nombrecompleto, {
+        align: "center"
+        });
+
+        doc.fontSize(24).text(`Por completar la Inducción de Mantención - TECK Carmen de Andacollo realizado ${moment(response.fechafinalizacion).format('LL')}`, {
+        align: "center"
+        });
+    
+        doc.moveDown();
+        doc.fontSize(24).text(`El presente certificado es valido hasta: ${moment(response.fechavencimiento).format('LL')}`, {
+        align: "center"
+        });    
+        doc.moveDown();
+        doc.moveDown();
+
+        doc.image(qrimage, 400, 470, {fit: [60, 60], align: 'center', valign: 'center'})
+        .text('Centered', 430, 0);
+        
+    }
+    doc.end();
+  }
+
 const generateUserCertificate = async (req = request, res = response) => {
     try {
 
         const response = JSON.parse(req.query.data);
-        const stream = fs.createWriteStream(`./certificados/${response.nombrecompleto}.pdf`);
-
-        const qrimage = await qr.toDataURL(`https://angular-ndc.herokuapp.com/verificarcertificados/${response.nombrecompleto}/${response.idcurso}/${response.fechafinalizacion}/${response.fechavencimiento}/${response.puestotrabajo}/${response.rut}`);
-
-        const doc = new PDFDocument({
-            layout: "landscape",
-            size: "A4",
+        const stream = res.writeHead(200, {
+            'Content-Type': 'application/pdf',
+            'Content-Disposition': `attachment;filename=${response.nombrecompleto}.pdf`,
         });
 
-        //persona nueva
-        if (response.idcurso === 'cc49457f-da5d-40c4-8e06-271f7bed6819') {
-            
-            doc.pipe(stream);
-            
-            doc.image("./images/diploma.jpg", 0, 0, { width: 842 });
-        
-            doc.moveDown();
-            doc.moveDown();
-            doc.fontSize(16).text(`CERTIFICADO`, {
-            align: 'center'
-            });
-        
-            doc.moveDown();
-            doc.moveDown();
-        
-            doc.fontSize(14).text('Se otorga el presente certificado al/la trabajador/a:', {
-            align: "center"
-            });
-        
-        
-            doc.moveDown();
-        
-            doc.fontSize(15).text(response.nombrecompleto, {
-            align: "center"
-            });
-        
-            doc.moveDown();
-            doc.moveDown();
-        
-            doc.fontSize(14).text('Por cumplir el curso de:', {
-            align: "center"
-            });
-        
-            doc.moveDown();
-        
-            doc.fontSize(14).text(response.nombrecurso, {
-            align: "center"
-            });
-        
-            doc.moveDown();
-        
-            if (response.fechafinalizacion !== null) {
-                doc.fontSize(14).text(`Realizado el: ${moment(response.fechafinalizacion).format('LL')}`, {
-                align: "center"
-                });
-            }
-            doc.fontSize(14).text(`Con fecha de vigencia hasta: ${moment(response.fechavencimiento).format('LL')}`, {
-            align: "center"
-            });
-        
-            doc.moveDown();
-            doc.fontSize(14).text(`El presente curso fue realizado por la empresa`, {
-            align: "center"
-            });
-            doc.fontSize(14).text('NDC PERSSO GROUP', {
-            align: "center"
-            });
-            doc.moveDown();
-            doc.moveDown();
-        
-            doc.fontSize(14).text('GERENCIA DE SEGURIDAD Y SALUD OCUPACIONAL', {
-            align: "center"
-            });
-            doc.moveDown();
-            doc.fontSize(14).text('TECK CARMEN DE ANDACOLLO', {
-            align: "center"
-            });
+        buildPDF(response ,(chunk) => stream.write(chunk), () => stream.end());
 
-            doc.moveDown();
-            doc.moveDown();
-
-            doc.image(qrimage, 400, 470, {fit: [60, 60], align: 'center', valign: 'center'})
-            .text('Centered', 430, 0);
-            
-        }
-
-        // Inducción de Mantención - TECK Carmen de Andacollo
-        if (response.idcurso === '65c61b1a-04c1-46e6-9d6e-41576a0ce14f') {
-            
-            doc.pipe(stream);
-            
-            doc.image("./images/diploma.jpg", 0, 0, { width: 842 });
-        
-            doc.moveDown();
-            doc.moveDown();
-            doc.moveDown();
-            doc.moveDown();
-            doc.fontSize(24).text(`CERTIFICADO`, {
-            align: 'center'
-            });
-        
-            doc.moveDown();
-            doc.moveDown();
-        
-            doc.fontSize(24).text('Se otorga el presente certificado a:', {
-            align: "center"
-            });        
-            doc.fontSize(24).text(response.nombrecompleto, {
-            align: "center"
-            });
-    
-            doc.fontSize(24).text(`Por completar la Inducción de Mantención - TECK Carmen de Andacollo realizado ${moment(response.fechafinalizacion).format('LL')}`, {
-            align: "center"
-            });
-        
-            doc.moveDown();
-            doc.fontSize(24).text(`El presente certificado es valido hasta: ${moment(response.fechavencimiento).format('LL')}`, {
-            align: "center"
-            });    
-            doc.moveDown();
-            doc.moveDown();
-
-            doc.image(qrimage, 400, 470, {fit: [60, 60], align: 'center', valign: 'center'})
-            .text('Centered', 430, 0);
-            
-        }
-        
-        doc.end();
-        await new Promise (resolve => {
-            stream.on("finish", function() {
-                resolve();
-                res.download(`./certificados/${response.nombrecompleto}.pdf`);
-                
-            });
-        });
     } catch (e) {
         console.log(e);
     }
