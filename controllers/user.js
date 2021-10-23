@@ -155,8 +155,8 @@ async function buildPDF(response, dataCallback, endCallback) {
   
     doc.on('data', dataCallback);
     doc.on('end', endCallback);
-  
-    const qrimage = await qr.toDataURL(`https://otec.ndc.cl/verificarcertificados/${response.nombrecompleto}/${response.idcurso}/${response.fechafinalizacion}/${response.fechavencimiento}/${response.puestotrabajo}/${response.rut}`);
+
+    const qrimage = await qr.toDataURL(`https://otec.ndc.cl/verificarcertificados/${response.idcurso}/${response.puestotrabajo}/${response.rut}`);
 
     //persona nueva
     if (response.idcurso === 'cc49457f-da5d-40c4-8e06-271f7bed6819') {

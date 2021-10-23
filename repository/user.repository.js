@@ -107,7 +107,7 @@ const getAllHistoricRepository = async () => {
 
 const getUserByData = async (data) => {
     try {
-        const response = await pool.query('SELECT * FROM historicocert WHERE nombrecompleto = $1 AND rut = $2 AND puestotrabajo = $3 AND idcurso = $4 ', [data.nombrecompleto, data.rut, data.puestotrabajo, data.idcurso]);
+        const response = await pool.query('SELECT * FROM historicocert WHERE fechavencimiento::date >= CURRENT_DATE AND rut = $1 AND puestotrabajo = $2 AND idcurso = $3 ', [data.rut, data.puestotrabajo, data.idcurso]);
         console.log(data);
         console.log(response.rows);
         return {
