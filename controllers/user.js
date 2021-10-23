@@ -156,7 +156,7 @@ async function buildPDF(response, dataCallback, endCallback) {
     doc.on('data', dataCallback);
     doc.on('end', endCallback);
 
-    const qrimage = await qr.toDataURL(`http://localhost:3000/api/users/verificarcertificados/${response.idcurso}/${response.puestotrabajo}/${response.rut}/`);
+    const qrimage = await qr.toDataURL(`https://ndc-backend.herokuapp.com/api/users/verificarcertificados/${response.idcurso}/${response.puestotrabajo}/${response.rut}/`);
 
     //persona nueva
     if (response.idcurso === 'cc49457f-da5d-40c4-8e06-271f7bed6819') {
