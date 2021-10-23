@@ -150,7 +150,7 @@ const getAllHistoric = async (req = request, res = response) => {
     });
 }
 
-function buildPDF(response, dataCallback, endCallback) {
+async function buildPDF(response, dataCallback, endCallback) {
     const doc = new PDFDocument({ bufferPages: true, layout: "landscape", size: "A4", });
   
     doc.on('data', dataCallback);
@@ -283,7 +283,7 @@ const generateUserCertificate = async (req = request, res = response) => {
             'Content-Disposition': `attachment;filename=${response.nombrecompleto}.pdf`,
         });
 
-        buildPDF(response ,(chunk) => stream.write(chunk), () => stream.end());
+        await buildPDF(response ,(chunk) => stream.write(chunk), () => stream.end());
 
     } catch (e) {
         console.log(e);
