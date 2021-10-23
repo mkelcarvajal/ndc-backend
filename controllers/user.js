@@ -297,16 +297,16 @@ const verifyCertificate = async (req = request, res = response) => {
     });
 }
 
-cron.schedule('* 10 * * * *', function () {
-    fs.readdir("./certificados/", (err, files) => {
-        if (files.length != 0) {
-            files.forEach(file => {
-                let filePath = "./certificados/" + file;
-                fs.unlinkSync(filePath);
-            });
-        }
-    });
-});
+// cron.schedule('* 10 * * * *', function () {
+//     fs.readdir("./certificados/", (err, files) => {
+//         if (files.length != 0) {
+//             files.forEach(file => {
+//                 let filePath = "./certificados/" + file;
+//                 fs.unlinkSync(filePath);
+//             });
+//         }
+//     });
+// });
 
 // cron.schedule('* * * * * *', function () {
 //     //leo toda la LMS
