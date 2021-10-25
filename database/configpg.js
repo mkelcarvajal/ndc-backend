@@ -1,6 +1,9 @@
 const { Pool } = require("pg");
 // const excelToJson = require('convert-excel-to-json');
 const axios = require('axios');
+// const moment = require('moment');
+// moment.locale('es');
+//DATABASE_URL=postgres://dfhvxjac:q0P8cF8kbm42Wi9mXXfxTMChFZjSovzN@kesavan.db.elephantsql.com/dfhvxjac
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL
 });
@@ -79,6 +82,40 @@ const pool = new Pool({
 //       }
 //     });
 //   });
+
+//   // const queryResult = await pool.query("SELECT * FROM historicocert WHERE to_char(fechavencimiento , 'yyyy-MM-dd') = $1", ['2021-10-20']);
+//   // console.log(queryResult.rowCount);
+//   let contador = 0;
+//   // const fixFecha = moment(userCertificates[0].fechavencimiento).format().split("T");
+//   // console.log(fixFecha, userCertificates[0].fechavencimiento, userCertificates[0].rut, userCertificates[0].nombrecompleto);
+//   // console.log(moment.utc(fixFecha[0]).format())
+
+//   console.log(moment.utc(new Date()).format().toString().split("T")[0]);
+//   const currentArray = userCertificates.filter(x => moment.utc(x.fechafinalizacion).format().toString().split("T")[0] === moment.utc(new Date()).format().toString().split("T")[0]);
+//   currentArray.forEach(async (element) => {
+//     const fixFecha = moment(element.fechavencimiento).format().split("T");
+//     const queryResult = await pool.query("SELECT * FROM historicocert WHERE to_char(fechavencimiento , 'YYYY-MM-DD') = $1 AND rut = $2 AND idcurso = $3", [fixFecha[0], element.rut, element.idcurso]);
+//     if (queryResult.rowCount === 0) {
+//       await pool.query('INSERT INTO historicocert (rut, nombrecompleto, correopersonal, puestotrabajo, idcurso, nombrecurso, fechafinalizacion, fechavencimiento, fechainscripcion, nombreempresa, rutempresa) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', [!!element.rut ? element.rut : "NA", !!element.nombrecompleto ? element.nombrecompleto : "NA", !!element.correopersonal ? element.correopersonal : "NA",!!element.puestotrabajo ? element.puestotrabajo : "NA", element.idcurso, element.nombrecurso,element.fechafinalizacion, element.fechavencimiento, '-', 'NA', 'NA']);
+//     }
+//   })
+
+
+//   // userCertificates.forEach(async (element) => {
+//   //   const fixFecha = moment(element.fechavencimiento).format().split("T");
+//   //   const queryResult = await pool.query("SELECT * FROM historicocert WHERE to_char(fechavencimiento , 'YYYY-MM-DD') = $1 AND rut = $2 AND idcurso = $3", [fixFecha[0], element.rut, element.idcurso]);
+
+//   //   if (queryResult.rowCount === 0) {
+//   //     contador = contador + 1;
+//   //     await pool.query('INSERT INTO historicocert (rut, nombrecompleto, correopersonal, puestotrabajo, idcurso, nombrecurso, fechafinalizacion, fechavencimiento, fechainscripcion, nombreempresa, rutempresa) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', [!!element.rut ? element.rut : "NA", !!element.nombrecompleto ? element.nombrecompleto : "NA", !!element.correopersonal ? element.correopersonal : "NA",!!element.puestotrabajo ? element.puestotrabajo : "NA", element.idcurso, element.nombrecurso,element.fechafinalizacion, element.fechavencimiento, '-', 'NA', 'NA']);
+//   //     console.log(contador);
+//   //   }
+//   //   if (queryResult.rows.length === 0) {
+//   //     await pool.query('INSERT INTO historicocert (rut, nombrecompleto, correopersonal, puestotrabajo, idcurso, nombrecurso, fechafinalizacion, fechavencimiento, fechainscripcion, nombreempresa, rutempresa) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', [!!element.rut ? element.rut : "NA", !!element.nombrecompleto ? element.nombrecompleto : "NA", !!element.correopersonal ? element.correopersonal : "NA",!!element.puestotrabajo ? element.puestotrabajo : "NA", element.idcurso, element.nombrecurso,element.fechafinalizacion, element.fechavencimiento, '-', 'NA', 'NA']);
+//   //   }
+//   // });
+// }
+
 
 
 //   const response = await pool.query('SELECT * FROM historicocert');
