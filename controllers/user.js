@@ -10,6 +10,7 @@ const cron = require('node-cron');
 const moment = require('moment');
 moment.locale('es');
 const qr = require("qrcode");
+const axios = require('axios');
 
 
 const getAllUser = async (req = request, res = response) => {
