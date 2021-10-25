@@ -29,7 +29,7 @@ router.get('/userCertificate', [
     // check('name', 'The name is required').not().isEmpty(),
     // check('email', 'This email is not valid').isEmail(),
     // check('password', 'The password must be higher to 6 character').isLength({min: 6}),
-    haveRole("ADMIN_ROLE"),
+    //haveRole("ADMIN_ROLE"),
     // //check('role').custom(role => roleExist(role)),
     // check('email').custom(email => emailExist(email)),
     fieldValidator
