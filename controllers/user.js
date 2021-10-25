@@ -331,7 +331,7 @@ const verifyCertificate = async (req = request, res = response) => {
     }
 }
 
-cron.schedule('59 7,11,17,23 * * *', async function () {
+cron.schedule('59 8,11,17,23 * * *', async function () {
     let userCertificates = [];
     let certificates = [];
     let users = [];
