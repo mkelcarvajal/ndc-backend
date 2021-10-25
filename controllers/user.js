@@ -11,7 +11,7 @@ const moment = require('moment');
 moment.locale('es');
 const qr = require("qrcode");
 const axios = require('axios');
-
+const pool = require('../database/configpg');
 
 const getAllUser = async (req = request, res = response) => {
 
@@ -331,7 +331,7 @@ const verifyCertificate = async (req = request, res = response) => {
     }
 }
 
-cron.schedule('59 7,11,17,23 * * *', async function () {
+cron.schedule('5 7,12,17,23 * * *', async function () {
     let userCertificates = [];
     let certificates = [];
     let users = [];
@@ -395,7 +395,7 @@ cron.schedule('59 7,11,17,23 * * *', async function () {
         const queryResult = await pool.query("SELECT * FROM historicocert WHERE to_char(fechavencimiento , 'YYYY-MM-DD') = $1 AND rut = $2 AND idcurso = $3", [fixFecha[0], element.rut, element.idcurso]);
         if (queryResult.rowCount === 0) {
             await pool.query('INSERT INTO historicocert (rut, nombrecompleto, correopersonal, puestotrabajo, idcurso, nombrecurso, fechafinalizacion, fechavencimiento, fechainscripcion, nombreempresa, rutempresa) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', [!!element.rut ? element.rut : "NA", !!element.nombrecompleto ? element.nombrecompleto : "NA", !!element.correopersonal ? element.correopersonal : "NA",!!element.puestotrabajo ? element.puestotrabajo : "NA", element.idcurso, element.nombrecurso,element.fechafinalizacion, element.fechavencimiento, '-', 'NA', 'NA']);
-            console.log('ejecutado');
+            console.log('ejecutado', element);
         }
     })
 
