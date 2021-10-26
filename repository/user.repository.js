@@ -75,15 +75,37 @@ const getUserByIdRepository = async (id) => {
     }
 };
 
+const patchHistoricByIdRepository = async (id, data) => {
+    try {
+        const response = await pool.query('UPDATE historicocert SET nombrecompleto = $1, rut = $2, rutempresa = $3, nombreempresa = $4, correopersonal = $5 WHERE id = $6', [data.nombrecompleto, data.rut, data.rutempresa, data.nombreempresa, data.correopersonal, id]);
+        return {
+            message: 'Usuario actualizado con exito',
+            user: response.rows[0]
+        }
+    } catch (error) {
+        return 0;
+    }
+};
+
 const getUserByEmailRepository = async (email) => {
     try {
-        const response = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
-        return {
-            message: 'Usuario encontrado con exito',
-            body: {
-                user: response.rows[0]
+        const response = await pool.query('SELECT * FROM users WHERE correondc = $1', [email]);
+        if (response.rows.length > 0) {
+            return {
+                message: 'Usuario encontrado con exito',
+                body: {
+                    user: response.rows[0]
+                }
+            }
+        } else {
+            return {
+                message: 'Usuario no encontrado',
+                body: {
+                    user: 0
+                }
             }
         }
+        
     } catch (error) {
         return 0;
     }
@@ -123,5 +145,6 @@ module.exports = {
     getUserByEmailRepository,
     generateUserCertificateRepository,
     getAllHistoricRepository,
-    getUserByData
+    getUserByData,
+    patchHistoricByIdRepository
 };

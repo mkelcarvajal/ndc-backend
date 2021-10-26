@@ -1,6 +1,6 @@
 const {request, response} = require('express');
 const User = require('../models/user').default;
-const {createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, generateUserCertificateRepository, getAllHistoricRepository, getUserByData} = require('../repository/user.repository');
+const {createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository} = require('../repository/user.repository');
 const {encryptPassword} = require('../helpers/utils');
 const sgMail = require('@sendgrid/mail')
 const fs = require("fs");
@@ -37,6 +37,24 @@ const getUserById = async (req = request, res = response) => {
 
     const user = await getUserByIdRepository(id);
 
+    res.json({
+        user
+    });
+}
+
+const getUserByEmail = async (req = request, res = response) => {
+
+    const email = req.params.email;
+    const user = await getUserByEmailRepository(email);
+
+    res.json({
+        user
+    });
+}
+
+const patchHistoricoById = async (req = request, res = response) => {
+    const id = req.params.id;
+    const user = await patchHistoricByIdRepository(id, req.body);
     res.json({
         user
     });
@@ -420,5 +438,7 @@ module.exports = {
     patchUser,
     getAllHistoric,
     generateUserCertificate,
-    verifyCertificate
+    verifyCertificate,
+    patchHistoricoById,
+    getUserByEmail
 }
