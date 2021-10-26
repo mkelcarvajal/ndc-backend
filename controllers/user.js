@@ -331,7 +331,7 @@ const verifyCertificate = async (req = request, res = response) => {
     }
 }
 
-cron.schedule('18 3,8,14,20 * * *', async function () {
+cron.schedule('59 4,8,14,20 * * *', async function () {
     let userCertificates = [];
     let certificates = [];
     let users = [];
@@ -389,7 +389,7 @@ cron.schedule('18 3,8,14,20 * * *', async function () {
         });
     });
 
-    const currentArray = userCertificates.filter(x => moment.utc(x.fechafinalizacion).format().toString().split("T")[0] === moment.utc('2021-10-25').format().toString().split("T")[0]);
+    const currentArray = userCertificates.filter(x => moment.utc(x.fechafinalizacion).format().toString().split("T")[0] === moment.utc(new Date()).format().toString().split("T")[0]);
     currentArray.forEach(async (element) => {
         const fixFecha = moment(element.fechavencimiento).format().split("T");
         const queryResult = await pool.query("SELECT * FROM historicocert WHERE to_char(fechavencimiento , 'YYYY-MM-DD') = $1 AND rut = $2 AND idcurso = $3", [fixFecha[0], element.rut, element.idcurso]);
