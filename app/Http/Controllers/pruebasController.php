@@ -516,7 +516,7 @@ class pruebasController extends Controller
                     $categoria_b += $correctas[$cont] == $respondidas[$cont];
                 }
                 $porc_a=($categoria_a/34)*100;
-                $porc_b=($categoria_b/34)*100;
+                $porc_b=($categoria_b/34)*100; 
                 $porc_c=($categoria_c/78)*100;
 
                     

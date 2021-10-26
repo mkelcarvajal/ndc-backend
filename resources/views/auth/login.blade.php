@@ -6,7 +6,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>OHT
+  <title>NDC - Reporteria
   </title>
   <link rel="icon" type="image/png" href="img/icono.png" sizes="32x32">
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
