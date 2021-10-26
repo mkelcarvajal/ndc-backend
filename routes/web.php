@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth'], function ()
     Route::post('personas', 'pruebasController@personas');
     Route::post('respuestas', 'pruebasController@respuestas');
     Route::any('registroPdf', 'pruebasController@registroPdf');
+    Route::any('registroExcel', 'pruebasController@registroExcel');
 
 
 });

@@ -42,7 +42,7 @@ class LoginController extends Controller
                 Session::put('nombre', $data->nombre);
                 Session::put('id_usuario', $data->id_usuario);
                 Auth::loginUsingId($data->id_usuario, true);
-                return redirect()->intended('home');
+                return redirect()->intended('indexReportes');
             } else {
                 return back()->with('error','Clave Erronea')->withInput(request(['user']));
             }
@@ -57,6 +57,6 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->intended('home');
+        return redirect()->intended('indexReportes');
     }
 }

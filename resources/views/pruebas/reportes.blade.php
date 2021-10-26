@@ -5,63 +5,75 @@
 <link href="css/oht.css" rel="stylesheet" type="text/css" />
 <link href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 
-<div class="row page-title">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <select class="select2" id="encuesta" onchange="cargarPersonas();">
-                            <option>Seleccione una prueba</option>
-                            @foreach($encuestas as $e)
-                                <option value="{{$e->id_encuesta}}">{{$e->nombre}}</option>
-                            @endforeach
-                        </select>
+<form method="post" action="registroExcel">
+    {{ csrf_field() }}
+    <div class="row page-title">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <select class="select2" id="encuesta" name="encuesta" onchange="cargarPersonas();">
+                                <option>Seleccione una prueba</option>
+                                @foreach($encuestas as $e)
+                                    <option value="{{$e->id_encuesta}}">{{$e->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        <table class="table table-bordered table-striped table-hover" id="tabla_persona">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        Nombre  Completo
-                                    </th>
-                                    <th>
-                                        RUT
-                                    </th>
-                                    <th>
-                                        Tipo Usuario
-                                    </th>
-                                    <th>
-                                        Fecha Realización
-                                    </th>
-                                    <th>
-                                        Informe
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
+            <div class="card">
+                <div class="card-body">
+                    <br>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <table class="table table-bordered table-striped table-hover" id="tabla_persona">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Nombre  Completo
+                                        </th>
+                                        <th>
+                                            RUT
+                                        </th>
+                                        <th>
+                                            Tipo Usuario
+                                        </th>
+                                        <th>
+                                            Fecha Realización
+                                        </th>
+                                        <th>
+                                            Informe
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+    
+                                </tbody>
+                            </table>
+                            <br>
+                            <br>
+                            <button type="submit" id="btn_excel" class="btn btn-block btn-success" disabled>Descargar Excel General</button>
 
-                            </tbody>
-                        </table>
-                        <canvas id="myChart"></canvas>
-
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div> 
-    </div>  
-</div>
+            </div> 
+        </div>  
+    </div>
+</form>
+
 @section('script')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="//cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.1/moment.min.js"></script>
 <script>
+
+  
+
         $(document).ready(function() {
             $('#tabla_persona').DataTable({
     "language": {
@@ -99,6 +111,7 @@
 
         },
         success: function(data) {
+            $("#btn_excel").prop('disabled', false);
 
             $.each(data, function( index ) {
 
@@ -108,7 +121,7 @@
                         data[index]['rut'],
                         data[index]['tipo_usuario'],
                         moment(data[index]['fecha']).format('DD/MM/YYYY HH:mm'),
-                        "<button class='btn btn-danger' onclick='cargarResultados("+data[index]['id_resultado']+")'>Descargar PDF</button>"
+                        "<button type='button' class='btn btn-danger' onclick='cargarResultados("+data[index]['id_resultado']+")'>Descargar PDF</button>"
 
                 ]).draw();
 
@@ -135,7 +148,7 @@
        
         },
         success: function(data) {
-            window.open('reportes/prueba.pdf')
+             window.open('reportes/'+data+'.pdf')
         },
         error: function(data) {
             console.log(data);

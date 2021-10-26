@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>OHT</title>
+    <title>Reporteria NDC</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -17,7 +17,7 @@
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <link href="css/select2.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdnjs.cloudflare.com/jax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -29,10 +29,10 @@
             <div class="navbar navbar-expand flex-column flex-md-row navbar-custom">
                 <div class="container-fluid">
                     <!-- LOGO -->
-                    <a href="indexPrueba" class="navbar-brand mr-0 mr-md-2 logo">
+                    <a href="indexReportes" class="navbar-brand mr-0 mr-md-2 logo">
                         <span class="logo-lg">
                             <img src="assets/images/pelota.png" alt="" height="50" />
-                            <span class="d-inline h5 ml-1 text-logo">OHT</span>
+                            <span class="d-inline h5 ml-1 text-logo">Reporteria NDC</span>
                         </span>
                         <span class="logo-sm">
                             <img src="assets/images/logo.png" alt="" height="24">
