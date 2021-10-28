@@ -373,7 +373,7 @@ const verifyCertificateCodelco = async (req = request, res = response) => {
                 "EVAL.FINAL": "100",
                 "ASISTENCIA": "100",
                 "NOTAFINAL": "A",
-                "FECHA_DE_VIGENCIA": "2022-10-22"
+                "FECHA_DE_VIGENCIA": "2025-10-22"
             },
             {
                 "RUT": "15.881.874-4",
@@ -384,7 +384,7 @@ const verifyCertificateCodelco = async (req = request, res = response) => {
                 "EVAL.FINAL": "100",
                 "ASISTENCIA": "100",
                 "NOTAFINAL": "A",
-                "FECHA_DE_VIGENCIA": "2022-10-22"
+                "FECHA_DE_VIGENCIA": "2025-10-22"
             },
             {
                 "RUT": "16.873.525-1",
@@ -395,7 +395,7 @@ const verifyCertificateCodelco = async (req = request, res = response) => {
                 "EVAL.FINAL": "100",
                 "ASISTENCIA": "100",
                 "NOTAFINAL": "A",
-                "FECHA_DE_VIGENCIA": "2022-10-22"
+                "FECHA_DE_VIGENCIA": "2025-10-22"
             },
             {
                 "RUT": "13.900.787-5",
@@ -406,7 +406,7 @@ const verifyCertificateCodelco = async (req = request, res = response) => {
                 "EVAL.FINAL": "100",
                 "ASISTENCIA": "100",
                 "NOTAFINAL": "A",
-                "FECHA_DE_VIGENCIA": "2022-10-22"
+                "FECHA_DE_VIGENCIA": "2025-10-22"
             },
             {
                 "RUT": "18.178.980-8",
@@ -417,7 +417,7 @@ const verifyCertificateCodelco = async (req = request, res = response) => {
                 "EVAL.FINAL": "97",
                 "ASISTENCIA": "100",
                 "NOTAFINAL": "A",
-                "FECHA_DE_VIGENCIA": "2022-10-22"
+                "FECHA_DE_VIGENCIA": "2025-10-22"
             },
             {
                 "RUT": "20.517.520-2",
@@ -428,7 +428,7 @@ const verifyCertificateCodelco = async (req = request, res = response) => {
                 "EVAL.FINAL": "97",
                 "ASISTENCIA": "100",
                 "NOTAFINAL": "A",
-                "FECHA_DE_VIGENCIA": "2022-10-22"
+                "FECHA_DE_VIGENCIA": "2025-10-22"
             },
             {
                 "RUT": "19.767.384-2",
@@ -439,18 +439,18 @@ const verifyCertificateCodelco = async (req = request, res = response) => {
                 "EVAL.FINAL": "97",
                 "ASISTENCIA": "100",
                 "NOTAFINAL": "A",
-                "FECHA_DE_VIGENCIA": "2022-10-22"
+                "FECHA_DE_VIGENCIA": "2025-10-22"
             }
         ]
 
         const result = usuarios.filter(x => x.RUT === req.params.rut && x.SAP === req.params.sap && x.NOTAFINAL === req.params.nota);
+        console.log(result);
         const nombrecompleto = result[0].NOMBRES + ' ' + result[0].APELLIDOS;
         const rut = result[0].RUT;
         const fechavencimiento = moment(result[0].FECHA_DE_VIGENCIA).format('LL');
         const nombrecurso = "Corte de elementos con lanzas térmica Oxiflame";
         const fecha1 = moment(result[0].FECHA_DE_VIGENCIA).format('YYYY-MM-DD');
         const fecha2 = moment().format('YYYY-MM-DD');
-        console.log(result.length);
         if (result.length !== 0) {
             if (fecha1 >= fecha2) {
                 fs.readFile(path.join(__dirname, '../public/verificarcertificado-codelco.html'), 'utf8', function (err,data) {
@@ -493,77 +493,77 @@ const verifyCertificateCodelco = async (req = request, res = response) => {
     }
 }
 
-cron.schedule('58 7,11,17,23 * * *', async function () {
-    let userCertificates = [];
-    let certificates = [];
-    let users = [];
-    let result = await axios({
-        url: 'https://us-api.365.systems/odata/v2/Users', //your url
-        method: 'GET',
-        responseType: 'json', // important
-        auth: {
-        username: 'api',
-        password: 'ab29f3ed-787f-4df6-9c22-aa0a5c4fa629'
-        }
-    });
-    users = result.data;
-    result =  await axios({
-        url: 'https://us-api.365.systems/odata/v2/Certificates', //your url
-        method: 'GET',
-        responseType: 'json', // important
-        auth: {
-        username: 'api',
-        password: 'ab29f3ed-787f-4df6-9c22-aa0a5c4fa629'
-        }
-    });
-    certificates = result.data;
-    certificates.value.forEach(async (element) => {
-        users.value.forEach(async (elementUser) => {
-        if (element.UserId === elementUser.Id) {
-            if ('65c61b1a-04c1-46e6-9d6e-41576a0ce14f' === element.CourseId) {
-            const userCertificate = {
-                "nombrecompleto": elementUser.Title,
-                "rut": elementUser.Department,
-                "puestotrabajo": elementUser.JobTitle,
-                "idcurso": element.CourseId,
-                "correopersonal": elementUser.LoginName.replace("i:0#.f|membership|", ""),
-                "fechafinalizacion": element.Issued,
-                "fechavencimiento": element.Expiry,
-                "nombrecurso": "Inducción de Mantención - TECK Carmen de Andacollo"
-            }
-            userCertificates.push(userCertificate);
-            }
+// cron.schedule('58 7,11,17,23 * * *', async function () {
+//     let userCertificates = [];
+//     let certificates = [];
+//     let users = [];
+//     let result = await axios({
+//         url: 'https://us-api.365.systems/odata/v2/Users', //your url
+//         method: 'GET',
+//         responseType: 'json', // important
+//         auth: {
+//         username: 'api',
+//         password: 'ab29f3ed-787f-4df6-9c22-aa0a5c4fa629'
+//         }
+//     });
+//     users = result.data;
+//     result =  await axios({
+//         url: 'https://us-api.365.systems/odata/v2/Certificates', //your url
+//         method: 'GET',
+//         responseType: 'json', // important
+//         auth: {
+//         username: 'api',
+//         password: 'ab29f3ed-787f-4df6-9c22-aa0a5c4fa629'
+//         }
+//     });
+//     certificates = result.data;
+//     certificates.value.forEach(async (element) => {
+//         users.value.forEach(async (elementUser) => {
+//         if (element.UserId === elementUser.Id) {
+//             if ('65c61b1a-04c1-46e6-9d6e-41576a0ce14f' === element.CourseId) {
+//             const userCertificate = {
+//                 "nombrecompleto": elementUser.Title,
+//                 "rut": elementUser.Department,
+//                 "puestotrabajo": elementUser.JobTitle,
+//                 "idcurso": element.CourseId,
+//                 "correopersonal": elementUser.LoginName.replace("i:0#.f|membership|", ""),
+//                 "fechafinalizacion": element.Issued,
+//                 "fechavencimiento": element.Expiry,
+//                 "nombrecurso": "Inducción de Mantención - TECK Carmen de Andacollo"
+//             }
+//             userCertificates.push(userCertificate);
+//             }
     
-            if ('cc49457f-da5d-40c4-8e06-271f7bed6819' === element.CourseId) {
-            const userCertificate = {
-                "nombrecompleto": elementUser.Title,
-                "rut": elementUser.Department,
-                "puestotrabajo": elementUser.JobTitle,
-                "idcurso": element.CourseId,
-                "correopersonal": elementUser.LoginName.replace("i:0#.f|membership|", ""),
-                "fechafinalizacion": element.Issued,
-                "fechavencimiento": element.Expiry,
-                "nombrecurso": "Inducción de Persona Nueva - TECK Carmen de Andacollo"
-            }
-            userCertificates.push(userCertificate);
-            }
-        }
-        });
-    });
+//             if ('cc49457f-da5d-40c4-8e06-271f7bed6819' === element.CourseId) {
+//             const userCertificate = {
+//                 "nombrecompleto": elementUser.Title,
+//                 "rut": elementUser.Department,
+//                 "puestotrabajo": elementUser.JobTitle,
+//                 "idcurso": element.CourseId,
+//                 "correopersonal": elementUser.LoginName.replace("i:0#.f|membership|", ""),
+//                 "fechafinalizacion": element.Issued,
+//                 "fechavencimiento": element.Expiry,
+//                 "nombrecurso": "Inducción de Persona Nueva - TECK Carmen de Andacollo"
+//             }
+//             userCertificates.push(userCertificate);
+//             }
+//         }
+//         });
+//     });
 
-    const currentArray = userCertificates.filter(x => moment.utc(x.fechafinalizacion).format().toString().split("T")[0] === moment.utc(new Date()).format().toString().split("T")[0]);
-    currentArray.forEach(async (element) => {
-        const fixFecha = moment(element.fechavencimiento).format().split("T");
-        const queryResult = await pool.query("SELECT * FROM historicocert WHERE to_char(fechavencimiento , 'YYYY-MM-DD') = $1 AND rut = $2 AND idcurso = $3", [fixFecha[0], element.rut, element.idcurso]);
-        if (queryResult.rowCount === 0) {
-            await pool.query('INSERT INTO historicocert (rut, nombrecompleto, correopersonal, puestotrabajo, idcurso, nombrecurso, fechafinalizacion, fechavencimiento, fechainscripcion, nombreempresa, rutempresa) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', [!!element.rut ? element.rut : "NA", !!element.nombrecompleto ? element.nombrecompleto : "NA", !!element.correopersonal ? element.correopersonal : "NA",!!element.puestotrabajo ? element.puestotrabajo : "NA", element.idcurso, element.nombrecurso,element.fechafinalizacion, element.fechavencimiento, '-', 'NA', 'NA']);
-            console.log('ejecutado', element);
-        }
-    })
+//     const currentArray = userCertificates.filter(x => moment.utc(x.fechafinalizacion).format().toString().split("T")[0] === moment.utc(new Date()).format().toString().split("T")[0]);
+//     currentArray.forEach(async (element) => {
+//         const fixFecha = moment(element.fechavencimiento).format().split("T");
+//         const queryResult = await pool.query("SELECT * FROM historicocert WHERE to_char(fechavencimiento , 'YYYY-MM-DD') = $1 AND rut = $2 AND idcurso = $3", [fixFecha[0], element.rut, element.idcurso]);
+//         if (queryResult.rowCount === 0) {
+//             await pool.query('INSERT INTO historicocert (rut, nombrecompleto, correopersonal, puestotrabajo, idcurso, nombrecurso, fechafinalizacion, fechavencimiento, fechainscripcion, nombreempresa, rutempresa) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', [!!element.rut ? element.rut : "NA", !!element.nombrecompleto ? element.nombrecompleto : "NA", !!element.correopersonal ? element.correopersonal : "NA",!!element.puestotrabajo ? element.puestotrabajo : "NA", element.idcurso, element.nombrecurso,element.fechafinalizacion, element.fechavencimiento, '-', 'NA', 'NA']);
+//             console.log('ejecutado', element);
+//         }
+//     })
 
-    console.log('CRON EJECUTADO');
+//     console.log('CRON EJECUTADO');
 
-});
+// });
 
 // cron.schedule('* * * * * *', function () {
 //     //leo toda la LMS
