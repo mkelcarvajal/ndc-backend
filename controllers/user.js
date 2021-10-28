@@ -1,6 +1,6 @@
 const {request, response} = require('express');
 const User = require('../models/user').default;
-const {createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository} = require('../repository/user.repository');
+const {createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository, getUserByRutRepository} = require('../repository/user.repository');
 const {encryptPassword} = require('../helpers/utils');
 const sgMail = require('@sendgrid/mail')
 const fs = require("fs");
@@ -36,6 +36,17 @@ const getUserById = async (req = request, res = response) => {
     const id = req.params.id;
 
     const user = await getUserByIdRepository(id);
+
+    res.json({
+        user
+    });
+}
+
+const getUserByRut = async (req = request, res = response) => {
+
+    const id = req.params.rut;
+
+    const user = await getUserByRutRepository(id);
 
     res.json({
         user
@@ -349,6 +360,139 @@ const verifyCertificate = async (req = request, res = response) => {
     }
 }
 
+const verifyCertificateCodelco = async (req = request, res = response) => {
+    try {
+
+        const usuarios = [
+            {
+                "RUT": "17.818.815-1",
+                "NOMBRES": "SERGIO IGNACIO",
+                "APELLIDOS": "SALINAS MUÑOZ",
+                "SAP": "70924",
+                "EVAL.DIAG": "71",
+                "EVAL.FINAL": "100",
+                "ASISTENCIA": "100",
+                "NOTAFINAL": "A",
+                "FECHA_DE_VIGENCIA": "2022-10-22"
+            },
+            {
+                "RUT": "15.881.874-4",
+                "NOMBRES": "JOSE RODOLFO",
+                "APELLIDOS": "MEDINA OPAZO",
+                "SAP": "65727",
+                "EVAL.DIAG": "71",
+                "EVAL.FINAL": "100",
+                "ASISTENCIA": "100",
+                "NOTAFINAL": "A",
+                "FECHA_DE_VIGENCIA": "2022-10-22"
+            },
+            {
+                "RUT": "16.873.525-1",
+                "NOMBRES": "ALEJANDRO DAVID",
+                "APELLIDOS": "MOYA MIRANDA",
+                "SAP": "74367",
+                "EVAL.DIAG": "43",
+                "EVAL.FINAL": "100",
+                "ASISTENCIA": "100",
+                "NOTAFINAL": "A",
+                "FECHA_DE_VIGENCIA": "2022-10-22"
+            },
+            {
+                "RUT": "13.900.787-5",
+                "NOMBRES": "GABRIEL ALFONSO",
+                "APELLIDOS": "ARANCIBIA RIVERA",
+                "SAP": "70920",
+                "EVAL.DIAG": "86",
+                "EVAL.FINAL": "100",
+                "ASISTENCIA": "100",
+                "NOTAFINAL": "A",
+                "FECHA_DE_VIGENCIA": "2022-10-22"
+            },
+            {
+                "RUT": "18.178.980-8",
+                "NOMBRES": "DIEGO ANTONIO",
+                "APELLIDOS": "CALDERA PALLAUTA",
+                "SAP": "65176",
+                "EVAL.DIAG": "71",
+                "EVAL.FINAL": "97",
+                "ASISTENCIA": "100",
+                "NOTAFINAL": "A",
+                "FECHA_DE_VIGENCIA": "2022-10-22"
+            },
+            {
+                "RUT": "20.517.520-2",
+                "NOMBRES": "DAVID ARMANDO",
+                "APELLIDOS": "ROJAS VILCHES",
+                "SAP": "300891",
+                "EVAL.DIAG": "57",
+                "EVAL.FINAL": "97",
+                "ASISTENCIA": "100",
+                "NOTAFINAL": "A",
+                "FECHA_DE_VIGENCIA": "2022-10-22"
+            },
+            {
+                "RUT": "19.767.384-2",
+                "NOMBRES": "SEBASTIAN EMMANUEL",
+                "APELLIDOS": "ALVAREZ ALLENDE",
+                "SAP": "301739",
+                "EVAL.DIAG": "86",
+                "EVAL.FINAL": "97",
+                "ASISTENCIA": "100",
+                "NOTAFINAL": "A",
+                "FECHA_DE_VIGENCIA": "2022-10-22"
+            }
+        ]
+
+        const result = usuarios.filter(x => x.RUT === req.params.rut && x.SAP === req.params.sap && x.NOTAFINAL === req.params.nota);
+        const nombrecompleto = result[0].NOMBRES + ' ' + result[0].APELLIDOS;
+        const rut = result[0].RUT;
+        const fechavencimiento = moment(result[0].FECHA_DE_VIGENCIA).format('LL');
+        const nombrecurso = "Corte de elementos con lanzas térmica Oxiflame";
+        const fecha1 = moment(result[0].FECHA_DE_VIGENCIA).format('YYYY-MM-DD');
+        const fecha2 = moment().format('YYYY-MM-DD');
+        console.log(result.length);
+        if (result.length !== 0) {
+            if (fecha1 >= fecha2) {
+                fs.readFile(path.join(__dirname, '../public/verificarcertificado-codelco.html'), 'utf8', function (err,data) {
+                    if (err) {
+                    return console.log(err);
+                    }
+                    const html = data.replace("{1}", nombrecompleto.toString());
+                    const test = html.replace("{2}", nombrecurso.toString());
+                    const test1 = test.replace("{3}", fechavencimiento.toString());
+                    const test2 = test1.replace("{4}", rut.toString());
+                    res.type('.html')
+                    res.write(test2);
+                });
+            } else {
+                fs.readFile(path.join(__dirname, '../public/verificarcertificado-invalidos.html'), 'utf8', function (err,data) {
+                    if (err) {
+                    return console.log(err);
+                    }
+                    res.type('.html')
+                    res.write(data);
+                });
+            }
+        } else {
+            fs.readFile(path.join(__dirname, '../public/verificarcertificado-invalidos.html'), 'utf8', function (err,data) {
+                if (err) {
+                return console.log(err);
+                }
+                res.type('.html')
+                res.write(data);
+            });
+        }
+    } catch (e) {
+        fs.readFile(path.join(__dirname, '../public/verificarcertificado-invalidos.html'), 'utf8', function (err,data) {
+            if (err) {
+            return console.log(err);
+            }
+            res.type('.html')
+            res.write(data);
+        });
+    }
+}
+
 cron.schedule('58 7,11,17,23 * * *', async function () {
     let userCertificates = [];
     let certificates = [];
@@ -440,5 +584,7 @@ module.exports = {
     generateUserCertificate,
     verifyCertificate,
     patchHistoricoById,
-    getUserByEmail
+    getUserByEmail,
+    getUserByRut,
+    verifyCertificateCodelco
 }

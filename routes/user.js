@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const {check} = require('express-validator');
 const {fieldValidator} = require("../middlewares/field-validate");
-const {getAllUser, getUserById,updateUser, deleteUser, patchUser, createUserMicrosoftGlobal, getAllHistoric, generateUserCertificate, verifyCertificate, patchHistoricoById, getUserByEmail} = require("../controllers/user");
+const {getAllUser, getUserById,updateUser, deleteUser, patchUser, createUserMicrosoftGlobal, getAllHistoric, generateUserCertificate, verifyCertificate, patchHistoricoById, getUserByEmail, getUserByRut, verifyCertificateCodelco} = require("../controllers/user");
 const {roleExist, emailExist, userExist} = require("../helpers/db-validator");
 const {validateJWT} = require("../middlewares/validate-jwt");
 const {isAdminRole, haveRole} = require("../middlewares/validate-roles");
@@ -11,11 +11,19 @@ const router = new Router();
 router.get('/verificarcertificados/:idcurso/:puestotrabajo/:rut', [
     fieldValidator
 ], verifyCertificate);
+router.get('/verificarcertificadosCodelco/:rut/:sap/:nota', [
+    fieldValidator
+], verifyCertificateCodelco);
 
 router.get('/verifyByEmail/:email', [
     validateJWT,
     fieldValidator
 ], getUserByEmail);
+
+router.get('/verifyUserByRut/:rut', [
+    validateJWT,
+    fieldValidator
+], getUserByRut);
 
 router.get('/', [
     validateJWT,
@@ -39,7 +47,6 @@ router.get('/userCertificate', [
     // check('email').custom(email => emailExist(email)),
     fieldValidator
 ], generateUserCertificate);
-
 
 router.get('/:id', [
     validateJWT,
