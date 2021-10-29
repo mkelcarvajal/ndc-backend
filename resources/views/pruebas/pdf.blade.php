@@ -118,21 +118,21 @@
         <tr>
             <th style="background-color: #fabbbc">Categoria A</th>
             <td align="center" style="background-color:#F4F5F5">{{$categoria_a}}</td>
-            <td align="center"  style="background-color:#F4F5F5">20</td>
+            <td align="center"  style="background-color:#F4F5F5">{{$a}}</td>
             <td align="center"  style="background-color:#F4F5F5">{{round($porc_a)}}%</td>
 
         </tr>
         <tr>
             <th style="background-color: #d5f1bf">Categoria B</th>
             <td align="center"  style="background-color:#F4F5F5">{{$categoria_b}}</td>
-            <td align="center"  style="background-color:#F4F5F5">58</td>
+            <td align="center"  style="background-color:#F4F5F5">{{$b}}</td>
             <td align="center"  style="background-color:#F4F5F5">{{round($porc_b)}}%</td>
 
         </tr>
         <tr>
             <th style="background-color: #d0e1f3">Categoria C</th>
             <td align="center"  style="background-color:#F4F5F5">{{$categoria_c}}</td>
-            <td align="center"  style="background-color:#F4F5F5">82</td>
+            <td align="center"  style="background-color:#F4F5F5">{{$c}}</td>
             <td align="center"  style="background-color:#F4F5F5">{{round($porc_c)}}%</td>
 
         </tr>

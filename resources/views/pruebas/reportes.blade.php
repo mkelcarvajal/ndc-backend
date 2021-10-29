@@ -14,7 +14,7 @@
                     <div class="row">
                         <div class="col">
                             <select class="select2" id="encuesta" name="encuesta" onchange="cargarPersonas();">
-                                <option>Seleccione una prueba</option>
+                                <option value="">Seleccione una prueba</option>
                                 @foreach($encuestas as $e)
                                     <option value="{{$e->id_encuesta}}">{{$e->nombre}}</option>
                                 @endforeach
@@ -111,12 +111,17 @@
 
         },
         success: function(data) {
-            $("#btn_excel").prop('disabled', false);
 
+            if($("#encuesta").val()==""){
+                $("#btn_excel").prop('disabled', true);
+
+            }
+            else{
+                $("#btn_excel").prop('disabled', false);
+            }
+            
             $.each(data, function( index ) {
-
                 table.row.add([
-
                         data[index]['nombre']+" "+data[index]['apellido'],
                         data[index]['rut'],
                         data[index]['tipo_usuario'],
@@ -132,7 +137,6 @@
         }
     });
     }
-
     function cargarResultados(id){
 
         $.ajax({

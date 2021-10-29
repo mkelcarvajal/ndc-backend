@@ -34,13 +34,14 @@ class LoginController extends Controller
 
             // $data=DB::select('exec login ?,?',[$request->input('user'),$request->input('password')]);
 
-        $data=DB::connection('mysql')->table('usuarios')->where('rut',$request->input('user'))->first();
+        $data=DB::connection('mysql')->table('usuarios')->where('rut',$request->input('user'))->where('codigo_usuario',$request->input('codigo'))->first();
 
         if(isset($data)){
             if($data->rut == $request->input('password')){
                 Session::put('usuario', $data->rut);
-                Session::put('nombre', $data->nombre);
+                Session::put('nombre', $data->nombre.' '.$data->apellido);
                 Session::put('id_usuario', $data->id_usuario);
+                Session::put('codigo',$data->codigo_usuario);
                 Auth::loginUsingId($data->id_usuario, true);
                 return redirect()->intended('indexReportes');
             } else {

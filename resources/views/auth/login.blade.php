@@ -48,11 +48,13 @@
             {!! Form::open(['route' => 'login', 'method' => 'POST']) !!}
              <div class="form-group">
                <input type="text" class="form-control form-control-user" name="user" placeholder="Ingresa tu usuario" required autofocus >
-        
              </div>
              <div class="form-group">
                <input type="password" class="form-control form-control-user" name="password" placeholder="Ingresa tu Contraseña" required autocomplete='off'>
              </div>
+             <div class="form-group">
+              <input type="text" class="form-control form-control-user" name="codigo" placeholder="Codigo" required autocomplete='off'>
+            </div>
              @if ($message = Session::get('error'))
              <div class="alert alert-danger">
                 <b> {{ $message }} </b>
