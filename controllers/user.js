@@ -12,6 +12,7 @@ moment.locale('es');
 const qr = require("qrcode");
 const axios = require('axios');
 const pool = require('../database/configpg');
+const atob = require("atob");
 
 const getAllUser = async (req = request, res = response) => {
 
@@ -54,10 +55,22 @@ const getUserByRut = async (req = request, res = response) => {
 }
 
 const getUserByEmail = async (req = request, res = response) => {
-
-    const email = req.params.email;
+    
+    const email = atob(req.params.email);
+    //console.log(email);
+    // let usuario = await axios({
+    //     url: "https://us-api.365.systems/odata/v2/Users('"+email+"')", //your url
+    //     method: 'GET',
+    //     responseType: 'json', // important
+    //     auth: {
+    //         username: 'api',
+    //         password: 'ab29f3ed-787f-4df6-9c22-aa0a5c4fa629'
+    //     }
+    //     });
+    // usuario = usuario.data;
+    
+    
     const user = await getUserByEmailRepository(email);
-
     res.json({
         user
     });

@@ -10,8 +10,10 @@
   "license": "MIT",
   "dependencies": {
     "@sendgrid/mail": "^7.4.6",
+    "atob": "^2.1.2",
     "axios": "^0.21.4",
     "bcryptjs": "^2.4.3",
+    "btoa-atob": "^0.1.2",
     "convert-excel-to-json": "^1.7.0",
     "cors": "^2.8.5",
     "dotenv": "^9.0.2",
