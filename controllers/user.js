@@ -530,49 +530,49 @@ cron.schedule('58 7,11,17,23 * * *', async function () {
         }
     });
     certificates = result.data;
-    certificates.value.forEach(async (element) => {
-        users.value.forEach(async (elementUser) => {
-        if (element.UserId === elementUser.Id) {
-            if ('65c61b1a-04c1-46e6-9d6e-41576a0ce14f' === element.CourseId) {
-            const userCertificate = {
-                "nombrecompleto": elementUser.Title,
-                "rut": elementUser.Department,
-                "puestotrabajo": elementUser.JobTitle,
-                "idcurso": element.CourseId,
-                "correopersonal": elementUser.LoginName.replace("i:0#.f|membership|", ""),
-                "fechafinalizacion": element.Issued,
-                "fechavencimiento": element.Expiry,
-                "nombrecurso": "Inducción de Mantención - TECK Carmen de Andacollo"
+    for (const element of certificates.value) {
+        for (const elementUser of users.value) {
+            if (element.UserId === elementUser.Id) {
+                if ('65c61b1a-04c1-46e6-9d6e-41576a0ce14f' === element.CourseId) {
+                const userCertificate = {
+                    "nombrecompleto": elementUser.Title,
+                    "rut": elementUser.Department,
+                    "puestotrabajo": elementUser.JobTitle,
+                    "idcurso": element.CourseId,
+                    "correopersonal": elementUser.LoginName.replace("i:0#.f|membership|", ""),
+                    "fechafinalizacion": element.Issued,
+                    "fechavencimiento": element.Expiry,
+                    "nombrecurso": "Inducción de Mantención - TECK Carmen de Andacollo"
+                }
+                userCertificates.push(userCertificate);
+                }
+        
+                if ('cc49457f-da5d-40c4-8e06-271f7bed6819' === element.CourseId) {
+                const userCertificate = {
+                    "nombrecompleto": elementUser.Title,
+                    "rut": elementUser.Department,
+                    "puestotrabajo": elementUser.JobTitle,
+                    "idcurso": element.CourseId,
+                    "correopersonal": elementUser.LoginName.replace("i:0#.f|membership|", ""),
+                    "fechafinalizacion": element.Issued,
+                    "fechavencimiento": element.Expiry,
+                    "nombrecurso": "Inducción de Persona Nueva - TECK Carmen de Andacollo"
+                }
+                userCertificates.push(userCertificate);
+                }
             }
-            userCertificates.push(userCertificate);
-            }
-    
-            if ('cc49457f-da5d-40c4-8e06-271f7bed6819' === element.CourseId) {
-            const userCertificate = {
-                "nombrecompleto": elementUser.Title,
-                "rut": elementUser.Department,
-                "puestotrabajo": elementUser.JobTitle,
-                "idcurso": element.CourseId,
-                "correopersonal": elementUser.LoginName.replace("i:0#.f|membership|", ""),
-                "fechafinalizacion": element.Issued,
-                "fechavencimiento": element.Expiry,
-                "nombrecurso": "Inducción de Persona Nueva - TECK Carmen de Andacollo"
-            }
-            userCertificates.push(userCertificate);
-            }
-        }
-        });
-    });
+        };
+    };
 
     const currentArray = userCertificates.filter(x => moment.utc(x.fechafinalizacion).format().toString().split("T")[0] === moment.utc(new Date()).format().toString().split("T")[0]);
-    currentArray.forEach(async (element) => {
+    for (const element of currentArray) { 
         const fixFecha = moment(element.fechavencimiento).format().split("T");
         const queryResult = await pool.query("SELECT * FROM historicocert WHERE to_char(fechavencimiento , 'YYYY-MM-DD') = $1 AND rut = $2 AND idcurso = $3", [fixFecha[0], element.rut, element.idcurso]);
         if (queryResult.rowCount === 0) {
             await pool.query('INSERT INTO historicocert (rut, nombrecompleto, correopersonal, puestotrabajo, idcurso, nombrecurso, fechafinalizacion, fechavencimiento, fechainscripcion, nombreempresa, rutempresa) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)', [!!element.rut ? element.rut : "NA", !!element.nombrecompleto ? element.nombrecompleto : "NA", !!element.correopersonal ? element.correopersonal : "NA",!!element.puestotrabajo ? element.puestotrabajo : "NA", element.idcurso, element.nombrecurso,element.fechafinalizacion, element.fechavencimiento, '-', 'NA', 'NA']);
             console.log('ejecutado', element);
         }
-    })
+    };
 
     console.log('CRON EJECUTADO');
 
