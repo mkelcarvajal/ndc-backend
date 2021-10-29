@@ -46,7 +46,7 @@ class pruebasController extends Controller
     //datos BD topicos
         $topicos = DB::table('topicos')->where('id_encuesta',$request->input('encuesta'))->get();
 
-
+ 
     //Procesar Datos
 
         $spreadsheet = new Spreadsheet();
@@ -738,7 +738,7 @@ class pruebasController extends Controller
                 $porc_c=($categoria_c/$c)*100;
 
                 $total_preguntas=count($correctas);
-                
+
                 $incorrectas = $total_preguntas - $total;
                 
                 $rendimiento=($porc_a+$porc_b+$porc_c)/3;
