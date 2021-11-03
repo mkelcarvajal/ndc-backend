@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!-- App favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="shortcut icon" href="assets/images/ndc.ico">
 
     <!-- App css -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -31,7 +31,7 @@
                     <!-- LOGO -->
                     <a href="indexReportes" class="navbar-brand mr-0 mr-md-2 logo">
                         <span class="logo-lg">
-                            <img src="assets/images/pelota.png" alt="" height="50" />
+                            <img src="assets/images/ndc.png" alt="" height="50" />
                             <span class="d-inline h5 ml-1 text-logo">Reporteria NDC</span>
                         </span>
                         <span class="logo-sm">

@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Usuarios extends Model
 {
-    protected $table = 'usuarios';
+    protected $table = 'usr_acceso';
 
     protected $fillable = [
-         'id_usuario', 'rut', 'nombre'
+         'id', 'rut', 'nombre'
     ];
 
-    protected $primaryKey = 'id_usuario';
+    protected $primaryKey = 'id';
 
     public $timestamps = false;
 

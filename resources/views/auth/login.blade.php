@@ -8,8 +8,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>NDC - Reporteria
   </title>
-  <link rel="icon" type="image/png" href="img/icono.png" sizes="32x32">
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  {{-- <link rel="icon" type="image/png" href="img/icono.png" sizes="32x32"> --}}
+  <link rel="shortcut icon" href="assets/images/ndc.ico">
+
   <link rel="stylesheet" type="text/css" href="css/sb-admin-2.css">
   {{-- Fuente --}}
   <link rel="stylesheet" type="text/css" href="css/css.css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i"> 
@@ -65,6 +66,11 @@
               <b> {{ $message }} </b>
             </div>
            @endif
+           @if ($message = Session::get('errorcodigo'))
+           <div class="alert alert-danger">
+             <b> {{ $message }} </b>
+           </div>
+          @endif
              {{ Form::submit('Iniciar Sesión', ['class' => 'btn btn-secondary btn-block']) }}
              {!! Form::close() !!}
              <hr>

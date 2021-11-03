@@ -12,13 +12,13 @@ class LoginHccProvider implements UserProvider
 {
     public function retrieveById($identifier)
     {
-        $user = User::with('token', 'usuarios')->where('id_usuario', $identifier)->first();
+        $user = User::with('token', 'usuarios')->where('id', $identifier)->first();
         if(!$user)
         {
             return null;
         } else {
             Token::firstOrCreate(
-                ['id_usuario' => $identifier],
+                ['id' => $identifier],
                 ['remember_token' => "123456"]
             );
             return $user;
@@ -34,7 +34,7 @@ class LoginHccProvider implements UserProvider
     {
         Token::updateOrCreate(
             ['nombre' => $user->nombre],
-            ['id_usuario' => $user->id_usuario],
+            ['id' => $user->id],
             ['remember_token' => $token]
         );
     }

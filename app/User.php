@@ -10,14 +10,14 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $primaryKey = 'id_usuario';
+    protected $primaryKey = 'id';
 
-    protected $table = 'usuarios';
+    protected $table = 'usr_acceso';
 
     public $timestamps = false;
 
     protected $hidden = [
-        'id_usuario', 'rut', 'nombre'
+        'id', 'rut', 'nombre'
     ];
 
     public function usuarios()
@@ -27,7 +27,7 @@ class User extends Authenticatable
 
     public function token()
     {
-        return $this->belongsTo('App\Token', 'id_usuario', 'id_usuario');
+        return $this->belongsTo('App\Token', 'id', 'id');
     }
 
     public function tokenSave()
