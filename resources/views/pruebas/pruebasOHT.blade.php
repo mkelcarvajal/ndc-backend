@@ -46,7 +46,9 @@
                                         <fieldset>
                                             <h2>Bienvenido! recuerda tomarte tu tiempo!</h2>
                                             <input type="button" name="next-step" 
+
                                                 class="next-step btn-block" value="Comenzar" />
+
                                         </fieldset>
                                         @foreach($topicos as $t)
                                         <fieldset>
@@ -94,7 +96,9 @@
                                                 @endif
                                                 <?php $contador++ ?>
                                             @endforeach
+
                                             <input type="button" name="next-step"  onclick="window.scrollTo(0, 0);" 
+
                                                 class="next-step" value="Siguiente" />
                                             <input type="button" name="previous-step" 
                                                 class="previous-step" 
@@ -128,6 +132,8 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+
+
 
     $(document).ready(function() {
         $('.select2').select2({

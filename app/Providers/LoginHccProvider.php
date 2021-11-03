@@ -34,6 +34,7 @@ class LoginHccProvider implements UserProvider
     {
         Token::updateOrCreate(
             ['nombre' => $user->nombre],
+
             ['id' => $user->id],
             ['remember_token' => $token]
         );

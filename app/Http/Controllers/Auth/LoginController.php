@@ -34,6 +34,7 @@ class LoginController extends Controller
 
             // $data=DB::select('exec login ?,?',[$request->input('user'),$request->input('password')]);
 
+
         $data=DB::connection('mysql')->table('usr_acceso')->where('rut',$request->input('user'))->first();
         
         if(isset($data)){
@@ -53,6 +54,7 @@ class LoginController extends Controller
                 }
             } 
             else {
+
                 return back()->with('error','Clave Erronea')->withInput(request(['user']));
             }
         } 
