@@ -33,6 +33,8 @@ class LoginHccProvider implements UserProvider
     public function updateRememberToken(Authenticatable $user, $token)
     {
         Token::updateOrCreate(
+            ['nombre' => $user->nombre],
+
             ['id' => $user->id],
             ['remember_token' => $token]
         );
