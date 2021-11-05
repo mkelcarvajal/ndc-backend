@@ -85,10 +85,10 @@ class pruebasController extends Controller
                     'fill' => [
                         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                         'startColor' => [
-                            'argb' => 'FFE0AD',
+                            'argb' => '#FFE0AD',
                         ],
                         'endColor' => [
-                            'argb' => 'FFE0AD',
+                            'argb' => '#FFE0AD',
                         ],
                     ],
                 ]
@@ -114,10 +114,10 @@ class pruebasController extends Controller
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => [
-                        'argb' => 'fabbbc',
+                        'argb' => '#fabbbc',
                     ],
                     'endColor' => [
-                        'argb' => 'fabbbc',
+                        'argb' => '#fabbbc',
                     ],
                 ],
             ]
@@ -127,10 +127,10 @@ class pruebasController extends Controller
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => [
-                        'argb' => 'd5f1bf',
+                        'argb' => '#d5f1bf',
                     ],
                     'endColor' => [
-                        'argb' => 'd5f1bf',
+                        'argb' => '#d5f1bf',
                     ],
                 ],
             ]
@@ -140,10 +140,10 @@ class pruebasController extends Controller
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => [
-                        'argb' => 'd0e1f3',
+                        'argb' => '#d0e1f3',
                     ],
                     'endColor' => [
-                        'argb' => 'd0e1f3',
+                        'argb' => '#d0e1f3',
                     ],
                 ],
             ]
