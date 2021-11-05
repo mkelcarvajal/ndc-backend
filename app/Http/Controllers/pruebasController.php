@@ -951,7 +951,7 @@ class pruebasController extends Controller
             }
 
             
-            $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','json','total','total_preguntas','incorrectas','categoria_a','categoria_b','categoria_c','porc_a','porc_b','porc_c','rendimiento','a','b','c'));
+            $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','categoria_a','categoria_b','categoria_c','porc_a','porc_b','porc_c','rendimiento','a','b','c'));
         
             $pdf = $pdf->output();
             
