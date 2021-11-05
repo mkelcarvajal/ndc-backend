@@ -6,10 +6,12 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
   <title>NDC - Reporteria
   </title>
   {{-- <link rel="icon" type="image/png" href="img/icono.png" sizes="32x32"> --}}
   <link rel="shortcut icon" href="assets/images/ndc.ico">
+
 
   <link rel="stylesheet" type="text/css" href="css/sb-admin-2.css">
   {{-- Fuente --}}
@@ -29,8 +31,10 @@
           <div class="masthead-content text-white py-5 py-md-0">
             <br><br>
           <img src="{{asset('loginpu/img/ndc.png')}}" class="responsive" style="width:220px; height:100px; margin-top:-380px;">
+
             <b><h1 class="mb-3" style="color: #56b5b1; font-family: Optima,Segoe,Segoe UI,Candara,Calibri,Arial,sans-serif;  ">Reporteria NDC</h1></b>
             <p class="mb-5"> &reg;</p>
+
             <main class="py-4" id="vueValidate">
               @if(session('info'))
             <div class="container">
@@ -49,13 +53,16 @@
             {!! Form::open(['route' => 'login', 'method' => 'POST']) !!}
              <div class="form-group">
                <input type="text" class="form-control form-control-user" name="user" placeholder="Ingresa tu usuario" required autofocus >
+        
              </div>
              <div class="form-group">
                <input type="password" class="form-control form-control-user" name="password" placeholder="Ingresa tu Contraseña" required autocomplete='off'>
              </div>
+
              <div class="form-group">
               <input type="text" class="form-control form-control-user" name="codigo" placeholder="Codigo" required autocomplete='off'>
             </div>
+
              @if ($message = Session::get('error'))
              <div class="alert alert-danger">
                 <b> {{ $message }} </b>
@@ -66,11 +73,13 @@
               <b> {{ $message }} </b>
             </div>
            @endif
+
            @if ($message = Session::get('errorcodigo'))
            <div class="alert alert-danger">
              <b> {{ $message }} </b>
            </div>
           @endif
+
              {{ Form::submit('Iniciar Sesión', ['class' => 'btn btn-secondary btn-block']) }}
              {!! Form::close() !!}
              <hr>

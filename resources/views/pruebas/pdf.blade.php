@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <title>Reporte Prueba OHT - Electrica</title>
+
 
     <style type="text/css">
         @page {
@@ -50,10 +52,12 @@
     <table width="100%">
         <tr>
             <td align="left" >
+
                 <h2>{{$data->nombre_r}} {{$data->apellido_r}}</h2>
                 <b>RUT: {{$data->rut_r}}</b> 
                     <br /><br />
                 <b>Fecha Prueba: {{date('d/m/Y',strtotime($data->fecha_r))}}</b>
+
                 </td>
             <td align="center">
                 
@@ -77,6 +81,7 @@
 <br/>
 
 <div class="invoice">
+
     <center><h2>{{$data->nombre_e}}</h2></center>
     <table class="table" style="  margin-left: auto; margin-right: auto;" width="70%">
         <thead style="background-color:#FDE59B">
@@ -168,6 +173,7 @@
 
             }">
 </center>
+
 <div class="information" style="position: absolute; bottom: 0;">
     <table width="100%">
         <tr>
@@ -182,6 +188,7 @@
     </table>
 </div>
 </body>
+
 </html>
 @section('script')
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -207,3 +214,4 @@ var chart = new Chart(ctx, {
 });
 </script>
 @endsection
+
