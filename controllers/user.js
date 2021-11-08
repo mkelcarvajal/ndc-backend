@@ -1,6 +1,6 @@
 const {request, response} = require('express');
 const User = require('../models/user').default;
-const {createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository, getUserByRutRepository} = require('../repository/user.repository');
+const {createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository, getUserByRutRepository, getAllUsersRepository} = require('../repository/user.repository');
 const {encryptPassword} = require('../helpers/utils');
 const sgMail = require('@sendgrid/mail')
 const fs = require("fs");
@@ -16,18 +16,8 @@ const atob = require("atob");
 
 const getAllUser = async (req = request, res = response) => {
 
-    const {limit = 5, from = 0} = req.query;
-    const query = {state: true};
-
-    const [totalUsers, users] = await Promise.all([
-        User.countDocuments(query),
-        User.find(query)
-            .skip(parseInt(from))
-            .limit(parseInt(limit))
-    ]);
-
+    const users = await getAllUsersRepository();
     res.json({
-        totalUsers,
         users
     });
 }

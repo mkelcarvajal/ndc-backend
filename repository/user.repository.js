@@ -75,6 +75,20 @@ const getUserByIdRepository = async (id) => {
     }
 };
 
+const getAllUsersRepository = async () => {
+    try {
+        const response = await pool.query('SELECT * FROM users ORDER BY fecha_creacion DESC;');
+        return {
+            message: 'Usuarios encontrados con exito',
+            body: {
+                user: response.rows
+            }
+        }
+    } catch (error) {
+        return 0;
+    }
+};
+
 const getUserByRutRepository = async (id) => {
     try {
         const response = await pool.query('SELECT * FROM users WHERE rut = $1', [id]);
@@ -170,5 +184,6 @@ module.exports = {
     getAllHistoricRepository,
     getUserByData,
     patchHistoricByIdRepository,
-    getUserByRutRepository
+    getUserByRutRepository,
+    getAllUsersRepository
 };
