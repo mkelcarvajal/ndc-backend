@@ -6,16 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Token extends Model
 {
-    protected $table = 'usuarios';
+
+    protected $table = 'usr_acceso';
+
 
     protected $primaryKey = 'id';
 
     protected $fillable = [
-         'id'
+
+         'id','nombre','rut'
     ];
 
     protected $hidden = [
-    	'id'
+    	'id','nombre','rut'
+
     ];
 
     public $timestamps = false;

@@ -12,12 +12,16 @@ class User extends Authenticatable
 
     protected $primaryKey = 'id';
 
-    protected $table = 'usuarios';
+
+    protected $table = 'usr_acceso';
+
 
     public $timestamps = false;
 
     protected $hidden = [
-        'id', 'rut', 'nombre', 'pass','rol'
+
+        'id', 'rut', 'nombre'
+
     ];
 
     public function usuarios()

@@ -34,20 +34,31 @@ class LoginController extends Controller
 
             // $data=DB::select('exec login ?,?',[$request->input('user'),$request->input('password')]);
 
-        $data=DB::connection('mysql')->table('usuarios')->where('rut',$request->input('user'))->first();
 
+        $data=DB::connection('mysql')->table('usr_acceso')->where('rut',$request->input('user'))->first();
+        
         if(isset($data)){
             if($data->pass == $request->input('password')){
-                Session::put('usuario', $data->rut);
-                Session::put('nombre', $data->nombre);
-                Session::put('id_usuario', $data->id);
-                Auth::loginUsingId($data->id, true);
-                return redirect()->intended('home');
-            } else {
+                if($data->codigo_prueba == $request->input('codigo')){
+                    
+                    Session::put('usuario', $data->rut);
+                    Session::put('nombre', $data->nombre);
+                    Session::put('id_usuario', $data->id);
+                    Session::put('codigo',$data->codigo_prueba);
+                    Auth::loginUsingId($data->id, true);
+                    return redirect()->intended('indexReportes');
+
+                }
+                else{
+                    return back()->with('errorcodigo','Codigo Invalido')->withInput(request(['user']));
+                }
+            } 
+            else {
+
                 return back()->with('error','Clave Erronea')->withInput(request(['user']));
             }
-            
-        } else {
+        } 
+        else {
             //return "Usuario Inexistente";
             return back()->with('errorusuario','Usuario Inexistente');
         }
@@ -57,6 +68,6 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->intended('home');
+        return redirect()->intended('indexReportes');
     }
 }
