@@ -234,13 +234,9 @@ class pruebasController extends Controller
                 $letra= "V";
                 for ($i=count($res)+1; $i <= count($cor); $i++) { 
                     array_push($respondidas,$letra);
-                   // dd($respondidas[$i]);
-                    
                 }
             }
-            if($d->rut_r =="154808043"){
-              // dd($respondidas);
-            }
+           
            
 
             if(count($respondidas)==160){
@@ -1010,6 +1006,13 @@ class pruebasController extends Controller
                     $letra++;
                 }
             }
+            if (count($res) != count($cor)) {
+                $letra= "V";
+                for ($i=count($res)+1; $i <= count($cor); $i++) { 
+                    array_push($respondidas,$letra);
+                }
+            }
+           
 
             $total = 0;
             $categoria_a=0;
