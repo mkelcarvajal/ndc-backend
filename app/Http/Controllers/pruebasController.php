@@ -14,7 +14,7 @@ class pruebasController extends Controller
 {
     public function indexReportes(){
 
-        $encuestas = DB::table('encuestas')->whereIn('id_encuesta',array('17','18','29','19'))->get();
+        $encuestas = DB::table('encuestas')->whereIn('id_encuesta',array('15','16','17','18','29','19'))->get();
         
         return view('pruebas.reportes',compact('encuestas'));
 
@@ -41,6 +41,7 @@ class pruebasController extends Controller
         $data = DB::table('resultados as r')
         ->selectRaw('r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,e.nombre as nombre_e, r.fecha as fecha_r,r.detalle as detalle_r, e.detalle as detalle_e, r.id_encuesta as id_en, r.codigo_usuario as cod_usu')
         ->where('r.id_encuesta',$request->input('encuesta'))
+        ->where('r.codigo_usuario', Session::get('codigo'))
         ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
         ->get();
 
@@ -229,6 +230,18 @@ class pruebasController extends Controller
                     $letra++;
                 }
             }
+            if (count($res) != count($cor)) {
+                $letra= "V";
+                for ($i=count($res)+1; $i <= count($cor); $i++) { 
+                    array_push($respondidas,$letra);
+                   // dd($respondidas[$i]);
+                    
+                }
+            }
+            if($d->rut_r =="154808043"){
+              // dd($respondidas);
+            }
+           
 
             if(count($respondidas)==160){
                 if($d->id_en == 17){ //Electrica OHT
@@ -708,6 +721,240 @@ class pruebasController extends Controller
                 $sheet->setCellValue('Z'.$num,divnum($topico17,$total_top_17));
                 $sheet->setCellValue('AA'.$num,divnum($topico18,$total_top_18));
             }
+//----------------------------- entrada mecanica--------------------
+            if($d->id_en == 15){ //Entrada Mecánica
+                
+                for($c = 0; $c <= 2; $c++){
+                    $total_top_1++;
+                    $topico1 += $correctas[$c] == $respondidas[$c];
+                    
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 3; $c <= 3; $c++){
+                    $total_top_2++;
+                    $topico2 += $correctas[$c] == $respondidas[$c];
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 4; $c <= 10; $c++){
+                    $total_top_1++;
+                    $topico1 += $correctas[$c] == $respondidas[$c];
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 11; $c <= 11; $c++){
+                    $total_top_2++;
+                    $topico2 += $correctas[$c] == $respondidas[$c];
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 12; $c <= 18; $c++){
+                    $total_top_1++;
+                    $topico1 += $correctas[$c] == $respondidas[$c];
+                    
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 19; $c <= 19; $c++){
+                    $total_top_2++;
+                    $topico2 += $correctas[$c] == $respondidas[$c];
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 20; $c <= 32; $c++){
+                    $total_top_1++;
+                    $topico1 += $correctas[$c] == $respondidas[$c];
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 33; $c <= 37; $c++){
+                    $total_top_2++;
+                    $topico2 += $correctas[$c] == $respondidas[$c];
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 38; $c <= 38; $c++){
+                    $total_top_1++;
+                    $topico1 += $correctas[$c] == $respondidas[$c];
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 39; $c <= 39; $c++){
+                    $total_top_2++;
+                    $topico2 += $correctas[$c] == $respondidas[$c];
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 40; $c <= 42; $c++){
+                    $total_top_1++;
+                    $topico1 += $correctas[$c] == $respondidas[$c];
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 43; $c <= 44; $c++){
+                    $total_top_3++;
+                    $topico3 += $correctas[$c] == $respondidas[$c];
+                    $a++;
+                    $categoria_a += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 45; $c <= 49; $c++){
+                    $total_top_2++;
+                    $topico2 += $correctas[$c] == $respondidas[$c];
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 50; $c <= 50; $c++){
+                    $total_top_3++;
+                    $topico3 += $correctas[$c] == $respondidas[$c];
+                    $a++;
+                    $categoria_a += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 51; $c <= 52; $c++){
+                    $total_top_2++;
+                    $topico2 += $correctas[$c] == $respondidas[$c];
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 53; $c <= 53; $c++){
+                    $total_top_1++;
+                    $topico1 += $correctas[$c] == $respondidas[$c];
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 54; $c <= 55; $c++){
+                    $total_top_2++;
+                    $topico2 += $correctas[$c] == $respondidas[$c];
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 56; $c <= 57; $c++){
+                    $total_top_1++;
+                    $topico1 += $correctas[$c] == $respondidas[$c];
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 58; $c <= 60; $c++){
+                    $total_top_2++;
+                    $topico2 += $correctas[$c] == $respondidas[$c];
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 61; $c <= 61; $c++){
+                    $total_top_3++;
+                    $topico3 += $correctas[$c] == $respondidas[$c];
+                    $a++;
+                    $categoria_a += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 62; $c <= 66; $c++){
+                    $total_top_2++;
+                    $topico2 += $correctas[$c] == $respondidas[$c];
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 67; $c <= 68; $c++){
+                    $total_top_3++;
+                    $topico3 += $correctas[$c] == $respondidas[$c];
+                    $a++;
+                    $categoria_a += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 69; $c <= 73; $c++){
+                    $total_top_2++;
+                    $topico2 += $correctas[$c] == $respondidas[$c];
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 74; $c <= 76; $c++){
+                    $total_top_1++;
+                    $topico1 += $correctas[$c] == $respondidas[$c];
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 77; $c <= 85; $c++){
+                    $total_top_3++;
+                    $topico3 += $correctas[$c] == $respondidas[$c];
+                    $a++;
+                    $categoria_a += $correctas[$c] == $respondidas[$c];
+                }
+                        
+      
+    
+                $porc_a=($categoria_a*100)/$a;
+                $porc_b=($categoria_b*100)/$b;
+                $porc_c=($categoria_c*100)/$c;
+
+                $sheet->setCellValue('A'.$num,$d->cod_usu);
+                $sheet->setCellValue('B'.$num,$d->nombre_e);
+                $sheet->setCellValue('C'.$num, $d->nombre_r);
+                $sheet->setCellValue('D'.$num, $d->apellido_r);
+                $sheet->setCellValue('E'.$num,$d->rut_r);
+                $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
+                $sheet->setCellValue('G'.$num,round($porc_a).'%');
+                $sheet->setCellValue('H'.$num,round($porc_b).'%');
+                $sheet->setCellValue('I'.$num,round($porc_c).'%');
+                $sheet->setCellValue('J'.$num,divnum($topico1,$total_top_1));
+                $sheet->setCellValue('K'.$num,divnum($topico2,$total_top_2));
+                $sheet->setCellValue('L'.$num,divnum($topico3,$total_top_3));
+               
+            }
+            //---------------------------------Entrada electrica-----------------
+            if($d->id_en == 16){ //Entrada elétrica
+
+                       
+                for($c = 0; $c <= 27; $c++){
+                    $total_top_1++;
+                    $topico1 += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 28; $c <= 37; $c++){
+                    $total_top_2++;
+                    $topico2 += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 38; $c <= 78; $c++){
+                    $total_top_3++;
+                    $topico3 += $correctas[$c] == $respondidas[$c];
+                }
+                
+                
+
+                //categoria B
+                
+                for($cont = 0; $cont <= 27; $cont++){
+                    $b++;
+                    $categoria_b += $correctas[$cont] == $respondidas[$cont];
+                }
+
+                //categoria A
+                for($cont =28; $cont <= 37; $cont++){
+                    $a++;
+                    $categoria_a += $correctas[$cont] == $respondidas[$cont];
+                }
+
+                //categoria C
+                for($cont = 38; $cont <= 78; $cont++){
+                    $c++;
+                    $categoria_c += $correctas[$cont] == $respondidas[$cont];
+                }
+   
+      
+    
+                $porc_a=($categoria_a*100)/$a;
+                $porc_b=($categoria_b*100)/$b;
+                $porc_c=($categoria_c*100)/$c;
+
+                $sheet->setCellValue('A'.$num,$d->cod_usu);
+                $sheet->setCellValue('B'.$num,$d->nombre_e);
+                $sheet->setCellValue('C'.$num, $d->nombre_r);
+                $sheet->setCellValue('D'.$num, $d->apellido_r);
+                $sheet->setCellValue('E'.$num,$d->rut_r);
+                $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
+                $sheet->setCellValue('G'.$num,round($porc_a).'%');
+                $sheet->setCellValue('H'.$num,round($porc_b).'%');
+                $sheet->setCellValue('I'.$num,round($porc_c).'%');
+                $sheet->setCellValue('J'.$num,divnum($topico1,$total_top_1));
+                $sheet->setCellValue('K'.$num,divnum($topico2,$total_top_2));
+                $sheet->setCellValue('L'.$num,divnum($topico3,$total_top_3));
+            }
+
             unset($correctas);
             unset($respondidas);
         }
@@ -954,6 +1201,165 @@ class pruebasController extends Controller
                     $c++;
                     $categoria_c += $correctas[$cont] == $respondidas[$cont];
                 }
+
+                $porc_a=($categoria_a/$a)*100;
+                $porc_b=($categoria_b/$b)*100;
+                $porc_c=($categoria_c/$c)*100;
+
+                $total_preguntas=count($correctas);
+
+                $incorrectas = $total_preguntas - $total;
+                
+                $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+
+            }
+
+            if($data->id_en == 15){ //Entrada mecanica
+                dd($data);
+
+                //categoria A
+                for($c = 43; $c <= 44; $c++){
+                    $a++;
+                    $categoria_a += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 50; $c <= 50; $c++){
+                    $a++;
+                    $categoria_a += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 61; $c <= 61; $c++){
+                    $a++;
+                    $categoria_a += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 67; $c <= 68; $c++){
+                    $a++;
+                    $categoria_a += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 77; $c <= 85; $c++){
+                    $a++;
+                    $categoria_a += $correctas[$c] == $respondidas[$c];
+                }
+
+
+                //categoria B
+                
+                for($c = 3; $c <= 3; $c++){
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 11; $c <= 11; $c++){
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 19; $c <= 19; $c++){
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 33; $c <= 37; $c++){
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 39; $c <= 39; $c++){
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 45; $c <= 49; $c++){
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 51; $c <= 52; $c++){
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 54; $c <= 55; $c++){
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 58; $c <= 60; $c++){
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 62; $c <= 66; $c++){
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 69; $c <= 73; $c++){
+                    $b++;
+                    $categoria_b += $correctas[$c] == $respondidas[$c];
+                }
+
+                //categoria C
+                for($cont = 0; $cont <= 2; $cont++){
+                    $c++;
+                    $categoria_c += $correctas[$cont] == $respondidas[$cont];
+                }
+                for($c = 4; $c <= 10; $c++){
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 12; $c <= 18; $c++){
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 20; $c <= 32; $c++){
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 38; $c <= 38; $c++){
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 40; $c <= 42; $c++){
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 53; $c <= 53; $c++){
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 56; $c <= 57; $c++){
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 74; $c <= 76; $c++){
+                    $c++;
+                    $categoria_c += $correctas[$c] == $respondidas[$c];
+                }
+                                
+
+                $porc_a=($categoria_a/$a)*100;
+                $porc_b=($categoria_b/$b)*100;
+                $porc_c=($categoria_c/$c)*100;
+
+                $total_preguntas=count($correctas);
+
+                $incorrectas = $total_preguntas - $total;
+                
+                $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+
+            }
+            
+            if($data->id_en == 16){ //Entrada eléctrica
+
+                //categoria B
+                    
+                for($cont = 0; $cont <= 27; $cont++){
+                    $b++;
+                    $categoria_b += $correctas[$cont] == $respondidas[$cont];
+                }
+
+                //categoria A
+                for($cont =28; $cont <= 37; $cont++){
+                    $a++;
+                    $categoria_a += $correctas[$cont] == $respondidas[$cont];
+                }
+
+                //categoria C
+                for($cont = 38; $cont <= 78; $cont++){
+                    $c++;
+                    $categoria_c += $correctas[$cont] == $respondidas[$cont];
+                }
+
+
 
                 $porc_a=($categoria_a/$a)*100;
                 $porc_b=($categoria_b/$b)*100;
