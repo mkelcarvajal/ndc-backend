@@ -22,6 +22,7 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" />
 
+    
 
 </head>
 
@@ -120,6 +121,13 @@
                 </div>
                 </div>
             </div>
+
+            <div id="overlay">
+                <div class="cv-spinner">
+                    <span class="spinner"></span>
+                </div>
+            </div>
+
                 
 
                 <!-- Footer Start -->
