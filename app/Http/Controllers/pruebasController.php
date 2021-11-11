@@ -230,6 +230,18 @@ class pruebasController extends Controller
                     $letra++;
                 }
             }
+            if (count($res) != count($cor)) {
+                $letra= "V";
+                for ($i=count($res)+1; $i <= count($cor); $i++) { 
+                    array_push($respondidas,$letra);
+                   // dd($respondidas[$i]);
+                    
+                }
+            }
+            if($d->rut_r =="154808043"){
+              // dd($respondidas);
+            }
+           
 
             if(count($respondidas)==160){
                 if($d->id_en == 17){ //Electrica OHT
@@ -740,7 +752,7 @@ class pruebasController extends Controller
                 for($c = 12; $c <= 18; $c++){
                     $total_top_1++;
                     $topico1 += $correctas[$c] == $respondidas[$c];
-                    dd($topico1);
+                    
                     $c++;
                     $categoria_c += $correctas[$c] == $respondidas[$c];
                 }
