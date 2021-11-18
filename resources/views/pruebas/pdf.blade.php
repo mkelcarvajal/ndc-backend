@@ -61,7 +61,7 @@
                 </td>
             <td align="center">
                 
-                <img src="loginpu/img/ndc.png" style="margin-left: 80px;">
+                <img src="loginpu/img/logo.png" style="margin-left: 60%;  height:45px ">
 
             </td>
             <td align="right" style="width: 40%;">
@@ -173,6 +173,35 @@
 
             }">
 </center>
+
+
+
+<p><br><br><br><br><br></p>
+
+
+<div class="invoice">
+<table style="width:100%">
+        <tr >
+            <th style="background-color: #d0e1f3">Tópico</th>
+            <th style="background-color: #d0e1f3">Rendimiento</th>
+        </tr>
+        <tr>
+            
+            <td align="center"  style="background-color:#F4F5F5">
+                @foreach ($topicos as $t)
+                   <p>{{$t->texto_topico}}</p> 
+                @endforeach
+            </td>
+            <td align="center"  style="background-color:#F4F5F5">
+                @foreach ($rend_top as $r)
+                  <p>{{ $r }}%</p>
+                @endforeach
+            </td>
+        </tr>
+        
+      </table>
+
+</div>
 
 <div class="information" style="position: absolute; bottom: 0;">
     <table width="100%">
