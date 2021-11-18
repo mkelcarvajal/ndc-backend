@@ -1,6 +1,6 @@
 const {request, response} = require('express');
 const User = require('../models/user').default;
-const {createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository, getUserByRutRepository, getAllUsersRepository} = require('../repository/user.repository');
+const {createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository, getUserByRutRepository, getAllUsersRepository, patchUserByIdRepository} = require('../repository/user.repository');
 const {encryptPassword} = require('../helpers/utils');
 const sgMail = require('@sendgrid/mail')
 const fs = require("fs");
@@ -61,6 +61,15 @@ const getUserByEmail = async (req = request, res = response) => {
     
     
     const user = await getUserByEmailRepository(email);
+    res.json({
+        user
+    });
+}
+
+
+const patchUserById = async (req = request, res = response) => {
+    const id = req.params.id;
+    const user = await patchUserByIdRepository(id, req.body);
     res.json({
         user
     });
@@ -589,5 +598,6 @@ module.exports = {
     patchHistoricoById,
     getUserByEmail,
     getUserByRut,
-    verifyCertificateCodelco
+    verifyCertificateCodelco,
+    patchUserById
 }

@@ -13,8 +13,11 @@ const createUserRepositoryMicrosoftGlobal = async (req) => {
     const rutempresa = req.body.rutempresa;
     const apellidos = req.body.apellidos;
     const correondc = req.body.correondc;
+    const giro = req.body.giro;
+    const sap = req.body.sap;
+    const cliente = req.body.cliente;
     try {
-        const resp = await pool.query('INSERT INTO users (id, rut, nombreempresa, rutempresa, nombrecompleto, primernombre, puestotrabajo, correopersonal, telefonopersonal, apellidos, correondc, rol, fecha_creacion) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)', [id, rut, nombreempresa, rutempresa, nombrecompleto, primernombre, puestotrabajo, correopersonal, telefonopersonal, apellidos, correondc, 'USER_ROLE', new Date()]);
+        const resp = await pool.query('INSERT INTO users (id, rut, nombreempresa, rutempresa, nombrecompleto, primernombre, puestotrabajo, correopersonal, telefonopersonal, apellidos, correondc, rol, fecha_creacion, cliente, giro, sap) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)', [id, rut, nombreempresa, rutempresa, nombrecompleto, primernombre, puestotrabajo, correopersonal, telefonopersonal, apellidos, correondc, 'USER_ROLE', new Date(), cliente, giro, sap]);
         return {
             message: 'Usuario agregado',
             body: {
@@ -112,6 +115,18 @@ const getUserByRutRepository = async (id) => {
     }
 };
 
+const patchUserByIdRepository = async (id, data) => {
+    try {
+        const response = await pool.query('UPDATE users SET nombrecompleto = $1, rut = $2, rutempresa = $3, nombreempresa = $4, correopersonal = $5,  telefonopersonal = $6, puestotrabajo = $7, primernombre = $8, apellidos = $9 WHERE id_serial = $10', [data.nombre + " " + data.apellidos, data.rut, data.rutempresa, data.nombreempresa, data.correopersonal, data.telefonopersonal, data.puestotrabajo, data.nombre, data.apellidos, parseInt(id)]);
+        return {
+            message: 'Usuario actualizado con exito',
+            user: response.rows[0]
+        }
+    } catch (error) {
+        return 0;
+    }
+};
+
 const patchHistoricByIdRepository = async (id, data) => {
     try {
         const response = await pool.query('UPDATE historicocert SET nombrecompleto = $1, rut = $2, rutempresa = $3, nombreempresa = $4, correopersonal = $5 WHERE id = $6', [data.nombrecompleto, data.rut, data.rutempresa, data.nombreempresa, data.correopersonal, id]);
@@ -185,5 +200,6 @@ module.exports = {
     getUserByData,
     patchHistoricByIdRepository,
     getUserByRutRepository,
-    getAllUsersRepository
+    getAllUsersRepository,
+    patchUserByIdRepository
 };
