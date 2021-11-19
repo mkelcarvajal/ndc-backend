@@ -117,7 +117,7 @@ const getUserByRutRepository = async (id) => {
 
 const patchUserByIdRepository = async (id, data) => {
     try {
-        const response = await pool.query('UPDATE users SET nombrecompleto = $1, rut = $2, rutempresa = $3, nombreempresa = $4, correopersonal = $5,  telefonopersonal = $6, puestotrabajo = $7, primernombre = $8, apellidos = $9 WHERE id_serial = $10', [data.nombre + " " + data.apellidos, data.rut, data.rutempresa, data.nombreempresa, data.correopersonal, data.telefonopersonal, data.puestotrabajo, data.nombre, data.apellidos, parseInt(id)]);
+        const response = await pool.query('UPDATE users SET nombrecompleto = $1, rut = $2, rutempresa = $3, nombreempresa = $4, correopersonal = $5,  telefonopersonal = $6, puestotrabajo = $7, primernombre = $8, apellidos = $9, sap = $10, giro = $11, cliente = $12 WHERE id_serial = $13', [data.nombre + " " + data.apellidos, data.rut, data.rutempresa, data.nombreempresa, data.correopersonal, data.telefonopersonal, data.puestotrabajo, data.nombre, data.apellidos, data.sap, data.giro, data.cliente, parseInt(id)]);
         return {
             message: 'Usuario actualizado con exito',
             user: response.rows[0]
