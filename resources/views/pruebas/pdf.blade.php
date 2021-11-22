@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>Reporte Prueba OHT - Electrica</title>
+    <title>Reporte</title>
 
 
     <style type="text/css">
@@ -61,7 +61,7 @@
                 </td>
             <td align="center">
                 
-                <img src="loginpu/img/ndc.png" style="margin-left: 80px;">
+                <img src="loginpu/img/logo.png" style="margin-left: 60%;  height:40px ">
 
             </td>
             <td align="right" style="width: 40%;">
@@ -69,7 +69,7 @@
                 <h3>NDC PERSSO GROUP</h3>
                 <pre>
                     https://ndc.cl
-                    Baquedano 239, Oficina 203, Antofagasta
+                    Baquedano 239, <br>Oficina 203, Antofagasta
                 </pre>
             </td>
         </tr>
@@ -162,6 +162,16 @@
                         },
                       },
                     },
+                    scales: {
+                        yAxes: [{
+                            display: true,
+                            stacked: true,
+                            ticks: {
+                                min: 0, // minimum value
+                                max: 100 // maximum value
+                            }
+                        }]
+                    }
                   },
                 title:'Comparación de Rendimiento',
                 data:{labels:['Categoria A','Categoria B','Categoria C'],
@@ -173,6 +183,93 @@
 
             }">
 </center>
+
+
+
+<p><br><br><br><br></p>
+
+<?php 
+$cont=1;
+$cont2=1;
+?>
+
+<center>
+    <h3>Rendimiento Temáticas Evaluadas (%)</h3>
+    <img height="390" src="https://quickchart.io/chart?c=
+        {
+            type:'line',
+            options: {
+                plugins: {
+                  datalabels: {
+                    anchor: 'top',
+                    align: 'right',
+                    color: 'black',
+                    font: {
+                      size: 7,
+                    },
+                  },
+                },
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        stacked: true,
+                        ticks: {
+                            min: 0, // minimum value
+                            max: 100 // maximum value
+                        }
+                    }]
+                }
+              },
+            title:'Comparación de Rendimiento',
+            data:{labels:[
+                @foreach ($topicos as $t)
+                '<?php echo 'T'.$cont; $cont++; ?>',
+
+                 @endforeach
+                ],
+                datasets:[{label:'',
+                    data:[
+                        @foreach ($rend_top as $r)
+                          {{ $r }},
+                        @endforeach
+                    ],
+                }]
+            },
+
+        }">
+</center>
+
+<br>
+
+
+<div class="invoice">
+<table style="width:100%">
+        <tr >
+            <th style="background-color: #d0e1f3">N° T</th>
+            <th style="background-color: #d0e1f3">Tópico</th>
+            <th style="background-color: #d0e1f3">Rendimiento</th>
+        </tr>
+        <tr>
+            <td align="center"  style="background-color:#F4F5F5">
+               @foreach($topicos as $t) 
+                <p><?php echo 'T'.$cont2; $cont2++; ?></p>
+               @endforeach
+            </td>
+            <td align="center"  style="background-color:#F4F5F5">
+                @foreach ($topicos as $t)
+                   <p>{{$t->texto_topico}}</p> 
+                @endforeach
+            </td>
+            <td align="center"  style="background-color:#F4F5F5">
+                @foreach ($rend_top as $r)
+                  <p>{{ $r }}%</p>
+                @endforeach
+            </td>
+        </tr>
+        
+      </table>
+
+</div>
 
 <div class="information" style="position: absolute; bottom: 0;">
     <table width="100%">
@@ -194,7 +291,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script>
     var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
+    var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'line',
 

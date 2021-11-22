@@ -142,7 +142,8 @@
     });
     }
     function cargarResultados(id){
-
+        
+        let carga = document.getElementById("overlay");
         $.ajax({
         url: "registroPdf",
         type: "post",
@@ -153,12 +154,17 @@
             'id': id,
         },
         beforeSend: function() {
-       
+            
+            carga.style.display = 'block';
+            console.log(carga);
         },
         success: function(data) {
+            carga.style.display = 'none';
+
              window.open('reportes/'+data+'.pdf')
         },
         error: function(data) {
+            carga.style.display = 'none';
             console.log(data);
         }
     });
