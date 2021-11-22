@@ -55,16 +55,18 @@
 
                 <h2>{{$data->nombre_r}} {{$data->apellido_r}}</h2>
                 <b>RUT: {{$data->rut_r}}</b> 
-                    <br /><br />
+                <br>
+                <b>Cargo: {{$cargo->c}}</b>
+                <br>
                 <b>Fecha Prueba: {{date('d/m/Y',strtotime($data->fecha_r))}}</b>
 
                 </td>
             <td align="center">
                 
-                <img src="loginpu/img/logo.png" style="margin-left: 60%;  height:45px ">
+                <img src="loginpu/img/logo.png" style="margin-left: 50%;  height:45px ">
 
             </td>
-            <td align="right" style="width: 40%;">
+            <td align="right" style="width: 35%;">
 
                 <h3>NDC PERSSO GROUP</h3>
                 <pre>
@@ -176,30 +178,36 @@
 
 
 
-<p><br><br><br><br><br></p>
+<br><br>
 
 
 <div class="invoice">
-<table style="width:100%">
+    <table table width="100%" >
         <tr >
             <th style="background-color: #d0e1f3">Tópico</th>
             <th style="background-color: #d0e1f3">Rendimiento</th>
         </tr>
         <tr>
             
-            <td align="center"  style="background-color:#F4F5F5">
+            <td align="center"  style="background-color:#F4F5F5;">
                 @foreach ($topicos as $t)
-                   <p>{{$t->texto_topico}}</p> 
+                <div style= "border:1px solid white">
+                        {{$t->texto_topico}}
+                </div>
+                   
                 @endforeach
             </td>
-            <td align="center"  style="background-color:#F4F5F5">
+            <td align="center"  style="background-color:#F4F5F5;">
                 @foreach ($rend_top as $r)
-                  <p>{{ $r }}%</p>
+                <div style= "border:1px solid white ">
+                    {{ $r }}%
+                </div>
+                  
                 @endforeach
             </td>
         </tr>
         
-      </table>
+    </table>
 
 </div>
 
