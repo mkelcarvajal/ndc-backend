@@ -20,7 +20,7 @@
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <link href="css/select2.min.css" rel="stylesheet" type="text/css" />
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" type="text/css" />
 
     
 
@@ -62,11 +62,11 @@
                             <a class="nav-link dropdown-toggle nav-user mr-0" data-toggle="dropdown" href="#" role="button"
                                 aria-haspopup="false" aria-expanded="false">
                                 <div class="media user-profile ">
-                                    <img src="assets/images/users/avatar-7.jpg" alt="user-image" class="rounded-circle align-self-center" />
-                                    <div class="media-body text-left">
+                                    <i class="fas fa-user-circle fa-3x"></i>
+                                        <div class="media-body text-left">
                                         <h6 class="pro-user-name ml-3 my-0">
                                             <span>{{Session::get('nombre')}}</span>
-                                            <span class="pro-user-desc text-muted d-block mt-1">{{Session::get('usuario')}} </span>
+                                            <span class="pro-user-desc text-muted d-block mt-1">  {{Session::get('usuario')}} </span>
                                         </h6>
                                     </div>
                                     <span data-feather="chevron-down" class="ml-2 align-self-center"></span>
@@ -149,10 +149,11 @@
 
         <!-- Vendor js -->
         <script src="assets/js/vendor.min.js"></script>
-
+        
         <!-- App js -->
         <script src="assets/js/app.min.js"></script>
         <script src="js/select2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 
     @yield('script')
     </body>

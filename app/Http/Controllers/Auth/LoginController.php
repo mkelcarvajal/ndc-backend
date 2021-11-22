@@ -45,6 +45,7 @@ class LoginController extends Controller
                     Session::put('nombre', $data->nombre);
                     Session::put('id_usuario', $data->id);
                     Session::put('codigo',$data->codigo_prueba);
+                    Session::put('rol',$data->rol);
                     Auth::loginUsingId($data->id, true);
                     return redirect()->intended('indexReportes');
 
