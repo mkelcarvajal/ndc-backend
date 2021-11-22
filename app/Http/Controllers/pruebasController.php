@@ -1133,6 +1133,7 @@ class pruebasController extends Controller
         $writer->save('php://output');
         
     }
+    }
 
     public function registroPdf(request $request)
         {
