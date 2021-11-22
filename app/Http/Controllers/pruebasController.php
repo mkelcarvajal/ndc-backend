@@ -355,10 +355,8 @@ class pruebasController extends Controller
                     $num++;
                     
                 }
-
+            }
             if(count($respondidas)==146){//Mecanica OHT
-
-        
             
                 if($d->id_en == 18){ 
 
@@ -1132,8 +1130,8 @@ class pruebasController extends Controller
         header('Content-Disposition: attachment; filename="Reporte_Excel.xlsx"');
         $writer->save('php://output');
         
+        
     }
-
     public function registroPdf(request $request)
         {
             $data = DB::table('resultados as r')
