@@ -15,14 +15,12 @@ class pruebasController extends Controller
     public function indexReportes(){
 
         $encuestas = DB::table('encuestas')->whereIn('id_encuesta',array('17','18','29','19'))->get();
-        
         return view('pruebas.reportes',compact('encuestas'));
-
     }
 
     public function personas(request $request){
 
-        $persona = DB::table('resultados')->selectRaw('distinct id_resultado,nombre,apellido,rut,id_encuesta,fecha,tipo_usuario')->where('id_encuesta',$request->input('id_encuesta'))->where('codigo_usuario',session::get('codigo'))->get();
+        $persona = DB::table('resultados')->selectRaw('distinct id_resultado,nombre,apellido,rut,id_encuesta,fecha,tipo_usuario,codigo_usuario')->where('id_encuesta',$request->input('id_encuesta'))->where('codigo_usuario',session::get('codigo'))->get();
         
         return $persona;
     }
@@ -38,16 +36,25 @@ class pruebasController extends Controller
 
     public function registroExcel(request $request){
      //datos BD
+     if(session::get('codigo')=='admin'){
+        $data = DB::table('resultados as r')
+        ->selectRaw('r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,e.nombre as nombre_e, r.fecha as fecha_r,r.detalle as detalle_r, e.detalle as detalle_e, r.id_encuesta as id_en, r.codigo_usuario as cod_usu')
+        ->where('r.id_encuesta',$request->input('encuesta'))
+        ->where('codigo_usuario',session::get('codigo'))
+        ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
+        ->get();
+     }
+     else{
         $data = DB::table('resultados as r')
         ->selectRaw('r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,e.nombre as nombre_e, r.fecha as fecha_r,r.detalle as detalle_r, e.detalle as detalle_e, r.id_encuesta as id_en, r.codigo_usuario as cod_usu')
         ->where('r.id_encuesta',$request->input('encuesta'))
         ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
         ->get();
-
+     }
+       
     //datos BD topicos
         $topicos = DB::table('topicos')->where('id_encuesta',$request->input('encuesta'))->get();
 
- 
     //Procesar Datos
 
         $spreadsheet = new Spreadsheet();
@@ -558,7 +565,7 @@ class pruebasController extends Controller
                 $sheet->setCellValue('U'.$num,divnum($topico12,$total_top_12));
                 $sheet->setCellValue('V'.$num,divnum($topico13,$total_top_13));
                 $sheet->setCellValue('W'.$num,divnum($topico14,$total_top_14));
-
+                $num++;
 
             }
             
@@ -646,9 +653,6 @@ class pruebasController extends Controller
                     $topico18 += $correctas[$c] == $respondidas[$c];
                 }
 
-                
-
-
                 //categoria C
                 for($cont = 0; $cont <= 35; $cont++){
                     $c++;
@@ -674,8 +678,6 @@ class pruebasController extends Controller
                     $categoria_c += $correctas[$cont] == $respondidas[$cont];
                 }
    
-      
-    
                 $porc_a=($categoria_a*100)/$a;
                 $porc_b=($categoria_b*100)/$b;
                 $porc_c=($categoria_c*100)/$c;
@@ -707,6 +709,8 @@ class pruebasController extends Controller
                 $sheet->setCellValue('Y'.$num,divnum($topico16,$total_top_16));
                 $sheet->setCellValue('Z'.$num,divnum($topico17,$total_top_17));
                 $sheet->setCellValue('AA'.$num,divnum($topico18,$total_top_18));
+                $num++;
+
             }
             unset($correctas);
             unset($respondidas);
@@ -738,8 +742,6 @@ class pruebasController extends Controller
                     ->where('id_resultado',$request->input('id'))
                     ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
                     ->first();
-
-
 
             $respuesta = json_decode($data->detalle_r,true);
             $correccion = json_decode($data->detalle_e,true);

@@ -34,6 +34,9 @@
                                 <thead>
                                     <tr>
                                         <th>
+                                            Código
+                                        </th>
+                                        <th>
                                             Nombre  Completo
                                         </th>
                                         <th>
@@ -122,6 +125,7 @@
             
             $.each(data, function( index ) {
                 table.row.add([
+                        data[index]['codigo_usuario'],
                         data[index]['nombre']+" "+data[index]['apellido'],
                         data[index]['rut'],
                         data[index]['tipo_usuario'],
