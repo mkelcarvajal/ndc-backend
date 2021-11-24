@@ -127,6 +127,18 @@ const patchUserByIdRepository = async (id, data) => {
     }
 };
 
+const patchCursoByIdRepository = async (id, data) => {
+    try {
+        const response = await pool.query('UPDATE cursos SET vigencia = $1, duracion = $2, empresa = $3 WHERE id = $4', [data.vigencia, data.duracion, data.empresa, id]);
+        return {
+            message: 'Curso actualizado con exito',
+            user: response.rows[0]
+        }
+    } catch (error) {
+        return 0;
+    }
+};
+
 const patchHistoricByIdRepository = async (id, data) => {
     try {
         const response = await pool.query('UPDATE historicocert SET nombrecompleto = $1, rut = $2, rutempresa = $3, nombreempresa = $4, correopersonal = $5 WHERE id = $6', [data.nombrecompleto, data.rut, data.rutempresa, data.nombreempresa, data.correopersonal, id]);
@@ -190,6 +202,48 @@ const getUserByData = async (data) => {
     }
 };
 
+const getCursoByIdRepository = async (id) => {
+    try {
+        const response = await pool.query('SELECT * FROM cursos WHERE id = $1', [id]);
+        return response.rows[0];
+    } catch (error) {
+        return 0;
+    }
+}
+
+const getCursosByRepository = async () => {
+    try {
+        const response = await pool.query('SELECT * FROM cursos ORDER BY nombre_curso ASC;');
+        return response.rows;
+    } catch (error) {
+        return 0;
+    }
+}
+
+const createCursoRepository = async (req) => {
+    const id = req.body.id;
+    const vigencia = req.body.vigencia;
+    const nombre_curso = req.body.nombre_curso;
+    const empresa = req.body.empresa;
+    try {
+        await pool.query('INSERT INTO cursos (id, vigencia, nombre_curso, empresa) VALUES ($1, $2, $3, $4)', [id, vigencia, nombre_curso, empresa]);
+        return {
+            message: 'Curso agregado',
+            body: {
+                curso: { id, vigencia, nombre_curso}
+            }
+        }
+    } catch (error) {
+        return {
+            message: 'Error al crear el curso',
+            body: {
+                error: error
+            }
+        }
+    }
+};
+
+
 module.exports = {
     createUserRepositoryMicrosoft,
     createUserRepositoryMicrosoftGlobal,
@@ -201,5 +255,9 @@ module.exports = {
     patchHistoricByIdRepository,
     getUserByRutRepository,
     getAllUsersRepository,
-    patchUserByIdRepository
+    patchUserByIdRepository,
+    getCursoByIdRepository,
+    getCursosByRepository,
+    createCursoRepository,
+    patchCursoByIdRepository,
 };

@@ -1,6 +1,6 @@
 const {request, response} = require('express');
 const User = require('../models/user').default;
-const {createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository, getUserByRutRepository, getAllUsersRepository, patchUserByIdRepository} = require('../repository/user.repository');
+const {createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository, getUserByRutRepository, getAllUsersRepository, patchUserByIdRepository, getCursoByIdRepository, getCursosByRepository, createCursoRepository, patchCursoByIdRepository} = require('../repository/user.repository');
 const {encryptPassword} = require('../helpers/utils');
 const sgMail = require('@sendgrid/mail')
 const fs = require("fs");
@@ -13,6 +13,7 @@ const qr = require("qrcode");
 const axios = require('axios');
 const pool = require('../database/configpg');
 const atob = require("atob");
+
 
 const getAllUser = async (req = request, res = response) => {
 
@@ -78,6 +79,14 @@ const patchUserById = async (req = request, res = response) => {
 const patchHistoricoById = async (req = request, res = response) => {
     const id = req.params.id;
     const user = await patchHistoricByIdRepository(id, req.body);
+    res.json({
+        user
+    });
+}
+
+const patchCursoById = async (req = request, res = response) => {
+    const id = req.params.id;
+    const user = await patchCursoByIdRepository(id, req.body);
     res.json({
         user
     });
@@ -198,7 +207,7 @@ async function buildPDF(response, dataCallback, endCallback) {
     doc.on('data', dataCallback);
     doc.on('end', endCallback);
 
-    const qrimage = await qr.toDataURL(`https://ndc-backend.herokuapp.com/api/users/verificarcertificados/${response.idcurso}/${response.puestotrabajo}/${response.rut}/`);
+    const qrimage = await qr.toDataURL(`https://ndc-backend.crvsoft.cl/api/users/verificarcertificados/${response.idcurso}/${response.puestotrabajo}/${response.rut}/`);
 
     //persona nueva
     if (response.idcurso === 'cc49457f-da5d-40c4-8e06-271f7bed6819') {
@@ -272,10 +281,8 @@ async function buildPDF(response, dataCallback, endCallback) {
 
         doc.image(qrimage, 400, 470, {fit: [60, 60], align: 'center', valign: 'center'});
         
-    }
-
-    // Inducción de Mantención - TECK Carmen de Andacollo
-    if (response.idcurso === '65c61b1a-04c1-46e6-9d6e-41576a0ce14f') {
+    } else if (response.idcurso === '65c61b1a-04c1-46e6-9d6e-41576a0ce14f') {
+        // Inducción de Mantención - TECK Carmen de Andacollo
         
         doc.image("./images/diploma.jpg", 0, 0, { width: 842 });
     
@@ -308,9 +315,106 @@ async function buildPDF(response, dataCallback, endCallback) {
         doc.moveDown();
         doc.moveDown();
 
-        doc.image(qrimage, 400, 470, {fit: [60, 60], align: 'center', valign: 'center'})
-        .text('Centered', 430, 0);
+        doc.image(qrimage, 400, 470, {fit: [60, 60], align: 'center', valign: 'center'});
         
+    } else {
+
+        // const curso = await axios({
+        //     url: 'https://us-api.365.systems/odata/v2/Courses/IncludeDeleted()', //your url
+        //     method: 'GET',
+        //     responseType: 'json', // important
+        //     auth: {
+        //         username: 'api',
+        //         password: 'ab29f3ed-787f-4df6-9c22-aa0a5c4fa629'
+        //     }
+        // });
+
+        const qrimage = await qr.toDataURL(`https://ndc-backend.crvsoft.cl/api/users/verificarcertificadosLms/${response.courseId}/${response.user.correondc}/${response.user.rut}/`);
+
+        const curso = await getCursoByIdRepository(response.courseId);
+
+        const path = './uploads/'+response.courseId+'.png'
+
+        if (fs.existsSync(path)) {
+            doc.image('./uploads/'+response.courseId+'.png', 0, 0, { width: 842 });
+        } else {
+            doc.image("./images/base.png", 0, 0, { width: 842 });
+        }
+
+        
+    
+        doc.moveDown();
+        doc.moveDown();
+        doc.moveDown();
+        doc.moveDown();
+        doc.moveDown();
+        doc.moveDown();
+    
+        doc.font('./fonts/calibri-regular.ttf').fontSize(12).text('Se otorga el presente certificado a:', {
+        align: "center"
+        }); 
+
+        doc.moveDown();
+
+
+        doc.font('./fonts/calibri-bold.ttf').fontSize(18).text(response.user.nombrecompleto, {
+        align: "center"
+        });
+
+        doc.font('./fonts/calibri-regular.ttf').fontSize(12).text('RUT: ' + response.user.rut, {
+            align: "center"
+            }); 
+        
+        if (!!response.user.sap) {
+            doc.font('./fonts/calibri-regular.ttf').fontSize(12).text('SAP: ' + response.user.sap, {
+                align: "center"
+                }); 
+                
+        }else {
+            doc.moveDown();
+        }
+
+        doc.moveDown();
+
+        doc.font('./fonts/calibri-regular.ttf').fontSize(12).text(`Por su PARTICIPACIÓN y APROBACIÓN en el curso:`, {
+            align: "center"
+        });
+
+        doc.moveDown();
+
+        doc.font('./fonts/calibri-bold.ttf').fontSize(18).text(response.course, {
+            align: "center"
+            });
+
+        doc.moveDown();
+        
+        doc.font('./fonts/calibri-bold.ttf').fontSize(12).text(`con un total de ${curso.duracion} Horas completado el ${moment(response.fechacompletado).format('LL')}`, {
+            align: "center"
+        });
+        let date = response.fechavencimiento.split('/');
+        doc.font('./fonts/calibri-bold.ttf').fontSize(12).text(`Fecha de Vigencia del Certificado: ${moment(new Date(date[2], date[1] - 1, date[0])).format('LL')}`, {
+        align: "center"
+        });  
+        
+        doc.moveDown();
+        doc.moveDown();
+
+        doc.font('./fonts/calibri-regular.ttf').fontSize(12).text(`Realizado por la Empresa NDC PERSSO GROUP ®`, {
+            align: "center"
+        });
+
+        doc.moveDown();
+        doc.moveDown();
+
+        doc.font('./fonts/calibri-bold.ttf').fontSize(12).text(curso.empresa, {
+            align: "center"
+        });
+
+        doc.image(qrimage, 378, 480, {fit: [90, 90], align: 'center', valign: 'center'});
+        
+        // if (cur) {
+
+        // }
     }
     doc.end();
   }
@@ -343,7 +447,7 @@ const verifyCertificate = async (req = request, res = response) => {
         if (fecha1 >= fecha2) {
             fs.readFile(path.join(__dirname, '../public/verificarcertificado.html'), 'utf8', function (err,data) {
                 if (err) {
-                return console.log(err);
+                    return console.log(err);
                 }
                 const html = data.replace("{1}", nombrecompleto.toString());
                 const test = html.replace("{2}", nombrecurso.toString());
@@ -369,6 +473,121 @@ const verifyCertificate = async (req = request, res = response) => {
             res.type('.html')
             res.write(data);
         });
+    }
+}
+
+const updatePlantilla = async (req = request, res = response) => {
+    let file = req.file;
+    let id = req.params.id;
+    file.originalname = id + ".png";
+    if (!file) {
+      const error = new Error('No File')
+      error.httpStatusCode = 400
+      return next(error)
+    }
+    res.status(200).json({"ok": true});
+}
+
+const verifyCertificateLms = async (req = request, res = response) => {
+    try {
+
+        let enrollments = await axios({
+            url: 'https://us-api.365.systems/odata/v2/Enrollments/IncludeDeletedUsers()', //your url
+            method: 'GET',
+            responseType: 'json', // important
+            auth: {
+                username: 'api',
+                password: 'ab29f3ed-787f-4df6-9c22-aa0a5c4fa629'
+            }
+        });
+
+        enrollments = enrollments.data.value;
+        enrollments = enrollments.filter(x => x.UserLoginName === 'i:0#.f|membership|'+req.params.puestotrabajo && x.CourseId === req.params.idcurso);
+
+        // console.log(moment(enrollments[0].CompletionDate).add(48, 'months').format('YYYY-MM-DD'));
+        // return;
+        
+        let curso = await getCursoByIdRepository(req.params.idcurso);
+        
+        let result = await getUserByRutRepository(req.params.rut);
+        if (result.body.user === 0) {
+            result = await getUserByEmailRepository(req.params.puestotrabajo);
+        }
+        result = result.body.user;
+        const nombrecompleto = result.nombrecompleto;
+        const rut = result.rut;
+        const fechavencimiento = moment(new Date(enrollments[0].CompletionDate)).add(curso.vigencia, 'months').format('LL');
+        const nombrecurso = curso.nombre_curso;
+        const fecha1 = moment(enrollments[0].CompletionDate).add(curso.vigencia, 'months').format('YYYY-MM-DD');
+        const fecha2 = moment().format('YYYY-MM-DD');
+        if (fecha1 >= fecha2) {
+            fs.readFile(path.join(__dirname, '../public/verificarcertificado.html'), 'utf8', function (err,data) {
+                if (err) {
+                    return console.log(err);
+                }
+                const html = data.replace("{1}", nombrecompleto.toString());
+                const test = html.replace("{2}", nombrecurso.toString());
+                const test1 = test.replace("{3}", fechavencimiento.toString());
+                const test2 = test1.replace("{4}", rut.toString());
+                res.type('.html')
+                res.write(test2);
+            });
+        } else {
+            fs.readFile(path.join(__dirname, '../public/verificarcertificado-invalidos.html'), 'utf8', function (err,data) {
+                if (err) {
+                return console.log(err);
+                }
+                res.type('.html')
+                res.write(data);
+            });
+        }
+    } catch (e) {
+        fs.readFile(path.join(__dirname, '../public/verificarcertificado-invalidos.html'), 'utf8', function (err,data) {
+            if (err) {
+            return console.log(err);
+            }
+            res.type('.html')
+            res.write(data);
+        });
+    }
+}
+
+const getCursoById = async (req = request, res = response) => {
+    try {
+        const id = req.params.id;
+        const result = await getCursoByIdRepository(id);
+
+        res.json({
+            result
+        });
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const getCursos = async (req = request, res = response) => {
+    try {
+        const result = await getCursosByRepository();
+
+        res.json({
+            result
+        });
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const createCurso = async (req = request, res = response) => {
+    try {
+        const result = await createCursoRepository(req);
+        res.json({
+            result
+        });
+
+    } catch (e) {
+        console.log(e);
     }
 }
 
@@ -599,5 +818,11 @@ module.exports = {
     getUserByEmail,
     getUserByRut,
     verifyCertificateCodelco,
-    patchUserById
+    patchUserById,
+    verifyCertificateLms,
+    getCursoById,
+    getCursos,
+    createCurso,
+    patchCursoById,
+    updatePlantilla
 }
