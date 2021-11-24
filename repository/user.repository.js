@@ -224,9 +224,10 @@ const createCursoRepository = async (req) => {
     const id = req.body.id;
     const vigencia = req.body.vigencia;
     const nombre_curso = req.body.nombre_curso;
+    const duracion = req.body.duracion;
     const empresa = req.body.empresa;
     try {
-        await pool.query('INSERT INTO cursos (id, vigencia, nombre_curso, empresa) VALUES ($1, $2, $3, $4)', [id, vigencia, nombre_curso, empresa]);
+        await pool.query('INSERT INTO cursos (id, vigencia, duracion, nombre_curso, empresa) VALUES ($1, $2, $3, $4, $5)', [id, vigencia, duracion, nombre_curso, empresa]);
         return {
             message: 'Curso agregado',
             body: {
