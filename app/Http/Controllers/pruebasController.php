@@ -46,7 +46,7 @@ class pruebasController extends Controller
         ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
         ->get();
      }
-     else{
+    else{
         $data = DB::table('resultados as r')
         ->selectRaw('r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,e.nombre as nombre_e, r.fecha as fecha_r,r.detalle as detalle_r, e.detalle as detalle_e, r.id_encuesta as id_en, r.codigo_usuario as cod_usu')
         ->where('r.id_encuesta',$request->input('encuesta'))
@@ -1142,10 +1142,10 @@ class pruebasController extends Controller
                     ->first();
             
             $topicos = DB::table('topicos')->where('id_encuesta',$data->id_en)->get();
-
            
-            $cargo =  DB::table('usuarios as u')->select('u.cargo as c')->where('u.rut',$data->rut_r)->first();
            
+            $cargo =  DB::table('usuarios as u')->select('u.cargo as c')->where('u.rut',"$data->rut_r")->first();
+           // dd($data->rut_r);
 
             $respuesta = json_decode($data->detalle_r,true);
             $correccion = json_decode($data->detalle_e,true);
@@ -1518,11 +1518,11 @@ class pruebasController extends Controller
                         $topico11 += $correctas[$cont] == $respondidas[$cont];
                     }
 
-                    if($cont > 101 && $cont <= 109){
+                    if($cont > 101 && $cont <= 110){
                         $total_top_12++;
                         $topico12 += $correctas[$cont] == $respondidas[$cont];
                     }
-                    if($cont > 109 && $cont <= 113){
+                    if($cont > 110 && $cont <= 113){
 
                         $total_top_13++;
                         $topico13 += $correctas[$cont] == $respondidas[$cont];
@@ -1735,11 +1735,10 @@ class pruebasController extends Controller
                 array_push($rend_top,$porc_t16);
                 array_push($rend_top,$porc_t17);
                 array_push($rend_top,$porc_t18);
-
             }
 
             if($data->id_en == 15){ //Entrada mecanica
-                dd($data);
+                
 
                 //categoria A
                 for($c = 43; $c <= 44; $c++){
@@ -1896,7 +1895,7 @@ class pruebasController extends Controller
                 $rendimiento=($porc_a+$porc_b+$porc_c)/3;
 
             }
-
+            
             
             $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','categoria_a','categoria_b','categoria_c','porc_a','porc_b','porc_c','rendimiento','a','b','c','rend_top','topicos','cargo'));
         
