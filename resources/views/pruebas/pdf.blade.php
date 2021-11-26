@@ -89,6 +89,9 @@
 <div class="invoice">
 
     <center><h2>{{$data->nombre_e}}</h2></center>
+
+    @if(isset($rendimiento))
+
     <table class="table" style="  margin-left: auto; margin-right: auto;" width="70%">
         <thead style="background-color:#FDE59B">
             <tr><th align="center"><h2>Rendimiento en su Cargo</h2></th></tr>
@@ -99,6 +102,8 @@
             </tr>
         </tbody>
     </table>
+
+    @endif
     <br>
     <table width="100%" class="table table-bordered" >
         <thead style="background-color:#ebffef">
@@ -118,7 +123,7 @@
         </tbody>
     </table>
 
-  
+    @if(isset($categoria_a) && isset($porc_a))
     <table style="width:100%">
         <tr style="background-color: #d0e1f3">
             <th></th>
@@ -140,6 +145,7 @@
             <td align="center"  style="background-color:#F4F5F5">{{round($porc_b)}}%</td>
 
         </tr>
+        @if(isset($categoria_c) && isset($por_c))
         <tr>
             <th style="background-color: #d0e1f3">Categoria C</th>
             <td align="center"  style="background-color:#F4F5F5">{{$categoria_c}}</td>
@@ -147,12 +153,14 @@
             <td align="center"  style="background-color:#F4F5F5">{{round($porc_c)}}%</td>
 
         </tr>
+        @endif
       </table>
-
+      @endif
 </div>
 <br>
 <br>
 <center>
+    @if($data->id_en != 21)
         <h3>Comparación de Rendimiento (%)</h3>
         <img  width="80%" height="300" src="https://quickchart.io/chart?c=
             {
@@ -180,20 +188,34 @@
                     }
                   },
                 title:'Comparación de Rendimiento',
+                @if(isset($porc_c))
                 data:{labels:['Categoria A','Categoria B','Categoria C'],
                     datasets:[{label:'',
-                        data:[{{round($porc_a)}},{{round($porc_b)}},{{round($porc_c)}}],
+                        data:[
+                            {{round($porc_a)}},
+                            {{round($porc_b)}},
+                            {{round($porc_c)}}],
                         backgroundColor:['rgb(250,187,188)','rgb(213,241,191)','rgb(208,225,243)']
                     }]
                 },
+                @elseif(isset($porc_a) && isset($porc_b))
+                data:{labels:['Categoria A','Categoria B'],
+                datasets:[{label:'',
+                    data:[
+                        {{round($porc_a)}},
+                        {{round($porc_b)}},
+                    ],
+                    backgroundColor:['rgb(250,187,188)','rgb(213,241,191)','rgb(208,225,243)']
+                }]
+                },
+                @endif
 
             }">
+            <p><br><br><br><br></p>
+        @endif
 </center>
 
 
-
-
-<p><br><br><br><br></p>
 
 <?php 
 $cont=1;
@@ -261,10 +283,13 @@ $cont2=1;
 
           <!--  <td align="center"  style="background-color:#F4F5F5">
                @foreach($topicos as $t) 
-                <p><?php echo 'T'.$cont2; $cont2++; ?></p>
+               <div style= "border:1px solid white ">
+                <?php echo 'T'.$cont2; $cont2++; ?>
+                </div>
                @endforeach
-            </td>-->
-            
+            </td>
+            <td align="center"  style="background-color:#F4F5F5">
+
            
             <td align="center"  style="background-color:#F4F5F5">
 
@@ -280,12 +305,11 @@ $cont2=1;
                 <div style= "border:1px solid white ">
                     {{ $r }}%
                 </div>
-                  
                 @endforeach
             </td>
         </tr>
-        
     </table>
+
 
 </div>
 
