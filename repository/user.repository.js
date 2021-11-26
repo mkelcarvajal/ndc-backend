@@ -129,7 +129,7 @@ const patchUserByIdRepository = async (id, data) => {
 
 const patchCursoByIdRepository = async (id, data) => {
     try {
-        const response = await pool.query('UPDATE cursos SET vigencia = $1, duracion = $2, empresa = $3 WHERE id = $4', [data.vigencia, data.duracion, data.empresa, id]);
+        const response = await pool.query('UPDATE cursos SET vigencia = $1, duracion = $2, empresa = $3, clave = $4, nombre_curso = $5 WHERE id = $6', [data.vigencia, data.duracion, data.empresa, data.clave, data.nombre_curso, id]);
         return {
             message: 'Curso actualizado con exito',
             user: response.rows[0]
@@ -211,6 +211,15 @@ const getCursoByIdRepository = async (id) => {
     }
 }
 
+const getCursoByClaveRepository = async (id) => {
+    try {
+        const response = await pool.query('SELECT * FROM cursos WHERE clave = $1', [id]);
+        return response.rows;
+    } catch (error) {
+        return 0;
+    }
+}
+
 const getCursosByRepository = async () => {
     try {
         const response = await pool.query('SELECT * FROM cursos ORDER BY nombre_curso ASC;');
@@ -225,13 +234,14 @@ const createCursoRepository = async (req) => {
     const vigencia = req.body.vigencia;
     const nombre_curso = req.body.nombre_curso;
     const duracion = req.body.duracion;
+    const clave = req.body.clave;
     const empresa = req.body.empresa;
     try {
-        await pool.query('INSERT INTO cursos (id, vigencia, duracion, nombre_curso, empresa) VALUES ($1, $2, $3, $4, $5)', [id, vigencia, duracion, nombre_curso, empresa]);
+        await pool.query('INSERT INTO cursos (id, vigencia, duracion, nombre_curso, empresa, clave) VALUES ($1, $2, $3, $4, $5, $6)', [id, vigencia, duracion, nombre_curso, empresa, clave]);
         return {
             message: 'Curso agregado',
             body: {
-                curso: { id, vigencia, nombre_curso}
+                curso: { id, vigencia, nombre_curso, duracion, clave, empresa }
             }
         }
     } catch (error) {
@@ -261,4 +271,5 @@ module.exports = {
     getCursosByRepository,
     createCursoRepository,
     patchCursoByIdRepository,
+    getCursoByClaveRepository
 };

@@ -1,6 +1,6 @@
 const {request, response} = require('express');
 const User = require('../models/user').default;
-const {createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository, getUserByRutRepository, getAllUsersRepository, patchUserByIdRepository, getCursoByIdRepository, getCursosByRepository, createCursoRepository, patchCursoByIdRepository} = require('../repository/user.repository');
+const {createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository, getUserByRutRepository, getAllUsersRepository, patchUserByIdRepository, getCursoByIdRepository, getCursosByRepository, createCursoRepository, patchCursoByIdRepository, getCursoByClaveRepository} = require('../repository/user.repository');
 const {encryptPassword} = require('../helpers/utils');
 const sgMail = require('@sendgrid/mail')
 const fs = require("fs");
@@ -566,6 +566,20 @@ const getCursoById = async (req = request, res = response) => {
     }
 }
 
+const getCursoByClave = async (req = request, res = response) => {
+    try {
+        const id = req.params.id;
+        const result = await getCursoByClaveRepository(id);
+
+        res.json({
+            result
+        });
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 const getCursos = async (req = request, res = response) => {
     try {
         const result = await getCursosByRepository();
@@ -824,5 +838,6 @@ module.exports = {
     getCursos,
     createCurso,
     patchCursoById,
-    updatePlantilla
+    updatePlantilla,
+    getCursoByClave
 }

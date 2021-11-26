@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const {check} = require('express-validator');
 const {fieldValidator} = require("../middlewares/field-validate");
-const {getAllUser, getUserById,updateUser, deleteUser, patchUser, createUserMicrosoftGlobal, getAllHistoric, generateUserCertificate, verifyCertificate, patchHistoricoById, getUserByEmail, getUserByRut, verifyCertificateCodelco, patchUserById, verifyCertificateLms, getCursoById, getCursos, createCurso, patchCursoById, updatePlantilla} = require("../controllers/user");
+const {getAllUser, getUserById,updateUser, deleteUser, patchUser, createUserMicrosoftGlobal, getAllHistoric, generateUserCertificate, verifyCertificate, patchHistoricoById, getUserByEmail, getUserByRut, verifyCertificateCodelco, patchUserById, verifyCertificateLms, getCursoById, getCursos, createCurso, patchCursoById, updatePlantilla, getCursoByClave} = require("../controllers/user");
 const {roleExist, emailExist, userExist} = require("../helpers/db-validator");
 const {validateJWT} = require("../middlewares/validate-jwt");
 const {isAdminRole, haveRole} = require("../middlewares/validate-roles");
@@ -20,6 +20,11 @@ router.get('/verificarcertificadosCodelco/:rut/:sap/:nota', [
 router.get('/verificarcertificadosLms/:idcurso/:puestotrabajo/:rut', [
     fieldValidator
 ], verifyCertificateLms);
+
+router.get('/getCursoByClave/:id', [
+    validateJWT,
+    fieldValidator
+], getCursoByClave);
 
 router.get('/getCursoById/:id', [
     validateJWT,
