@@ -50,6 +50,7 @@ class pruebasController extends Controller
         $data = DB::table('resultados as r')
         ->selectRaw('r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,e.nombre as nombre_e, r.fecha as fecha_r,r.detalle as detalle_r, e.detalle as detalle_e, r.id_encuesta as id_en, r.codigo_usuario as cod_usu')
         ->where('r.id_encuesta',$request->input('encuesta'))
+        ->where('r.codigo_usuario', Session::get('codigo'))
         ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
         ->get();
      }
@@ -996,28 +997,19 @@ class pruebasController extends Controller
 
                 //categoria B
                 
-                for($cont = 0; $cont <= 27; $cont++){
+                for($cont = 0; $cont <= 51; $cont++){
                     $b++;
                     $categoria_b += $correctas[$cont] == $respondidas[$cont];
                 }
 
                 //categoria A
-                for($cont =28; $cont <= 37; $cont++){
+                for($cont =52; $cont <= 117; $cont++){
                     $a++;
                     $categoria_a += $correctas[$cont] == $respondidas[$cont];
                 }
-
-                //categoria C
-                for($cont = 38; $cont <= 78; $cont++){
-                    $c++;
-                    $categoria_c += $correctas[$cont] == $respondidas[$cont];
-                }
-   
       
-    
                 $porc_a=($categoria_a*100)/$a;
                 $porc_b=($categoria_b*100)/$b;
-                $porc_c=($categoria_c*100)/$c;
 
                 $sheet->setCellValue('A'.$num,$d->cod_usu);
                 $sheet->setCellValue('B'.$num,$d->nombre_e);
@@ -1027,10 +1019,15 @@ class pruebasController extends Controller
                 $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
                 $sheet->setCellValue('G'.$num,round($porc_a).'%');
                 $sheet->setCellValue('H'.$num,round($porc_b).'%');
-                $sheet->setCellValue('I'.$num,round($porc_c).'%');
+                $sheet->setCellValue('I'.$num,'N/A');
                 $sheet->setCellValue('J'.$num,divnum($topico1,$total_top_1));
                 $sheet->setCellValue('K'.$num,divnum($topico2,$total_top_2));
                 $sheet->setCellValue('L'.$num,divnum($topico3,$total_top_3));
+                $sheet->setCellValue('M'.$num,divnum($topico4,$total_top_4));
+                $sheet->setCellValue('N'.$num,divnum($topico5,$total_top_5));
+                $sheet->setCellValue('O'.$num,divnum($topico6,$total_top_6));
+                $sheet->setCellValue('P'.$num,divnum($topico7,$total_top_7));
+
                 $num++;
 
             }
@@ -1041,70 +1038,54 @@ class pruebasController extends Controller
                     $total_top_1++;
                     $topico1 += $correctas[$c] == $respondidas[$c];
                 }
-                for($c = 25; $c <= 37; $c++){
+                for($c = 20; $c <= 24; $c++){
                     $total_top_2++;
                     $topico2 += $correctas[$c] == $respondidas[$c];
                 }
-                for($c = 38; $c <= 53; $c++){
+                for($c = 25; $c <= 37; $c++){
                     $total_top_3++;
                     $topico3 += $correctas[$c] == $respondidas[$c];
                 }
-                for($c = 54; $c <= 70; $c++){
+                for($c = 38; $c <= 53; $c++){
                     $total_top_4++;
                     $topico4 += $correctas[$c] == $respondidas[$c];
                 }
-                for($c = 71; $c <= 85; $c++){
+                for($c = 54; $c <= 70; $c++){
                     $total_top_5++;
                     $topico5 += $correctas[$c] == $respondidas[$c];
                 }
-                for($c = 86; $c <= 92; $c++){
+                for($c = 71; $c <= 85; $c++){
                     $total_top_6++;
                     $topico6 += $correctas[$c] == $respondidas[$c];
                 }
-                
-                for($c = 93; $c <= 99; $c++){
+                for($c = 86; $c <= 92; $c++){
                     $total_top_7++;
                     $topico7 += $correctas[$c] == $respondidas[$c];
                 }
-
                 
-                //categoria B
-                
-                for($cont = 0; $cont <= 27; $cont++){
-                    $b++;
-                    $categoria_b += $correctas[$cont] == $respondidas[$cont];
+                for($c = 93; $c <= 99; $c++){
+                    $total_top_8++;
+                    $topico8 += $correctas[$c] == $respondidas[$c];
                 }
 
-                //categoria A
-                for($cont =28; $cont <= 37; $cont++){
-                    $a++;
-                    $categoria_a += $correctas[$cont] == $respondidas[$cont];
-                }
-
-                //categoria C
-                for($cont = 38; $cont <= 78; $cont++){
-                    $c++;
-                    $categoria_c += $correctas[$cont] == $respondidas[$cont];
-                }
-   
-      
     
-                $porc_a=($categoria_a*100)/$a;
-                $porc_b=($categoria_b*100)/$b;
-                $porc_c=($categoria_c*100)/$c;
-
                 $sheet->setCellValue('A'.$num,$d->cod_usu);
                 $sheet->setCellValue('B'.$num,$d->nombre_e);
                 $sheet->setCellValue('C'.$num, $d->nombre_r);
                 $sheet->setCellValue('D'.$num, $d->apellido_r);
                 $sheet->setCellValue('E'.$num,$d->rut_r);
                 $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
-                $sheet->setCellValue('G'.$num,round($porc_a).'%');
-                $sheet->setCellValue('H'.$num,round($porc_b).'%');
-                $sheet->setCellValue('I'.$num,round($porc_c).'%');
+                $sheet->setCellValue('G'.$num,'N/A');
+                $sheet->setCellValue('H'.$num,'N/A');
+                $sheet->setCellValue('I'.$num,'N/A');
                 $sheet->setCellValue('J'.$num,divnum($topico1,$total_top_1));
                 $sheet->setCellValue('K'.$num,divnum($topico2,$total_top_2));
                 $sheet->setCellValue('L'.$num,divnum($topico3,$total_top_3));
+                $sheet->setCellValue('M'.$num,divnum($topico4,$total_top_4));
+                $sheet->setCellValue('N'.$num,divnum($topico5,$total_top_5));
+                $sheet->setCellValue('O'.$num,divnum($topico6,$total_top_6));
+                $sheet->setCellValue('P'.$num,divnum($topico7,$total_top_7));
+                $sheet->setCellValue('Q'.$num,divnum($topico8,$total_top_8));
                 $num++;
 
             }
@@ -1612,11 +1593,9 @@ class pruebasController extends Controller
                     $b++;
                     $categoria_b += $correctas[$cont] == $respondidas[$cont];
                     if($cont >35 && $cont <= 41){
-                       
                         $total_top_5++;
                         $topico5 += $correctas[$cont] == $respondidas[$cont];
                     }
-                    
                     if($cont > 41 && $cont <= 49){
                         $total_top_6++;
                         $topico6 += $correctas[$cont] == $respondidas[$cont];
@@ -1696,6 +1675,7 @@ class pruebasController extends Controller
                 $incorrectas = $total_preguntas - $total;
                 
                 $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+
                 $porc_t1=($topico1/$total_top_1)*100;
                 $porc_t2=($topico2/$total_top_2)*100;
                 $porc_t3=($topico3/$total_top_3)*100;
@@ -1896,7 +1876,139 @@ class pruebasController extends Controller
 
             }
 
-            
+            if($data->id_en == 22){ //HEX 9800
+
+                for($c = 0; $c <= 31; $c++){
+                    $total_top_1++;
+                    $topico1 += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 32; $c <= 40; $c++){
+                    $total_top_2++;
+                    $topico2 += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 41; $c <= 58; $c++){
+                    $total_top_3++;
+                    $topico3 += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 59; $c <= 66; $c++){
+                    $total_top_4++;
+                    $topico4 += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 67; $c <= 83; $c++){
+                    $total_top_5++;
+                    $topico5 += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 84; $c <= 98; $c++){
+                    $total_top_6++;
+                    $topico6 += $correctas[$c] == $respondidas[$c];
+                }
+                
+                for($c = 99; $c <= 117; $c++){
+                    $total_top_7++;
+                    $topico7 += $correctas[$c] == $respondidas[$c];
+                }
+                
+                //categoria B
+                for($cont = 0; $cont <= 51; $cont++){
+                    $b++;
+                    $categoria_b += $correctas[$cont] == $respondidas[$cont];
+                }
+
+                //categoria A
+                for($cont =52; $cont <= 117; $cont++){
+                    $a++;
+                    $categoria_a += $correctas[$cont] == $respondidas[$cont];
+                }
+
+
+                $porc_a=($categoria_a/$a)*100;
+                $porc_b=($categoria_b/$b)*100;
+
+                $total_preguntas=count($correctas);
+
+                $incorrectas = $total_preguntas - $total;
+                
+                $rendimiento=($porc_a+$porc_b)/2;
+
+                                
+                $porc_t1=($topico1/$total_top_1)*100;
+                $porc_t2=($topico2/$total_top_2)*100;
+                $porc_t3=($topico3/$total_top_3)*100;
+                $porc_t4=($topico4/$total_top_4)*100;
+                $porc_t5=($topico5/$total_top_5)*100;
+                $porc_t6=($topico6/$total_top_6)*100;
+                $porc_t7=($topico7/$total_top_7)*100;
+ 
+                array_push($rend_top,$porc_t1);
+                array_push($rend_top,$porc_t2);
+                array_push($rend_top,$porc_t3);
+                array_push($rend_top,$porc_t4);
+                array_push($rend_top,$porc_t5);
+                array_push($rend_top,$porc_t6);
+                array_push($rend_top,$porc_t7);
+
+            }
+
+            if($data->id_en == 21){ //HEX ASESOR
+
+                for($c = 0; $c <= 19; $c++){
+                    $total_top_1++;
+                    $topico1 += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 20; $c <= 24; $c++){
+                    $total_top_2++;
+                    $topico2 += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 25; $c <= 37; $c++){
+                    $total_top_3++;
+                    $topico3 += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 38; $c <= 53; $c++){
+                    $total_top_4++;
+                    $topico4 += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 54; $c <= 70; $c++){
+                    $total_top_5++;
+                    $topico5 += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 71; $c <= 85; $c++){
+                    $total_top_6++;
+                    $topico6 += $correctas[$c] == $respondidas[$c];
+                }
+                for($c = 86; $c <= 92; $c++){
+                    $total_top_7++;
+                    $topico7 += $correctas[$c] == $respondidas[$c];
+                }
+                
+                for($c = 93; $c <= 99; $c++){
+                    $total_top_8++;
+                    $topico8 += $correctas[$c] == $respondidas[$c];
+                }
+
+                $total_preguntas=count($correctas);
+
+                $incorrectas = $total_preguntas - $total;
+                
+                $porc_t1=($topico1/$total_top_1)*100;
+                $porc_t2=($topico2/$total_top_2)*100;
+                $porc_t3=($topico3/$total_top_3)*100;
+                $porc_t4=($topico4/$total_top_4)*100;
+                $porc_t5=($topico5/$total_top_5)*100;
+                $porc_t6=($topico6/$total_top_6)*100;
+                $porc_t7=($topico7/$total_top_7)*100;
+                $porc_t8=($topico8/$total_top_8)*100;
+
+                array_push($rend_top,$porc_t1);
+                array_push($rend_top,$porc_t2);
+                array_push($rend_top,$porc_t3);
+                array_push($rend_top,$porc_t4);
+                array_push($rend_top,$porc_t5);
+                array_push($rend_top,$porc_t6);
+                array_push($rend_top,$porc_t7);
+                array_push($rend_top,$porc_t8);
+
+            }
+
             $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','categoria_a','categoria_b','categoria_c','porc_a','porc_b','porc_c','rendimiento','a','b','c','rend_top','topicos','cargo'));
         
             $pdf = $pdf->output();
