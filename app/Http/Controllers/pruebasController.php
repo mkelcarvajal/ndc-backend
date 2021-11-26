@@ -1113,6 +1113,7 @@ class pruebasController extends Controller
         
         
     }
+
     public function registroPdf(request $request)
         {
             $data = DB::table('resultados as r')
