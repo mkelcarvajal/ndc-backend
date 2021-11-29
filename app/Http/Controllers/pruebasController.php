@@ -23,7 +23,7 @@ class pruebasController extends Controller
     public function personas(request $request){
 
         $persona = DB::table('resultados')->selectRaw('distinct id_resultado,nombre,apellido,rut,id_encuesta,fecha,tipo_usuario,codigo_usuario')->where('id_encuesta',$request->input('id_encuesta'))->where('codigo_usuario',session::get('codigo'))->get();
-        
+       
         return $persona;
     }
 
@@ -37,8 +37,10 @@ class pruebasController extends Controller
     }
 
     public function registroExcel(request $request){
+        dd($request);
      //datos BD
-     if(session::get('codigo')=='admin'){
+    /**if(session::get('codigo')=='admin'){
+        
         $data = DB::table('resultados as r')
         ->selectRaw('r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,e.nombre as nombre_e, r.fecha as fecha_r,r.detalle as detalle_r, e.detalle as detalle_e, r.id_encuesta as id_en, r.codigo_usuario as cod_usu')
         ->where('r.id_encuesta',$request->input('encuesta'))
@@ -52,8 +54,18 @@ class pruebasController extends Controller
         ->where('r.id_encuesta',$request->input('encuesta'))
         ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
         ->get();
-     }
-       
+ 
+     }*/
+
+        $data = DB::table('resultados as r')
+        ->selectRaw('r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,e.nombre as nombre_e, r.fecha as fecha_r,r.detalle as detalle_r, e.detalle as detalle_e, r.id_encuesta as id_en, r.codigo_usuario as cod_usu')
+        ->where('r.id_encuesta',$request->input('encuesta'))
+        
+        ->get();
+
+
+
+     
     //datos BD topicos
         $topicos = DB::table('topicos')->where('id_encuesta',$request->input('encuesta'))->get();
 
@@ -993,7 +1005,7 @@ class pruebasController extends Controller
                     $total_top_7++;
                     $topico7 += $correctas[$c] == $respondidas[$c];
                 }
-
+                $c=0;
                 //categoria B
                 
                 for($cont = 0; $cont <= 27; $cont++){
@@ -1039,6 +1051,7 @@ class pruebasController extends Controller
 
                 for($c = 0; $c <= 19; $c++){
                     $total_top_1++;
+                    dd($total_top_1,$correctas[$c],$respondidas[$c]);
                     $topico1 += $correctas[$c] == $respondidas[$c];
                 }
                 for($c = 25; $c <= 37; $c++){
@@ -1066,6 +1079,8 @@ class pruebasController extends Controller
                     $total_top_7++;
                     $topico7 += $correctas[$c] == $respondidas[$c];
                 }
+
+                $C=0;
 
                 
                 //categoria B
@@ -1135,6 +1150,7 @@ class pruebasController extends Controller
 
     public function registroPdf(request $request)
         {
+            
             $data = DB::table('resultados as r')
                     ->selectRaw('r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,e.nombre as nombre_e, r.fecha as fecha_r,r.detalle as detalle_r, e.detalle as detalle_e, r.id_encuesta as id_en')
                     ->where('id_resultado',$request->input('id'))
@@ -1318,6 +1334,8 @@ class pruebasController extends Controller
                         
                     $total_preguntas=count($correctas);
                     $incorrectas = $total_preguntas - $total;
+
+                    
                     
                     $rendimiento=($porc_a+$porc_b+$porc_c)/3;
 
@@ -1547,8 +1565,17 @@ class pruebasController extends Controller
                     
                 $total_preguntas=count($correctas);
                 $incorrectas = $total_preguntas - $total;
+
+                if($request->cargo == 'em-a'){//si cargo es electromecanico a
+                    $rendimiento=$porc_a;
+                }elseif($request->cargo == 'em-b'){
+                    $rendimiento=$porc_b;
+                }elseif ($request->cargo == 'supervisor') {
+                    $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+                }else{
+                    $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+                }
                 
-                $rendimiento=($porc_a+$porc_b+$porc_c)/3;
 
                 $porc_t1=($topico1/$total_top_1)*100;
                 $porc_t2=($topico2/$total_top_2)*100;
@@ -1695,8 +1722,17 @@ class pruebasController extends Controller
                 $total_preguntas=count($correctas);
 
                 $incorrectas = $total_preguntas - $total;
+
+                if($request->cargo == 'em-a'){//si cargo es electromecanico a
+                    $rendimiento=$porc_a;
+                }elseif($request->cargo == 'em-b'){
+                    $rendimiento=$porc_b;
+                }elseif ($request->cargo == 'supervisor') {
+                    $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+                }else{
+                    $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+                }
                 
-                $rendimiento=($porc_a+$porc_b+$porc_c)/3;
                 $porc_t1=($topico1/$total_top_1)*100;
                 $porc_t2=($topico2/$total_top_2)*100;
                 $porc_t3=($topico3/$total_top_3)*100;
