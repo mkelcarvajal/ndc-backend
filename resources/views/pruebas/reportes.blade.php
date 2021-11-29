@@ -133,9 +133,8 @@
                         data[index]['rut'],
                         data[index]['tipo_usuario'],
                         moment(data[index]['fecha']).format('DD/MM/YYYY HH:mm'),
-                        "<select name='cars' id='cargo'><option value='supervisor'>Supervisor</option> <option value='em-a'>Electromecanico A</option><option value='em-b'>Electromecanico B</option><option value='otro'>Otro</option></select>",
+                        "<select name='cars' id='cargo'><option value='supervisor'>Supervisor</option> <option value='em-a'>Electromecanico A</option><option value='em-b'>Electromecanico B</option><option value='em-c'>Electromecanico C</option><option value='otro'>Otro</option></select>",
                         "<button type='button' id='boton' class='btn btn-danger' onclick='cargarResultados("+data[index]['id_resultado']+")'>Descargar PDF</button>"
-
                 ]).draw();
 
               });
