@@ -1335,9 +1335,17 @@ class pruebasController extends Controller
                     $total_preguntas=count($correctas);
                     $incorrectas = $total_preguntas - $total;
 
-                    
-                    
-                    $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+                    if($request->cargo == 'em-a'){//si cargo es electromecanico a
+                        $rendimiento=$porc_a;
+                    }elseif($request->cargo == 'em-b'){
+                        $rendimiento=$porc_b;
+                    }elseif($request->cargo == 'em-c'){
+                        $rendimiento=$porc_c;
+                    }elseif ($request->cargo == 'supervisor') {
+                        $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+                    }else{
+                        $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+                    }
 
                     $porc_t1=($topico1/$total_top_1)*100;
                     $porc_t2=($topico2/$total_top_2)*100;
@@ -1449,7 +1457,17 @@ class pruebasController extends Controller
                     $total_preguntas=count($correctas);
                     $incorrectas = $total_preguntas - $total;
                     
-                    $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+                    if($request->cargo == 'em-a'){//si cargo es electromecanico a
+                        $rendimiento=$porc_a;
+                    }elseif($request->cargo == 'em-b'){
+                        $rendimiento=$porc_b;
+                    }elseif($request->cargo == 'em-c'){
+                        $rendimiento=$porc_c;
+                    }elseif ($request->cargo == 'supervisor') {
+                        $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+                    }else{
+                        $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+                    }
 
                     $porc_t1=($topico1/$total_top_1)*100;
                     $porc_t2=($topico2/$total_top_2)*100;
@@ -1570,6 +1588,8 @@ class pruebasController extends Controller
                     $rendimiento=$porc_a;
                 }elseif($request->cargo == 'em-b'){
                     $rendimiento=$porc_b;
+                }elseif($request->cargo == 'em-c'){
+                    $rendimiento=$porc_c;
                 }elseif ($request->cargo == 'supervisor') {
                     $rendimiento=($porc_a+$porc_b+$porc_c)/3;
                 }else{
@@ -1727,6 +1747,8 @@ class pruebasController extends Controller
                     $rendimiento=$porc_a;
                 }elseif($request->cargo == 'em-b'){
                     $rendimiento=$porc_b;
+                }elseif($request->cargo == 'em-c'){
+                    $rendimiento=$porc_c;
                 }elseif ($request->cargo == 'supervisor') {
                     $rendimiento=($porc_a+$porc_b+$porc_c)/3;
                 }else{
