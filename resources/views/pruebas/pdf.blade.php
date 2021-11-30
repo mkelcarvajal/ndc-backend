@@ -56,7 +56,7 @@
                 <h2>{{$data->nombre_r}} {{$data->apellido_r}}</h2>
                 <b>RUT: {{$data->rut_r}}</b> 
                 <br>
-                <b>Cargo: {{$cargo->c}}</b>
+                <b>Cargo: {{isset($cargo->c)}}</b>
                 <br>
                 <b>Fecha Prueba: {{date('d/m/Y',strtotime($data->fecha_r))}}</b>
 
