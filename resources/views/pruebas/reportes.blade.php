@@ -48,9 +48,12 @@
                                         <th>
                                             Fecha Realización
                                         </th>
-                                        <th>
-                                            Cargo
-                                        </th>
+                                        
+                                            <th>
+                                                Cargo
+                                            </th>
+                                      
+                                        
                                         <th>
                                             Informe
                                         </th>
@@ -80,12 +83,12 @@
 
   
 
-        $(document).ready(function() {
-            $('#tabla_persona').DataTable({
-    "language": {
-      "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-    }
-  });
+    $(document).ready(function() {
+        $('#tabla_persona').DataTable({
+            "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+            }
+         });
         $('.select2').select2({
             language: {
                     noResults: function() {
@@ -127,15 +130,19 @@
             }
             
             $.each(data, function( index ) {
+                
                 table.row.add([
                         data[index]['codigo_usuario'],
                         data[index]['nombre']+" "+data[index]['apellido'],
                         data[index]['rut'],
                         data[index]['tipo_usuario'],
                         moment(data[index]['fecha']).format('DD/MM/YYYY HH:mm'),
-                        "<select name='cars' id='cargo'><option value='supervisor'>Supervisor</option> <option value='em-a'>Electromecanico A</option><option value='em-b'>Electromecanico B</option><option value='em-c'>Electromecanico C</option><option value='otro'>Otro</option></select>",
-                        "<button type='button' id='boton' class='btn btn-danger' onclick='cargarResultados("+data[index]['id_resultado']+")'>Descargar PDF</button>"
+                        "<select name='cargo' id='cargo'><option value='supervisor'>Supervisor</option> <option value='em-a'>Electromecanico A</option><option value='em-b'>Electromecanico B</option><option value='em-c'>Electromecanico C</option><option value='otro'>Otro</option></select>",
+                        "<button type='button' id='boton' class='btn btn-danger'name='download' onclick='cargarResultados("+data[index]['id_resultado']+","+data[index]['id_encuesta']+")'>Descargar PDF</button>"
+
+
                 ]).draw();
+                console.log(document.getElementsByName("download")[index], index, data[index]['id_resultado']);
 
               });
         },
@@ -144,7 +151,7 @@
         }
     });
     }
-    function cargarResultados(id){
+    function cargarResultados(id,ide){
         event.preventDefault();
         let cont = 0 ;
         //table.row( this ).index()
@@ -152,32 +159,40 @@
         $('#tabla_persona tbody').on( 'click', 'td', function () 
         {
            if (cont === 0) {
-            var index = table.row( this ).index();
-            let carga = document.getElementById("overlay");
-            $.ajax({
-                url: "registroPdf",
-                type: "post",
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                data: {
-                    'id': id,
-                    'cargo': document.getElementsByName("cars")[index].value
-                },
-                beforeSend: function() {
-                    
-                    carga.style.display = 'block';
-                    console.log(carga);
-                },
-                success: function(data) {
-                    carga.style.display = 'none';
-                    window.open('reportes/'+data+'.pdf');
-                // window.location.reload()
-                },
-                error: function(data) {
-                    carga.style.display = 'none';
-                    console.log(data);
+                var index = table.row( this ).index();
+                //console.log(document.getElementsByName("cargo")[index].value, index);
+                let carga = document.getElementById("overlay");
+                console.log(document.getElementsByName("download")[index], index);
+                var data= {
+                    'id':id,
+                    'cargo': "",
                 }
+                if(ide !== 15 && ide !== 16){
+                    console.log();
+                    data.cargo=document.getElementsByName("cargo")[index].value;
+                } else {
+                    data.cargo="";
+                }
+                $.ajax({
+                    url: "registroPdf",
+                    type: "post",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: data,
+                    beforeSend: function() {
+                        
+                        carga.style.display = 'block';
+                    },
+                    success: function(data) {
+                        carga.style.display = 'none';
+                        window.open('reportes/'+data+'.pdf');
+                    // window.location.reload()
+                    },
+                    error: function(data) {
+                        carga.style.display = 'none';
+                        console.log(data);
+                    }
                 });
             }
             cont = 1;
