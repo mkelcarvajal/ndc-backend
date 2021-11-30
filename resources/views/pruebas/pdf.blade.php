@@ -64,7 +64,7 @@
             <td align="center">
                 
 
-                <img src="loginpu/img/logo.png" style="margin-left: 60%;  height:40px ">
+                <img src="loginpu/img/logo.png" style="margin-left: 45%;  height:40px ">
 
                
 
@@ -275,13 +275,13 @@ $cont2=1;
 <div class="invoice">
     <table table width="100%" >
         <tr >
-            <th style="background-color: #d0e1f3">N° T</th>
+            <!--<th style="background-color: #d0e1f3">N° T</th>-->
             <th style="background-color: #d0e1f3">Tópico</th>
             <th style="background-color: #d0e1f3">Rendimiento</th>
         </tr>
         <tr>
 
-            <td align="center"  style="background-color:#F4F5F5">
+          <!--  <td align="center"  style="background-color:#F4F5F5">
                @foreach($topicos as $t) 
                <div style= "border:1px solid white ">
                 <?php echo 'T'.$cont2; $cont2++; ?>
@@ -289,7 +289,10 @@ $cont2=1;
                @endforeach
             </td>
             <td align="center"  style="background-color:#F4F5F5">
+
            
+            <td align="center"  style="background-color:#F4F5F5">
+
                 @foreach ($topicos as $t)
                 <div style= "border:1px solid white">
                         {{$t->texto_topico}}

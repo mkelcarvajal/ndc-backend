@@ -49,6 +49,9 @@
                                             Fecha Realización
                                         </th>
                                         <th>
+                                            Cargo
+                                        </th>
+                                        <th>
                                             Informe
                                         </th>
                                     </tr>
@@ -117,7 +120,7 @@
 
             if($("#encuesta").val()==""){
                 $("#btn_excel").prop('disabled', true);
-
+                
             }
             else{
                 $("#btn_excel").prop('disabled', false);
@@ -130,8 +133,8 @@
                         data[index]['rut'],
                         data[index]['tipo_usuario'],
                         moment(data[index]['fecha']).format('DD/MM/YYYY HH:mm'),
-                        "<button type='button' class='btn btn-danger' onclick='cargarResultados("+data[index]['id_resultado']+")'>Descargar PDF</button>"
-
+                        "<select name='cars' id='cargo'><option value='supervisor'>Supervisor</option> <option value='em-a'>Electromecanico A</option><option value='em-b'>Electromecanico B</option><option value='em-c'>Electromecanico C</option><option value='otro'>Otro</option></select>",
+                        "<button type='button' id='boton' class='btn btn-danger' onclick='cargarResultados("+data[index]['id_resultado']+")'>Descargar PDF</button>"
                 ]).draw();
 
               });
@@ -142,32 +145,43 @@
     });
     }
     function cargarResultados(id){
-        
-        let carga = document.getElementById("overlay");
-        $.ajax({
-        url: "registroPdf",
-        type: "post",
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-        },
-        data: {
-            'id': id,
-        },
-        beforeSend: function() {
-            
-            carga.style.display = 'block';
-            console.log(carga);
-        },
-        success: function(data) {
-            carga.style.display = 'none';
-
-             window.open('reportes/'+data+'.pdf')
-        },
-        error: function(data) {
-            carga.style.display = 'none';
-            console.log(data);
-        }
-    });
+        event.preventDefault();
+        let cont = 0 ;
+        //table.row( this ).index()
+        var table = $('#tabla_persona').DataTable();
+        $('#tabla_persona tbody').on( 'click', 'td', function () 
+        {
+           if (cont === 0) {
+            var index = table.row( this ).index();
+            let carga = document.getElementById("overlay");
+            $.ajax({
+                url: "registroPdf",
+                type: "post",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: {
+                    'id': id,
+                    'cargo': document.getElementsByName("cars")[index].value
+                },
+                beforeSend: function() {
+                    
+                    carga.style.display = 'block';
+                    console.log(carga);
+                },
+                success: function(data) {
+                    carga.style.display = 'none';
+                    window.open('reportes/'+data+'.pdf');
+                // window.location.reload()
+                },
+                error: function(data) {
+                    carga.style.display = 'none';
+                    console.log(data);
+                }
+                });
+            }
+            cont = 1;
+        });
     }
 </script>
 @endsection
