@@ -123,7 +123,7 @@
         </tbody>
     </table>
 
-    @if(isset($categoria_a) && isset($porc_a))
+    @if(isset($categoria_a) || isset($porc_a))
     <table style="width:100%">
         <tr style="background-color: #d0e1f3">
             <th></th>

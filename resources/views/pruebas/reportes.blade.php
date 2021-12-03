@@ -27,7 +27,6 @@
                 <div class="card-body">
                     <br>
                     <br>
-                    <br>
                     <div class="row">
                         <div class="col">
                             <table class="table table-bordered table-striped table-hover" id="tabla_persona">
@@ -49,11 +48,9 @@
                                             Fecha Realización
                                         </th>
                                         
-                                            <th>
-                                                Cargo
-                                            </th>
-                                      
-                                        
+                                        <th>
+                                            Cargo
+                                        </th>
                                         <th>
                                             Informe
                                         </th>
@@ -85,10 +82,13 @@
 
     $(document).ready(function() {
         $('#tabla_persona').DataTable({
+            "order": [[5, 'desc']],
             "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
             }
          });
+
+
         $('.select2').select2({
             language: {
                     noResults: function() {
