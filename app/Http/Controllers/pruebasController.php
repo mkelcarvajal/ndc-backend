@@ -2165,7 +2165,10 @@ class pruebasController extends Controller
             
             $file_location = public_path()."/".$data->rut_r.".pdf";
 
+
             file_put_contents($file_location,$pdf);
+
+            echo $file_location;
 
             return $data->rut_r;
         
