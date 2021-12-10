@@ -371,7 +371,8 @@ class pruebasController extends Controller
                         $sheet->setCellValue('T'.$num,divnum($topico11,$total_top_11));
                         $sheet->setCellValue('U'.$num,divnum($topico12,$total_top_12));
                         $num++;
-                        
+                        $porc_c=0;
+
                     }
                 
                 if(count($respondidas)==146){//Mecanica OHT
@@ -2203,14 +2204,19 @@ class pruebasController extends Controller
             $cont_respuestas=1;
             $letra_respuestas='E';
             $cont_texto=1;
+            $i=0;
             if (is_array($res) || is_object($res)){
                 foreach ($res as $r){
 
+                        ${'resp'.$i} = $r['respuesta'];
+                        $i++;
+                        
+                    
              
                     $sheet->setCellValue($letra_respuestas.$cont_respuestas,'Respuesta'.$cont_texto)->mergeCells($letra_respuestas.$cont_respuestas.':'.$letra_respuestas++.$cont_respuestas);
 
-                    $sheet->setCellValue($letra_respuestas.$cont,$r['respuesta']);
-                    $sheet->setCellValue($letra_respuestas++.$cont,$r['respuesta']);
+                    $sheet->setCellValue($letra_respuestas.$cont,$resp1);
+                    $sheet->setCellValue($letra_respuestas++.$cont,$resp0);
 
 
                     $letra_respuestas++;

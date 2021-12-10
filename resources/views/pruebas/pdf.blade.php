@@ -145,7 +145,7 @@
             <td align="center"  style="background-color:#F4F5F5">{{round($porc_b)}}%</td>
 
         </tr>
-        @if(isset($categoria_c) && isset($por_c))
+        @if(isset($categoria_c) || isset($por_c))
         <tr>
             <th style="background-color: #d0e1f3">Categoria C</th>
             <td align="center"  style="background-color:#F4F5F5">{{$categoria_c}}</td>
