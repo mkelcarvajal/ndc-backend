@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth'], function ()
     Route::any('registroPdf', 'pruebasController@registroPdf');
     Route::any('registroExcel', 'pruebasController@registroExcel');
 
+    Route::any('SosiaExcel', 'pruebasController@SosiaExcel');
 
 });
 
