@@ -127,19 +127,26 @@ class pruebasController extends Controller
                     ],
                 ]
             );
-            $sheet->getStyle('G1')->applyFromArray(
-                $styleArray = [
-                    'fill' => [
-                        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                        'startColor' => [
-                            'argb' => 'fabbbc',
-                        ],
-                        'endColor' => [
-                            'argb' => 'fabbbc',
-                        ],
-                    ],
-                ]
-            );
+
+            $sheet->getStyle('G1')
+            ->getFill()
+            ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+            ->getStartColor()
+            ->setARGB('fabbbc');
+
+            // $sheet->getStyle('G1')->applyFromArray(
+            //     $styleArray = [
+            //         'fill' => [
+            //             'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+            //             'startColor' => [
+            //                 'argb' => 'fabbbc',
+            //             ],
+            //             'endColor' => [
+            //                 'argb' => 'fabbbc',
+            //             ],
+            //         ],
+            //     ]
+            // );
             $sheet->getStyle('H1')->applyFromArray(
                 $styleArray = [
                     'fill' => [
