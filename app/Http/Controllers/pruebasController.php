@@ -70,7 +70,6 @@ class pruebasController extends Controller
 
             $spreadsheet = new Spreadsheet();
             $sheet = $spreadsheet->getActiveSheet();
-            $sheet->setReadDataOnly(false);
 
             $sheet->setCellValue('A1','Código');
             $sheet->setCellValue('B1','Prueba');
