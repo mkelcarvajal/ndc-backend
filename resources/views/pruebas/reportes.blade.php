@@ -129,7 +129,20 @@
                 $("#btn_excel").prop('disabled', false);
             }
             $.each(data, function( index ) {
-                table.row.add([
+
+                if($("#encuesta").val()==22){
+                    table.row.add([
+                        data[index]['codigo_usuario'],
+                        data[index]['nombre']+" "+data[index]['apellido'],
+                        data[index]['rut'],
+                        data[index]['tipo_usuario'],
+                        moment(data[index]['fecha']).format('DD/MM/YYYY HH:mm'),
+                        "<select name='cars' id='"+data[index]['rut']+"'><option value='supervisor'>Supervisor</option> <option value='em-a'>Electromecanico A</option><option value='em-b'>Electromecanico B</option><option value='otro'>Otro</option></select>",
+                        "<button type='button'  class='btn btn-danger' onclick='cargarResultados("+data[index]['id_resultado']+","+data[index]['rut']+")'>Descargar PDF</button>"
+                ]).draw();
+                }
+                else{
+                    table.row.add([
                         data[index]['codigo_usuario'],
                         data[index]['nombre']+" "+data[index]['apellido'],
                         data[index]['rut'],
@@ -138,6 +151,9 @@
                         "<select name='cars' id='"+data[index]['rut']+"'><option value='supervisor'>Supervisor</option> <option value='em-a'>Electromecanico A</option><option value='em-b'>Electromecanico B</option><option value='em-c'>Electromecanico C</option><option value='otro'>Otro</option></select>",
                         "<button type='button'  class='btn btn-danger' onclick='cargarResultados("+data[index]['id_resultado']+","+data[index]['rut']+")'>Descargar PDF</button>"
                 ]).draw();
+                }
+
+        
               });
         },
         error: function(data) {

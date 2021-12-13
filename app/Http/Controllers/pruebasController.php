@@ -103,10 +103,10 @@ class pruebasController extends Controller
                         'fill' => [
                             'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                             'startColor' => [
-                                'argb' => '#FFE0AD',
+                                'argb' => 'FFE0AD',
                             ],
                             'endColor' => [
-                                'argb' => '#FFE0AD',
+                                'argb' => 'FFE0AD',
                             ],
                         ],
                     ]
@@ -132,10 +132,10 @@ class pruebasController extends Controller
                     'fill' => [
                         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                         'startColor' => [
-                            'argb' => '#fabbbc',
+                            'argb' => 'fabbbc',
                         ],
                         'endColor' => [
-                            'argb' => '#fabbbc',
+                            'argb' => 'fabbbc',
                         ],
                     ],
                 ]
@@ -145,10 +145,10 @@ class pruebasController extends Controller
                     'fill' => [
                         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                         'startColor' => [
-                            'argb' => '#d5f1bf',
+                            'argb' => 'd5f1bf',
                         ],
                         'endColor' => [
-                            'argb' => '#d5f1bf',
+                            'argb' => 'd5f1bf',
                         ],
                     ],
                 ]
@@ -158,10 +158,10 @@ class pruebasController extends Controller
                     'fill' => [
                         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                         'startColor' => [
-                            'argb' => '#d0e1f3',
+                            'argb' => 'd0e1f3',
                         ],
                         'endColor' => [
-                            'argb' => '#d0e1f3',
+                            'argb' => 'd0e1f3',
                         ],
                     ],
                 ]
@@ -342,7 +342,7 @@ class pruebasController extends Controller
                         //categoria B
                             for($cont = 110; $cont <= 159; $cont++){
                                 $b++;
-                                $categoria_c += $correctas[$cont] == $respondidas[$cont];
+                                $categoria_b += $correctas[$cont] == $respondidas[$cont];
                             }
 
                         $porc_a=($categoria_a*100)/$a;
@@ -1144,6 +1144,21 @@ class pruebasController extends Controller
             $cargo =  DB::table('usuarios as u')->select('u.cargo as c')->where('u.rut',"$data->rut_r")->first();
            // dd($data->rut_r);
 
+           $cargo_usuario = "";
+
+           if($request->cargo=='em-a'){
+               $cargo_usuario="Electromecánico A";
+           }
+           else if($request->cargo=='em-b'){
+               $cargo_usuario="Electromecánico B";
+           }
+           else if($request->cargo=='em-c'){
+               $cargo_usuario="Electromecánico C";
+           }
+           else{
+               $cargo_usuario="Supervisor";
+           }
+
             $respuesta = json_decode($data->detalle_r,true);
             $correccion = json_decode($data->detalle_e,true);
 
@@ -1239,8 +1254,10 @@ class pruebasController extends Controller
                 $total += $correctas[$i] == $respondidas[$i];
             }
             
-            if(count($respondidas)==160){
-                if($data->id_en == 17){ //Electrica OHT
+
+
+            if(count($respondidas)==160){//Electrica OHT
+                if($data->id_en == 17){ 
 
                     //categoria C
                     for($cont = 0; $cont <= 31; $cont++){
@@ -1363,6 +1380,9 @@ class pruebasController extends Controller
                     array_push($rend_top,$porc_t10);
                     array_push($rend_top,$porc_t11);
                     array_push($rend_top,$porc_t12);
+
+                $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','categoria_a','categoria_b','categoria_c','porc_a','porc_b','porc_c','rendimiento','a','b','c','rend_top','topicos','cargo','cargo_usuario'));
+
                 }
             }
         
@@ -1475,6 +1495,9 @@ class pruebasController extends Controller
                     array_push($rend_top,$porc_t6);
                     array_push($rend_top,$porc_t7);
                     array_push($rend_top,$porc_t8);
+
+                    $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','categoria_a','categoria_b','categoria_c','porc_a','porc_b','porc_c','rendimiento','a','b','c','rend_top','topicos','cargo','cargo_usuario'));
+
                 }
             
       
@@ -1612,6 +1635,8 @@ class pruebasController extends Controller
                 array_push($rend_top,$porc_t12);
                 array_push($rend_top,$porc_t13);
                 array_push($rend_top,$porc_t14);
+
+                $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','categoria_a','categoria_b','categoria_c','porc_a','porc_b','porc_c','rendimiento','a','b','c','rend_top','topicos','cargo','cargo_usuario'));
 
             }
 
@@ -1775,6 +1800,9 @@ class pruebasController extends Controller
                 array_push($rend_top,$porc_t16);
                 array_push($rend_top,$porc_t17);
                 array_push($rend_top,$porc_t18);
+
+                $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','categoria_a','categoria_b','categoria_c','porc_a','porc_b','porc_c','rendimiento','a','b','c','rend_top','topicos','cargo','cargo_usuario'));
+
             }
 
             if($data->id_en == 15){ //Entrada mecanica
@@ -1953,6 +1981,9 @@ class pruebasController extends Controller
                 
                 $rendimiento=($porc_a+$porc_b+$porc_c)/3;
 
+                $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','categoria_a','categoria_b','categoria_c','porc_a','porc_b','porc_c','rendimiento','a','b','c','rend_top','topicos','cargo','cargo_usuario'));
+
+
             }
             
             if($data->id_en == 16){ //Entrada eléctrica
@@ -2011,6 +2042,9 @@ class pruebasController extends Controller
                 array_push($rend_top,$porc_t1);
                 array_push($rend_top,$porc_t2);
                 array_push($rend_top,$porc_t3);
+
+                $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','categoria_a','categoria_b','categoria_c','porc_a','porc_b','porc_c','rendimiento','a','b','c','rend_top','topicos','cargo','cargo_usuario'));
+
 
             }
 
@@ -2072,7 +2106,7 @@ class pruebasController extends Controller
                 }elseif($request->cargo == "em-b"){
                     $rendimiento=$porc_b;
                 }elseif ($request->cargo == "supervisor" || "otro") {
-                    $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+                    $rendimiento=($porc_a+$porc_b)/2;
                 }
 
                                 
@@ -2091,6 +2125,9 @@ class pruebasController extends Controller
                 array_push($rend_top,$porc_t5);
                 array_push($rend_top,$porc_t6);
                 array_push($rend_top,$porc_t7);
+
+                $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','categoria_a','categoria_b','porc_a','porc_b','rendimiento','a','b','rend_top','topicos','cargo','cargo_usuario'));
+
 
             }
 
@@ -2156,10 +2193,12 @@ class pruebasController extends Controller
 
                 $rendimiento=($porc_t1+$porc_t2+$porc_t3+$porc_t4+$porc_t5+$porc_t6+$porc_t7+$porc_t8)/8;
 
+                $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','rendimiento','rend_top','topicos','cargo','cargo_usuario'));
+
             }
 
+    
 
-            $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','categoria_a','categoria_b','categoria_c','porc_a','porc_b','porc_c','rendimiento','a','b','c','rend_top','topicos','cargo'));
         
             $pdf = $pdf->output();
             
@@ -2207,16 +2246,13 @@ class pruebasController extends Controller
             $i=0;
             if (is_array($res) || is_object($res)){
                 foreach ($res as $r){
-
-                        ${'resp'.$i} = $r['respuesta'];
-                        $i++;
                         
                     
              
                     $sheet->setCellValue($letra_respuestas.$cont_respuestas,'Respuesta'.$cont_texto)->mergeCells($letra_respuestas.$cont_respuestas.':'.$letra_respuestas++.$cont_respuestas);
 
-                    $sheet->setCellValue($letra_respuestas.$cont,$resp1);
-                    $sheet->setCellValue($letra_respuestas++.$cont,$resp0);
+                    $sheet->setCellValue($letra_respuestas.$cont,$r['respuesta']);
+                    $sheet->setCellValue($letra_respuestas++.$cont,$r['respuesta'][0]);
 
 
                     $letra_respuestas++;
