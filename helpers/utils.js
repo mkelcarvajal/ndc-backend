@@ -14,7 +14,7 @@ const generateJWT = async (id = '') => {
     return new Promise((resolve, reject) => {
         const payload = { id };
         jwt.sign(payload, process.env.SECRETORPUBLICKEY, {
-           expiresIn: '4h'
+        //    expiresIn: '4h'
         }, (error, token) => {
             if (error) {
                 reject('Token can not was possible generate');

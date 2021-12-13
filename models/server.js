@@ -10,6 +10,7 @@ class Server {
         this.app.use(cors());
         this.port = process.env.PORT;
         this.usersRoutePath = '/api/users';
+        this.cursoRoutePath = '/api/curso-manual';
         this.authPath = '/api/auth';
 
         //Database connection
@@ -38,6 +39,7 @@ class Server {
         // en la carpeta routes/users el 'router' toma el valor de '/api/users', el require indica a donde va a parar ese prefijo
         this.app.use(this.authPath, require('../routes/auth'));
         this.app.use(this.usersRoutePath, require('../routes/user'));
+        this.app.use(this.cursoRoutePath, require('../routes/curso-manual'));
     }
 
     listen() {

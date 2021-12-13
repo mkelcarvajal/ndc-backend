@@ -1,13 +1,17 @@
 const {Router} = require('express');
 const {check} = require('express-validator');
 const {fieldValidator} = require("../middlewares/field-validate");
-const {getAllUser, getUserById,updateUser, deleteUser, patchUser, createUserMicrosoftGlobal, getAllHistoric, generateUserCertificate, verifyCertificate, patchHistoricoById, getUserByEmail, getUserByRut, verifyCertificateCodelco, patchUserById, verifyCertificateLms, getCursoById, getCursos, createCurso, patchCursoById, updatePlantilla, getCursoByClave} = require("../controllers/user");
+const {getAllUser, getUserById,updateUser, deleteUser, patchUser, createUserMicrosoftGlobal, getAllHistoric, generateUserCertificate, verifyCertificate, patchHistoricoById, getUserByEmail, getUserByRut, verifyCertificateCodelco, patchUserById, verifyCertificateLms, getCursoById, getCursos, createCurso, patchCursoById, updatePlantilla, getCursoByClave, getUserBySerial, generateUserExternosCertificate, verifyCertificateExternos, verifyVersion} = require("../controllers/user");
 const {roleExist, emailExist, userExist} = require("../helpers/db-validator");
 const {validateJWT} = require("../middlewares/validate-jwt");
 const {isAdminRole, haveRole} = require("../middlewares/validate-roles");
 const multer = require('multer');
 
 const router = new Router();
+
+router.get('/checkversion/', [
+    fieldValidator
+], verifyVersion);
 
 router.get('/verificarcertificados/:idcurso/:puestotrabajo/:rut', [
     fieldValidator
@@ -20,6 +24,15 @@ router.get('/verificarcertificadosCodelco/:rut/:sap/:nota', [
 router.get('/verificarcertificadosLms/:idcurso/:puestotrabajo/:rut', [
     fieldValidator
 ], verifyCertificateLms);
+
+router.get('/verificarcertificadosExternos/:idcurso/:puestotrabajo/:rut', [
+    fieldValidator
+], verifyCertificateExternos);
+
+router.get('/getUserBySerial/:id', [
+    validateJWT,
+    fieldValidator
+], getUserBySerial);
 
 router.get('/getCursoByClave/:id', [
     validateJWT,
@@ -61,6 +74,18 @@ router.get('/getAllHistoric', [
     validateJWT,
     fieldValidator
 ], getAllHistoric);
+
+router.get('/userCertificateExternos', [
+    validateJWT,
+    // //isAdminRole,
+    // check('name', 'The name is required').not().isEmpty(),
+    // check('email', 'This email is not valid').isEmail(),
+    // check('password', 'The password must be higher to 6 character').isLength({min: 6}),
+    //haveRole("ADMIN_ROLE"),
+    // //check('role').custom(role => roleExist(role)),
+    // check('email').custom(email => emailExist(email)),
+    fieldValidator
+], generateUserExternosCertificate);
 
 router.get('/userCertificate', [
     validateJWT,

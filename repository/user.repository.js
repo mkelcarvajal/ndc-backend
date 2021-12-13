@@ -78,6 +78,18 @@ const getUserByIdRepository = async (id) => {
     }
 };
 
+const getUserBySerialRepository = async (id) => {
+    try {
+        const response = await pool.query('SELECT * FROM users WHERE id_serial = $1', [id]);
+        return {
+            message: 'Usuario encontrado con exito',
+            user: response.rows[0]
+        }
+    } catch (error) {
+        return 0;
+    }
+};
+
 const getAllUsersRepository = async () => {
     try {
         const response = await pool.query('SELECT * FROM users ORDER BY fecha_creacion DESC;');
@@ -202,6 +214,23 @@ const getUserByData = async (data) => {
     }
 };
 
+const getUserVerifyRepository = async (data) => {
+    try {
+        const user = await pool.query('SELECT * FROM users WHERE rut = $1', [data.rut]);
+        const curso_x_user = await pool.query('SELECT * FROM cursomanual_x_user WHERE id_cursomanual = $1 AND id_user = $2', [parseInt(data.idcurso), parseInt(user.rows[0].id_serial)]);
+        const curso = await pool.query('SELECT * FROM cursos_manual WHERE id = $1', [parseInt(data.idcurso)]);
+        const curso_info = await pool.query('SELECT * FROM cursos_externos WHERE id = $1', [parseInt(data.idcurso)]);
+        return {
+            curso_x_user: curso_x_user.rows[0],
+            user: user.rows[0],
+            curso: curso.rows[0],
+            curso_info: curso_info.rows[0]
+        }
+    } catch (error) {
+        return 0;
+    }
+};
+
 const getCursoByIdRepository = async (id) => {
     try {
         const response = await pool.query('SELECT * FROM cursos WHERE id = $1', [id]);
@@ -271,5 +300,7 @@ module.exports = {
     getCursosByRepository,
     createCursoRepository,
     patchCursoByIdRepository,
-    getCursoByClaveRepository
+    getCursoByClaveRepository,
+    getUserBySerialRepository,
+    getUserVerifyRepository
 };
