@@ -132,7 +132,7 @@ class pruebasController extends Controller
             ->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()
-            ->setARGB('fabbbc');
+            ->setARGB('#fabbbc');
 
             // $sheet->getStyle('G1')->applyFromArray(
             //     $styleArray = [
