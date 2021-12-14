@@ -2234,30 +2234,27 @@ class pruebasController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
 
         $cont=2;
-        $cont_letra=2;
-        $letra_respuestas='E';
-        foreach($data as $d){
 
+        foreach($data as $d){
+            $letra_respuestas='E';
+            
             $sheet->setCellValue('A'.$cont,$d->nombre_r.' '.$d->apellido_r);
             $sheet->setCellValue('B'.$cont,$d->rut_r);
             $sheet->setCellValue('C'.$cont,$d->tipo);
             $sheet->setCellValue('D'.$cont,$d->fecha_r);
 
+            $letra_re=$letra_respuestas++;
+
             $respuesta = json_decode($d->detalle_r,true);    
-            $cont_arr=0;
-            
+                    
             if (is_array($respuesta) || is_object($respuesta)){
-                foreach ($respuesta as $re){
+                foreach($respuesta['usuariosStructs'][0]['respuestasStructs'] as $key=> $arr){
 
-                   $sheet->setCellValue($letra_respuestas.$cont_letra,$re[0]['respuestasStructs'][$cont_arr]['respuesta'][0]);
-                   $cont_arr++;
-                   $cont_letra++;
-
+                    $sheet->setCellValue($letra_respuestas++.$cont, $respuesta['usuariosStructs'][0]['respuestasStructs'][0]['respuesta'][0]);
+                    
                 }
             }
-            $letra_respuestas++;    
             $cont++;
-            $cont_arr++;
         }
         $sheet->setCellValue('A1','Nombre Completo');
         $sheet->setCellValue('B1','RUT');
