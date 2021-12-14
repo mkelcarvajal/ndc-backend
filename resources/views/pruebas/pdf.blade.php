@@ -59,7 +59,6 @@
                 <b>Cargo: {{$cargo_usuario}}</b>
                 <br>
                 <b>Fecha Prueba: {{date('d/m/Y',strtotime($data->fecha_r))}}</b>
-
                 </td>
             <td align="center">
                 
