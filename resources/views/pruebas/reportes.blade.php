@@ -33,7 +33,7 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            Código
+                                            Códigos
                                         </th>
                                         <th>
                                             Nombre  Completo

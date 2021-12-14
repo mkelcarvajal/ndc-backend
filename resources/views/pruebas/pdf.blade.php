@@ -71,7 +71,7 @@
             </td>
             <td align="right" style="width: 35%;">
 
-                <h3>NDC PERSSO GROUPs</h3>
+                <h3>NDC PERSSO GROUP</h3>
                 <pre>
                     https://ndc.cl
                     Baquedano 239, <br>Oficina 203, Antofagasta
