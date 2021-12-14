@@ -60,8 +60,6 @@ class pruebasController extends Controller
             ->get();
     
         }
-
-        
         
         //datos BD topicos
             $topicos = DB::table('topicos')->where('id_encuesta',$request->input('encuesta'))->get();
@@ -2236,7 +2234,8 @@ class pruebasController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
 
         $cont=2;
-
+        $cont_letra=2;
+        $letra_respuestas='E';
         foreach($data as $d){
 
             $sheet->setCellValue('A'.$cont,$d->nombre_r.' '.$d->apellido_r);
@@ -2245,48 +2244,21 @@ class pruebasController extends Controller
             $sheet->setCellValue('D'.$cont,$d->fecha_r);
 
             $respuesta = json_decode($d->detalle_r,true);    
-            $res = $respuesta['usuariosStructs']['0']['respuestasStructs'];
+            $cont_arr=0;
+            
+            if (is_array($respuesta) || is_object($respuesta)){
+                foreach ($respuesta as $re){
 
-            $respuestas = array();
+                   $sheet->setCellValue($letra_respuestas.$cont_letra,$re[0]['respuestasStructs'][$cont_arr]['respuesta'][0]);
+                   $cont_arr++;
+                   $cont_letra++;
 
-            $cont_respuestas=1;
-            $letra_respuestas='E';
-            $cont_texto=1;
-            $i=0;
-            if (is_array($res) || is_object($res)){
-                foreach ($res as $r){
-                        
-                    
-             
-                    $sheet->setCellValue($letra_respuestas.$cont_respuestas,'Respuesta'.$cont_texto)->mergeCells($letra_respuestas.$cont_respuestas.':'.$letra_respuestas++.$cont_respuestas);
-
-                    $sheet->setCellValue($letra_respuestas.$cont,$r['respuesta']);
-                    $sheet->setCellValue($letra_respuestas++.$cont,$r['respuesta'][0]);
-
-
-                    $letra_respuestas++;
-
-                $cont_texto++;
                 }
-
-            
-                
-                $cont_respuestas++;
-
-
-            }       
-
-
-            
-
-
-        $cont++;
+            }
+            $letra_respuestas++;    
+            $cont++;
+            $cont_arr++;
         }
-
-
-
-    
-
         $sheet->setCellValue('A1','Nombre Completo');
         $sheet->setCellValue('B1','RUT');
         $sheet->setCellValue('C1','Tipo de Usuario');
@@ -2306,6 +2278,7 @@ class pruebasController extends Controller
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="BD_Socia.xlsx"');
         $writer->save('php://output');
+        die;
 
     }
 
