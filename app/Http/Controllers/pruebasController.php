@@ -1162,7 +1162,7 @@ class pruebasController extends Controller
            else if($request->cargo=='em-c'){
                $cargo_usuario="Electromecánico C";
            }
-           else{
+           else if($request->cargo=='supervisor'){
                $cargo_usuario="Supervisor";
            }
 
@@ -2237,7 +2237,7 @@ class pruebasController extends Controller
 
         foreach($data as $d){
             $letra_respuestas='E';
-            
+
             $sheet->setCellValue('A'.$cont,$d->nombre_r.' '.$d->apellido_r);
             $sheet->setCellValue('B'.$cont,$d->rut_r);
             $sheet->setCellValue('C'.$cont,$d->tipo);
