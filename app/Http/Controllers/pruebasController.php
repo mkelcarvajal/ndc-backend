@@ -2224,10 +2224,10 @@ class pruebasController extends Controller
     public function SosiaExcel(request $request){
 
         $data = DB::table('resultados as r')
-        ->selectRaw('r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,e.nombre as nombre_e, r.fecha as fecha_r,r.tipo_usuario as tipo,r.detalle as detalle_r, e.detalle as detalle_e, r.id_encuesta as id_en, r.codigo_usuario as cod_usu')
+        ->selectRaw('r.id_resultado as id,r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,e.nombre as nombre_e, r.fecha as fecha_r,r.tipo_usuario as tipo,r.detalle as detalle_r, e.detalle as detalle_e, r.id_encuesta as id_en, r.codigo_usuario as cod_usu')
         ->where('r.id_encuesta','4')
         ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
-        ->orderby('r.fecha','DESC')
+        ->orderby('r.fecha','ASC')
         ->get();
 
 
@@ -2240,12 +2240,13 @@ class pruebasController extends Controller
 
             $respuesta = json_decode($d->detalle_r,true);    
 
-            $sheet->setCellValue('A'.$cont,$d->nombre_r.' '.$d->apellido_r);
-            $sheet->setCellValue('B'.$cont,$d->rut_r);
-            $sheet->setCellValue('C'.$cont,$d->tipo);
-            $sheet->setCellValue('D'.$cont,$d->fecha_r);
+            $sheet->setCellValue('A'.$cont,$d->id);
+            $sheet->setCellValue('B'.$cont,$d->nombre_r.' '.$d->apellido_r);
+            $sheet->setCellValue('C'.$cont,$d->rut_r);
+            $sheet->setCellValue('D'.$cont,$d->tipo);
+            $sheet->setCellValue('E'.$cont,date("d-m-Y H:i:s",strtotime($d->fecha_r)));
 
-            $letra_respuestas='E';
+            $letra_respuestas='F';
 
             
             $res = $respuesta['usuariosStructs'][0]['respuestasStructs'];
@@ -2262,16 +2263,17 @@ class pruebasController extends Controller
     
             $cont++;
         }
-        $sheet->setCellValue('A1','Nombre Completo');
-        $sheet->setCellValue('B1','RUT');
-        $sheet->setCellValue('C1','Tipo de Usuario');
-        $sheet->setCellValue('D1','Fecha');
+        $sheet->setCellValue('A1','N°');
+        $sheet->setCellValue('B1','Nombre Completo');
+        $sheet->setCellValue('C1','RUT');
+        $sheet->setCellValue('D1','Tipo de Usuario');
+        $sheet->setCellValue('E1','Fecha');
 
-        foreach(range('A','GQ') as $columnID) {
+        foreach(range('A','E') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
 
-        $sheet->getStyle('A1:D1')
+        $sheet->getStyle('A1:E1')
             ->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()
