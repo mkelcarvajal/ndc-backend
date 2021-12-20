@@ -99,11 +99,18 @@
                                     </a>
                                 </li> --}}
                                 <li>
-
                                     <a href="indexReportes">
-                                        <i data-feather="home"></i>
+                                        <i data-feather="file-text"></i>
                                         <span class="badge badge-success float-right">1</span>
                                          <span> Reportes </span>
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="SosiaExcel">
+                                        <i data-feather="download"></i>
+                                        <span class="badge badge-success float-right">1</span>
+                                         <span> BD - Prueba Sosia </span>
 
                                     </a>
                                 </li>
@@ -112,8 +119,6 @@
                     </nav>
                 </div>
             </div>
-
-
             <div class="content-page">
                 <div class="content">
                 <div class="container-fluid">

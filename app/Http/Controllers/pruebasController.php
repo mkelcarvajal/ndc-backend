@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Session;
 use PDF;
+use Illuminate\Support\Collection;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -2234,26 +2235,31 @@ class pruebasController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
 
         $cont=2;
-
+        $titulo=1;
         foreach($data as $d){
-            $letra_respuestas='E';
+
+            $respuesta = json_decode($d->detalle_r,true);    
 
             $sheet->setCellValue('A'.$cont,$d->nombre_r.' '.$d->apellido_r);
             $sheet->setCellValue('B'.$cont,$d->rut_r);
             $sheet->setCellValue('C'.$cont,$d->tipo);
             $sheet->setCellValue('D'.$cont,$d->fecha_r);
 
-            $letra_re=$letra_respuestas++;
+            $letra_respuestas='E';
 
-            $respuesta = json_decode($d->detalle_r,true);    
-                    
-            if (is_array($respuesta) || is_object($respuesta)){
-                foreach($respuesta['usuariosStructs'][0]['respuestasStructs'] as $key=> $arr){
+            
+            $res = $respuesta['usuariosStructs'][0]['respuestasStructs'];
 
-                    $sheet->setCellValue($letra_respuestas++.$cont, $respuesta['usuariosStructs'][0]['respuestasStructs'][0]['respuesta'][0]);
-                    
-                }
+            if (is_array($res) || is_object($res)){
+                foreach ($res as $r){
+                    if (is_array($r) || is_object($r)){
+                    foreach($r['respuesta'] as $r2){
+                        $sheet->setCellValue($letra_respuestas++.$cont,substr($r2, -1) );
+                    }            
+                }       
+             }
             }
+    
             $cont++;
         }
         $sheet->setCellValue('A1','Nombre Completo');
@@ -2275,8 +2281,8 @@ class pruebasController extends Controller
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="BD_Socia.xlsx"');
         $writer->save('php://output');
+        
         die;
-
     }
 
 

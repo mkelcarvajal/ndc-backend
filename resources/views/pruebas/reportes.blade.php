@@ -152,8 +152,6 @@
                         "<button type='button'  class='btn btn-danger' onclick='cargarResultados("+data[index]['id_resultado']+","+data[index]['id_resultado']+")'>Descargar PDF</button>"
                 ]).draw();
                 }
-
-        
               });
         },
         error: function(data) {
