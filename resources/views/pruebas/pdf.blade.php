@@ -281,7 +281,6 @@ $cont2=1;
             <th style="background-color: #d0e1f3">Rendimiento</th>
         </tr>
         <tr>
-
           <!--  <td align="center"  style="background-color:#F4F5F5">
                @foreach($topicos as $t) 
                <div style= "border:1px solid white ">

@@ -1977,10 +1977,8 @@ class pruebasController extends Controller
                 $porc_t2=($topico2/$total_top_2)*100;
                 $porc_t3=($topico3/$total_top_3)*100;
 
- 
-                array_push($rend_top,$porc_t1);
-                array_push($rend_top,$porc_t2);
-                array_push($rend_top,$porc_t3);
+                array_push($rend_top,$porc_a,$porc_b,$porc_c);
+
  
 
                 $total_preguntas=count($correctas);
@@ -2031,8 +2029,6 @@ class pruebasController extends Controller
                     $categoria_c += $correctas[$cont] == $respondidas[$cont];
                 }
 
-
-
                 $porc_a=($categoria_a/$a)*100;
                 $porc_b=($categoria_b/$b)*100;
                 $porc_c=($categoria_c/$c)*100;
@@ -2042,16 +2038,14 @@ class pruebasController extends Controller
                 $incorrectas = $total_preguntas - $total;
                 
                 $rendimiento=($porc_a+$porc_b+$porc_c)/3;
-            
-                $porc_t1=($topico1/$total_top_1)*100;
-                $porc_t2=($topico2/$total_top_2)*100;
-                $porc_t3=($topico3/$total_top_3)*100;
+      
    
-                array_push($rend_top,$porc_t1);
-                array_push($rend_top,$porc_t2);
-                array_push($rend_top,$porc_t3);
+                array_push($rend_top,$porc_a,$porc_b,$porc_c);
+         
 
-                $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','categoria_a','categoria_b','categoria_c','porc_a','porc_b','porc_c','rendimiento','a','b','c','rend_top','topicos','cargo','cargo_usuario'));
+                
+
+                $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','porc_t1','porc_t2','porc_t3','total','total_preguntas','incorrectas','categoria_a','categoria_b','categoria_c','porc_a','porc_b','porc_c','rendimiento','a','b','c','rend_top','topicos','cargo','cargo_usuario'));
 
 
             }
