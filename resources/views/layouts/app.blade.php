@@ -163,7 +163,7 @@
                 Swal.fire({
                 title: 'Espere mientras carga el archivo',
                 html: 'Descargando BD Sosia en <b></b> Segundos.',
-                timer: 10000,
+                timer: 13000,
                 icon: 'info',
                 timerProgressBar: true,
                 allowOutsideClick: false,
