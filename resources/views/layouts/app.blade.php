@@ -103,7 +103,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="SosiaExcel">
+                                    <a onclick="sosia();" >
                                         <i data-feather="download"></i>
                                         <span class="badge badge-success float-right">1</span>
                                          <span> BD - Prueba Sosia </span>
@@ -155,6 +155,35 @@
         <script src="assets/js/app.min.js"></script>
         <script src="js/select2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+        function sosia(){
+                let timerInterval
+                Swal.fire({
+                title: 'Espere mientras carga el archivo',
+                html: 'Descargando BD Sosia en <b></b> Segundos.',
+                timer: 8500,
+                icon: 'info',
+                timerProgressBar: true,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    window.location.href = "SosiaExcel";
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                    b.textContent = Swal.getTimerLeft()
+                    }, 100)
+                },
+                }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log('I was closed by the timer')
+                }
+                })       
+        }
+   
+        </script>
 
     @yield('script')
     </body>
