@@ -138,7 +138,7 @@
                         data[index]['tipo_usuario'],
                         moment(data[index]['fecha']).format('DD/MM/YYYY HH:mm'),
                         "<select name='cars' id='"+data[index]['rut']+"'><option value='supervisor'>Supervisor</option> <option value='em-a'>Electromecanico A</option><option value='em-b'>Electromecanico B</option><option value='otro'>Otro</option></select>",
-                        "<button type='button'  class='btn btn-danger' onclick='cargarResultados("+data[index]['id_resultado']+","+data[index]['id_resultado']+")'>Descargar PDF</button>"
+                        "<button type='button'  class='btn btn-danger' onclick='cargarResultados("+data[index]['id_resultado']+","+data[index]['id_resultado']+",`"+data[index]['email']+"`)'>Descargar PDF</button>"
                 ]).draw();
                 }
                 else{
@@ -149,7 +149,7 @@
                         data[index]['tipo_usuario'],
                         moment(data[index]['fecha']).format('DD/MM/YYYY HH:mm'),
                         "<select name='cars' id='"+data[index]['id_resultado']+"'><option value='supervisor'>Supervisor</option> <option value='em-a'>Electromecanico A</option><option value='em-b'>Electromecanico B</option><option value='em-c'>Electromecanico C</option><option value='otro'>Otro</option></select>",
-                        "<button type='button'  class='btn btn-danger' onclick='cargarResultados("+data[index]['id_resultado']+","+data[index]['id_resultado']+")'>Descargar PDF</button>"
+                        "<button type='button'  class='btn btn-danger' onclick='cargarResultados("+data[index]['id_resultado']+","+data[index]['id_resultado']+",`"+data[index]['email']+"`)'>Descargar PDF</button>"
                 ]).draw();
                 }
               });
@@ -160,7 +160,8 @@
     });
     }
 
-    function cargarResultados(id,rut_cargo){
+    function cargarResultados(id,rut_cargo,email){
+                  
                  let carga = document.getElementById("overlay");
                     $.ajax({
                             url: "registroPdf",
@@ -171,6 +172,7 @@
                             data: {
                                 'id': id,
                                 'cargo': $("#"+rut_cargo).val(),
+                                'email':email,
                             },
                             beforeSend: function() {
                                 carga.style.display = 'block';
@@ -179,7 +181,7 @@
                             success: function(data) {
                                 carga.style.display = 'none';
                                 window.open('reportes/'+data+'.pdf');
-                            // window.location.reload()
+                                window.location.reload()
                             },
                             error: function(data) {
                                 carga.style.display = 'none';
