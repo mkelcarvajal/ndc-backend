@@ -16,7 +16,7 @@ class pruebasController extends Controller
 {
     public function indexReportes(){
 
-        $encuestas = DB::table('encuestas')->whereIn('id_encuesta',array('15','16','17','18','29','19','21','22'))->get();
+        $encuestas = DB::table('encuestas')->whereIn('id_encuesta',array('04','15','16','17','18','19','21','22','29'))->get();
         
         return view('pruebas.reportes',compact('encuestas'));
     }
@@ -51,6 +51,7 @@ class pruebasController extends Controller
             ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
             ->orderby('r.fecha','DESC')
             ->get();
+
         }
         else{
             $data = DB::table('resultados as r')
@@ -1282,8 +1283,6 @@ class pruebasController extends Controller
                  }
                  
             }
-         
-
                     if($data->id_en == 17){ 
                         if($request->input('email')=='especial'){
                 
@@ -2406,6 +2405,210 @@ class pruebasController extends Controller
         
     }
 
+
+    public function SosiaPdf(request $request){
+
+        $data = DB::table('resultados as r')
+        ->selectRaw('r.detalle')
+        ->where('r.id_encuesta','4')
+        ->where('r.id_resultado',83)
+        ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
+        ->orderby('r.fecha','ASC')
+        ->first();
+
+        $asc = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','ASC')
+        ->get();
+
+        $res = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','RES')
+        ->get();
+
+        $est = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','EST')
+        ->get();
+
+        $soc = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','SOC')
+        ->get();
+
+        $cau = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','CAU')
+        ->get();
+
+        $ori = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','ORI')
+        ->get();
+        
+        $com = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','COM')
+        ->get();
+
+        $vit = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','VIT')
+        ->get();
+
+
+
+        $respuesta = json_decode($data->detalle,true);    
+        $resp = $respuesta['usuariosStructs'][0]['respuestasStructs'];
+        $mas = array();
+        $menos = array();
+ 
+        //ASC
+        $ASC=0;
+        foreach($resp as $r){
+            array_push($mas,$r['respuesta'][0]);
+            array_push($menos,$r['respuesta'][1]);
+        }    
+        foreach($asc as $key=>$a){
+            if(similar_text($a->mas,$mas[$key][2])>0){
+                $ASC++;
+            }
+            if(similar_text($a->menos,$menos[$key][2])>0){
+                $ASC++;
+            }
+        }
+
+        //RES
+        $mas_res=array();
+        $menos_res=array();
+        $RES=0;
+        foreach($resp as $r){
+            array_push($mas_res,$r['respuesta'][0]);
+            array_push($menos_res,$r['respuesta'][1]);
+        }    
+        foreach($res as $key=>$re){
+            if(similar_text($re->mas,$mas_res[$key][2])>0){
+                $RES++;
+            }
+            if(similar_text($re->menos,$menos_res[$key][2])>0){
+                $RES++;
+            }
+        }
+
+        //EST
+        $mas_est=array();
+        $menos_est=array();
+        $EST=0;
+        foreach($resp as $r){
+            array_push($mas_est,$r['respuesta'][0]);
+            array_push($menos_est,$r['respuesta'][1]);
+        }    
+        foreach($est as $key=>$e){
+            if(similar_text($e->mas,$mas_est[$key][2])>0){
+                $EST++;
+            }
+            if(similar_text($e->menos,$menos_est[$key][2])>0){
+                $EST++;
+            }
+        }
+
+          //SOC
+          $mas_soc=array();
+          $menos_soc=array();
+          $SOC=0;
+          foreach($resp as $r){
+              array_push($mas_soc,$r['respuesta'][0]);
+              array_push($menos_soc,$r['respuesta'][1]);
+          }    
+          foreach($soc as $key=>$s){
+              if(similar_text($s->mas,$mas_soc[$key][2])>0){
+                  $SOC++;
+              }
+              if(similar_text($s->menos,$menos_soc[$key][2])>0){
+                  $SOC++;
+              }
+          }
+    
+            //CAU
+            $mas_cau=array();
+            $menos_cau=array();
+            $CAU=0;
+            foreach($resp as $key=>$r){
+                if($key>=18){
+                    array_push($mas_cau,$r['respuesta'][0]);
+                    array_push($menos_cau,$r['respuesta'][1]);
+                }
+            }    
+            foreach($cau as $key=>$c){
+                if(similar_text($c->mas,$mas_cau[$key][2])>0){
+                    $CAU++;
+                }
+                if(similar_text($c->menos,$menos_cau[$key][2])>0){
+                    $CAU++;
+                }
+            }
+
+            //ORI
+            $mas_ori=array();
+            $menos_ori=array();
+            $ORI=0;
+            foreach($resp as $key=>$r){
+                if($key>=18){
+                    array_push($mas_ori,$r['respuesta'][0]);
+                    array_push($menos_ori,$r['respuesta'][1]);
+                }
+            }    
+            foreach($ori as $key=>$o){
+                if(similar_text($o->mas,$mas_ori[$key][2])>0){
+                    $ORI++;
+                }
+                if(similar_text($o->menos,$menos_ori[$key][2])>0){
+                    $ORI++;
+                }
+            }
+
+            //COM
+            $mas_com=array();
+            $menos_com=array();
+            $COM=0;
+            foreach($resp as $key=>$r){
+                if($key>=18){
+                    array_push($mas_com,$r['respuesta'][0]);
+                    array_push($menos_com,$r['respuesta'][1]);
+                }
+            }    
+            foreach($com as $key=>$co){
+                if(similar_text($co->mas,$mas_com[$key][2])>0){
+                    $COM++;
+                }
+                if(similar_text($co->menos,$menos_com[$key][2])>0){
+                    $COM++;
+                }
+            }
+
+             //VIT
+             $mas_vit=array();
+             $menos_vit=array();
+             $VIT=0;
+             foreach($resp as $key=>$r){
+                 if($key>=18){
+                     array_push($mas_vit,$r['respuesta'][0]);
+                     array_push($menos_vit,$r['respuesta'][1]);
+                 }
+             }    
+             foreach($vit as $key=>$v){
+                 if(similar_text($v->mas,$mas_vit[$key][2])>0){
+                     $VIT++;
+                 }
+                 if(similar_text($v->menos,$menos_vit[$key][2])>0){
+                     $VIT++;
+                 }
+             }
+
+            return $VIT;
+    }
+
+
     public function SosiaExcel(request $request){
 
         $data = DB::table('resultados as r')
@@ -2414,7 +2617,6 @@ class pruebasController extends Controller
         ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
         ->orderby('r.fecha','ASC')
         ->get();
-
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
