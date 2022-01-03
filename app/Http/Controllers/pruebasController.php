@@ -2456,7 +2456,30 @@ class pruebasController extends Controller
         ->where('correccion','VIT')
         ->get();
 
+        $Sv = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','S')
+        ->get();
 
+        $Cv = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','C')
+        ->get();
+
+        $Rv = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','R')
+        ->get();
+
+        $Iv = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','I')
+        ->get();
+
+        $Bv = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','B')
+        ->get();
 
         $respuesta = json_decode($data->detalle,true);    
         $resp = $respuesta['usuariosStructs'][0]['respuestasStructs'];
@@ -2605,7 +2628,102 @@ class pruebasController extends Controller
                  }
              }
 
-            return $VIT;
+            //S
+            $mas_s=array();
+            $menos_s=array();
+            $S=0;
+            foreach($resp as $key=>$r){
+                if(in_array($key,[38,41,42,46,47,48,49,51,53,55,57,59,60,62,66])){
+                    array_push($mas_s,$r['respuesta'][0]);
+                    array_push($menos_s,$r['respuesta'][1]);
+                }
+            }    
+            foreach($Sv as $key=>$si){
+                if(similar_text($si->mas,$mas_s[$key][2])>0){
+                    $S++;
+                }
+                if(similar_text($si->menos,$menos_s[$key][2])>0){
+                    $S++;
+                }
+            }
+
+            //C
+            $mas_c=array();
+            $menos_c=array();
+            $C=0;
+            foreach($resp as $key=>$r){
+                if(in_array($key,[39,40,42,44,46,48,49,53,55,56,58,59,64,66,67])){
+                    array_push($mas_c,$r['respuesta'][0]);
+                    array_push($menos_c,$r['respuesta'][1]);
+                }
+            }    
+            foreach($Cv as $key=>$ci){
+                if(similar_text($ci->mas,$mas_c[$key][2])>0){
+                    $C++;
+                }
+                if(similar_text($ci->menos,$menos_c[$key][2])>0){
+                    $C++;
+                }
+            }
+
+            //R
+            $mas_r=array();
+            $menos_r=array();
+            $R=0;
+            foreach($resp as $key=>$r){
+                if(in_array($key,[39,41,44,45,47,50,52,54,61,63,64,65,67])){
+                    array_push($mas_r,$r['respuesta'][0]);
+                    array_push($menos_r,$r['respuesta'][1]);
+                }
+            }    
+            foreach($Rv as $key=>$ri){
+                if(similar_text($ri->mas,$mas_r[$key][2])>0){
+                    $R++;
+                }
+                if(similar_text($ri->menos,$menos_r[$key][2])>0){
+                    $R++;
+                }
+            }
+
+            //I
+            $mas_i=array();
+            $menos_i=array();
+            $I=0;
+            foreach($resp as $key=>$r){
+                if(in_array($key,[38,39,41,43,45,49,50,52,54,56,58,60,62,63,65,67])){
+                    array_push($mas_i,$r['respuesta'][0]);
+                    array_push($menos_i,$r['respuesta'][1]);
+                }
+            }    
+            foreach($Iv as $key=>$ii){
+                if(similar_text($ii->mas,$mas_i[$key][2])>0){
+                    $I++;
+                }
+                if(similar_text($ii->menos,$menos_i[$key][2])>0){
+                    $I++;
+                }
+            }
+
+            //B
+            $mas_b=array();
+            $menos_b=array();
+            $B=0;
+            foreach($resp as $key=>$r){
+                if(in_array($key,[38,40,43,45,47,51,52,54,55,57,58,61,62,64,66])){
+                    array_push($mas_b,$r['respuesta'][0]);
+                    array_push($menos_b,$r['respuesta'][1]);
+                }
+            }    
+            foreach($Bv as $key=>$bi){
+                if(similar_text($bi->mas,$mas_b[$key][2])>0){
+                    $B++;
+                }
+                if(similar_text($bi->menos,$menos_b[$key][2])>0){
+                    $B++;
+                }
+            }
+
+            return $B;
     }
 
 
