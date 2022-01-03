@@ -20,9 +20,44 @@ const crearCursoRepository = async (req, res) => {
 
     try {
 
-        await pool.query('INSERT INTO cursos_manual (nombre_curso, duracion, codigo_sence, lugarexamen, fecha_inicio, hora_inicio, fecha_fin, hora_fin, facilitador, organismo_ejecutador, oc_numero, empresa, rut_empresa) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)', [nombre_curso, duracion, codigo_sence, lugarExamen, new Date(fecha_inicio), hora_inicio, new Date(fecha_fin), hora_fin, facilitador, organismo_ejecutador, oc_numero, empresa, rut_empresa]);
+        await pool.query('INSERT INTO cursos_manual (nombre_curso, duracion, codigo_sence, lugarexamen, fecha_inicio, hora_inicio, fecha_fin, hora_fin, facilitador, organismo_ejecutador, oc_numero, empresa, rut_empresa) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)', [nombre_curso, duracion, codigo_sence, lugarExamen, fecha_inicio, hora_inicio, fecha_fin, hora_fin, facilitador, organismo_ejecutador, oc_numero, empresa, rut_empresa]);
         return {
             message: 'Curso agregado',
+            body: {
+                curso: { nombre_curso, duracion, codigo_sence, lugarExamen, fecha_inicio, hora_inicio, fecha_fin, hora_fin, facilitador, organismo_ejecutador, oc_numero, empresa, rut_empresa }
+            }
+        }
+    } catch (error) {
+        return {
+            message: 'Error al crear el curso',
+            body: {
+                error: error
+            }
+        }
+    }
+}
+
+const updateCursoRepository = async (id, data) => {
+    const {
+        nombre_curso,
+        duracion,
+        codigo_sence,
+        lugarExamen,
+        fecha_inicio,
+        hora_inicio,
+        fecha_fin,
+        hora_fin,
+        facilitador,
+        organismo_ejecutador,
+        oc_numero,
+        empresa,
+        rut_empresa
+    } = data;
+    try {
+
+        await pool.query('UPDATE cursos_manual SET nombre_curso = $1, duracion = $2, codigo_sence = $3, lugarExamen = $4, fecha_inicio = $5, hora_inicio = $6, fecha_fin = $7, hora_fin = $8, facilitador = $9, organismo_ejecutador = $10, oc_numero = $11, empresa = $12, rut_empresa = $13 WHERE id = $14', [nombre_curso, duracion, codigo_sence, lugarExamen, fecha_inicio, hora_inicio, fecha_fin, hora_fin, facilitador, organismo_ejecutador, oc_numero, empresa, rut_empresa, id]);
+        return {
+            message: 'Curso actualizado',
             body: {
                 curso: { nombre_curso, duracion, codigo_sence, lugarExamen, fecha_inicio, hora_inicio, fecha_fin, hora_fin, facilitador, organismo_ejecutador, oc_numero, empresa, rut_empresa }
             }
@@ -173,6 +208,18 @@ const patchCalificacionByIdRepository = async (id_user, id_cursomanual, data) =>
     }
 };
 
+const deleteRepository = async (id_user, id_cursomanual) => {
+    try {
+        await pool.query('delete from cursomanual_x_user WHERE id_user = $1 AND id_cursomanual = $2', [id_user, id_cursomanual]);
+        return {
+            message: 'Curso eliminado con exito',
+            curso: true
+        }
+    } catch (error) {
+        return 0;
+    }
+};
+
 module.exports = {
     crearCursoRepository,
     getCursosRepository,
@@ -184,5 +231,7 @@ module.exports = {
     patchCursoByIdRepository,
     getCursoByClaveRepository,
     getCursoByIdRepository2,
-    patchCalificacionByIdRepository
+    patchCalificacionByIdRepository,
+    updateCursoRepository,
+    deleteRepository
 };

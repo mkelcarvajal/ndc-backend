@@ -1,6 +1,6 @@
 const {request, response} = require('express');
 const {encryptPassword} = require('../helpers/utils');
-const { getCursosRepository, crearCursoRepository, getCursoByIdRepository, asignarAlumnoRepository, getAsignadoByIdRepository, getCursosExternosRepository, crearCursoExternosRepository, patchCursoByIdRepository, getCursoByClaveRepository, patchCalificacionByIdRepository } = require('../repository/curso.repository');
+const { getCursosRepository, crearCursoRepository, getCursoByIdRepository, asignarAlumnoRepository, getAsignadoByIdRepository, getCursosExternosRepository, crearCursoExternosRepository, patchCursoByIdRepository, getCursoByClaveRepository, patchCalificacionByIdRepository, updateCursoRepository, deleteRepository } = require('../repository/curso.repository');
 const { getUserBySerialRepository } = require('../repository/user.repository');
 const PDFDocument = require("pdfkit-table");
 const moment = require('moment');
@@ -276,6 +276,14 @@ const getCursoByClave = async (req = request, res = response) => {
     }
 }
 
+const patchCursoManualById = async (req = request, res = response) => {
+    const id = req.params.id;
+    const curso = await updateCursoRepository(id, req.body);
+    res.json({
+        curso
+    });
+}
+
 
 const patchCursoById = async (req = request, res = response) => {
     const id = req.params.id;
@@ -294,6 +302,15 @@ const patchCalificacionById = async (req = request, res = response) => {
     });
 }
 
+const deleteUser = async (req = request, res = response) => {
+    const id_user = req.params.id_user;
+    const id_curso = req.params.id_curso;
+    const curso = await deleteRepository(id_user, id_curso);
+    res.json({
+        curso
+    });
+}
+
 module.exports = {
     getCursos,
     createCurso,
@@ -306,5 +323,7 @@ module.exports = {
     createCursoExternos,
     patchCursoById,
     getCursoByClave,
-    patchCalificacionById
+    patchCalificacionById,
+    patchCursoManualById,
+    deleteUser
 }
