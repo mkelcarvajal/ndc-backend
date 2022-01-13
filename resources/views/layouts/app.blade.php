@@ -2,22 +2,22 @@
 <html lang="en">
 
 <head>
-    <title>Sistema de gestión de socios </title>
+    <title>Entrega de turno Clínico </title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        
         <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
-        <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-        <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
-        <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
-        <link rel="stylesheet" type="text/css" href="assets/icon/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/morris.js/css/morris.css">
-  </head>
+        <link href="{{ URL::to('css/css.css') }}" rel="stylesheet">
+        <link href="{{ URL::to('assets/pages/waves/css/waves.min.css') }}" rel="stylesheet">
+        <link href="{{ URL::to('assets/fontawesome/css/all.css') }}" rel="stylesheet">
+        <link href="{{ URL::to('assets/css/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ URL::to('assets/icon/themify-icons/themify-icons.css') }}" rel="stylesheet">
+        <link href="{{ URL::to('assets/css/style.css') }}" rel="stylesheet">
+        <link href="{{ URL::to('css/select2.css') }}" rel="stylesheet">
+
+</head>
   <body>
   <div class="theme-loader">
       <div class="loader-track">
@@ -76,15 +76,15 @@
   <div id="pcoded" class="pcoded">
       <div class="pcoded-overlay-box"></div>
       <div class="pcoded-container navbar-wrapper">
-          <nav class="navbar header-navbar pcoded-header">
+          <nav class="navbar header-navbar pcoded-header" style="background-color: #007A74">
               <div class="navbar-wrapper">
                   <div class="navbar-logo ml-3" >
                       <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
                           <i class="ti-menu"></i>
                       </a>
-                      <a href="home" style="font-size: 25px">
-                        <i class="fa fa-soccer-ball-o"></i>  
-                          Sociges
+                      <a href="home" >
+                        <img src="{{ URL::to('img/hcc.png')}}" width="60px;"  class="mb-1"><br>
+                         <b>Entrega de Turno Clínico</b> 
                       </a>
                   </div>
                 
@@ -94,21 +94,16 @@
                               <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
                           </li>
                   
-                          <li>
-                              <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
-                                  <i class="ti-fullscreen"></i>
-                              </a>
-                          </li>
                       </ul>
                       <ul class="nav-right">
                           <li class="user-profile header-notification">
                               <a href="#!" class="waves-effect waves-light">
-                                  <span>John Doe</span>
+                                  <span>{{session('nombre')}}</span>
                                   <i class="ti-angle-down"></i>
                               </a>
                               <ul class="show-notification profile-notification">
                                   <li class="waves-effect waves-light">
-                                      <a href="auth-normal-sign-in.html">
+                                      <a href="Salir">
                                           <i class="ti-layout-sidebar-left"></i> Logout
                                       </a>
                                   </li>
@@ -123,51 +118,33 @@
                   <nav class="pcoded-navbar">
                       <div class="sidebar_toggle"><a href="home"><i class="icon-close icons"></i></a></div>
                       <div class="pcoded-inner-navbar main-menu">
-                          <div class="pcoded-navigation-label" data-i18n="nav.category.navigation">Menú</div>
+                          <div class="pcoded-navigation-label" data-i18n="nav.category.navigation" style="color: #00628F">Menú</div>
                           <ul class="pcoded-item pcoded-left-item">
                             <li class="{{ ! Route::is('home') ?: 'active' }}">
-                                <a href="home" class="waves-effect waves-dark">
-                                      <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                <a href="home" class="waves-effect waves-dark"  >
+                                      <span  class="pcoded-micon"><i class="ti-home"></i></span>
                                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Inicio</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                               </li>
-                          </ul>
-                          <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Socios</div>
-                          <ul class="pcoded-item pcoded-left-item">
-                              <li class="{{ ! Route::is('addSocio') ?: 'active' }}">
-                                  <a href="addSocio" class="waves-effect waves-dark">
-                                      <span class="pcoded-micon"><i class="fa fa-user-plus"></i></span>
-                                      <span class="pcoded-mtext" data-i18n="nav.form-components.main">Agregar Socio</span>
+                              <li class="{{ ! Route::is('indexMedico') ?: 'active' }}">
+                                <a href="indexMedico" class="waves-effect waves-dark" >
+                                      <span class="pcoded-micon"><i class="fas fa-procedures"></i></span>
+                                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Turno Médico</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                               </li>
-                              <li class="{{ ! Route::is('listaSocio') ?: 'active' }}">
-                                <a href="listaSocio" class="waves-effect waves-dark">
-                                    <span class="pcoded-micon"><i class="fa fa-file-text-o"></i></span>
-                                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Lista Socios</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
+                              <li class="{{ ! Route::is('reportes') ?: 'active' }}">
+                                <a href="reportes" class="waves-effect waves-dark" >
+                                      <span class="pcoded-micon"><i class="fas fa-file-alt"></i></span>
+                                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Reportes</span>
+                                      <span class="pcoded-mcaret"></span>
+                                  </a>
+                              </li>
                           </ul>
-                          <div class="pcoded-navigation-label" data-i18n="nav.category.forms">Balance</div>
-                          <ul class="pcoded-item pcoded-left-item">
-                            <li class="{{ ! Route::is('addBalance') ?: 'active' }}">
-                                <a href="addBalance" class="waves-effect waves-dark">
-                                    <span class="pcoded-micon"><i class="fa fa-plus-square"></i></span>
-                                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Ingresar Movimiento</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                            <li class="{{ ! Route::is('index_balance') ?: 'active' }}">
-                                <a href="index_balance" class="waves-effect waves-dark">
-                                    <span class="pcoded-micon"><i class="fa fa-money"></i></span>
-                                    <span class="pcoded-mtext" data-i18n="nav.form-components.main">Balance General</span>
-                                    <span class="pcoded-mcaret"></span>
-                                </a>
-                            </li>
-                        </ul>
+                
                       </div>
+               
                   </nav>
                   <div class="pcoded-content">
                       <div class="page-header">
@@ -182,7 +159,7 @@
                                           <li class="breadcrumb-item">
                                               <a href="/"> <i class="fa fa-home"></i> </a>
                                           </li>
-                                          <li class="breadcrumb-item"><a href="#!">Inicio</a>
+                                          <li class="breadcrumb-item" style="color: white"><a href="home" style="color: white">Inicio</a>
                                           </li>
                                       </ul>
                                   </div>
@@ -196,21 +173,15 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
-    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js "></script>
-    <script type="text/javascript" src="assets/pages/widget/excanvas.js "></script>
-    <script type="text/javascript" src="assets/js/morris.js/morris.js "></script>
-    <script type="text/javascript" src="assets/js/raphael/raphael.min.js "></script>
 
-
-    <!-- waves js -->
-    <script src="assets/pages/waves/js/waves.min.js"></script>
-    <script src="assets/js/pcoded.min.js"></script>
-    <script src="assets/js/vertical-layout.min.js "></script>
-    <script type="text/javascript" src="assets/js/script.js "></script>
-    <script type="text/javascript" src="js/sweetalert2@11.js "></script>
+    <script type="text/javascript" src="{{ URL::to('assets/js/jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::to('assets/js/popper.js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::to('assets/js/bootstrap/js/bootstrap.min.js ') }}"></script>
+    <script type="text/javascript" src="{{ URL::to('assets/pages/waves/js/waves.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::to('assets/js/pcoded.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::to('assets/js/vertical-layout.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::to('assets/js/script.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::to('js/select2.min.js') }}"></script>
 
 @yield("script")
  

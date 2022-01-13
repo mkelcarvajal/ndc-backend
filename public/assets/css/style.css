@@ -201,7 +201,7 @@ b, strong {
       position: relative; }
       .card .card-header h5:after {
         content: "";
-        background-color: #448aff;
+        background-color: #00CCC2;
         position: absolute;
         left: -20px;
         top: 0;
@@ -7892,7 +7892,7 @@ body[themebg-pattern="theme6"] {
   .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item li:hover > a:before {
     border-left-color: transparent; }
 .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item > li.active > a {
-  background: #448aff;
+  background: #00a29b ;
   color: #fff !important; }
   .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item > li.active > a .pcoded-micon {
     color: #fff !important; }
@@ -8443,7 +8443,7 @@ body[themebg-pattern="theme6"] {
   .pcoded .pcoded-header[header-theme="theme6"] a {
     color: #fff; }
 .pcoded[fream-type="theme1"] .page-header:before, .pcoded[fream-type="theme1"] .main-menu .main-menu-header:before {
-  background: rgba(68, 138, 255, 0.5); }
+  background: rgba(0, 245, 233, 0.5); }
 .pcoded[fream-type="theme2"] .page-header:before, .pcoded[fream-type="theme2"] .main-menu .main-menu-header:before {
   background: rgba(183, 28, 28, 0.5); }
 .pcoded[fream-type="theme3"] .page-header:before, .pcoded[fream-type="theme3"] .main-menu .main-menu-header:before {
@@ -10258,7 +10258,7 @@ body.menu-bottom #collapse-menu {
   color: #fff;
   height: auto; }
   .select2-container--default .select2-selection--single .select2-selection__rendered {
-    background-color: #448aff;
+    background-color: #fff;
     color: #fff;
     padding: 8px 30px 8px 20px; }
   .select2-container--default .select2-selection--single .select2-selection__arrow {
