@@ -30,18 +30,18 @@
     </style>
 </head>
 <body>
-<img class="wave" src="log/img/wave.png">
-    <img class="wavecel" src="log/img/wavecel.png">
+<img class="wave" src="img/layer1.svg">
+    <img class="wavecel" src="img/layer2.svg">
 <div style="" class=''>
     
     <div class="container">
       <div class="img animate__animated animate__fadeInTopLeft">
-        <img src="log/img/señor.png">
+        <img src="img/hcc_logo.svg">
       </div>
       <div class="login-content animate__animated animate__fadeInTopRight">
         <form method="post" action="GetUser">
             {{ csrf_field() }}
-            <img src="log/img/circlelog.png">
+            <img src="img/doc.png">
           <h2 class="title" style="font-size:1.6rem;">Entrega de turno Clínico</h2>
           <!-- <a href="#">Forgot Password?</a> -->
             <input class="form-control mb-2" name="userin" placeholder="Usuario" style="border-radius: 25px;">
