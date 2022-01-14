@@ -2409,9 +2409,9 @@ class pruebasController extends Controller
     public function SosiaPdf(request $request){
 
         $data = DB::table('resultados as r')
-        ->selectRaw('r.detalle')
+        ->selectRaw('r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,r.fecha as fecha_r,r.detalle')
         ->where('r.id_encuesta','4')
-        ->where('r.id_resultado',83)
+        ->where('r.id_resultado',$request->id)
         ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
         ->orderby('r.fecha','ASC')
         ->first();
@@ -2479,6 +2479,41 @@ class pruebasController extends Controller
         $Bv = DB::table('correccion_sosia')
         ->selectRaw('mas,menos')
         ->where('correccion','B')
+        ->get();
+        
+        $Lv = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','L')
+        ->get();
+
+        $P_s = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','P')
+        ->get();
+
+        $A_s = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','A')
+        ->get();
+
+        $V_s = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','V')
+        ->get();
+
+        $D_s = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','D')
+        ->get();
+
+        $O_s = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','O')
+        ->get();
+
+        $G_s = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','G')
         ->get();
 
         $respuesta = json_decode($data->detalle,true);    
@@ -2723,7 +2758,489 @@ class pruebasController extends Controller
                 }
             }
 
-            return $B;
+             //L
+             $mas_l=array();
+             $menos_l=array();
+             $L=0;
+             foreach($resp as $key=>$r){
+                 if(in_array($key,[40,42,43,44,46,47,50,51,53,56,57,59,60,61,63,65])){
+                     array_push($mas_l,$r['respuesta'][0]);
+                     array_push($menos_l,$r['respuesta'][1]);
+                 }
+             }    
+             foreach($Lv as $key=>$li){
+                 if(similar_text($li->mas,$mas_l[$key][2])>0){
+                     $L++;
+                 }
+                 if(similar_text($li->menos,$menos_l[$key][2])>0){
+                     $L++;
+                 }
+             }
+
+            //P
+            $mas_p=array();
+            $menos_p=array();
+            $P=0;
+            foreach($resp as $key=>$r){
+                if(in_array($key,[69,70,73,75,76,79,82,83,85,88,90,92,93,95,96])){
+                    array_push($mas_p,$r['respuesta'][0]);
+                    array_push($menos_p,$r['respuesta'][1]);
+                }
+            }    
+            foreach($P_s as $key=>$pi){
+                if(similar_text($pi->mas,$mas_p[$key][2])>0){
+                    $P++;
+                }
+                if(similar_text($pi->menos,$menos_p[$key][2])>0){
+                    $P++;
+                }
+            }
+
+            //A
+            $mas_a=array();
+            $menos_a=array();
+            $A=0;
+            foreach($resp as $key=>$r){
+                if(in_array($key,[68,69,71,74,77,80,81,83,84,87,90,93,94,95,97])){
+                    array_push($mas_a,$r['respuesta'][0]);
+                    array_push($menos_a,$r['respuesta'][1]);
+                }
+            }    
+            foreach($A_s as $key=>$ai){
+                if(similar_text($ai->mas,$mas_a[$key][2])>0){
+                    $A++;
+                }
+                if(similar_text($ai->menos,$menos_a[$key][2])>0){
+                    $A++;
+                }
+            }
+
+             //V
+             $mas_v=array();
+             $menos_v=array();
+             $V=0;
+             foreach($resp as $key=>$r){
+                 if(in_array($key,[69,71,74,76,77,78,80,81,84,86,87,89,90,93,97])){
+                     array_push($mas_v,$r['respuesta'][0]);
+                     array_push($menos_v,$r['respuesta'][1]);
+                 }
+             }    
+             foreach($V_s as $key=>$vi){
+                 if(similar_text($vi->mas,$mas_v[$key][2])>0){
+                     $V++;
+                 }
+                 if(similar_text($vi->menos,$menos_v[$key][2])>0){
+                     $V++;
+                 }
+             }
+
+
+            //D
+            $mas_d=array();
+            $menos_d=array();
+            $D=0;
+            foreach($resp as $key=>$r){
+                if(in_array($key,[70,72,73,75,78,79,82,85,88,89,91,92,94,96])){
+                    array_push($mas_d,$r['respuesta'][0]);
+                    array_push($menos_d,$r['respuesta'][1]);
+                }
+            }    
+            foreach($D_s as $key=>$di){
+                if(similar_text($di->mas,$mas_d[$key][2])>0){
+                    $D++;
+                }
+                if(similar_text($di->menos,$menos_d[$key][2])>0){
+                    $D++;
+                }
+            }
+
+            //O
+            $mas_o=array();
+            $menos_o=array();
+            $O=0;
+            foreach($resp as $key=>$r){
+                if(in_array($key,[68,72,74,75,76,79,80,82,84,85,86,89,91,92,94,96])){
+                    array_push($mas_o,$r['respuesta'][0]);
+                    array_push($menos_o,$r['respuesta'][1]);
+                }
+            }    
+            foreach($O_s as $key=>$oi){
+                if(similar_text($oi->mas,$mas_o[$key][2])>0){
+                    $O++;
+                }
+                if(similar_text($oi->menos,$menos_o[$key][2])>0){
+                    $O++;
+                }
+            }
+
+            //G
+            $mas_g=array();
+            $menos_g=array();
+            $G=0;
+            foreach($resp as $key=>$r){
+                if(in_array($key,[68,70,71,72,73,77,78,81,83,86,87,88,91,95,97])){
+                    array_push($mas_g,$r['respuesta'][0]);
+                    array_push($menos_g,$r['respuesta'][1]);
+                }
+            }    
+            foreach($G_s as $key=>$gi){
+                if(similar_text($gi->mas,$mas_g[$key][2])>0){
+                    $G++;
+                }
+                if(similar_text($gi->menos,$menos_g[$key][2])>0){
+                    $G++;
+                }
+            }
+
+            //Procesando datos GORDON
+
+            $resultado_asc=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$ASC)->where('prueba','ASC')->first();
+            $resultado_res=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$RES)->where('prueba','RES')->first();
+            $resultado_est=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$EST)->where('prueba','EST')->first();
+            $resultado_soc=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$SOC)->where('prueba','SOC')->first();           
+            $resultado_AE=DB::table('pa_decatipo')->selectRaw('decatipo')->where('puntuacion_autoestima',($ASC+$RES+$EST+$SOC))->first();
+
+            $resultado_cau=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$CAU)->where('prueba','CAU')->first();
+            $resultado_ori=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$ORI)->where('prueba','ORI')->first();
+            $resultado_com=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$COM)->where('prueba','COM')->first();
+            $resultado_vit=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$VIT)->where('prueba','VIT')->first();
+
+            //Procesando datos SIV
+
+            $resultado_s=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$S)->where('prueba','S')->first();
+            $resultado_c=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$C)->where('prueba','C')->first();
+            $resultado_r=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$R)->where('prueba','R')->first();
+            $resultado_i=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$I)->where('prueba','I')->first();
+            $resultado_b=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$B)->where('prueba','B')->first();
+            $resultado_l=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$L)->where('prueba','L')->first();
+            $comprobacion_siv = ($S+$C+$R+$I+$B+$L);
+
+            //Procesando datos SPV
+
+            $resultado_p=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$P)->where('prueba','P')->first();
+            $resultado_a=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$A)->where('prueba','A')->first();
+            $resultado_v=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$V)->where('prueba','V')->first();
+            $resultado_d=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$D)->where('prueba','D')->first();
+            $resultado_o=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$O)->where('prueba','O')->first();
+            $resultado_g=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$G)->where('prueba','G')->first();
+            $comprobacion_spv = ($P+$A+$V+$D+$O+$G);
+
+
+
+
+            function polarizado($de){
+                if($de<=3){
+                    return 1;
+                }
+                elseif($de<=3 && $de<=7){
+                    return 2;
+                }
+                else{
+                    return 3;
+                }
+            }
+
+            $informe_ascendencia = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Ascendencia')->where('puntaje',polarizado($resultado_asc->resultado))->first();
+            $informe_estabilidad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Estabilidad Emocional')->where('puntaje',polarizado($resultado_est->resultado))->first();
+            $informe_vitalidad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Vitalidad')->where('puntaje',polarizado($resultado_vit->resultado))->first();
+            $informe_responsabilidad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Responsabilidad')->where('puntaje',polarizado($resultado_res->resultado))->first();
+
+            $informe_resultados = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Resultados')->where('puntaje',polarizado($resultado_a->resultado))->first();
+            $informe_reconocimiento = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Reconocimientos')->where('puntaje',polarizado($resultado_r->resultado))->first();
+            $informe_independencia = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Independencia')->where('puntaje',polarizado($resultado_i->resultado))->first();
+            $informe_variedad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Variedad')->where('puntaje',polarizado($resultado_v->resultado))->first();
+            $informe_benevolencia = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Benevolencia')->where('puntaje',polarizado($resultado_b->resultado))->first();
+
+            $informe_cautela = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Cautela')->where('puntaje',polarizado($resultado_cau->resultado))->first();
+            $informe_originalidad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Originalidad')->where('puntaje',polarizado($resultado_ori->resultado))->first();
+            $informe_practicidad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Practicidad')->where('puntaje',polarizado($resultado_p->resultado))->first();
+            $informe_decision = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Decision')->where('puntaje',polarizado($resultado_d->resultado))->first();
+            $informe_orden = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Orden')->where('puntaje',polarizado($resultado_o->resultado))->first();
+
+            $informe_metas = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Metas')->where('puntaje',polarizado($resultado_g->resultado))->first();
+            $informe_sociabilidad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Sociabilidad')->where('puntaje',polarizado($resultado_soc->resultado))->first();
+            $informe_comprension = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Comprension')->where('puntaje',polarizado($resultado_com->resultado))->first();
+            $informe_estimulo = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Estimulo')->where('puntaje',polarizado($resultado_s->resultado))->first();
+
+            $informe_conformidad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Conformidad')->where('puntaje',polarizado($resultado_c->resultado))->first();
+            $informe_liderazgo = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Liderazgo')->where('puntaje',polarizado($resultado_l->resultado))->first();
+
+            $titulo=$request->titulo;
+            $cargo=$request->cargo;
+
+            if($request->select=='operativo'){
+
+                $independencia = $resultado_i->resultado - 4;
+                $variedad= $resultado_v->resultado -4;
+                $orden=$resultado_o->resultado -7;
+                $cautela = $resultado_cau->resultado -6;
+                $conformidad= $resultado_c->resultado -7;
+                $metas= $resultado_g->resultado -7;
+                $resultado=$resultado_a->resultado -5;
+
+                $competencias=array($independencia,$variedad,$orden,$cautela,$conformidad,$metas,$resultado);
+
+                $ajuste=0;
+                $ajuste_negativo=0;
+                foreach ($competencias as $x){
+                  if ($x >= 0) {$ajuste++;}
+                  else if($x <0){$ajuste_negativo++;}
+                }
+
+                $categoria='';
+                $fondo='';
+ 
+                if($ajuste_negativo<=2){
+                    $categoria='Recomendable';
+                    $fondo="style='background-color:#A2CD79'";
+                }
+                else if($ajuste_negativo>2 && $ajuste_negativo<=4){
+                    $categoria='Apto con Observaciones';
+                    $fondo="style='background-color:#FFDE70'";
+                }
+                else if($ajuste_negativo>4){
+                    $categoria='No Recomendable';
+                    $fondo="style='background-color:#FFAA99'";
+                }
+
+                $porc_ajuste=($ajuste*100)/7;
+
+                $riesgo=0;
+                $perfil_riesgo="";
+ 
+                 if ($resultado_vit->resultado < 8)
+                     { $vit_riesgo= "ADECUADO";} 
+                 else 
+                     { $vit_riesgo= "INADECUADO"; $riesgo++;}
+ 
+                 if ($resultado_cau->resultado > 3 )
+                     {$cau_riesgo = "ADECUADO";}
+                 else
+                     {$cau_riesgo = "INADECUADO"; $riesgo++;}
+ 
+                 if ($resultado_c->resultado > 3)
+                     {$c_riesgo = "ADECUADO";}
+                 else 
+                     {$c_riesgo = "INADECUADO"; $riesgo++;}
+ 
+                 if ($resultado_i->resultado < 8)
+                     {$i_riesgo = "ADECUADO";}
+                 else
+                     {$i_riesgo = "INADECUADO"; $riesgo++;}
+ 
+                 if ($resultado_v->resultado < 8)
+                     {$v_riesgo = "ADECUADO";}
+                 else 
+                     {$v_riesgo = "INADECUADO"; $riesgo++;}
+ 
+
+
+                 if($riesgo <= 2){
+                     $perfil_riesgo = "Recomendable";
+                 }
+                 else if ($riesgo >= 3 && $riesgo<=4 ){
+                     $perfil_riesgo = "Apto con Observaciones";
+                 }
+                 else if ($riesgo >=5){
+                     $perfil_riesgo= "No Recomendable";
+                 }
+ 
+                
+
+                $pdf=PDF::loadView('pruebas.pdf_sosia_operativo',compact('data','resultado_asc','resultado_res','resultado_est','resultado_soc','resultado_AE',
+                'resultado_cau','resultado_vit','resultado_ori','resultado_com',
+                'resultado_s','resultado_c','resultado_r','resultado_i','resultado_b','resultado_l',
+                'resultado_p','resultado_a','resultado_v','resultado_d','resultado_o','resultado_g',
+                'informe_independencia','informe_variedad','informe_orden','informe_cautela','informe_conformidad','informe_metas','informe_resultados',
+                'independencia','variedad','orden','cautela','conformidad','metas','resultado',
+                'ajuste','categoria','fondo','porc_ajuste','ajuste_negativo',
+                'vit_riesgo','cau_riesgo','c_riesgo','i_riesgo','v_riesgo','perfil_riesgo','riesgo',
+                'titulo','cargo'));
+               
+                return $pdf->stream('sosia.pdf');
+            }
+            else if($request->select=='tactico'){
+
+               $metas= $resultado_g->resultado-6;
+               $orden = $resultado_o->resultado-8;
+               $cautela=$resultado_cau->resultado-6;
+               $desicion=$resultado_d->resultado-5;
+               $liderazgo=$resultado_l->resultado-7;
+               $benevolencia=$resultado_b->resultado-6;
+               $responsabilidad=$resultado_res->resultado-6;
+               
+               $competencias=array($metas,$orden,$cautela,$desicion,$liderazgo,$benevolencia,$responsabilidad);
+               $ajuste=0;
+               $ajuste_negativo=0;
+               foreach ($competencias as $x){
+                 if ($x >= 0) {$ajuste++;}
+                 else if($x <0){$ajuste_negativo++;}
+               }
+               
+               $categoria='';
+               $fondo='';
+
+               if($ajuste_negativo<=2){
+                   $categoria='Recomendable';
+                   $fondo="style='background-color:#A2CD79'";
+               }
+               else if($ajuste_negativo>2 && $ajuste_negativo<=4){
+                   $categoria='Apto con Observaciones';
+                   $fondo="style='background-color:#FFDE70'";
+               }
+               else if($ajuste_negativo>4){
+                   $categoria='No Recomendable';
+                   $fondo="style='background-color:#FFAA99'";
+               }
+
+               $porc_ajuste=($ajuste*100)/7;
+               
+               $riesgo=0;
+               $perfil_riesgo="";
+
+                if ($resultado_vit->resultado < 8)
+                    { $vit_riesgo= "ADECUADO";} 
+                else 
+                    { $vit_riesgo= "INADECUADO"; $riesgo++;}
+
+                if ($resultado_cau->resultado > 3 )
+                    {$cau_riesgo = "ADECUADO";}
+                else
+                    {$cau_riesgo = "INADECUADO"; $riesgo++;}
+
+                if ($resultado_c->resultado > 3)
+                    {$c_riesgo = "ADECUADO";}
+                else 
+                    {$c_riesgo = "INADECUADO"; $riesgo++;}
+
+                if ($resultado_i->resultado < 8)
+                    {$i_riesgo = "ADECUADO";}
+                else
+                    {$i_riesgo = "INADECUADO"; $riesgo++;}
+
+                if ($resultado_v->resultado < 8)
+                    {$v_riesgo = "ADECUADO";}
+                else 
+                    {$v_riesgo = "INADECUADO"; $riesgo++;}
+
+                if($riesgo <= 2){
+                    $perfil_riesgo = "Recomendable";
+                }
+                else if ($riesgo >= 3 && $riesgo<=4 ){
+                    $perfil_riesgo = "Apto con Observaciones";
+                }
+                else if ($riesgo >=5){
+                    $perfil_riesgo= "No Recomendable";
+                }
+
+
+               $pdf=PDF::loadView('pruebas.pdf_sosia_tactico',compact('data','resultado_asc','resultado_res','resultado_est','resultado_soc','resultado_AE',
+                'resultado_cau','resultado_vit','resultado_ori','resultado_com',
+                'resultado_s','resultado_c','resultado_r','resultado_i','resultado_b','resultado_l',
+                'resultado_p','resultado_a','resultado_v','resultado_d','resultado_o','resultado_g',
+                'informe_independencia','informe_variedad','informe_orden','informe_cautela','informe_conformidad','informe_metas','informe_resultados',
+                'metas','orden','cautela','desicion','liderazgo','benevolencia','responsabilidad',
+                'ajuste','categoria','fondo','porc_ajuste','ajuste_negativo',
+                'vit_riesgo','cau_riesgo','c_riesgo','i_riesgo','v_riesgo','perfil_riesgo','riesgo',
+                'titulo','cargo'));
+
+
+                return $pdf->stream('sosia.pdf');
+            }
+            else{
+
+
+                $cautela = $resultado_cau->resultado - 5;
+                $responsabilidad = $resultado_res->resultado - 6;
+                $ascendencia= $resultado_asc->resultado - 7;
+                $independencia= $resultado_i->resultado - 5;
+                $variedad= $resultado_v->resultado  - 6;
+                $practicidad= $resultado_p->resultado - 4;
+                $vitalidad= $resultado_vit->resultado - 7;
+
+                $competencias=array($cautela,$responsabilidad,$ascendencia,$independencia,$variedad,$practicidad,$vitalidad);
+                $ajuste=0;
+                $ajuste_negativo=0;
+
+                foreach ($competencias as $x){
+                  if ($x >= 0) {$ajuste++;}
+                  else if($x <0){$ajuste_negativo++;}
+                }
+
+                $categoria='';
+                $fondo='';
+ 
+                if($ajuste_negativo<=2){
+                    $categoria='Recomendable';
+                    $fondo="style='background-color:#A2CD79'";
+                }
+                else if($ajuste_negativo>2 && $ajuste_negativo<=4){
+                    $categoria='Apto con Observaciones';
+                    $fondo="style='background-color:#FFDE70'";
+                }
+                else if($ajuste_negativo>4){
+                    $categoria='No Recomendable';
+                    $fondo="style='background-color:#FFAA99'";
+                }
+ 
+                $porc_ajuste=($ajuste*100)/7;
+                
+                $riesgo=0;
+                $perfil_riesgo="";
+ 
+                 if ($resultado_vit->resultado < 8)
+                     { $vit_riesgo= "ADECUADO";} 
+                 else 
+                     { $vit_riesgo= "INADECUADO"; $riesgo++;}
+ 
+                 if ($resultado_cau->resultado > 3 )
+                     {$cau_riesgo = "ADECUADO";}
+                 else
+                     {$cau_riesgo = "INADECUADO"; $riesgo++;}
+ 
+                 if ($resultado_c->resultado > 3)
+                     {$c_riesgo = "ADECUADO";}
+                 else 
+                     {$c_riesgo = "INADECUADO"; $riesgo++;}
+ 
+                 if ($resultado_i->resultado < 8)
+                     {$i_riesgo = "ADECUADO";}
+                 else
+                     {$i_riesgo = "INADECUADO"; $riesgo++;}
+ 
+                 if ($resultado_vit->resultado < 8)
+                     {$v_riesgo = "ADECUADO";}
+                 else 
+                     {$v_riesgo = "INADECUADO"; $riesgo++;}
+ 
+                 if($riesgo <= 2){
+                     $perfil_riesgo = "Recomendable";
+                 }
+                 else if ($riesgo >= 3 && $riesgo<=4 ){
+                     $perfil_riesgo = "Apto con Observaciones";
+                 }
+                 else if ($riesgo >=5){
+                     $perfil_riesgo= "No Recomendable";
+                 }
+ 
+
+                $pdf=PDF::loadView('pruebas.pdf_sosia_estrategico',compact('data','resultado_asc','resultado_res','resultado_est','resultado_soc','resultado_AE',
+                'resultado_cau','resultado_vit','resultado_ori','resultado_com',
+                'resultado_s','resultado_c','resultado_r','resultado_i','resultado_b','resultado_l',
+                'resultado_p','resultado_a','resultado_v','resultado_d','resultado_o','resultado_g',
+                'informe_cautela','informe_responsabilidad','informe_ascendencia','informe_independencia','informe_variedad','informe_practicidad','informe_vitalidad',
+                'cautela','responsabilidad','ascendencia','independencia','variedad','practicidad','vitalidad',
+                'ajuste','categoria','fondo','porc_ajuste','ajuste_negativo',
+                'vit_riesgo','cau_riesgo','c_riesgo','i_riesgo','v_riesgo','perfil_riesgo','riesgo',
+                'titulo','cargo'));
+
+               
+                return $pdf->stream('sosia.pdf');
+            }
+
+  
+
+
     }
 
 
