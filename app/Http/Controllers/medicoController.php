@@ -328,7 +328,7 @@ class medicoController extends Controller
             ->where('SER_OBJ_Vigencia','S')        
             ->orderBy('SER_OBJ_Descripcio')
             ->get();
-            
+
             ob_end_clean();
             return PDF::loadView('pdf.pdf',compact('camas','fecha','pendientes'))->stream($camas[0]->piso."_".$fecha.'.pdf');
 
@@ -375,23 +375,45 @@ class medicoController extends Controller
                                 }
                             }
                             else{
-                               array_push($camas,["cama"=>$c->cama,
-                                                            "id"=>$pac->id,
-                                                            "pacnum"=>$pac->pacnum,
-                                                            "nombre"=>$pac->nombre,
-                                                            "dh"=>$pac->dh,
-                                                            "ant_morb"=>$pac->ant_morb,
-                                                            "diag_ingreso"=>$pac->diag_ingreso,
-                                                            "problemas_planes"=>$pac->problemas_planes,
-                                                            "red_apoyo"=>$pac->red_apoyo,
-                                                            "criterios"=>$pac->criterios,
-                                                            "condicion"=>$pac->condicion,
-                                                            "evento_adv"=>$pac->evento_adv,
-                                                            "evento_adv_notificado"=>$pac->evento_adv_notificado,
-                                                            "usr_registro"=>$pac->usr_registro,
-                                                            "fecha_registro"=>$pac->fecha_registro,
-                                                            'piso'=>$c->piso
-                                                      ]);
+                                if($pac){
+                                    array_push($camas,["cama"=>$c->cama,
+                                            "id"=>$pac->id,
+                                            "pacnum"=>$pac->pacnum,
+                                            "nombre"=>$pac->nombre,
+                                            "dh"=>$pac->dh,
+                                            "ant_morb"=>$pac->ant_morb,
+                                            "diag_ingreso"=>$pac->diag_ingreso,
+                                            "problemas_planes"=>$pac->problemas_planes,
+                                            "red_apoyo"=>$pac->red_apoyo,
+                                            "criterios"=>$pac->criterios,
+                                            "condicion"=>$pac->condicion,
+                                            "evento_adv"=>$pac->evento_adv,
+                                            "evento_adv_notificado"=>$pac->evento_adv_notificado,
+                                            "usr_registro"=>$pac->usr_registro,
+                                            "fecha_registro"=>$pac->fecha_registro,
+                                            'piso'=>$c->piso
+                                    ]);
+                                }
+                                else{
+                                    array_push($camas,["cama"=>$c->cama,
+                                    "id"=>"",
+                                    "pacnum"=>"",
+                                    "nombre"=>"",
+                                    "dh"=>"",
+                                    "ant_morb"=>"",
+                                    "diag_ingreso"=>"",
+                                    "problemas_planes"=>"",
+                                    "red_apoyo"=>"",
+                                    "criterios"=>"",
+                                    "condicion"=>"",
+                                    "evento_adv"=>"",
+                                    "evento_adv_notificado"=>"",
+                                    "usr_registro"=>"",
+                                    "fecha_registro"=>"",
+                                    'piso'=>""
+                            ]);
+                                }
+                             
                             }
                     }
             ob_end_clean();
