@@ -5,7 +5,7 @@
 </head>
 <body>
     <img src="{{ URL::to('img/hcc.png')}}" width="200x;"  class="mb-1">
-        <h5 style="float: right"><b>{{$camas[0]->piso}}</b> <br> Fecha: {{$fecha}} </h5>
+        {{-- <h5 style="float: right"><b>{{$camas[0]->piso}}</b> <br> Fecha: {{$fecha}} </h5> --}}
         <br>
         <h3 class="text-center"><b>Entrega de Turno Médico</b></h3>
     <br>
