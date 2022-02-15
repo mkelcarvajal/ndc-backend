@@ -91,6 +91,18 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'prueba' => [
+            'driver' => 'sqlsrv',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST_prueba', 'localhost'),
+            'port' => env('DB_PORT_prueba', '1433'),
+            'database' => env('DB_DATABASE_prueba', 'forge'),
+            'username' => env('DB_USERNAME_prueba', 'forge'),
+            'password' => env('DB_PASSWORD_prueba', ''),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+        ],
  
 
     ],

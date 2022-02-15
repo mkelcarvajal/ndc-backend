@@ -11,7 +11,7 @@
                             <div class="card-header">
                                 <h5>reportes</h5>
                             </div>
-                            <form method="post" action="pdf">
+                            <form method="post" action="pdf" formtarget="_blank" target="_blank">
                                 {{ csrf_field() }}
                                 <div class="card-body">
                                     <div class="row">

@@ -182,6 +182,7 @@
     <script type="text/javascript" src="{{ URL::to('assets/js/vertical-layout.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::to('assets/js/script.js') }}"></script>
     <script type="text/javascript" src="{{ URL::to('js/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::to('js/moment.min.js') }}"></script>
 
 @yield("script")
  

@@ -65,7 +65,6 @@
         border-top-left-radius: 4px !important;
         border-top-right-radius: 0px !important
     }
-
     .tab-vertical .tab-content {
         overflow: auto;
         -webkit-border-radius: 0px 4px 4px 4px;
@@ -74,20 +73,16 @@
         background: #fff;
         padding: 30px
     }
-
     .thing {
     box-shadow: 0 15px 30px 0 rgba(0,0,0,0.11),
         0 5px 15px 0 rgba(0,0,0,0.08);
     background-color: #ffffff;  
     transition: border-left 200ms ease-in-out, padding-left 200ms ease-in-out;
     }
-
     .thing:hover {
     padding-left: 0.6rem;
     border-left: 0.6rem solid #00CCC2;
     }
-
-
 </style>
 <div class="container d-flex justify-content-center mt-20">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-5">
@@ -107,8 +102,18 @@
                     @foreach($data as $d)
                         @if($s->ID_Sala == $d->IDSala)
                             @if($d->ESTADO == 'OCUPADA')
-                                <div class="card thing" style="cursor: pointer " onclick="modal_ingreso('{{$d->Nombre}}');">
-                                    <div class="card-header" style="color:#00a29b "> <i class="fas fa-bed" style="color:#00a29b "></i> {{$d->NombreCama}}</div>
+                                <div class="card thing" style="cursor: pointer " onclick="modal_ingreso('{{$d->Nombre}}','{{$d->NumPaciente}}','{{$d->SER_OBJ_Codigo}}','{{$d->dh}}');">
+                                    <div class="card-header" style="color:#00a29b ">
+                                            @if(in_array($d->NumPaciente, $entrega))
+                                                <div style="float: right;" >
+                                                    <i class="fas fa-check-circle" style="color:#15CB15;"></i> <label style="color:#15CB15;"> Entrega Realizada Hoy</label> 
+                                                </div>
+                                            @else
+                                                <div style="float: right;" >
+                                                    <i class="fas fa-times-circle" style="color:#fd7e72;"></i> <label style="color:#fd7e72;"> Entrega No Realizada</label> 
+                                                </div>
+                                            @endif
+                                    <i class="fas fa-bed" style="color:#00a29b "></i> {{$d->NombreCama}}</div>
                                     <div class="card-body ">
                                     <h5 class="card-title">{{$d->Nombre}}</h5>
                                     <p class="card-text">RUT: {{$d->RUT}}<br> Ficha: {{$d->Ficha}}</p>

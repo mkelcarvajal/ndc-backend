@@ -10,7 +10,7 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5>hola</h5>
+                                <h5>Bienvenido</h5>
                             </div>
                         </div>
                     </div>
