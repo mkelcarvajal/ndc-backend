@@ -328,7 +328,8 @@ class medicoController extends Controller
             ->where('SER_OBJ_Vigencia','S')        
             ->orderBy('SER_OBJ_Descripcio')
             ->get();
-
+            
+            ob_end_clean();
             return PDF::loadView('pdf.pdf',compact('camas','fecha','pendientes'))->stream($camas[0]->piso."_".$fecha.'.pdf');
 
         }
@@ -393,6 +394,7 @@ class medicoController extends Controller
                                                       ]);
                             }
                     }
+            ob_end_clean();
             return PDF::loadView('pdf.pdf_diaAnterior',compact('camas','fecha','pendientes'))->stream($camas[0]['piso'].'_'.$fecha.'.pdf');
         }
 
