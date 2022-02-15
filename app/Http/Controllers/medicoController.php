@@ -330,7 +330,7 @@ class medicoController extends Controller
             ->get();
 
             ob_end_clean();
-            return PDF::loadView('pdf.pdf',compact('camas','fecha','pendientes'))->stream($camas[0]->piso."_".$fecha.'.pdf');
+            return PDF::loadView('pdf.pdf',compact('camas','fecha','pendientes'))->download($camas[0]->piso."_".$fecha.'.pdf');
 
         }
         else{
@@ -417,7 +417,8 @@ class medicoController extends Controller
                             }
                     }
             ob_end_clean();
-            return PDF::loadView('pdf.pdf_diaAnterior',compact('camas','fecha','pendientes'))->stream($camas[0]['piso'].'_'.$fecha.'.pdf');
+            
+            return PDF::loadView('pdf.pdf_diaAnterior',compact('camas','fecha','pendientes'))->download($camas[0]['piso'].'_'.$fecha.'.pdf');
         }
 
     
