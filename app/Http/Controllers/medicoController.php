@@ -262,7 +262,7 @@ class medicoController extends Controller
             ->get();
 
             foreach($pendientes as $p){
-            array_push($pend,$p->id_examen);
+                array_push($pend,$p->id_examen);
             }
         }
   
@@ -393,7 +393,7 @@ class medicoController extends Controller
                                                       ]);
                             }
                     }
-            return PDF::loadView('pdf.pdf_diaanterior',compact('camas','fecha','pendientes'))->stream($camas[0]['piso'].'_'.$fecha.'.pdf');
+            return PDF::loadView('pdf.pdf_diaAnterior',compact('camas','fecha','pendientes'))->stream($camas[0]['piso'].'_'.$fecha.'.pdf');
         }
 
     

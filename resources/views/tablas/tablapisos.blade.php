@@ -106,7 +106,7 @@
                                     <div class="card-header" style="color:#00a29b ">
                                             @if(in_array($d->NumPaciente, $entrega))
                                                 <div style="float: right;" >
-                                                    <i class="fas fa-check-circle" style="color:#15CB15;"></i> <label style="color:#15CB15;"> Entrega Realizada Hoy</label> 
+                                                    <i class="fas fa-check-circle" style="color:#15CB15;"></i> <label style="color:#15CB15;"> Entrega Realizada</label> 
                                                 </div>
                                             @else
                                                 <div style="float: right;" >
@@ -140,7 +140,7 @@
                                 <h5 class="card-title">Cama Disponible</h5>
                                 </div>
                             </div>
-                        @endif
+                            @endif
                         @endif
                     @endforeach
                 </div>
