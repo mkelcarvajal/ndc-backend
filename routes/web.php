@@ -11,7 +11,7 @@ Route::group(['middleware' => 'usersession'], function ()
     Route::get('/indexMedico', 'medicoController@indexMedico')->name('indexMedico');
     Route::post('infoPiso', 'medicoController@infoPiso')->name('infoPiso');
     Route::get('reportes', 'medicoController@reportes')->name('reportes');
-    Route::post('pdf', 'medicoController@pdf')->name('pdf');
+    Route::any('pdf', 'medicoController@pdf')->name('pdf');
     Route::any('ingTurno', 'medicoController@ingTurno')->name('ingTurno');
     Route::post('busquedaPaciente', 'medicoController@busquedaPaciente')->name('busquedaPaciente');
     Route::post('registroAnterior', 'medicoController@registroAnterior')->name('registroAnterior');
