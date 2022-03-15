@@ -25,7 +25,7 @@ router.get('/verificarcertificadosLms/:idcurso/:puestotrabajo/:rut', [
     fieldValidator
 ], verifyCertificateLms);
 
-router.get('/verificarcertificadosExternos/:idcurso/:puestotrabajo/:rut', [
+router.get('/verificarcertificadoExternos/:idcurso/:puestotrabajo/:rut', [
     fieldValidator
 ], verifyCertificateExternos);
 
