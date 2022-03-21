@@ -3376,7 +3376,6 @@ class pruebasController extends Controller
         die;
     }
 
-
     // public function indexPrueba()
     // {
     //     $pruebas = DB::connection('mysql')->table('prueba')->where('id',1)->first();
