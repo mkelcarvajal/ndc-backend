@@ -69,9 +69,13 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu profile-dropdown-items dropdown-menu-right">
+                                <a href="index" class="dropdown-item notify-item">
+                                    <i data-feather="user"></i>
+                                        <span>Gest. Usuarios</span>
+                                </a>
                                 <a href="logout" class="dropdown-item notify-item">
                                     <i data-feather="log-out" class="icon-dual icon-xs mr-2"></i>
-                                    <span>Logout</span>
+                                    <span>Salir</span>
                                 </a>
                             </div>
                         </li>
@@ -102,7 +106,7 @@
 
                                     </a>
                                 </li>
-                                <li>
+                                <li style="cursor:pointer">
                                     <a onclick="sosia();" >
                                         <i data-feather="download"></i>
                                         <span class="badge badge-success float-right">1</span>
@@ -110,6 +114,7 @@
 
                                     </a>
                                 </li>
+                     
                             </ul>
                         </div>
                     </nav>
