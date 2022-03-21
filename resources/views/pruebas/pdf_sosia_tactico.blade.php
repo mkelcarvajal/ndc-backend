@@ -426,10 +426,8 @@
                         </div>
                     </div>
                     <div class="offer-content">
-                        <h3 >
                             Los resultados de la Evaluación Psicolaboral de <b>  {{$data->nombre_r}} {{$data->apellido_r}} </b> es considerado/a
                             <b>{{$categoria}}</b> para el cargo {{$cargo}} de nivel <b>Táctico</b> para las operaciones de la empresa <b>LIEBHERR.</b> 
-                        </h3>                            
                     </div>
                 </div>
                 @elseif($categoria == 'Apto con Observaciones')
@@ -440,10 +438,8 @@
                         </div>
                     </div>
                     <div class="offer-content">
-                        <h3 >
                             Los resultados de la Evaluación Psicolaboral de <b>  {{$data->nombre_r}} {{$data->apellido_r}} </b> es considerado/a
                             <b>{{$categoria}}</b> para el cargo {{$cargo}} de nivel <b>Táctico</b> para las operaciones de la empresa <b>LIEBHERR.</b> 
-                        </h3>                            
                     </div>
                 </div>
                 @else
@@ -454,12 +450,17 @@
                         </div>
                     </div>
                     <div class="offer-content">
-                        <h3 >
                             Los resultados de la Evaluación Psicolaboral de <b>  {{$data->nombre_r}} {{$data->apellido_r}} </b> es considerado/a
                             <b>{{$categoria}}</b> para el cargo {{$cargo}} de nivel <b>Táctico</b> para las operaciones de la empresa <b>LIEBHERR.</b> 
-                        </h3>                            
                     </div>
                 </div>
+                @endif
+                @if(file_exists("img_firmas/".Session::get('usuario').".jpg"))
+                <center>
+                    <img src="img_firmas/{{Session::get('usuario')}}.jpg" width="60px;" height="30px;" style="margin-left: 60px;"><br>
+                    ______________________________________ <br>
+                    <span>{{Session::get('nombre')}}</span>
+                </center>
                 @endif
             </div>
         </div>
