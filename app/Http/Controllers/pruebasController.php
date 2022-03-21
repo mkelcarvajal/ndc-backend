@@ -492,6 +492,39 @@ class pruebasController extends Controller
 
                 if($d->id_en == 29){ //Electrica Reman
 
+                    // $sheet->setCellValue('A'.$num,$d->cod_usu);
+                    // $sheet->setCellValue('B'.$num,$d->nombre_e);
+                    // $sheet->setCellValue('C'.$num, $d->nombre_r);
+                    // $sheet->setCellValue('D'.$num, $d->apellido_r);
+                    // $sheet->setCellValue('E'.$num,$d->rut_r);
+                    // $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
+
+
+                    // $letra="G";
+                    // for($c=0;$c <=120;$c++)
+                    // {
+                    //     $sheet->setCellValue($letra.$num, $respondidas[$c]);
+                    //     if($correctas[$c] == $respondidas[$c]){
+                    //         $sheet
+                    //         ->getStyle($letra.$num)
+                    //         ->getFill()
+                    //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                    //         ->getStartColor()
+                    //         ->setARGB('DEEBC2');
+                    //     }
+                    //     else{
+                    //         $sheet
+                    //         ->getStyle($letra.$num)
+                    //         ->getFill()
+                    //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                    //         ->getStartColor()
+                    //         ->setARGB('F8BEB4');
+                    //     }
+                    //     $letra++;
+                 
+                  
+                    // }
+
                     for($c = 0; $c <= 11; $c++){
                         $total_top_1++;
                         $topico1 += $correctas[$c] == $respondidas[$c];
@@ -604,12 +637,46 @@ class pruebasController extends Controller
                     $sheet->setCellValue('U'.$num,divnum($topico12,$total_top_12));
                     $sheet->setCellValue('V'.$num,divnum($topico13,$total_top_13));
                     $sheet->setCellValue('W'.$num,divnum($topico14,$total_top_14));
-                    $num++;
+                     $num++;
 
                 }
                 
                 if($d->id_en == 19){ //Mecanica Reman
             
+
+                    // $sheet->setCellValue('A'.$num,$d->cod_usu);
+                    // $sheet->setCellValue('B'.$num,$d->nombre_e);
+                    // $sheet->setCellValue('C'.$num, $d->nombre_r);
+                    // $sheet->setCellValue('D'.$num, $d->apellido_r);
+                    // $sheet->setCellValue('E'.$num,$d->rut_r);
+                    // $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
+
+
+                    // $letra="G";
+                    // for($c=0;$c <=130;$c++)
+                    // {
+                    //     $sheet->setCellValue($letra.$num, $respondidas[$c]);
+                    //     if($correctas[$c] == $respondidas[$c]){
+                    //         $sheet
+                    //         ->getStyle($letra.$num)
+                    //         ->getFill()
+                    //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                    //         ->getStartColor()
+                    //         ->setARGB('DEEBC2');
+                    //     }
+                    //     else{
+                    //         $sheet
+                    //         ->getStyle($letra.$num)
+                    //         ->getFill()
+                    //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                    //         ->getStartColor()
+                    //         ->setARGB('F8BEB4');
+                    //     }
+                    //     $letra++;
+                 
+                  
+                    // }
+
                     for($c = 0; $c <= 6; $c++){
                         $total_top_1++;
                         $topico1 += $correctas[$c] == $respondidas[$c];
