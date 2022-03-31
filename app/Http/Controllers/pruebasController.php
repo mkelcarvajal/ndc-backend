@@ -296,7 +296,7 @@ class pruebasController extends Controller
                             ->getFill()
                             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                             ->getStartColor()
-                            ->setARGB('DEEBC2');
+                            ->setARGB('ffdeebc2');
                         }
                         else{
                             $sheet
@@ -304,7 +304,7 @@ class pruebasController extends Controller
                             ->getFill()
                             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                             ->getStartColor()
-                            ->setARGB('F8BEB4');
+                            ->setARGB('fff8beb4');
                         }
                         $letra++;
                  
@@ -442,7 +442,7 @@ class pruebasController extends Controller
                             ->getFill()
                             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                             ->getStartColor()
-                            ->setARGB('DEEBC2');
+                            ->setARGB('ffdeebc2');
                         }
                         else{
                             $sheet
@@ -450,7 +450,7 @@ class pruebasController extends Controller
                             ->getFill()
                             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                             ->getStartColor()
-                            ->setARGB('F8BEB4');
+                            ->setARGB('fff8beb4');
                         }
                         $letra++;
                  
