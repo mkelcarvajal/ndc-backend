@@ -309,7 +309,8 @@ class pruebasController extends Controller
                     //     $letra++;
                  
                     // }
-
+                    
+                    if($d->email =! 'especial'){
                         for($c = 0; $c <= 9; $c++){
                             $total_top_1++;
                             $topico1 += $correctas[$c] == $respondidas[$c];
@@ -393,6 +394,9 @@ class pruebasController extends Controller
                         $porc_a=($categoria_a*100)/$a;
                         $porc_b=($categoria_b*100)/$b;
                         $porc_c=($categoria_c*100)/$c;
+                    }
+
+
             
                         
                         $sheet->setCellValue('A'.$num,$d->cod_usu);
