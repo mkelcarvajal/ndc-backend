@@ -446,11 +446,9 @@ class pruebasController extends Controller
                         $num++;
                         $porc_c=0;
 
-                    }
-                
-                if(count($respondidas)==146){//Mecanica OHT
+                }
+                    if($d->id_en == 18){                 //Mecanica OHT
 
-                    if($d->id_en == 18){ 
 
                     // $sheet->setCellValue('A'.$num,$d->cod_usu);
                     // $sheet->setCellValue('B'.$num,$d->nombre_e);
@@ -583,7 +581,7 @@ class pruebasController extends Controller
                         $num++;
 
                     }
-                }
+                
 
                 if($d->id_en == 29){ //Electrica Reman
 
