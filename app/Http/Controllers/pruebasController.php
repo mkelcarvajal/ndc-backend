@@ -45,9 +45,8 @@ class pruebasController extends Controller
         if(session::get('codigo')=='admin'){
             
             $data = DB::table('resultados as r')
-            ->selectRaw('r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,e.nombre as nombre_e, r.fecha as fecha_r,r.detalle as detalle_r, e.detalle as detalle_e, r.id_encuesta as id_en, r.codigo_usuario as cod_usu')
+            ->selectRaw('r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,e.nombre as nombre_e, r.fecha as fecha_r,r.detalle as detalle_r, e.detalle as detalle_e, r.id_encuesta as id_en, r.codigo_usuario as cod_usu,r.email as email')
             ->where('r.id_encuesta',$request->input('encuesta'))
-            ->where('r.email','<>','especial')
             ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
             ->orderby('r.fecha','DESC')
             ->get();
@@ -402,7 +401,7 @@ class pruebasController extends Controller
                         $sheet->setCellValue('E'.$num,$d->rut_r);
                         $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
 
-                        if($request->input('email')=='especial'){
+                        if($rd->email=='especial'){
                 
                             $json = explode(',', $data->detalle_r);
                        
