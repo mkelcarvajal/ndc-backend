@@ -401,7 +401,7 @@ class pruebasController extends Controller
                         $sheet->setCellValue('E'.$num,$d->rut_r);
                         $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
 
-                        if($rd->email=='especial'){
+                        if($d->email=='especial'){
                 
                             $json = explode(',', $data->detalle_r);
                        
