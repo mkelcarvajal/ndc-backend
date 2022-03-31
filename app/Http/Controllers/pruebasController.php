@@ -310,7 +310,7 @@ class pruebasController extends Controller
                  
                     // }
                     
-                    if($d->email =! 'especial'){
+                    if($d->email == ''){
                         for($c = 0; $c <= 9; $c++){
                             $total_top_1++;
                             $topico1 += $correctas[$c] == $respondidas[$c];
