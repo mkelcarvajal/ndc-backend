@@ -419,7 +419,7 @@ class pruebasController extends Controller
                     }
                     else{
             
-                        $json = explode(',', $data->detalle_r);
+                        $json = explode(',', $d->detalle_r);
                        
                         $total_preguntas=160;
                         $porc_a=intval(substr($json[0], 1, -2));
