@@ -426,6 +426,12 @@ class pruebasController extends Controller
                         $porc_b=intval(substr($json[1], 1, -2));
                         $porc_c=intval(substr($json[2], 1, -2));
                         
+                        $sheet->setCellValue('A'.$num,$d->cod_usu);
+                        $sheet->setCellValue('B'.$num,$d->nombre_e);
+                        $sheet->setCellValue('C'.$num, $d->nombre_r);
+                        $sheet->setCellValue('D'.$num, $d->apellido_r);
+                        $sheet->setCellValue('E'.$num,$d->rut_r);
+                        $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
                         $sheet->setCellValue('G'.$num,round($porc_a).'%');
                         $sheet->setCellValue('H'.$num,round($porc_b).'%');
                         $sheet->setCellValue('I'.$num,round($porc_c).'%');
