@@ -104,10 +104,10 @@ class pruebasController extends Controller
                         'fill' => [
                             'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                             'startColor' => [
-                                'argb' => 'FFE0AD',
+                                'argb' => 'ffffe0ad',
                             ],
                             'endColor' => [
-                                'argb' => 'FFE0AD',
+                                'argb' => 'ffffe0ad',
                             ],
                         ],
                     ]
@@ -133,7 +133,7 @@ class pruebasController extends Controller
             ->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()
-            ->setARGB('#fabbbc');
+            ->setARGB('#fffabbbc');
 
             // $sheet->getStyle('G1')->applyFromArray(
             //     $styleArray = [
@@ -155,10 +155,10 @@ class pruebasController extends Controller
                     'fill' => [
                         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                         'startColor' => [
-                            'argb' => 'd5f1bf',
+                            'argb' => 'ffdeebc2',
                         ],
                         'endColor' => [
-                            'argb' => 'd5f1bf',
+                            'argb' => 'ffd5f1bf',
                         ],
                     ],
                 ]
@@ -168,10 +168,10 @@ class pruebasController extends Controller
                     'fill' => [
                         'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                         'startColor' => [
-                            'argb' => 'd0e1f3',
+                            'argb' => 'ffd0e1f3',
                         ],
                         'endColor' => [
-                            'argb' => 'd0e1f3',
+                            'argb' => 'ffd0e1f3',
                         ],
                     ],
                 ]
