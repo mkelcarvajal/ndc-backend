@@ -129,12 +129,6 @@ class pruebasController extends Controller
                 ]
             );
 
-            // $sheet->getStyle('G1')
-            // ->getFill()
-            // ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-            // ->getStartColor()
-            // ->setARGB('#fffabbbc');
-
             $sheet->getStyle('G1')->applyFromArray(
                 $styleArray = [
                     'fill' => [
@@ -448,142 +442,168 @@ class pruebasController extends Controller
                         $sheet->setCellValue('T'.$num,intval(substr($json[13], 1, -2)).'%');
                         $sheet->setCellValue('U'.$num,intval(substr($json[14], 1, -2)).'%');
                     }
-
                         $num++;
                         $porc_c=0;
-
                 }
-                    if($d->id_en == 18){                 //Mecanica OHT
+                    if($d->id_en == 18){    //Mecanica OHT
+
+                        if($d->email == ''){
+                                // $sheet->setCellValue('A'.$num,$d->cod_usu);
+                            // $sheet->setCellValue('B'.$num,$d->nombre_e);
+                            // $sheet->setCellValue('C'.$num, $d->nombre_r);
+                            // $sheet->setCellValue('D'.$num, $d->apellido_r);
+                            // $sheet->setCellValue('E'.$num,$d->rut_r);
+                            // $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
 
 
-                    // $sheet->setCellValue('A'.$num,$d->cod_usu);
-                    // $sheet->setCellValue('B'.$num,$d->nombre_e);
-                    // $sheet->setCellValue('C'.$num, $d->nombre_r);
-                    // $sheet->setCellValue('D'.$num, $d->apellido_r);
-                    // $sheet->setCellValue('E'.$num,$d->rut_r);
-                    // $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
+                            // $letra="G";
+                            // for($c=0;$c <=145;$c++)
+                            // {
+                            //     $sheet->setCellValue($letra.$num, $respondidas[$c]);
+                            //     if($correctas[$c] == $respondidas[$c]){
+                            //         $sheet
+                            //         ->getStyle($letra.$num)
+                            //         ->getFill()
+                            //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                            //         ->getStartColor()
+                            //         ->setARGB('ffdeebc2');
+                            //     }
+                            //     else{
+                            //         $sheet
+                            //         ->getStyle($letra.$num)
+                            //         ->getFill()
+                            //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                            //         ->getStartColor()
+                            //         ->setARGB('fff8beb4');
+                            //     }
+                            //     $letra++;
+                        
+                            // }
 
+                            $c=0;
 
-                    // $letra="G";
-                    // for($c=0;$c <=145;$c++)
-                    // {
-                    //     $sheet->setCellValue($letra.$num, $respondidas[$c]);
-                    //     if($correctas[$c] == $respondidas[$c]){
-                    //         $sheet
-                    //         ->getStyle($letra.$num)
-                    //         ->getFill()
-                    //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                    //         ->getStartColor()
-                    //         ->setARGB('ffdeebc2');
-                    //     }
-                    //     else{
-                    //         $sheet
-                    //         ->getStyle($letra.$num)
-                    //         ->getFill()
-                    //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                    //         ->getStartColor()
-                    //         ->setARGB('fff8beb4');
-                    //     }
-                    //     $letra++;
-                 
-                    // }
+                            for($c = 0; $c <= 9; $c++){
+                                $total_top_1++;
+                                $topico1 += $correctas[$c] == $respondidas[$c];
+                            }
+                            for($c = 10; $c <= 19; $c++){
+                                $total_top_2++;
+                                $topico2 += $correctas[$c] == $respondidas[$c];
+                            }
+                            for($c = 20; $c <= 44; $c++){
+                                $total_top_3++;
+                                $topico3 += $correctas[$c] == $respondidas[$c];
+                            }
+                            for($c = 45; $c <= 70; $c++){
+                                $total_top_4++;
+                                $topico4 += $correctas[$c] == $respondidas[$c];
+                            }
+                            for($c = 71; $c <= 80; $c++){
+                                $total_top_5++;
+                                $topico5 += $correctas[$c] == $respondidas[$c];
+                            }
+                            for($c = 81; $c <= 100; $c++){
+                                $total_top_6++;
+                                $topico6 += $correctas[$c] == $respondidas[$c];
+                            }
+                            for($c = 101; $c <= 120; $c++){
+                                $total_top_7++;
+                                $topico7 += $correctas[$c] == $respondidas[$c];
+                            }
+                            for($c = 121; $c <= 145; $c++){
+                                $total_top_8++;
+                                $topico8 += $correctas[$c] == $respondidas[$c];
+                            }
+                            //categoria C
+                            for($cont = 0; $cont <= 19; $cont++){
+                                $c++;
+                                $categoria_c += $correctas[$cont] == $respondidas[$cont];
+                            }
+                
+                            //categoria A
+                
+                            for($cont = 20; $cont <= 44; $cont++){
+                                $a++;
+                                $categoria_a += $correctas[$cont] == $respondidas[$cont];
+                            }
+                
+                            //categoria C
+                            for($cont = 45; $cont <= 52; $cont++){
+                                $c++;
+                                $categoria_c += $correctas[$cont] == $respondidas[$cont];
+                            }
+                
+                            //categoria B
+                            for($cont = 53; $cont <= 61; $cont++){
+                                $b++;
+                                $categoria_b += $correctas[$cont] == $respondidas[$cont];
+                            }
+                
+                            //categoria A
+                            for($cont = 62; $cont <= 70; $cont++){
+                                $a++;
+                                $categoria_a += $correctas[$cont] == $respondidas[$cont];
+                            }
+                            //categoria C
+                            for($cont = 71; $cont <= 120; $cont++){
+                                $c++;
+                                $categoria_c += $correctas[$cont] == $respondidas[$cont];
+                            }
+                            //categoria B
+                            for($cont = 121; $cont <= 145; $cont++){
+                                $b++;
+                                $categoria_b += $correctas[$cont] == $respondidas[$cont];
+                            }
+                
+                            $porc_a=($categoria_a*100)/$a;
+                            $porc_b=($categoria_b*100)/$b;
+                            $porc_c=($categoria_c*100)/$c;
 
-                        $c=0;
-
-                        for($c = 0; $c <= 9; $c++){
-                            $total_top_1++;
-                            $topico1 += $correctas[$c] == $respondidas[$c];
+                            $sheet->setCellValue('A'.$num,$d->cod_usu);
+                            $sheet->setCellValue('B'.$num,$d->nombre_e);
+                            $sheet->setCellValue('C'.$num, $d->nombre_r);
+                            $sheet->setCellValue('D'.$num, $d->apellido_r);
+                            $sheet->setCellValue('E'.$num,$d->rut_r);
+                            $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
+                            $sheet->setCellValue('G'.$num,round($porc_a).'%');
+                            $sheet->setCellValue('H'.$num,round($porc_b).'%');
+                            $sheet->setCellValue('I'.$num,round($porc_c).'%');
+                            $sheet->setCellValue('J'.$num,divnum($topico1,$total_top_1));
+                            $sheet->setCellValue('K'.$num,divnum($topico2,$total_top_2));
+                            $sheet->setCellValue('L'.$num,divnum($topico3,$total_top_3));
+                            $sheet->setCellValue('M'.$num,divnum($topico4,$total_top_4));
+                            $sheet->setCellValue('N'.$num,divnum($topico5,$total_top_5));
+                            $sheet->setCellValue('O'.$num,divnum($topico6,$total_top_6));
+                            $sheet->setCellValue('P'.$num,divnum($topico7,$total_top_7));
+                            $sheet->setCellValue('Q'.$num,divnum($topico8,$total_top_8));
                         }
-                        for($c = 10; $c <= 19; $c++){
-                            $total_top_2++;
-                            $topico2 += $correctas[$c] == $respondidas[$c];
+                        else{
+                            $json = explode(',', $d->detalle_r);
+                       
+                            $total_preguntas=160;
+                            $porc_a=intval(substr($json[0], 1, -2));
+                            $porc_b=intval(substr($json[1], 1, -2));
+                            $porc_c=intval(substr($json[2], 1, -2));
+                            
+                            $sheet->setCellValue('A'.$num,$d->cod_usu);
+                            $sheet->setCellValue('B'.$num,$d->nombre_e);
+                            $sheet->setCellValue('C'.$num, $d->nombre_r);
+                            $sheet->setCellValue('D'.$num, $d->apellido_r);
+                            $sheet->setCellValue('E'.$num,$d->rut_r);
+                            $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
+                            $sheet->setCellValue('G'.$num,round($porc_a).'%');
+                            $sheet->setCellValue('H'.$num,round($porc_b).'%');
+                            $sheet->setCellValue('I'.$num,round($porc_c).'%');
+                            $sheet->setCellValue('J'.$num,intval(substr($json[3], 1, -2)).'%');
+                            $sheet->setCellValue('K'.$num,intval(substr($json[4], 1, -2)).'%');
+                            $sheet->setCellValue('L'.$num,intval(substr($json[5], 1, -2)).'%');
+                            $sheet->setCellValue('M'.$num,intval(substr($json[6], 1, -2)).'%');
+                            $sheet->setCellValue('N'.$num,intval(substr($json[7], 1, -2)).'%');
+                            $sheet->setCellValue('O'.$num,intval(substr($json[8], 1, -2)).'%');
+                            $sheet->setCellValue('P'.$num,intval(substr($json[9], 1, -2)).'%');
+                            $sheet->setCellValue('Q'.$num,intval(substr($json[10], 1, -2)).'%');
+               
                         }
-                        for($c = 20; $c <= 44; $c++){
-                            $total_top_3++;
-                            $topico3 += $correctas[$c] == $respondidas[$c];
-                        }
-                        for($c = 45; $c <= 70; $c++){
-                            $total_top_4++;
-                            $topico4 += $correctas[$c] == $respondidas[$c];
-                        }
-                        for($c = 71; $c <= 80; $c++){
-                            $total_top_5++;
-                            $topico5 += $correctas[$c] == $respondidas[$c];
-                        }
-                        for($c = 81; $c <= 100; $c++){
-                            $total_top_6++;
-                            $topico6 += $correctas[$c] == $respondidas[$c];
-                        }
-                        for($c = 101; $c <= 120; $c++){
-                            $total_top_7++;
-                            $topico7 += $correctas[$c] == $respondidas[$c];
-                        }
-                        for($c = 121; $c <= 145; $c++){
-                            $total_top_8++;
-                            $topico8 += $correctas[$c] == $respondidas[$c];
-                        }
-                        //categoria C
-                        for($cont = 0; $cont <= 19; $cont++){
-                            $c++;
-                            $categoria_c += $correctas[$cont] == $respondidas[$cont];
-                        }
-            
-                        //categoria A
-            
-                        for($cont = 20; $cont <= 44; $cont++){
-                            $a++;
-                            $categoria_a += $correctas[$cont] == $respondidas[$cont];
-                        }
-            
-                        //categoria C
-                        for($cont = 45; $cont <= 52; $cont++){
-                            $c++;
-                            $categoria_c += $correctas[$cont] == $respondidas[$cont];
-                        }
-            
-                        //categoria B
-                        for($cont = 53; $cont <= 61; $cont++){
-                            $b++;
-                            $categoria_b += $correctas[$cont] == $respondidas[$cont];
-                        }
-            
-                        //categoria A
-                        for($cont = 62; $cont <= 70; $cont++){
-                            $a++;
-                            $categoria_a += $correctas[$cont] == $respondidas[$cont];
-                        }
-                        //categoria C
-                        for($cont = 71; $cont <= 120; $cont++){
-                            $c++;
-                            $categoria_c += $correctas[$cont] == $respondidas[$cont];
-                        }
-                        //categoria B
-                        for($cont = 121; $cont <= 145; $cont++){
-                            $b++;
-                            $categoria_b += $correctas[$cont] == $respondidas[$cont];
-                        }
-            
-                        $porc_a=($categoria_a*100)/$a;
-                        $porc_b=($categoria_b*100)/$b;
-                        $porc_c=($categoria_c*100)/$c;
-
-                        $sheet->setCellValue('A'.$num,$d->cod_usu);
-                        $sheet->setCellValue('B'.$num,$d->nombre_e);
-                        $sheet->setCellValue('C'.$num, $d->nombre_r);
-                        $sheet->setCellValue('D'.$num, $d->apellido_r);
-                        $sheet->setCellValue('E'.$num,$d->rut_r);
-                        $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
-                        $sheet->setCellValue('G'.$num,round($porc_a).'%');
-                        $sheet->setCellValue('H'.$num,round($porc_b).'%');
-                        $sheet->setCellValue('I'.$num,round($porc_c).'%');
-                        $sheet->setCellValue('J'.$num,divnum($topico1,$total_top_1));
-                        $sheet->setCellValue('K'.$num,divnum($topico2,$total_top_2));
-                        $sheet->setCellValue('L'.$num,divnum($topico3,$total_top_3));
-                        $sheet->setCellValue('M'.$num,divnum($topico4,$total_top_4));
-                        $sheet->setCellValue('N'.$num,divnum($topico5,$total_top_5));
-                        $sheet->setCellValue('O'.$num,divnum($topico6,$total_top_6));
-                        $sheet->setCellValue('P'.$num,divnum($topico7,$total_top_7));
-                        $sheet->setCellValue('Q'.$num,divnum($topico8,$total_top_8));
                         $num++;
 
                     }
