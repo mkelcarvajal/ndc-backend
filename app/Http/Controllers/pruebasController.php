@@ -394,27 +394,59 @@ class pruebasController extends Controller
                         $porc_b=($categoria_b*100)/$b;
                         $porc_c=($categoria_c*100)/$c;
             
+                        
                         $sheet->setCellValue('A'.$num,$d->cod_usu);
                         $sheet->setCellValue('B'.$num,$d->nombre_e);
                         $sheet->setCellValue('C'.$num, $d->nombre_r);
                         $sheet->setCellValue('D'.$num, $d->apellido_r);
                         $sheet->setCellValue('E'.$num,$d->rut_r);
                         $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
-                        $sheet->setCellValue('G'.$num,round($porc_a).'%');
-                        $sheet->setCellValue('H'.$num,round($porc_b).'%');
-                        $sheet->setCellValue('I'.$num,round($porc_c).'%');
-                        $sheet->setCellValue('J'.$num,divnum($topico1,$total_top_1));
-                        $sheet->setCellValue('K'.$num,divnum($topico2,$total_top_2));
-                        $sheet->setCellValue('L'.$num,divnum($topico3,$total_top_3));
-                        $sheet->setCellValue('M'.$num,divnum($topico4,$total_top_4));
-                        $sheet->setCellValue('N'.$num,divnum($topico5,$total_top_5));
-                        $sheet->setCellValue('O'.$num,divnum($topico6,$total_top_6));
-                        $sheet->setCellValue('P'.$num,divnum($topico7,$total_top_7));
-                        $sheet->setCellValue('Q'.$num,divnum($topico8,$total_top_8));
-                        $sheet->setCellValue('R'.$num,divnum($topico9,$total_top_9));
-                        $sheet->setCellValue('S'.$num,divnum($topico10,$total_top_10));
-                        $sheet->setCellValue('T'.$num,divnum($topico11,$total_top_11));
-                        $sheet->setCellValue('U'.$num,divnum($topico12,$total_top_12));
+
+                        if($request->input('email')=='especial'){
+                
+                            $json = explode(',', $data->detalle_r);
+                       
+                            $total_preguntas=160;
+                            $porc_a=intval(substr($json[0], 1, -2));
+                            $porc_b=intval(substr($json[1], 1, -2));
+                            $porc_c=intval(substr($json[2], 1, -2));
+                            
+                            $sheet->setCellValue('G'.$num,round($porc_a).'%');
+                            $sheet->setCellValue('H'.$num,round($porc_b).'%');
+                            $sheet->setCellValue('I'.$num,round($porc_c).'%');
+                            $sheet->setCellValue('J'.$num,intval(substr($json[3], 1, -2)));
+                            $sheet->setCellValue('K'.$num,intval(substr($json[4], 1, -2)));
+                            $sheet->setCellValue('L'.$num,intval(substr($json[5], 1, -2)));
+                            $sheet->setCellValue('M'.$num,intval(substr($json[6], 1, -2)));
+                            $sheet->setCellValue('N'.$num,intval(substr($json[7], 1, -2)));
+                            $sheet->setCellValue('O'.$num,intval(substr($json[8], 1, -2)));
+                            $sheet->setCellValue('P'.$num,intval(substr($json[9], 1, -2)));
+                            $sheet->setCellValue('Q'.$num,intval(substr($json[10], 1, -2)));
+                            $sheet->setCellValue('R'.$num,intval(substr($json[11], 1, -2)));
+                            $sheet->setCellValue('S'.$num,intval(substr($json[12], 1, -2)));
+                            $sheet->setCellValue('T'.$num,intval(substr($json[13], 1, -2)));
+                            $sheet->setCellValue('U'.$num,intval(substr($json[14], 1, -2)));
+    
+                        }
+                        else{
+                            $sheet->setCellValue('G'.$num,round($porc_a).'%');
+                            $sheet->setCellValue('H'.$num,round($porc_b).'%');
+                            $sheet->setCellValue('I'.$num,round($porc_c).'%');
+                            $sheet->setCellValue('J'.$num,divnum($topico1,$total_top_1));
+                            $sheet->setCellValue('K'.$num,divnum($topico2,$total_top_2));
+                            $sheet->setCellValue('L'.$num,divnum($topico3,$total_top_3));
+                            $sheet->setCellValue('M'.$num,divnum($topico4,$total_top_4));
+                            $sheet->setCellValue('N'.$num,divnum($topico5,$total_top_5));
+                            $sheet->setCellValue('O'.$num,divnum($topico6,$total_top_6));
+                            $sheet->setCellValue('P'.$num,divnum($topico7,$total_top_7));
+                            $sheet->setCellValue('Q'.$num,divnum($topico8,$total_top_8));
+                            $sheet->setCellValue('R'.$num,divnum($topico9,$total_top_9));
+                            $sheet->setCellValue('S'.$num,divnum($topico10,$total_top_10));
+                            $sheet->setCellValue('T'.$num,divnum($topico11,$total_top_11));
+                            $sheet->setCellValue('U'.$num,divnum($topico12,$total_top_12));
+                        }
+
+
                         $num++;
                         $porc_c=0;
 
