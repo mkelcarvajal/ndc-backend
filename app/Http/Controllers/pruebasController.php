@@ -234,7 +234,7 @@ class pruebasController extends Controller
                 $total_top_17=0;
                 $total_top_18=0;
 
-                if($d->email =! 'especial'){
+                if($d->email ==''){
                     $respuesta = json_decode($d->detalle_r,true);
                     $correccion = json_decode($d->detalle_e,true);
 
