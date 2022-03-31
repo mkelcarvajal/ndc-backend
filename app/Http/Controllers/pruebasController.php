@@ -234,44 +234,45 @@ class pruebasController extends Controller
                 $total_top_17=0;
                 $total_top_18=0;
 
-                $respuesta = json_decode($d->detalle_r,true);
-                $correccion = json_decode($d->detalle_e,true);
+                if($d->email =! 'especial'){
+                    $respuesta = json_decode($d->detalle_r,true);
+                    $correccion = json_decode($d->detalle_e,true);
 
-                $correctas = array();
-                $respondidas = array();
-
-                $res = $respuesta['usuariosStructs']['0']['respuestasStructs'];
-                $cor = $correccion['preguntasStruct'];
-
-                foreach ($res as $r){
-                    if (isset($r['respuesta'][0])){
-                        if (strlen($r['respuesta'][0])>1) {
-                            array_push($respondidas,"V");
+                    $correctas = array();
+                    $respondidas = array();
+    
+                    $res = $respuesta['usuariosStructs']['0']['respuestasStructs'];
+                    $cor = $correccion['preguntasStruct'];
+    
+                    foreach ($res as $r){
+                        if (isset($r['respuesta'][0])){
+                            if (strlen($r['respuesta'][0])>1) {
+                                array_push($respondidas,"V");
+                            }
+                            else
+                            {
+                                array_push($respondidas,$r['respuesta'][0]);
+                            }
                         }
-                        else
-                        {
-                            array_push($respondidas,$r['respuesta'][0]);
+                    }
+                    
+                    foreach ($cor as $c){
+                        $letra='A';
+                        foreach($c['alternativasStruct'] as $c2){
+                            if($c2['puntaje']==1){
+                                array_push($correctas,$letra[0]);
+                            }
+                            $letra++;
+                        }
+                    }
+                    
+                    if (count($res) != count($cor)) {
+                        $letra= "V";
+                        for ($i=count($res)+1; $i <= count($cor); $i++) { 
+                            array_push($respondidas,$letra);
                         }
                     }
                 }
-                
-                foreach ($cor as $c){
-                    $letra='A';
-                    foreach($c['alternativasStruct'] as $c2){
-                        if($c2['puntaje']==1){
-                            array_push($correctas,$letra[0]);
-                        }
-                        $letra++;
-                    }
-                }
-                
-                if (count($res) != count($cor)) {
-                    $letra= "V";
-                    for ($i=count($res)+1; $i <= count($cor); $i++) { 
-                        array_push($respondidas,$letra);
-                    }
-                }
-                
 
                 //Electrica OHT
                     if($d->id_en == 17){ 
