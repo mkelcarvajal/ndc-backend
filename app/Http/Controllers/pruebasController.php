@@ -441,6 +441,7 @@ class pruebasController extends Controller
                         $sheet->setCellValue('S'.$num,intval(substr($json[12], 1, -2)).'%');
                         $sheet->setCellValue('T'.$num,intval(substr($json[13], 1, -2)).'%');
                         $sheet->setCellValue('U'.$num,intval(substr($json[14], 1, -2)).'%');
+                        
                     }
                         $num++;
                         $porc_c=0;
