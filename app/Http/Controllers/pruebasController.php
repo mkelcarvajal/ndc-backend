@@ -1211,9 +1211,7 @@ class pruebasController extends Controller
                         $sheet->setCellValue('J'.$num,intval(substr($json[3], 1, -2)).'%');
                         $sheet->setCellValue('K'.$num,intval(substr($json[4], 1, -2)).'%');
                         $sheet->setCellValue('L'.$num,intval(substr($json[5], 1, -2)).'%');
-    
                     }
-
                     $num++;
                 }
                 //Entrada elétrica
@@ -1397,11 +1395,10 @@ class pruebasController extends Controller
                     }
                     else{
                         $json = explode(',', $d->detalle_r);
-                       
+                        
                         $total_preguntas=160;
                         $porc_a=intval(substr($json[0], 1, -2));
                         $porc_b=intval(substr($json[1], 1, -2));
-                        $porc_c=intval(substr($json[2], 1, -2));
                         
                         $sheet->setCellValue('A'.$num,$d->cod_usu);
                         $sheet->setCellValue('B'.$num,$d->nombre_e);
@@ -1411,14 +1408,14 @@ class pruebasController extends Controller
                         $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
                         $sheet->setCellValue('G'.$num,round($porc_a).'%');
                         $sheet->setCellValue('H'.$num,round($porc_b).'%');
-                        $sheet->setCellValue('I'.$num,round($porc_c).'%');
-                        $sheet->setCellValue('J'.$num,intval(substr($json[3], 1, -2)).'%');
-                        $sheet->setCellValue('K'.$num,intval(substr($json[4], 1, -2)).'%');
-                        $sheet->setCellValue('L'.$num,intval(substr($json[5], 1, -2)).'%');
-                        $sheet->setCellValue('M'.$num,intval(substr($json[6], 1, -2)).'%');
-                        $sheet->setCellValue('N'.$num,intval(substr($json[7], 1, -2)).'%');
-                        $sheet->setCellValue('O'.$num,intval(substr($json[8], 1, -2)).'%');
-                        $sheet->setCellValue('P'.$num,intval(substr($json[9], 1, -2)).'%');
+                        $sheet->setCellValue('I'.$num,'N/A');
+                        $sheet->setCellValue('J'.$num,intval(substr($json[2], 1, -2)).'%');
+                        $sheet->setCellValue('K'.$num,intval(substr($json[3], 1, -2)).'%');
+                        $sheet->setCellValue('L'.$num,intval(substr($json[4], 1, -2)).'%');
+                        $sheet->setCellValue('M'.$num,intval(substr($json[5], 1, -2)).'%');
+                        $sheet->setCellValue('N'.$num,intval(substr($json[6], 1, -2)).'%');
+                        $sheet->setCellValue('O'.$num,intval(substr($json[7], 1, -2)).'%');
+                        $sheet->setCellValue('P'.$num,intval(substr($json[8], 1, -2)).'%');
     
                     }
 
