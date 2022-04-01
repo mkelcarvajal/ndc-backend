@@ -2672,7 +2672,7 @@ class pruebasController extends Controller
                     }elseif($request->cargo == "em-c"){
                         $rendimiento=$porc_c;
                     }elseif ($request->cargo == "supervisor" || "otro") {
-                        $rendimiento=($porc_a+$porc_b+$porc_c)/3;
+                        $rendimiento=($porc_a+$porc_b)/2;
                     }
     
                     $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','categoria_a','categoria_b','porc_a','porc_b','rendimiento','a','b','rend_top','topicos','cargo','cargo_usuario'));
