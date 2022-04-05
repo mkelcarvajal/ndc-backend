@@ -3363,7 +3363,7 @@ class pruebasController extends Controller
                 if($de<=3){
                     return 1;
                 }
-                elseif($de<3 && $de<=7){
+                elseif($de>3 && $de<7){
                     return 2;
                 }
                 else if ($de>=7){
@@ -3382,7 +3382,7 @@ class pruebasController extends Controller
             $informe_variedad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Variedad')->where('puntaje',polarizado($resultado_v->resultado))->first();
             $informe_benevolencia = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Benevolencia')->where('puntaje',polarizado($resultado_b->resultado))->first();
 
-            return $resultado_i->resultado;
+            return polarizado($resultado_i->resultado);
 
             $informe_cautela = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Cautela')->where('puntaje',polarizado($resultado_cau->resultado))->first();
             $informe_originalidad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Originalidad')->where('puntaje',polarizado($resultado_ori->resultado))->first();
