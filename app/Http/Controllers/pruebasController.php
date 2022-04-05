@@ -3382,7 +3382,6 @@ class pruebasController extends Controller
             $informe_variedad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Variedad')->where('puntaje',polarizado($resultado_v->resultado))->first();
             $informe_benevolencia = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Benevolencia')->where('puntaje',polarizado($resultado_b->resultado))->first();
 
-            return polarizado($resultado_i->resultado);
 
             $informe_cautela = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Cautela')->where('puntaje',polarizado($resultado_cau->resultado))->first();
             $informe_originalidad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Originalidad')->where('puntaje',polarizado($resultado_ori->resultado))->first();
@@ -3480,17 +3479,17 @@ class pruebasController extends Controller
  
                 
 
-                // $pdf=PDF::loadView('pruebas.pdf_sosia_operativo',compact('data','resultado_asc','resultado_res','resultado_est','resultado_soc','resultado_AE',
-                // 'resultado_cau','resultado_vit','resultado_ori','resultado_com',
-                // 'resultado_s','resultado_c','resultado_r','resultado_i','resultado_b','resultado_l',
-                // 'resultado_p','resultado_a','resultado_v','resultado_d','resultado_o','resultado_g',
-                // 'informe_independencia','informe_variedad','informe_orden','informe_cautela','informe_conformidad','informe_metas','informe_resultados',
-                // 'independencia','variedad','orden','cautela','conformidad','metas','resultado',
-                // 'ajuste','categoria','fondo','porc_ajuste','ajuste_negativo',
-                // 'vit_riesgo','cau_riesgo','c_riesgo','i_riesgo','v_riesgo','perfil_riesgo','riesgo',
-                // 'titulo','cargo'));
+                $pdf=PDF::loadView('pruebas.pdf_sosia_operativo',compact('data','resultado_asc','resultado_res','resultado_est','resultado_soc','resultado_AE',
+                'resultado_cau','resultado_vit','resultado_ori','resultado_com',
+                'resultado_s','resultado_c','resultado_r','resultado_i','resultado_b','resultado_l',
+                'resultado_p','resultado_a','resultado_v','resultado_d','resultado_o','resultado_g',
+                'informe_independencia','informe_variedad','informe_orden','informe_cautela','informe_conformidad','informe_metas','informe_resultados',
+                'independencia','variedad','orden','cautela','conformidad','metas','resultado',
+                'ajuste','categoria','fondo','porc_ajuste','ajuste_negativo',
+                'vit_riesgo','cau_riesgo','c_riesgo','i_riesgo','v_riesgo','perfil_riesgo','riesgo',
+                'titulo','cargo'));
                
-                // return $pdf->stream('sosia.pdf');
+                return $pdf->stream('sosia.pdf');
             }
             else if($request->select=='tactico'){
 
