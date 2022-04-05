@@ -65,7 +65,7 @@ class pruebasController extends Controller
         }
         
         //datos BD topicos
-            $topicos = DB::table('topicos')->where('id_encuesta',$request->input('encuesta'))->get();
+            $topicos = DB::table('topicos')->where('id_encuesta',$request->input('encuesta'))->orderBy('id_topico')->get();
 
         //Procesar Datos
 
@@ -2723,7 +2723,6 @@ class pruebasController extends Controller
                             $categoria_a += $correctas[$cont] == $respondidas[$cont];
                         }
         
-        
                         $porc_a=($categoria_a/$a)*100;
                         $porc_b=($categoria_b/$b)*100;
                         
@@ -2739,7 +2738,6 @@ class pruebasController extends Controller
                             $rendimiento=($porc_a+$porc_b)/2;
                         }
         
-                                        
                         $porc_t1=($topico1/$total_top_1)*100;
                         $porc_t2=($topico2/$total_top_2)*100;
                         $porc_t3=($topico3/$total_top_3)*100;
@@ -2759,8 +2757,6 @@ class pruebasController extends Controller
                         $pdf = app('dompdf.wrapper')->loadView('pruebas.pdf',compact('data','total','total_preguntas','incorrectas','categoria_a','categoria_b','porc_a','porc_b','rendimiento','a','b','rend_top','topicos','cargo','cargo_usuario'));
         
                     }
-
-
             }
 
             if($data->id_en == 21){ //HEX ASESOR
@@ -3666,12 +3662,7 @@ class pruebasController extends Controller
                
                 return $pdf->stream('sosia.pdf');
             }
-
-  
-
-
     }
-
 
     public function SosiaExcel(request $request){
 
@@ -3699,7 +3690,6 @@ class pruebasController extends Controller
 
             $letra_respuestas='F';
 
-            
             $res = $respuesta['usuariosStructs'][0]['respuestasStructs'];
 
             if (is_array($res) || is_object($res)){
