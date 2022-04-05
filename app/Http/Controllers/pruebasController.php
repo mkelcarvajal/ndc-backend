@@ -3656,6 +3656,7 @@ class pruebasController extends Controller
                  }
  
 
+                 
                 $pdf=PDF::loadView('pruebas.pdf_sosia_estrategico',compact('data','resultado_asc','resultado_res','resultado_est','resultado_soc','resultado_AE',
                 'resultado_cau','resultado_vit','resultado_ori','resultado_com',
                 'resultado_s','resultado_c','resultado_r','resultado_i','resultado_b','resultado_l',
