@@ -354,7 +354,6 @@ class pruebasController extends Controller
                             $topico12 += $correctas[$c] == $respondidas[$c];
                         }
                     
-                        $c=0;
                         //categoria C
                             for($cont = 0; $cont <= 31; $cont++){
                                 $c++;
@@ -445,12 +444,14 @@ class pruebasController extends Controller
                     }
                         $num++;
                         $porc_c=0;
+                        $c=0;
                 }
                 //Mecanica OHT
                 if($d->id_en == 18){
 
                         if($d->email == ''){
-                                // $sheet->setCellValue('A'.$num,$d->cod_usu);
+                            
+                            // $sheet->setCellValue('A'.$num,$d->cod_usu);
                             // $sheet->setCellValue('B'.$num,$d->nombre_e);
                             // $sheet->setCellValue('C'.$num, $d->nombre_r);
                             // $sheet->setCellValue('D'.$num, $d->apellido_r);
@@ -1712,7 +1713,7 @@ class pruebasController extends Controller
                  }
                  
             }
-                    if($data->id_en == 17){ 
+                    if($data->id_en == 17){  //OHT ELECTRICA
                         if($request->input('email')=='especial'){
                 
                             $json = explode(',', $data->detalle_r);
@@ -1758,91 +1759,172 @@ class pruebasController extends Controller
             
                             }
                             else{
-                                //categoria C
-                                for($cont = 0; $cont <= 31; $cont++){
-                                    $c++;
-                                    $categoria_c += $correctas[$cont] == $respondidas[$cont];
-                                    if($cont <= 9){
-                                        $total_top_1++;
-                                        $topico1 += $correctas[$cont] == $respondidas[$cont];
-                                    }
-                                    if($cont > 9 && $cont <= 19){
-                                        $total_top_2++;
-                                        $topico2 += $correctas[$cont] == $respondidas[$cont];
-                                    }
-                                    if($cont > 19 && $cont <= 31){
-                                        $total_top_3++;
-                                        $topico3 += $correctas[$cont] == $respondidas[$cont];
-                                    }
+                                // //categoria C
+                                // for($cont = 0; $cont <= 31; $cont++){
+                                //     $c++;
+                                //     $categoria_c += $correctas[$cont] == $respondidas[$cont];
+
+                                //     if($cont <= 9){
+                                //         $total_top_1++;
+                                //         $topico1 += $correctas[$cont] == $respondidas[$cont];
+                                //     }
+
+                                //     if($cont > 9 && $cont <= 19){
+                                //         $total_top_2++;
+                                //         $topico2 += $correctas[$cont] == $respondidas[$cont];
+                                //     }
+
+                                //     if($cont > 19 && $cont <= 31){
+                                //         $total_top_3++;
+                                //         $topico3 += $correctas[$cont] == $respondidas[$cont];
+                                //     }
+
+                                // }
+                                
+                                // //categoria A
+                                // for($cont = 32; $cont <= 51; $cont++){  
+                                //     $a++;
+                                //     $categoria_a += $correctas[$cont] == $respondidas[$cont];
+                                //     $total_top_4++;
+                                //     $topico4 += $correctas[$cont] == $respondidas[$cont];
+                                // }
+
+                                // //categoria B
+                                // for($cont = 52; $cont <= 59; $cont++){
+                                //     $b++;
+                                //     $categoria_b += $correctas[$cont] == $respondidas[$cont];
+                                //     if($cont > 51 && $cont <= 56){
+                                //         $total_top_5++;
+                                //         $topico5 += $correctas[$cont] == $respondidas[$cont];
+                                //     }
+                                //     if($cont > 56 && $cont <= 59){
+                                //         $total_top_6++;
+                                //         $topico6 += $correctas[$cont] == $respondidas[$cont];
+                                //     }
+                                // }
+
+                                // //categoria C
+                                // for($cont = 60; $cont <= 109; $cont++){
+                                //     $c++;
+                                //     $categoria_c += $correctas[$cont] == $respondidas[$cont];
+                                //     if($cont > 59 && $cont <= 69){
+                                //         $total_top_7++;
+                                //         $topico7 += $correctas[$cont] == $respondidas[$cont];
+                                //     }
+                                //     if($cont > 69 && $cont <= 77){
+                                //         $total_top_8++;
+                                //         $topico8 += $correctas[$cont] == $respondidas[$cont];
+                                //     }
+                                //     if($cont > 77 && $cont <= 93){
+                                //         $total_top_9++;
+                                //         $topico9 += $correctas[$cont] == $respondidas[$cont];
+                                //     }
+                                //     if($cont > 93 && $cont <= 109){
+                                //         $total_top_10++;
+                                //         $topico10 += $correctas[$cont] == $respondidas[$cont];
+                                //     }
+                                // }
+
+                                // //categoria B
+                                // for($cont = 110; $cont <= 159; $cont++){
+                                //     $b++;
+                                //     $categoria_c += $correctas[$cont] == $respondidas[$cont];
+                                //     if($cont > 109 && $cont <= 134){
+                                //         $total_top_11++;
+                                //         $topico11 += $correctas[$cont] == $respondidas[$cont];
+                                //     }
+                                //     if($cont > 134 && $cont <= 159){
+                                //         $total_top_12++;
+                                //         $topico12 += $correctas[$cont] == $respondidas[$cont];
+                                //     }
+                                // }
+
+                                for($c = 0; $c <= 9; $c++){
+                                    $total_top_1++;
+                                    $topico1 += $correctas[$c] == $respondidas[$c];
                                 }
-
-                                //categoria A
-
-                                for($cont = 32; $cont <= 51; $cont++){
-                                    $a++;
-                                    $categoria_a += $correctas[$cont] == $respondidas[$cont];
+                                for($c = 10; $c <= 19; $c++){
+                                    $total_top_2++;
+                                    $topico2 += $correctas[$c] == $respondidas[$c];
+                                }
+                                for($c =20; $c <= 31; $c++){
+                                    $total_top_3++;
+                                    $topico3 += $correctas[$c] == $respondidas[$c];
+                                }
+                                for($c = 32; $c <= 51; $c++){
                                     $total_top_4++;
-                                    $topico4 += $correctas[$cont] == $respondidas[$cont];
+                                    $topico4 += $correctas[$c] == $respondidas[$c];
                                 }
-
-                                //categoria B
-                                for($cont = 52; $cont <= 59; $cont++){
-                                    $b++;
-                                    $categoria_b += $correctas[$cont] == $respondidas[$cont];
-                                    if($cont > 51 && $cont <= 56){
-                                        $total_top_5++;
-                                        $topico5 += $correctas[$cont] == $respondidas[$cont];
-                                    }
-                                    if($cont > 56 && $cont <= 59){
-                                        $total_top_6++;
-                                        $topico6 += $correctas[$cont] == $respondidas[$cont];
-                                    }
+                                for($c = 52; $c <= 56; $c++){
+                                    $total_top_5++;
+                                    $topico5 += $correctas[$c] == $respondidas[$c];
                                 }
-
+                                for($c = 57; $c <= 59; $c++){
+                                    $total_top_6++;
+                                    $topico6 += $correctas[$c] == $respondidas[$c];
+                                }
+                                for($c = 60; $c <= 69; $c++){
+                                    $total_top_7++;
+                                    $topico7 += $correctas[$c] == $respondidas[$c];
+                                }
+                                for($c=70;$c<=77;$c++){
+                                    $total_top_8++;
+                                    $topico8 += $correctas[$c] == $respondidas[$c];
+                                }
+                                for($c=78;$c<=93;$c++){
+                                    $total_top_9++;
+                                    $topico9 += $correctas[$c] == $respondidas[$c];
+                                }
+                                for($c=94;$c<=109;$c++){
+                                    $total_top_10++;
+                                    $topico10 += $correctas[$c] == $respondidas[$c];
+                                }
+                                for($c=110;$c<=134;$c++){
+                                    $total_top_11++;
+                                    $topico11 += $correctas[$c] == $respondidas[$c];
+                                }
+                                for($c=135;$c<=159;$c++){
+                                    $total_top_12++;
+                                    $topico12 += $correctas[$c] == $respondidas[$c];
+                                }
+                            
                                 //categoria C
-                                for($cont = 60; $cont <= 109; $cont++){
-                                    $c++;
-                                    $categoria_c += $correctas[$cont] == $respondidas[$cont];
-                                    if($cont > 59 && $cont <= 69){
-                                        $total_top_7++;
-                                        $topico7 += $correctas[$cont] == $respondidas[$cont];
+                                    for($cont = 0; $cont <= 31; $cont++){
+                                        $c++;
+                                        $categoria_c += $correctas[$cont] == $respondidas[$cont];
                                     }
-                                    if($cont > 69 && $cont <= 77){
-                                        $total_top_8++;
-                                        $topico8 += $correctas[$cont] == $respondidas[$cont];
+                
+                                //categoria A
+                                    for($cont = 32; $cont <= 51; $cont++){
+                                        $a++;
+                                        $categoria_a += $correctas[$cont] == $respondidas[$cont];
                                     }
-                                    if($cont > 77 && $cont <= 93){
-                                        $total_top_9++;
-                                        $topico9 += $correctas[$cont] == $respondidas[$cont];
-                                    }
-                                    if($cont > 93 && $cont <= 109){
-                                        $total_top_10++;
-                                        $topico10 += $correctas[$cont] == $respondidas[$cont];
-                                    }
-                                }
-
+                    
                                 //categoria B
-                                for($cont = 110; $cont <= 159; $cont++){
-                                    $b++;
-                                    $categoria_c += $correctas[$cont] == $respondidas[$cont];
-                                    if($cont > 109 && $cont <= 134){
-                                        $total_top_11++;
-                                        $topico11 += $correctas[$cont] == $respondidas[$cont];
+                                    for($cont = 52; $cont <= 59; $cont++){
+                                        $b++;
+                                        $categoria_b += $correctas[$cont] == $respondidas[$cont];
                                     }
-                                    if($cont > 134 && $cont <= 159){
-                                        $total_top_12++;
-                                        $topico12 += $correctas[$cont] == $respondidas[$cont];
+                    
+                                //categoria C
+                                    for($cont = 60; $cont <= 109; $cont++){
+                                        $c++;
+                                        $categoria_c += $correctas[$cont] == $respondidas[$cont];
                                     }
-                                }
-
-                                $porc_a=($categoria_a/$a)*100;
-                                $porc_b=($categoria_b/$b)*100;
-                                $porc_c=($categoria_c/$c)*100;
-
+                    
+                                //categoria B
+                                    for($cont = 110; $cont <= 159; $cont++){
+                                        $b++;
+                                        $categoria_b += $correctas[$cont] == $respondidas[$cont];
+                                    }
                                     
+        
+                                $porc_a=($categoria_a*100)/$a;
+                                $porc_b=($categoria_b*100)/$b;
+                                $porc_c=($categoria_c*100)/$c;
+
                                 $total_preguntas=count($correctas);
                                 $incorrectas = $total_preguntas - $total;
-
 
                                 if($request->cargo == "em-a"){
                                     $rendimiento=$porc_a;
