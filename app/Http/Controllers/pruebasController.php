@@ -3170,7 +3170,6 @@ class pruebasController extends Controller
                     $I++;
                 }
             }
-            dd($I);
             //B
             $mas_b=array();
             $menos_b=array();
@@ -3382,6 +3381,8 @@ class pruebasController extends Controller
             $informe_independencia = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Independencia')->where('puntaje',polarizado($resultado_i->resultado))->first();
             $informe_variedad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Variedad')->where('puntaje',polarizado($resultado_v->resultado))->first();
             $informe_benevolencia = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Benevolencia')->where('puntaje',polarizado($resultado_b->resultado))->first();
+
+            dd($informe_independencia);
 
             $informe_cautela = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Cautela')->where('puntaje',polarizado($resultado_cau->resultado))->first();
             $informe_originalidad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Originalidad')->where('puntaje',polarizado($resultado_ori->resultado))->first();
