@@ -1697,6 +1697,30 @@ class pruebasController extends Controller
                         $sheet->setCellValue('O'.$num,divnum($topico6,$total_top_6));
                         $sheet->setCellValue('P'.$num,divnum($topico7,$total_top_7));
                         $sheet->setCellValue('Q'.$num,divnum($topico8,$total_top_8));
+
+                        $letra="R";
+                        for($c=0;$c <=99;$c++)
+                        {
+                            $sheet->setCellValue($letra.$num, $respondidas[$c]);
+                            if($correctas[$c] == $respondidas[$c]){
+                                $sheet
+                                ->getStyle($letra.$num)
+                                ->getFill()
+                                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                                ->getStartColor()
+                                ->setARGB('ffdeebc2');
+                            }
+                            else{
+                                $sheet
+                                ->getStyle($letra.$num)
+                                ->getFill()
+                                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                                ->getStartColor()
+                                ->setARGB('fff8beb4');
+                            }
+                            $letra++;
+                    
+                        }
                     }
                     
                     else{
