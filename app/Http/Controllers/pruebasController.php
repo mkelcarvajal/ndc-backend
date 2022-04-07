@@ -1717,7 +1717,9 @@ class pruebasController extends Controller
             }
                     if($data->id_en == 17){  //OHT ELECTRICA
                         if($request->input('email')=='especial'){
-                
+                            
+                            
+
                             $json = explode(',', $data->detalle_r);
                        
                             $total_preguntas=160;
@@ -1811,8 +1813,10 @@ class pruebasController extends Controller
                                     $topico12 += $correctas[$c] == $respondidas[$c];
                                 }
                                 
+                                $a=0;
+                                $b=0;
                                 $c=0;
-
+                                
                                 //categoria C
                                     for($cont = 0; $cont <= 31; $cont++){
                                         $c++;
