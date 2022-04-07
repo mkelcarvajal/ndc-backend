@@ -772,7 +772,6 @@ class pruebasController extends Controller
                
                         }
                         $num++;
-
                     }
         
                     if($d->id_en == 29){ //Electrica Reman
@@ -1555,6 +1554,30 @@ class pruebasController extends Controller
                         $sheet->setCellValue('N'.$num,divnum($topico5,$total_top_5));
                         $sheet->setCellValue('O'.$num,divnum($topico6,$total_top_6));
                         $sheet->setCellValue('P'.$num,divnum($topico7,$total_top_7));
+
+                        $letra="Q";
+                        for($c=0;$c <=117;$c++)
+                        {
+                            $sheet->setCellValue($letra.$num, $respondidas[$c]);
+                            if($correctas[$c] == $respondidas[$c]){
+                                $sheet
+                                ->getStyle($letra.$num)
+                                ->getFill()
+                                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                                ->getStartColor()
+                                ->setARGB('ffdeebc2');
+                            }
+                            else{
+                                $sheet
+                                ->getStyle($letra.$num)
+                                ->getFill()
+                                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                                ->getStartColor()
+                                ->setARGB('fff8beb4');
+                            }
+                            $letra++;
+                    
+                        }
                     }
                     else{
                         $json = explode(',', $d->detalle_r);
