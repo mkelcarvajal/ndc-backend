@@ -719,6 +719,30 @@ class pruebasController extends Controller
                             $sheet->setCellValue('O'.$num,divnum($topico6,$total_top_6));
                             $sheet->setCellValue('P'.$num,divnum($topico7,$total_top_7));
                             $sheet->setCellValue('Q'.$num,divnum($topico8,$total_top_8));
+
+                            $letra="R";
+                            for($c=0;$c <=145;$c++)
+                            {
+                                $sheet->setCellValue($letra.$num, $respondidas[$c]);
+                                if($correctas[$c] == $respondidas[$c]){
+                                    $sheet
+                                    ->getStyle($letra.$num)
+                                    ->getFill()
+                                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                                    ->getStartColor()
+                                    ->setARGB('ffdeebc2');
+                                }
+                                else{
+                                    $sheet
+                                    ->getStyle($letra.$num)
+                                    ->getFill()
+                                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                                    ->getStartColor()
+                                    ->setARGB('fff8beb4');
+                                }
+                                $letra++;
+                            }
+
                         }
                         else{
                             $json = explode(',', $d->detalle_r);
@@ -750,10 +774,8 @@ class pruebasController extends Controller
                         $num++;
 
                     }
-                
-
-                
-                if($d->id_en == 29){ //Electrica Reman
+        
+                    if($d->id_en == 29){ //Electrica Reman
 
                     // $sheet->setCellValue('A'.$num,$d->cod_usu);
                     // $sheet->setCellValue('B'.$num,$d->nombre_e);
