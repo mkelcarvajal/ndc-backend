@@ -379,30 +379,31 @@ class pruebasController extends Controller
                             $sheet->setCellValue('S'.$num,divnum($topico10,$total_top_10));
                             $sheet->setCellValue('T'.$num,divnum($topico11,$total_top_11));
                             $sheet->setCellValue('U'.$num,divnum($topico12,$total_top_12));
-                            $letra="V";
-                            for($cc=0;$cc <=159;$cc++)
-                            {
-                                $sheet->setCellValue($letra.$num, $respondidas[$cc]);
+                           
+                            // $letra="V";
+                            // for($cc=0;$cc <=159;$cc++)
+                            // {
+                            //     $sheet->setCellValue($letra.$num, $respondidas[$cc]);
         
-                                if($correctas[$cc] == $respondidas[$cc]){
-                                    $sheet
-                                    ->getStyle($letra.$num)
-                                    ->getFill()
-                                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                                    ->getStartColor()
-                                    ->setARGB('ffdeebc2');
-                                }
-                                else{
-                                    $sheet
-                                    ->getStyle($letra.$num)
-                                    ->getFill()
-                                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                                    ->getStartColor()
-                                    ->setARGB('fff8beb4');
-                                }
-                                $letra++;
+                            //     if($correctas[$cc] == $respondidas[$cc]){
+                            //         $sheet
+                            //         ->getStyle($letra.$num)
+                            //         ->getFill()
+                            //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                            //         ->getStartColor()
+                            //         ->setARGB('ffdeebc2');
+                            //     }
+                            //     else{
+                            //         $sheet
+                            //         ->getStyle($letra.$num)
+                            //         ->getFill()
+                            //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                            //         ->getStartColor()
+                            //         ->setARGB('fff8beb4');
+                            //     }
+                            //     $letra++;
                          
-                            }
+                            // }
                     }
 
                     else{
@@ -720,28 +721,28 @@ class pruebasController extends Controller
                             $sheet->setCellValue('P'.$num,divnum($topico7,$total_top_7));
                             $sheet->setCellValue('Q'.$num,divnum($topico8,$total_top_8));
 
-                            $letra="R";
-                            for($c=0;$c <=145;$c++)
-                            {
-                                $sheet->setCellValue($letra.$num, $respondidas[$c]);
-                                if($correctas[$c] == $respondidas[$c]){
-                                    $sheet
-                                    ->getStyle($letra.$num)
-                                    ->getFill()
-                                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                                    ->getStartColor()
-                                    ->setARGB('ffdeebc2');
-                                }
-                                else{
-                                    $sheet
-                                    ->getStyle($letra.$num)
-                                    ->getFill()
-                                    ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                                    ->getStartColor()
-                                    ->setARGB('fff8beb4');
-                                }
-                                $letra++;
-                            }
+                            // $letra="R";
+                            // for($c=0;$c <=145;$c++)
+                            // {
+                            //     $sheet->setCellValue($letra.$num, $respondidas[$c]);
+                            //     if($correctas[$c] == $respondidas[$c]){
+                            //         $sheet
+                            //         ->getStyle($letra.$num)
+                            //         ->getFill()
+                            //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                            //         ->getStartColor()
+                            //         ->setARGB('ffdeebc2');
+                            //     }
+                            //     else{
+                            //         $sheet
+                            //         ->getStyle($letra.$num)
+                            //         ->getFill()
+                            //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                            //         ->getStartColor()
+                            //         ->setARGB('fff8beb4');
+                            //     }
+                            //     $letra++;
+                            // }
 
                         }
                         else{
@@ -1555,29 +1556,29 @@ class pruebasController extends Controller
                         $sheet->setCellValue('O'.$num,divnum($topico6,$total_top_6));
                         $sheet->setCellValue('P'.$num,divnum($topico7,$total_top_7));
 
-                        $letra="Q";
-                        for($c=0;$c <=117;$c++)
-                        {
-                            $sheet->setCellValue($letra.$num, $respondidas[$c]);
-                            if($correctas[$c] == $respondidas[$c]){
-                                $sheet
-                                ->getStyle($letra.$num)
-                                ->getFill()
-                                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                                ->getStartColor()
-                                ->setARGB('ffdeebc2');
-                            }
-                            else{
-                                $sheet
-                                ->getStyle($letra.$num)
-                                ->getFill()
-                                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                                ->getStartColor()
-                                ->setARGB('fff8beb4');
-                            }
-                            $letra++;
+                        // $letra="Q";
+                        // for($c=0;$c <=117;$c++)
+                        // {
+                        //     $sheet->setCellValue($letra.$num, $respondidas[$c]);
+                        //     if($correctas[$c] == $respondidas[$c]){
+                        //         $sheet
+                        //         ->getStyle($letra.$num)
+                        //         ->getFill()
+                        //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                        //         ->getStartColor()
+                        //         ->setARGB('ffdeebc2');
+                        //     }
+                        //     else{
+                        //         $sheet
+                        //         ->getStyle($letra.$num)
+                        //         ->getFill()
+                        //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                        //         ->getStartColor()
+                        //         ->setARGB('fff8beb4');
+                        //     }
+                        //     $letra++;
                     
-                        }
+                        // }
                     }
                     else{
                         $json = explode(',', $d->detalle_r);
@@ -1698,29 +1699,29 @@ class pruebasController extends Controller
                         $sheet->setCellValue('P'.$num,divnum($topico7,$total_top_7));
                         $sheet->setCellValue('Q'.$num,divnum($topico8,$total_top_8));
 
-                        $letra="R";
-                        for($c=0;$c <=99;$c++)
-                        {
-                            $sheet->setCellValue($letra.$num, $respondidas[$c]);
-                            if($correctas[$c] == $respondidas[$c]){
-                                $sheet
-                                ->getStyle($letra.$num)
-                                ->getFill()
-                                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                                ->getStartColor()
-                                ->setARGB('ffdeebc2');
-                            }
-                            else{
-                                $sheet
-                                ->getStyle($letra.$num)
-                                ->getFill()
-                                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
-                                ->getStartColor()
-                                ->setARGB('fff8beb4');
-                            }
-                            $letra++;
+                        // $letra="R";
+                        // for($c=0;$c <=99;$c++)
+                        // {
+                        //     $sheet->setCellValue($letra.$num, $respondidas[$c]);
+                        //     if($correctas[$c] == $respondidas[$c]){
+                        //         $sheet
+                        //         ->getStyle($letra.$num)
+                        //         ->getFill()
+                        //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                        //         ->getStartColor()
+                        //         ->setARGB('ffdeebc2');
+                        //     }
+                        //     else{
+                        //         $sheet
+                        //         ->getStyle($letra.$num)
+                        //         ->getFill()
+                        //         ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                        //         ->getStartColor()
+                        //         ->setARGB('fff8beb4');
+                        //     }
+                        //     $letra++;
                     
-                        }
+                        // }
                     }
                     
                     else{
