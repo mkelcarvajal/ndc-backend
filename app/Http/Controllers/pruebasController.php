@@ -1789,8 +1789,7 @@ class pruebasController extends Controller
                     ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
                     ->first();
             
-            $topicos = DB::table('topicos')->where('id_encuesta',$data->id_en)->get();
-           
+            $topicos = DB::table('topicos')->where('id_encuesta',$data->id_en)->orderBy('id_topico')->get();
            
             $cargo =  DB::table('usuarios as u')->select('u.cargo as c')->where('u.rut',"$data->rut_r")->first();
            // dd($data->rut_r);
