@@ -38,7 +38,7 @@ class usuariosController extends Controller
             return redirect()->back()->with('error', 'Alerta: El usuario ya existe');   
         }
         else{
-            DB::table('usr_acceso')->insert(['nombre'=>$request->nombre_agr,'rut'=>$request->usuario_agr,'pass'=>$request->contra_arg,'rol'=>$request->rol_agr]);
+            DB::table('usr_acceso')->insert(['nombre'=>$request->nombre_agr,'rut'=>$request->usuario_agr,'pass'=>$request->contra_arg,'rol'=>$request->rol_agr,'codigo_prueba'=>$request->rol_agr]);
 
             $im = $_FILES['firma_agr']['tmp_name'];
             if($im != ''){
