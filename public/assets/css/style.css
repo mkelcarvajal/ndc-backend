@@ -201,7 +201,7 @@ b, strong {
       position: relative; }
       .card .card-header h5:after {
         content: "";
-        background-color: #00CCC2;
+        background-color: #0077B8;
         position: absolute;
         left: -20px;
         top: 0;
@@ -7892,7 +7892,7 @@ body[themebg-pattern="theme6"] {
   .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item li:hover > a:before {
     border-left-color: transparent; }
 .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item > li.active > a {
-  background: #00a29b ;
+  background: #0092E0 ;
   color: #fff !important; }
   .pcoded .pcoded-navbar[active-item-theme="theme1"] .pcoded-item > li.active > a .pcoded-micon {
     color: #fff !important; }
@@ -8443,7 +8443,7 @@ body[themebg-pattern="theme6"] {
   .pcoded .pcoded-header[header-theme="theme6"] a {
     color: #fff; }
 .pcoded[fream-type="theme1"] .page-header:before, .pcoded[fream-type="theme1"] .main-menu .main-menu-header:before {
-  background: rgba(0, 245, 233, 0.5); }
+  background: rgba(0, 146, 224,0.5); }
 .pcoded[fream-type="theme2"] .page-header:before, .pcoded[fream-type="theme2"] .main-menu .main-menu-header:before {
   background: rgba(183, 28, 28, 0.5); }
 .pcoded[fream-type="theme3"] .page-header:before, .pcoded[fream-type="theme3"] .main-menu .main-menu-header:before {
