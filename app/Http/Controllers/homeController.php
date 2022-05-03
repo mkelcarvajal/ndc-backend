@@ -22,9 +22,10 @@ class homeController extends Controller
     {
         $user=$_POST['userin'];
         $pass=$_POST['passin'];
-        $data=DB::select('exec BD_ENTI_CORPORATIVA..login ?,?',[$user,$pass]);
+        $data=DB::connection('mysql')->table('sda.usr_acceso')->where('rut',$user)->where('pass',$pass)->get();
+        // $data=DB::select('exec BD_ENTI_CORPORATIVA..login ?,?',[$user,$pass]);
         if(count($data)>0){
-            if($data[0]->clave>0)
+            if($data[0]->pass>0)
             {
                 session(['usuario' => $user]);
                 session(['nombre' => $data[0]->nombre]);
