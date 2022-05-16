@@ -15,6 +15,8 @@ Route::group(['middleware' => 'usersession'], function ()
     Route::get('correlativo', 'capController@correlativo')->name('correlativo');
     Route::any('pdf_correlativo', 'capController@pdf_correlativo')->name('pdf_correlativo');
     Route::get('desc_certificado', 'capController@desc_certificado')->name('desc_certificado');
+    Route::get('desc_diplomas', 'capController@desc_diplomas')->name('desc_diplomas');
+    Route::post('pdf_diploma', 'capController@pdf_diploma')->name('pdf_diploma');
 
 
     Route::post('importarExcel', 'capController@importarExcel')->name('importarExcel');
