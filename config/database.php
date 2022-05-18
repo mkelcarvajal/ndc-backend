@@ -69,7 +69,7 @@ return [
             'host' => env('DB_HOST_NDC', 'forge'),
             'port' => env('DB_PORT_NDC', 'forge'),
             'database' => env('DB_DATABASE_NDC', 'forge'),
-            'username' => env('DB_USERNAME_NDC', 'forge'),
+            'username' => env('DB_USERNAME_NDC', ''),
             'password' => env('DB_PASSWORD_NDC', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
