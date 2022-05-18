@@ -74,6 +74,7 @@ class capController extends Controller
                         ->table('registro_capacitaciones')
                         ->where('cod_certificado',$request->input('corr'))
                         ->where('estado','listo')
+                        ->where('calificacion','APROBADO(A)')
                         ->get();
         
         if(sizeof($data)==0){
