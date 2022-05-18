@@ -112,7 +112,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="select_calificacion"><b>Correlativo: </b></label>
-                                            <input type="number"  class="form-control" id="corr" name="corr">
+                                            <input type="number"  class="form-control" id="corr" name="corr" required>
                                             <button type="submit" class="btn btn-success btn-block mt-3">Generar Certificado</button>
                                         </div>
                                     </div>

@@ -114,9 +114,11 @@
                                         <label for="select_calificacion"><b>Calificación: </b></label>
                                         <select class="sel" name="select_calificacion" id="select_calificacion" onchange="cargar_calificaciones();">
                                             <option>Seleccione un Ítem</option>
-                                            <option value="APROBADO(A)">Aprobados(as)</option>
-                                            <option value="REPROBADO(A)"> Reprobados(as)</option>
-                                            <option value="INASISTENTE">Inasistente</option>
+                                            <option value="ct">CODELCO / TEAMWORK (Aprobados, Reprobados, Inasistentes</option>
+                                            <option value="ca">Contratistas (Aprobados)</option>
+                                            <option value="cr">Contratistas (Reprobados)</option>
+                                            <option value="ci">Contratistas (Inasistentes)</option>
+                                            <option value="r">Rezagados</option>
                                         </select>
                                     </div>
                                 </div>
@@ -143,20 +145,32 @@
 @section('script')
 <script src="js/registros.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-@if(session()->has('message'))
+@if(session()->has('success'))
+    <script>
+        $( document ).ready(function() {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Correlativo Actualizado Correctamente',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+                });
+        });
+    </script>
+@elseif(session()->has('error'))
 <script>
     $( document ).ready(function() {
         Swal.fire({
             position: 'center',
-            icon: 'success',
-            title: 'Correlativo Actualizado Correctamente',
+            icon: 'error',
+            title: 'Correlativo en Uso',
             showConfirmButton: false,
             timer: 5000,
             timerProgressBar: true,
             });
     });
-
-    </script>
+</script>
 @endif
 <script>
     $(document).on('change','.up', function(){

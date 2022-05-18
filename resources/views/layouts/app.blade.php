@@ -114,7 +114,7 @@
           <div class="pcoded-main-container">
               <div class="pcoded-wrapper">
                   <nav class="pcoded-navbar">
-                      <div class="sidebar_toggle"><a href="home"><i class="icon-close icons"></i></a></div>
+                      <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                       <div class="pcoded-inner-navbar main-menu">
                           <div class="pcoded-navigation-label" data-i18n="nav.category.navigation" style="color: #0077B8">Menú</div>
                           <ul class="pcoded-item pcoded-left-item">
@@ -164,6 +164,13 @@
                                 <a href="desc_certificado" class="waves-effect waves-dark"  >
                                       <span  class="pcoded-micon"><i class="fas fa-download"></i></span>
                                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Descargar Certificados</span>
+                                      <span class="pcoded-mcaret"></span>
+                                  </a>
+                            </li>
+                            <li class="{{ ! Route::is('desc_diplomas') ?: 'active' }}">
+                                <a href="desc_diplomas" class="waves-effect waves-dark"  >
+                                      <span  class="pcoded-micon"><i class="fas fa-download"></i></span>
+                                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Descargar Diplomas</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                             </li>

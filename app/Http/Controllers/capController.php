@@ -68,8 +68,29 @@ class capController extends Controller
         }
     }
 
+    public function pdf_diploma(request $request){
+
+        $data = DB::connection('mysql')
+                        ->table('registro_capacitaciones')
+                        ->where('cod_certificado',$request->input('corr'))
+                        ->where('estado','listo')
+                        ->get();
+        
+        if(sizeof($data)==0){
+            return redirect()->back()->with('message', ['type' => 'Error','text' => 'No Existe Correlativo',]);
+        }
+        else{
+            $pdf = PDF::loadView('pdf.diploma_ndc',compact('data'))->setPaper('a4', 'landscape');
+            return $pdf->download('certificado.pdf');
+        }
+    }
+
     public function desc_certificado(){
         return view('descargar_certificado');
+    }
+
+    public function desc_diplomas(){
+        return view('descargar_diplomas');
     }
 
     public function importarExcel(request $request){
@@ -468,31 +489,75 @@ class capController extends Controller
 
     public function selectCorrelativo(request $request){
         
-        $data = DB::connection('mysql')
-                            ->table('registro_capacitaciones')
-                            ->where('calificacion',$request->input('calificacion'))
-                            ->where('estado','Prueba 3')
-                            ->get();
+        if($request->input('calificacion')=='ct'){
+            $data = DB::connection('mysql')
+                                ->table('registro_capacitaciones')
+                                ->whereIn('calificacion',["APROBADO(A)","REPROBADO(A)","INASISTENTE"])
+                                ->whereIN('tipo_empresa',["CODELCO","TEAMWORK"])
+                                ->where('estado','Prueba 3')
+                                ->get();
+        }   
+        else if($request->input('calificacion')=='ca'){
+            $data = DB::connection('mysql')
+                                ->table('registro_capacitaciones')
+                                ->where('tipo_empresa','Contratistas')
+                                ->where('calificacion','APROBADO(A)')
+                                ->where('estado','Prueba 3')
+                                ->get();
+        }
+        else if($request->input('calificacion')=='cr'){
+            $data = DB::connection('mysql')
+                                ->table('registro_capacitaciones')
+                                ->where('tipo_empresa','Contratistas')
+                                ->where('calificacion','REPROBADO(A)')
+                                ->where('estado','Prueba 3')
+                                ->get();
+        }
+        else if($request->input('calificacion')=='ci'){
+            $data = DB::connection('mysql')
+                                ->table('registro_capacitaciones')
+                                ->where('tipo_empresa','Contratistas')
+                                ->where('calificacion','INASISTENTE')
+                                ->where('estado','Prueba 3')
+                                ->get();
+        }
+        else if($request->input('calificacion')=='r'){
+            $data = DB::connection('mysql')
+                                ->table('registro_capacitaciones')
+                                ->where('tipo_empresa','Contratistas')
+                                ->where('rezagado',1)
+                                ->where('estado','Prueba 3')
+                                ->get();
+        }
 
         return view('tablas.tabla_correlativos',compact('data'));
     }
 
     public function addCorrelativo(request $request){
-        if($request->input('check_registro')!=''){
-            foreach($request->input('check_registro') as $check_correlativo){
-                if(isset($check_correlativo)){
-    
-                    DB::connection('mysql')
-                        ->table('registro_capacitaciones')
-                        ->where('id',$check_correlativo)
-                        ->update([
-                                    'cod_certificado'=>$request->input('cod_correlativo'),
-                                    'estado'=>'listo'
-                                ]);
+
+        $corr_anterior = DB::connection('mysql')->table('registro_capacitaciones')->where('cod_certificado',$request->input('cod_correlativo'))->get();
+
+        if(sizeof($corr_anterior)>0){
+            return redirect()->back()->with('error', ['type' => 'error','text' => 'Correlativo en Uso',]);
+        }
+        else{
+            if($request->input('check_registro')!=''){
+                foreach($request->input('check_registro') as $check_correlativo){
+                    if(isset($check_correlativo)){
+        
+                        DB::connection('mysql')
+                            ->table('registro_capacitaciones')
+                            ->where('id',$check_correlativo)
+                            ->update([
+                                        'cod_certificado'=>$request->input('cod_correlativo'),
+                                        'estado'=>'listo'
+                                    ]);
+                    }
                 }
             }
+            return redirect()->back()->with('success', ['type' => 'Success','text' => 'Correlativo Actualizado',]);
         }
- 
-        return redirect()->back()->with('message', ['type' => 'Success','text' => 'Archivo Subido Correctamente ',]);
+  
+        
     }
 }

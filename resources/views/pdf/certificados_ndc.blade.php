@@ -10,6 +10,7 @@
 
     }
 
+
 </style>
 <html >
     <img src="img/ndc.JPG" height="50" width="100">
@@ -76,19 +77,19 @@
     <table>
         <thead>
             <tr>
-                <th rowspan="2">N°</th>
-                <th rowspan="2">NOMBRE COMPLETO</th>
-                <th rowspan="2">RUN</th>
-                <th rowspan="2">SAP</th>
-                <th rowspan="2">ORGANIZACIÓN</th>
-                <th rowspan="2">ASISTENCIA</th>
-                <th colspan="2">EVALUACIONES (%)</th>
-                <th rowspan="2">EVALIACIÓN FINAL (%)</th>
-                <th rowspan="2">CALIFICACIÓN</th>
+                <th rowspan="2" style="width:30px" >N°</th>
+                <th rowspan="2" style="width:300px;">NOMBRE COMPLETO</th>
+                <th rowspan="2" style="width: 65px;">RUN</th>
+                <th rowspan="2" style="width: 60px">SAP</th>
+                <th rowspan="2" style="width: 80px">ORGANIZACIÓN</th>
+                <th rowspan="2" style="width: 70px">ASISTENCIA</th>
+                <th colspan="2" style="width: 80px;">EVALUACIONES (%)</th>
+                <th rowspan="2" style="width: 100px">EVALIACIÓN FINAL (%)</th>
+                <th rowspan="2" style="width: 80px">CALIFICACIÓN</th>
             </tr>
             <tr>
-                <th>1</th>
-                <th>2</th>
+                <th style="width:50px;">1</th>
+                <th style="width: 50px;">2</th>
             </tr>
         </thead>
         <tbody style="text-align: center">
