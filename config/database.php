@@ -66,8 +66,8 @@ return [
         'mysql_ndc' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST_NDC', 'forge'),
-            'port' => env('DB_PORT_NDC', 'forge'),
+            'host' => env('DB_HOST_NDC', '198.12.212.55'),
+            'port' => env('DB_PORT_NDC', '3306'),
             'database' => env('DB_DATABASE_NDC', 'forge'),
             'username' => env('DB_USERNAME_NDC', 'forge'),
             'password' => env('DB_PASSWORD_NDC', ''),
