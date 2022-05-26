@@ -16,6 +16,8 @@
         <link href="{{ URL::to('assets/icon/themify-icons/themify-icons.css') }}" rel="stylesheet">
         <link href="{{ URL::to('assets/css/style.css') }}" rel="stylesheet">
         <link href="{{ URL::to('css/select2.css') }}" rel="stylesheet">
+        <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 
 </head>
   <body>
@@ -153,6 +155,13 @@
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                             </li>
+                            <li class="{{ ! Route::is('rezagados') ?: 'active' }}">
+                                <a href="rezagados" class="waves-effect waves-dark"  >
+                                      <span  class="pcoded-micon"><i class="fas fa-user-alt-slash"></i></span>
+                                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Rezagados</span>
+                                      <span class="pcoded-mcaret"></span>
+                                  </a>
+                            </li>
                             <li class="{{ ! Route::is('correlativo') ?: 'active' }}">
                                 <a href="correlativo" class="waves-effect waves-dark"  >
                                       <span  class="pcoded-micon"><i class="fas fa-list-ol"></i></span>
@@ -214,6 +223,8 @@
     <script type="text/javascript" src="{{ URL::to('assets/js/script.js') }}"></script>
     <script type="text/javascript" src="{{ URL::to('js/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::to('js/moment.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap4.min.js"></script>
 
 @yield("script")
  
