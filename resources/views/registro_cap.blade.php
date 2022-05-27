@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <style>
     
     .it .btn-orange
@@ -135,7 +136,7 @@
                                 <h5>Registros en esta Etapa</h5>
                             </div>
                             <div class="card-body">
-                                <table class="table table-hover ">
+                                <table class="table table-hover" id="tabla_cap">
                                     <thead class="bg-success">
                                         <th>RUT</th>
                                         <th>Nombre</th>
@@ -170,6 +171,8 @@
 
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 @if(session()->has('message'))
 <script>
     $( document ).ready(function() {
@@ -186,6 +189,32 @@
     </script>
 @endif
 <script>
+
+    $(document).ready(function () {
+        $('#tabla_cap').DataTable({
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                    }
+            },
+        });
+    });
+
     $("#form_cap").on("submit", function(){
             $('#modal_spiner').modal({
                 backdrop: 'static',

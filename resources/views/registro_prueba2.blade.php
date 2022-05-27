@@ -136,8 +136,8 @@
                             <div class="card-header ">
                                 <h5>Registros en esta Etapa</h5>
                             </div>
-                            <div class="card-body">
-                                <table class="table table-hover ">
+                            <div class="card-body table-responsive">
+                                <table class="table table-hover " id="tabla_prueba2">
                                     <thead class="bg-warning">
                                         <th>RUT</th>
                                         <th>Nombre</th>
@@ -192,6 +192,31 @@
     </script>
 @endif
 <script>
+
+    $(document).ready(function () {
+        $('#tabla_prueba2').DataTable({
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                    }
+            },
+        });
+    });
 
     $("#form_prueba2").on("submit", function(){
         $('#modal_spiner').modal({

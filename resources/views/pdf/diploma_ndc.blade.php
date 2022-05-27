@@ -31,9 +31,9 @@ footer {
     <br>
     <center style="font-size: 12">Por su <b>PARTICIPACIÓN y APROBACIÓN</b> en el curso:</center>
     <br>
-    <center style="font-size:16"><b>{{$d->curso}} - {{$d->empresa}} - {{$d->division}}</b></center>
+    <center style="font-size:16"><b>{{$d->curso}} - {{$d->division}}</b></center>
     <br>
-    <center>con un total de <b>{{$d->horas_curso}} Horas</b> realizado con fecha <b>{{$d->fecha_fin}}</b></center>
+    <center>con un total de <b>{{$d->horas_curso}} Horas</b> realizado con fecha <b>{{date("d/m/Y",strtotime($d->fecha_fin))}}</b></center>
     <center><b>Fecha de Vigencia del Certificado: {{date("d/m/Y",strtotime($d->fecha_fin. ' + 4 years'))}}</b></center>
     <br>
     <center>Realizado por la Empresa NDC PERSSO GROUP ®</center>

@@ -2,14 +2,20 @@
     html {
         font-family: Arial, Helvetica, sans-serif;
     }
-    table,th,td {
-        font-size: 10px;
-        border:solid 1px;
-        width: 100%;
-        border-collapse: collapse;
+    .tableContent{
+        table-layout: fixed;
 
     }
+    table{
+        width: 100%;
 
+    }
+    table,th,td {
+        white-space: nowrap;
+        font-size: 10px;
+        border:solid 1px;
+        border-collapse: collapse;
+    }
 
 </style>
 <html >
@@ -17,7 +23,7 @@
     <br>
     <center><b>CERTIFICADO DE ASISTENCIA Y APROBACIÓN Nº {{$data[0]->cod_certificado}} - <?php echo date("Y") ?></b></center>
     <br>
-    <table >
+    <table style="width: 100%">
         <thead>
             <tr>
                 <th style="text-align: left">
@@ -74,42 +80,45 @@
         en el curso denominado: <b>ENTRENAMIENTO LABORAL EN SEGURIDAD Y SALUD OCUPACIONAL MINERA/NCH 3262</b>, 
         on fecha de inicio el 18 de abril de 2022 y de término el 20 de abril 2022, con una duración de 24 horas cronológicas.
     </p>
-    <table>
-        <thead>
-            <tr>
-                <th rowspan="2" style="width:30px" >N°</th>
-                <th rowspan="2" style="width:300px;">NOMBRE COMPLETO</th>
-                <th rowspan="2" style="width: 65px;">RUN</th>
-                <th rowspan="2" style="width: 60px">SAP</th>
-                <th rowspan="2" style="width: 80px">ORGANIZACIÓN</th>
-                <th rowspan="2" style="width: 70px">ASISTENCIA</th>
-                <th colspan="2" style="width: 80px;">EVALUACIONES (%)</th>
-                <th rowspan="2" style="width: 100px">EVALIACIÓN FINAL (%)</th>
-                <th rowspan="2" style="width: 80px">CALIFICACIÓN</th>
-            </tr>
-            <tr>
-                <th style="width:50px;">1</th>
-                <th style="width: 50px;">2</th>
-            </tr>
-        </thead>
-        <tbody style="text-align: center">
-            <?php $cont = 1; ?>
-            @foreach($data as $d)
+    <div class="tableContent">
+        <table >
+            <thead>
                 <tr>
-                    <td>{{$cont}}</td>
-                    <td>{{$d->nombre}}</td>
-                    <td>{{$d->rut}}</td>
-                    <td>{{$d->sap}}</td>
-                    <td>{{$d->empresa}}</td>
-                    <td>{{$d->asistencia}}%</td>
-                    <td>{{$d->nota_ini}}%</td>
-                    <td>{{$d->nota_fin}}%</td>
-                    <td>{{$d->nota_fin}}%</td>
-                    <td>{{$d->calificacion}}</td>
+                    <th rowspan="2" style="min-width: 20px;">N°</th>
+                    <th rowspan="2" >NOMBRE COMPLETO</th>
+                    <th rowspan="2" >RUN</th>
+                    <th rowspan="2" >SAP</th>
+                    <th rowspan="2" >ORGANIZACIÓN</th>
+                    <th rowspan="2" >ASISTENCIA</th>
+                    <th colspan="2" >EVALUACIONES (%)</th>
+                    <th rowspan="2" >EVALIACIÓN FINAL (%)</th>
+                    <th rowspan="2" >CALIFICACIÓN</th>
                 </tr>
-                <?php $cont++; ?>
-            @endforeach
-        </tbody>
-    </table>
+                <tr>
+                    <th style="width:50px;">1</th>
+                    <th style="width: 50px;">2</th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center">
+                <?php $cont = 1; ?>
+                @foreach($data as $d)
+                    <tr>
+                        <td>{{$cont}}</td>
+                        <td style="text-align: left !important"> {{$d->nombre}}</td>
+                        <td>{{$d->rut}}</td>
+                        <td>{{$d->sap}}</td>
+                        <td>{{$d->empresa}}</td>
+                        <td>{{$d->asistencia}}%</td>
+                        <td>{{$d->nota_ini}}%</td>
+                        <td>{{$d->nota_fin}}%</td>
+                        <td>{{$d->nota_fin}}%</td>
+                        <td>{{$d->calificacion}}</td>
+                    </tr>
+                    <?php $cont++; ?>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
     <br><br><br><br><br><br><br><br><br><br><br><br><br>
 </html>

@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<link href="" rel="stylesheet">
+
 <style>
     
     .it .btn-orange
@@ -136,8 +138,8 @@
                             <div class="card-header ">
                                 <h5>Registros en esta Etapa</h5>
                             </div>
-                            <div class="card-body">
-                                <table class="table table-hover ">
+                            <div class="card-body table-responsive">
+                                <table class="table table-hover " id="tabla_prueba1">
                                     <thead class="bg-danger">
                                         <th>RUT</th>
                                         <th>Nombre</th>
@@ -190,6 +192,31 @@
     </script>
 @endif
 <script>
+
+    $(document).ready(function () {
+        $('#tabla_prueba1').DataTable({
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                    }
+            },
+        });
+    });
 
     $("#form_prueba1").on("submit", function(){
         $('#modal_spiner').modal({

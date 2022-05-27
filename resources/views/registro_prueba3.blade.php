@@ -137,39 +137,41 @@
                             <div class="card-header ">
                                 <h5>Registros en esta Etapa</h5>
                             </div>
-                            <div class="card-body">
-                                <table class="table table-hover ">
-                                    <thead class="bg-primary">
-                                        <th>RUT</th>
-                                        <th>Nombre</th>
-                                        <th>SAP</th>
-                                        <th>Empresa</th>
-                                        <th>Nota Inicio</th>
-                                        <th>Nota Termino</th>
-                                        <th>Asistencia</th>
-                                        <th>Fecha Inicio</th>
-                                        <th>Fecha Termino</th>
-                                        <th>Fecha Registro</th>
-                                        <th>Curso</th>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($prueba3 as $p3)
-                                            <tr style="cursor: pointer;" class="text-center">
-                                                <td>{{$p3->rut}}</td>
-                                                <td>{{$p3->nombre}}</td>
-                                                <td>{{$p3->sap}}</td>
-                                                <td>{{$p3->empresa}}</td>
-                                                <td>{{$p3->nota_ini}} %</td>
-                                                <td>{{$p3->nota_fin}} %</td>
-                                                <td>{{$p3->asistencia}} %</td>
-                                                <td>{{date("d/m/Y",strtotime($p3->fecha_ini))}}</td>
-                                                <td>{{date("d/m/Y",strtotime($p3->fecha_fin))}}</td>
-                                                <td>{{date("d/m/Y",strtotime($p3->fecha_registro))}}</td>
-                                                <td>{{$p3->curso}}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                            <div class="card-body ">
+                                <div class="table-responsive">
+                                    <table class="table table-hover " id="tabla_prueba3">
+                                        <thead class="bg-primary">
+                                            <th>RUT</th>
+                                            <th>Nombre</th>
+                                            <th>SAP</th>
+                                            <th>Empresa</th>
+                                            <th>Nota Inicio</th>
+                                            <th>Nota Termino</th>
+                                            <th>Asistencia</th>
+                                            <th>Fecha Inicio</th>
+                                            <th>Fecha Termino</th>
+                                            <th>Fecha Registro</th>
+                                            <th>Curso</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($prueba3 as $p3)
+                                                <tr style="cursor: pointer;" class="text-center">
+                                                    <td>{{$p3->rut}}</td>
+                                                    <td>{{$p3->nombre}}</td>
+                                                    <td>{{$p3->sap}}</td>
+                                                    <td>{{$p3->empresa}}</td>
+                                                    <td>{{$p3->nota_ini}} %</td>
+                                                    <td>{{$p3->nota_fin}} %</td>
+                                                    <td>{{$p3->asistencia}} %</td>
+                                                    <td>{{date("d/m/Y",strtotime($p3->fecha_ini))}}</td>
+                                                    <td>{{date("d/m/Y",strtotime($p3->fecha_fin))}}</td>
+                                                    <td>{{date("d/m/Y",strtotime($p3->fecha_registro))}}</td>
+                                                    <td>{{$p3->curso}}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -197,6 +199,31 @@
     </script>
 @endif
 <script>
+
+    $(document).ready(function () {
+        $('#tabla_prueba3').DataTable({
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                    }
+            },
+        });
+    });
 
     $("#form_prueba3").on("submit", function(){
         $('#modal_spiner').modal({
