@@ -408,7 +408,7 @@ class capController extends Controller
     
                 $nombre = strtoupper($t[0]." ".$t[1]." ".$t[2]);
                 $rut = str_replace([".",","], "", $t[3]);
-                $sap = str_replace(["pendiente","N/A","S/S","",NULL," ","  ","Pendiente","PENDIENTE","N/a"],0, $t[4]);
+                $sap = str_replace(["pendiente","N/A","S/S","","#N/A",NULL," ","  ","Pendiente","PENDIENTE","N/a"],0, $t[4]);
                 if($sap==''){
                     $sap=0;
                 }

@@ -78,7 +78,7 @@
         Se extiende a <b>CODELCO CHILE, DIVISIÓN SALVADOR, RUT 61.704.000-K </b>, 
         el presente certificado de asistencia y calificación del siguiente personal, 
         en el curso denominado: <b>ENTRENAMIENTO LABORAL EN SEGURIDAD Y SALUD OCUPACIONAL MINERA/NCH 3262</b>, 
-        on fecha de inicio el 18 de abril de 2022 y de término el 20 de abril 2022, con una duración de 24 horas cronológicas.
+        on fecha de inicio el {{date("d/m/Y",strtotime($data[0]->fecha_ini))}} y de término el {{date("d/m/Y",strtotime($data[0]->fecha_fin))}}, con una duración de 24 horas cronológicas.
     </p>
     <div class="tableContent">
         <table >
