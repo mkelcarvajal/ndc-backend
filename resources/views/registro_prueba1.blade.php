@@ -152,7 +152,11 @@
                                     </thead>
                                     <tbody>
                                         @foreach($prueba1 as $p1)
-                                            <tr style="cursor: pointer;" class="text-center">
+                                            @if($p1->rezagado == 1)
+                                                <tr style="cursor: pointer; background-color:#FFFFD6;" class="text-center" >
+                                            @else
+                                                <tr style="cursor: pointer;" class="text-center">
+                                            @endif
                                                 <td>{{$p1->rut}}</td>
                                                 <td>{{$p1->nombre}}</td>
                                                 <td>{{$p1->sap}}</td>

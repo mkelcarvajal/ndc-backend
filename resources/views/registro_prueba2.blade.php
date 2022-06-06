@@ -144,20 +144,22 @@
                                         <th>SAP</th>
                                         <th>Empresa</th>
                                         <th>Nota</th>
-                                        <th>Asistencia</th>
                                         <th>Fecha</th>
                                         <th>Fecha Registro</th>
                                         <th>Curso</th>
                                     </thead>
                                     <tbody>
                                         @foreach($prueba2 as $p2)
-                                            <tr style="cursor: pointer;" class="text-center">
+                                            @if($p2->rezagado == 1)
+                                                <tr style="cursor: pointer; background-color:#FFFFD6;" class="text-center" >
+                                            @else
+                                                <tr style="cursor: pointer;" class="text-center">
+                                            @endif
                                                 <td>{{$p2->rut}}</td>
                                                 <td>{{$p2->nombre}}</td>
                                                 <td>{{$p2->sap}}</td>
                                                 <td>{{$p2->empresa}}</td>
                                                 <td>{{$p2->nota_ini}} %</td>
-                                                <td>{{$p2->asistencia}}</td>
                                                 <td>{{date("d/m/Y",strtotime($p2->fecha_ini))}}</td>
                                                 <td>{{date("d/m/Y",strtotime($p2->fecha_registro))}}</td>
                                                 <td>{{$p2->curso}}</td>

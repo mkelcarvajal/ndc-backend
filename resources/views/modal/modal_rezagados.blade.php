@@ -33,6 +33,20 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col">
+                        <label>Asistencia Dia N°1</label>
+                        <input class="form-control" type="number" id="asis_1" name="asis_1" required>
+                    </div>
+                    <div class="col">
+                        <label>Asistencia Dia N°2</label>
+                        <input class="form-control" type="number" id="asis_2" name="asis_2" required>
+                    </div>
+                    <div class="col">
+                        <label>Asistencia Dia N°3</label>
+                        <input class="form-control" type="number" id="asis_3" name="asis_3" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
                         <label>Nota Inicial</label>
                         <input class="form-control" type="number" id="nota_ini" name="nota_ini" required>
                     </div>
@@ -56,11 +70,12 @@
                     </div>
                     <div class="col">
                         <label>Calificación</label>
-                        <select class="sel" id="calificacion" name="calificacion" required>
-                            <option>APROBADO(A)</option>
-                            <option>REPROBADO(A)</option>
-                            <option>INASISTENTE</option>
-                            <option>CANCELADO POR OTIC</option>
+                        <select class="form-control" id="calificacion" name="calificacion" required>
+                            <option value="">Seleccione un estado</option>
+                            <option value="APROBADO(A)">APROBADO(A)</option>
+                            <option value="REPROBADO(A)">REPROBADO(A)</option>
+                            <option value="INASISTENTE">INASISTENTE</option>
+                            <option value="CANCELADO POR OTIC">CANCELADO POR OTIC</option>
                         </select>
                     </div>
                 </div>
