@@ -147,7 +147,6 @@
                                             <th>Empresa</th>
                                             <th>Nota Inicio</th>
                                             <th>Nota Termino</th>
-                                            <th>Asistencia</th>
                                             <th>Fecha Inicio</th>
                                             <th>Fecha Termino</th>
                                             <th>Fecha Registro</th>
@@ -155,14 +154,17 @@
                                         </thead>
                                         <tbody>
                                             @foreach($prueba3 as $p3)
-                                                <tr style="cursor: pointer;" class="text-center">
+                                                @if($p3->rezagado == 1)
+                                                    <tr style="cursor: pointer; background-color:#FFFFD6;" class="text-center" >
+                                                @else
+                                                    <tr style="cursor: pointer;" class="text-center">
+                                                @endif
                                                     <td>{{$p3->rut}}</td>
                                                     <td>{{$p3->nombre}}</td>
                                                     <td>{{$p3->sap}}</td>
                                                     <td>{{$p3->empresa}}</td>
                                                     <td>{{$p3->nota_ini}} %</td>
                                                     <td>{{$p3->nota_fin}} %</td>
-                                                    <td>{{$p3->asistencia}} %</td>
                                                     <td>{{date("d/m/Y",strtotime($p3->fecha_ini))}}</td>
                                                     <td>{{date("d/m/Y",strtotime($p3->fecha_fin))}}</td>
                                                     <td>{{date("d/m/Y",strtotime($p3->fecha_registro))}}</td>

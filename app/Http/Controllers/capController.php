@@ -10,15 +10,16 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class capController extends Controller
 {
-    public function index()
-    {
-        $planilla_verde=DB::connection('mysql')
-                        ->table('registro_capacitaciones')
-                        ->where('estado','planilla verde')
-                        ->get();
 
-        return view('registro_cap',compact('planilla_verde'));
-    }
+    public function index()
+        {
+            $planilla_verde=DB::connection('mysql')
+                            ->table('registro_capacitaciones')
+                            ->where('estado','planilla verde')
+                            ->get();
+
+            return view('registro_cap',compact('planilla_verde'));
+        }
 
     public function prueba1(){
 
@@ -151,9 +152,7 @@ class capController extends Controller
                                                 ->first();
 
                 if(is_null($reg_anterior)){
-                    // registro planilla verde
-
-
+                // registro planilla verde
                     DB::connection('mysql')
                                     ->table('registro_capacitaciones')
                                         ->insert([
@@ -163,6 +162,9 @@ class capController extends Controller
                                                     "empresa"=>$empresa,
                                                     "curso"=>$curso,
                                                     "mandante"=>$empresa_mandante,
+                                                    "asistencia_1"=>0,
+                                                    "asistencia_2"=>0,
+                                                    "asistencia_3"=>0,
                                                     "division"=>$division,
                                                     "horas_curso"=>$horas_curso,
                                                     "tipo_empresa"=>$tipo_empresa,
@@ -171,7 +173,6 @@ class capController extends Controller
                                                 ]);
                 }
                 else{
-
                     DB::connection('mysql')
                     ->table('registro_capacitaciones')
                         ->where('id',$reg_anterior->id)
@@ -188,12 +189,10 @@ class capController extends Controller
                                     "fecha_registro"=>date("Y-m-d",strtotime($fecha_registro)),
                                     "estado"=>'planilla verde'
                                 ]);
-
                 }
 
             }
         }
-
         return redirect()->back()->with('message', ['type' => 'Success','text' => 'Subido Correctamente ',]);
     }
 
@@ -245,23 +244,10 @@ class capController extends Controller
                     $asistencia = 0;
                 }
 
-                $pv = $this->getPrueba1($rut,$curso,$fecha_registro);
+                $pv = $this->getPlanillaVerde($rut,$curso,$fecha_registro);
 
-                if($pv){
-
-                        DB::connection('mysql')->table('registro_capacitaciones')
-                                ->where('rut',$rut)
-                                ->where('curso',$curso)
-                                ->where('fecha_registro',date("Y-m-d",strtotime($fecha_registro)))
-                                ->update([
-                                    "nota_ini"=>$nota_ini,
-                                    "fecha_ini"=>$fecha_ini,
-                                    "asistencia"=>$asistencia,
-                                    "estado"=>"Prueba 1"
-                                ]);
-                }
-                else {
-                    if($nombre!=''){
+                if(sizeof($pv)>0){
+                    if($rut!='' || $rut != null ){
                         DB::connection('mysql')->table('registro_capacitaciones')
                         ->insert([
                             "rut"=>$rut,
@@ -273,31 +259,46 @@ class capController extends Controller
                             "division"=>$division,
                             "horas_curso"=>$horas_curso,
                             "tipo_empresa"=>$tipo_empresa,
-                            "asistencia"=>$asistencia,
+                            "asistencia_1"=>$asistencia,
+                            "asistencia_2"=>0,
+                            "asistencia_3"=>0,
+                            "asistencia_promedio"=>0,
                             "fecha_registro"=>date("Y-m-d",strtotime($fecha_registro)),
                             "nota_ini"=>$nota_ini,
+                            "nota_fin"=>0,
+                            "fecha_ini"=>$fecha_ini,
+                            "estado"=>'Prueba 1',
+                        ]);
+                    }
+                }
+                else {
+                    if($rut!='' || $rut != null){
+                        DB::connection('mysql')->table('registro_capacitaciones')
+                        ->insert([
+                            "rut"=>$rut,
+                            "nombre"=>$nombre,
+                            "sap"=>$sap,
+                            "empresa"=>$empresa,
+                            "curso"=>$curso,
+                            "mandante"=>$empresa_mandante,
+                            "division"=>$division,
+                            "horas_curso"=>$horas_curso,
+                            "tipo_empresa"=>$tipo_empresa,
+                            "asistencia_1"=>$asistencia,
+                            "asistencia_2"=>0,
+                            "asistencia_3"=>0,
+                            "asistencia_promedio"=>0,
+                            "fecha_registro"=>date("Y-m-d",strtotime($fecha_registro)),
+                            "nota_ini"=>$nota_ini,
+                            "nota_fin"=>0,
                             "fecha_ini"=>$fecha_ini,
                             "estado"=>'Prueba 1',
                             "rezagado"=>1
                         ]);
                     }
-         
                 }
-               
         }
         return redirect()->back()->with('message', ['type' => 'Success','text' => 'Archivo Subido Correctamente ',]);
-    }
-
-    public function getPrueba1($rut,$curso,$fecha_registro){
-
-            $planilla_verde = DB::connection('mysql')->table('registro_capacitaciones')
-                                                        ->where("estado","planilla verde")
-                                                        ->where('rut',$rut)
-                                                        ->where('curso',$curso)
-                                                        ->where('fecha_registro',date("Y-m-d",strtotime($fecha_registro)))
-                                                        ->get();
-            return $planilla_verde;
-
     }
 
     public function importarExcel_prueba2(request $request){
@@ -309,7 +310,6 @@ class capController extends Controller
         $sheetData = $spreadsheet->getActiveSheet()->toArray();
         unset($sheetData[0]);
         
-            
             foreach ($sheetData as $t) {
             
                 //formateo de datos
@@ -348,18 +348,39 @@ class capController extends Controller
                     $asistencia = 0;
                 }
 
-                $pv = $this->getPrueba2($rut);
+                $pv = $this->getPlanillaVerde($rut,$curso,$fecha_registro);
 
                 if(sizeof($pv)>0){
                         DB::connection('mysql')->table('registro_capacitaciones')
-                                ->where('rut',$rut)    
+                                ->where('rut',$rut)
+                                ->where('estado','Prueba 1')  
                                 ->update([
-                                    "asistencia"=>$asistencia,
+                                    "asistencia_2"=>$asistencia,
                                     "estado"=>"Prueba 2"
                                 ]);
                 }
                 else{
+
+                    $rez=DB::connection('mysql')->table('registro_capacitaciones')
+                            ->where('rut',$rut)
+                            ->where('rezagado',1)
+                            ->get();
+                    
+                    if(sizeof($rez)>0){
                         DB::connection('mysql')->table('registro_capacitaciones')
+                        ->where('rut',$rut)
+                        ->where('rezagado',1)
+                        ->update([
+                                "asistencia_2"=>$asistencia,
+                                "fecha_registro"=>date("Y-m-d",strtotime($fecha_registro)),
+                                "nota_ini"=>0,
+                                "fecha_ini"=>$fecha_ini,
+                                "estado"=>'Prueba 2',
+                        ]);
+                    }
+                    else{
+                        if($rut!='' || $rut != null){
+                            DB::connection('mysql')->table('registro_capacitaciones')
                             ->insert([
                                 "rut"=>$rut,
                                 "nombre"=>$nombre,
@@ -370,27 +391,22 @@ class capController extends Controller
                                 "division"=>$division,
                                 "horas_curso"=>$horas_curso,
                                 "tipo_empresa"=>$tipo_empresa,
-                                "asistencia"=>0,
+                                "asistencia_1"=>0,
+                                "asistencia_2"=>$asistencia,
+                                "asistencia_3"=>0,
+                                "asistencia_promedio"=>0,
                                 "fecha_registro"=>date("Y-m-d",strtotime($fecha_registro)),
                                 "nota_ini"=>0,
+                                "nota_fin"=>0,
                                 "fecha_ini"=>$fecha_ini,
                                 "estado"=>'Prueba 2',
                                 "rezagado"=>1
                             ]);
+                        }
+                    }
                 }
         }
         return redirect()->back()->with('message', ['type' => 'Success','text' => 'Archivo Subido Correctamente ',]);
-    }
-
-    public function getPrueba2($rut){
-
-        $prueba1 = DB::connection('mysql')
-                        ->table('registro_capacitaciones')
-                        ->where("estado","Prueba 1")
-                        ->where('rut',$rut)
-                        ->get();
-
-        return $prueba1;
     }
 
     public function importarExcel_prueba3(request $request){
@@ -408,7 +424,7 @@ class capController extends Controller
     
                 $nombre = strtoupper($t[0]." ".$t[1]." ".$t[2]);
                 $rut = str_replace([".",","], "", $t[3]);
-                $sap = str_replace(["pendiente","N/A","S/S","",NULL," ","  ","Pendiente","PENDIENTE","N/a"],0, $t[4]);
+                $sap = str_replace(["pendiente","N/A","S/S","","#N/A",NULL," ","  ","Pendiente","PENDIENTE","N/a"],0, $t[4]);
                 if($sap==''){
                     $sap=0;
                 }
@@ -440,56 +456,45 @@ class capController extends Controller
                     $asistencia = 0;
                 }
 
-                //Calificacion 
+         
 
-                if($asistencia == 100 && $nota_fin>=80 && $curso == "Inducción de Seguridad y Salud Ocupacional"){
-                    $calificacion = "APROBADO(A)";
-                }
-                else if($asistencia == 100 && $nota_fin<80 && $curso == "Inducción de Seguridad y Salud Ocupacional"){
-                    $calificacion = "REPROBADO(A)";
-                }
-                else if($asistencia == 100 && $nota_fin>=80 && $curso != "Inducción de Seguridad y Salud Ocupacional"){
-                    $calificacion = "APROBADO(A)";
-                }
-                else if($asistencia == 100 && $nota_fin<80 && $curso != "Inducción de Seguridad y Salud Ocupacional"){
-                    $calificacion = "REPROBADO(A)";
-                }
-                else if($asistencia<100){
-                    $calificacion = "INASISTENTE";
-                }
-
-                $pv = $this->getPrueba3($rut);
+                $pv = $this->getPlanillaVerde($rut,$curso,$fecha_registro);
 
                 if(sizeof($pv)>0){
-                    if($pv[0]->rezagado == 1){
                         DB::connection('mysql')->table('registro_capacitaciones')
                         ->where('rut',$rut)    
+                        ->where('estado','Prueba 2')
                         ->update([
-                            "nota_ini"=>0,
                             "nota_fin"=>$nota_fin,
                             "fecha_fin"=>$fecha_fin,
-                            "asistencia"=>$asistencia,
+                            "asistencia_3"=>$asistencia,
                             "nota_promedio"=>$nota_fin,
-                            "calificacion"=>$calificacion,
                             "estado"=>"Prueba 3"
+                        ]);
+                }
+                else{
+
+                    $rez=DB::connection('mysql')->table('registro_capacitaciones')
+                        ->where('rut',$rut)
+                        ->where('rezagado',1)
+                        ->get();
+
+                    if(sizeof($rez)>0){
+                        DB::connection('mysql')->table('registro_capacitaciones')
+                        ->where('rut',$rut)
+                        ->where('rezagado',1)
+                        ->update([
+                                "asistencia_3"=>$asistencia,
+                                "fecha_registro"=>date("Y-m-d",strtotime($fecha_registro)),
+                                "nota_fin"=>$nota_fin,
+                                "nota_promedio"=>$nota_fin,
+                                "fecha_fin"=>$fecha_fin,
+                                "estado"=>'Prueba 3',
                         ]);
                     }
                     else{
-                        DB::connection('mysql')->table('registro_capacitaciones')
-                        ->where('rut',$rut)    
-                        ->update([
-                            "nota_fin"=>$nota_fin,
-                            "fecha_fin"=>$fecha_fin,
-                            "asistencia"=>$asistencia,
-                            "nota_promedio"=>$nota_fin,
-                            "calificacion"=>$calificacion,
-                            "estado"=>"Prueba 3"
-                        ]);
-                    }
-               
-                }
-                else{
-                        DB::connection('mysql')->table('registro_capacitaciones')
+                        if($rut!=''){
+                            DB::connection('mysql')->table('registro_capacitaciones')
                             ->insert([
                                 "rut"=>$rut,
                                 "nombre"=>$nombre,
@@ -500,7 +505,9 @@ class capController extends Controller
                                 "division"=>$division,
                                 "horas_curso"=>$horas_curso,
                                 "tipo_empresa"=>$tipo_empresa,
-                                "asistencia"=>0,
+                                "asistencia_1"=>0,
+                                "asistencia_2"=>0,
+                                "asistencia_3"=>$asistencia,
                                 "fecha_registro"=>date("Y-m-d",strtotime($fecha_registro)),
                                 "nota_ini"=>0,
                                 "nota_fin"=>$nota_fin,
@@ -508,18 +515,63 @@ class capController extends Controller
                                 "fecha_fin"=>$fecha_fin,
                                 "estado"=>'Prueba 3',
                                 "rezagado"=>1
-                            ]);
+                            ]);  
+                        }
+                    }
                 }
-               
         }
+            //Calificacion 
+
+            $asis = DB::connection('mysql')->table('registro_capacitaciones')
+            ->selectRaw('rut,asistencia_1,asistencia_2,asistencia_3')
+            ->whereNotIn('estado',['planilla verde'])
+            ->where('rezagado',null)
+            ->get();
+                
+                foreach($asis as $a){
+
+                    $asistencia_promedio = ($a->asistencia_1+$a->asistencia_2+$a->asistencia_3)/3;
+
+                    if($asistencia_promedio == 100 && $nota_fin>=80 && $curso == "Inducción de Seguridad y Salud Ocupacional"){
+                        $calificacion = "APROBADO(A)";
+                    }
+                    else if($asistencia_promedio == 100 && $nota_fin<80 && $curso == "Inducción de Seguridad y Salud Ocupacional"){
+                        $calificacion = "REPROBADO(A)";
+                    }
+                    else if($asistencia_promedio == 100 && $nota_fin>=80 && $curso != "Inducción de Seguridad y Salud Ocupacional"){
+                        $calificacion = "APROBADO(A)";
+                    }
+                    else if($asistencia_promedio == 100 && $nota_fin<80 && $curso != "Inducción de Seguridad y Salud Ocupacional"){
+                        $calificacion = "REPROBADO(A)";
+                    }
+                    else if($asistencia_promedio<100){
+                        $calificacion = "INASISTENTE";
+                    }
+
+                    DB::connection('mysql')->table('registro_capacitaciones')
+                    ->whereNotIn('estado',['planilla verde'])
+                    ->where('rezagado',null)
+                    ->where('rut',$a->rut)
+                    ->update([
+                        'asistencia_promedio'=>$asistencia_promedio,
+                        'calificacion'=>$calificacion,
+                        'estado'=>'Prueba 3'
+                    ]);
+                }
+
        return redirect()->back()->with('message', ['type' => 'Success','text' => 'Archivo Subido Correctamente ',]);
     }
 
-    public function getPrueba3($rut){
+    public function getPlanillaVerde($rut,$curso,$fecha_registro){
 
-        $prueba2 = DB::connection('mysql')->table('registro_capacitaciones')->where("estado","Prueba 2")->where('rut',$rut)->get();
+        $planilla_verde = DB::connection('mysql')->table('registro_capacitaciones')
+                                                    ->where("estado","planilla verde")
+                                                    ->where('rut',$rut)
+                                                    ->where('curso',$curso)
+                                                    ->where('fecha_registro',date("Y-m-d",strtotime($fecha_registro)))
+                                                    ->get();
+        return $planilla_verde;
 
-        return $prueba2;
     }
 
     public function selectCorrelativo(request $request){
@@ -611,6 +663,8 @@ class capController extends Controller
 
     public function ActualizarRezagado(request $request){
 
+        $asis_promedio = ($request->input('asis_1') + $request->input('asis_2') + $request->input('asis_3')) / 3;
+
         DB::connection('mysql')
             ->table('registro_capacitaciones')
             ->where('id',$request->input('id'))
@@ -622,9 +676,11 @@ class capController extends Controller
                     'nota_ini'=>$request->input('nota_ini'),
                     'nota_fin'=>$request->input('nota_fin'),
                     'nota_promedio'=>$request->input('nota_promedio'),
+                    'asistencia_promedio'=>$asis_promedio,
                     'calificacion'=>$request->input('calificacion'),
                     'fecha_ini'=>date("Y-m-d",strtotime($request->input('fecha_ini'))),
                     'fecha_fin'=>date("Y-m-d",strtotime($request->input('fecha_fin'))),
+                    'estado'=>'Prueba 3'
                     ]);
 
         return redirect()->back()->with('message', ['type' => 'Success','text' => 'Archivo Subido Correctamente ',]);

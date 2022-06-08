@@ -8,7 +8,6 @@
             <th>SAP</th>
             <th>Empresa</th>
             <th>Nota Promedio</th>
-            <th>Asistencia</th>
             <th>Calificación</th>
             <th>Fecha</th>
             <th>Curso</th>
@@ -23,7 +22,6 @@
                         <td>{{$d->sap}}</td>
                         <td>{{$d->empresa}}</td>
                         <td>{{$d->nota_promedio}} %</td>
-                        <td>{{$d->asistencia}} %</td>
                         <td>{{$d->calificacion}}</td>
                         <td>{{date("d/m/Y",strtotime($d->fecha_ini))}}</td>
                         <td>{{$d->curso}}</td>

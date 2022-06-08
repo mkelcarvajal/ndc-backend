@@ -150,6 +150,9 @@
                 $("#empresa").val("");
                 $("#nota_ini").val("");
                 $("#nota_fin").val("");
+                $("#asis_1").val("");
+                $("#asis_2").val("");
+                $("#asis_3").val("");
                 $("#nota_promedio").val("");
                 $("#fecha_ini").val("");
                 $("#fecha_fin").val("");
@@ -166,6 +169,9 @@
                 $("#empresa").val(data.empresa);
                 $("#nota_ini").val(data.nota_ini);
                 $("#nota_fin").val(data.nota_fin);
+                $("#asis_1").val(data.asistencia_1);
+                $("#asis_2").val(data.asistencia_2);
+                $("#asis_3").val(data.asistencia_3);
                 $("#nota_promedio").val(data.nota_promedio);
                 document.getElementById('fecha_ini').value = moment(data.fecha_ini).format("YYYY-MM-DD");
                 document.getElementById('fecha_fin').value = moment(data.fecha_fin).format("YYYY-MM-DD");
