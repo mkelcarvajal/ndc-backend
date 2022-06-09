@@ -1,4 +1,5 @@
 <style type="text/css">
+
 footer {
    position:absolute;
    bottom:0;
@@ -15,36 +16,40 @@ footer {
     body{
         font-family: "source_sans_proregular", Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;            
     }
+
 </style>
-
-@foreach($data as $d)
-    <img style="float:left" src="img/codelco.jpg" width="60px;">
-    <img style="float:right" src="img/ndc.JPG" width="110px;">
-    <br><br>
-    <center style="font-size: 36; color:#C0C0C0; " ><b style="margin-left:50px;">Certificado</b></center>
-    <br><br><br>
-    <center style="font-size: 12;">Se otorga el presente certificado a:</center>
-    <br>
-    <center style="font-size: 20;"><b>{{$d->nombre}}</b></center>
-    <center style="font-size: 10"><b>RUT: {{$d->rut}}</b></center>
-    <center style="font-size: 10"><b>SAP: {{$d->sap}}</b></center>
-    <br>
-    <center style="font-size: 12">Por su <b>PARTICIPACIÓN y APROBACIÓN</b> en el curso:</center>
-    <br>
-    <center style="font-size:16"><b>{{$d->curso}} - {{$d->division}}</b></center>
-    <br>
-    <center>con un total de <b>{{$d->horas_curso}} Horas</b> realizado con fecha <b>{{date("d/m/Y",strtotime($d->fecha_fin))}}</b></center>
-    <center><b>Fecha de Vigencia del Certificado: {{date("d/m/Y",strtotime($d->fecha_fin. ' + 4 years'))}}</b></center>
-    <br>
-    <center>Realizado por la Empresa NDC PERSSO GROUP ®</center>
-    <br>
-    <center style="font-size: 14px;"><b>CODELCO DIVISIÓN EL SALVADOR</b></center>
-
-    <br><br><br>
-    <footer>
-        <center style="color:#C0C0C0;">NDC PERSSO GROUP ®/ www.ndc.cl / Asesorías y OTEC</center>
-    </footer>
-
-    <div style=" page-break-before: always;"></div>
-
-@endforeach
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    </head>
+    <?php 
+        $paginas = count($data);
+        $count=0;
+    ?>
+    @foreach($data as $d)
+        <img style="float:left" src="img/codelco.jpg" width="60px;">
+        <img style="float:right" src="img/ndc.JPG" width="110px;">
+        
+        <center style="font-size: 36; color:#C0C0C0; " ><b style="margin-left:50px;">Certificado</b></center>
+        <center style="font-size: 12; margin-top:60px;">Se otorga el presente certificado a:</center>
+        <center style="font-size: 20; margin-top:30px;"><b>@if(is_null($d->nombre))error @else{{$d->nombre}}@endif</b></center>
+        <center style="font-size: 10"><b>RUT: {{$d->rut}}</b></center>
+        <center style="font-size: 10"><b>SAP: {{$d->sap}}</b></center>
+        <center style="font-size: 12;margin-top:30px;">Por su <b>PARTICIPACIÓN y APROBACIÓN</b> en el curso:</center>
+        <center style="font-size:16;margin-top:10px;"><b>{{$d->curso}} - {{$d->division}}</b></center>
+        <center style="margin-top:10px;">con un total de <b>{{$d->horas_curso}} Horas</b> realizado con fecha <b>{{date("d/m/Y",strtotime($d->fecha_fin))}}</b></center>
+        <center  style="margin-top:10px;"><b>Fecha de Vigencia del Certificado: {{date("d/m/Y",strtotime($d->fecha_fin. ' + 4 years'))}}</b></center>
+        <center  style="margin-top:100px;">Realizado por la Empresa NDC PERSSO GROUP ®</center>
+        <center style="font-size: 14px; margin-top:10px;"><b>CODELCO DIVISIÓN EL SALVADOR</b></center>
+        <footer>
+            <center style="color:#C0C0C0;">NDC PERSSO GROUP ®/ www.ndc.cl / Asesorías y OTEC</center>
+        </footer>
+        <?php 
+            $count++;
+        ?>
+        @if($count<$paginas)
+        <div style="page-break-after: always;"></div>
+        @endif
+    @endforeach
+    
+</html>

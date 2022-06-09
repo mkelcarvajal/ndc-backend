@@ -108,7 +108,7 @@
                         <td>{{$d->rut}}</td>
                         <td>{{$d->sap}}</td>
                         <td>{{$d->empresa}}</td>
-                        <td>{{$d->asistencia}}%</td>
+                        <td>{{$d->asistencia_promedio}}%</td>
                         <td>{{$d->nota_ini}}%</td>
                         <td>{{$d->nota_fin}}%</td>
                         <td>{{$d->nota_fin}}%</td>
