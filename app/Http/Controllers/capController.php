@@ -72,7 +72,7 @@ class capController extends Controller
                         ->get();
         if(sizeof($data)>0){
             $pdf = PDF::loadView('pdf.certificados_ndc',compact('data'))->setPaper('a4', 'landscape');
-            return $pdf->stream('certificado.pdf');
+            return $pdf->download('certificado.pdf');
         }
         else{
             return redirect()->back()->with('message', ['type' => 'Error','text' => 'No Existe Correlativo',]);
@@ -87,13 +87,13 @@ class capController extends Controller
                         ->where('estado','listo')
                         ->where('calificacion','APROBADO(A)')
                         ->get();
-        
-        if(sizeof($data)==0){
+                    
+        if(sizeof($data)<=0){
             return redirect()->back()->with('message', ['type' => 'Error','text' => 'No Existe Correlativo',]);
         }
         else{
             $pdf = PDF::loadView('pdf.diploma_ndc',compact('data'))->setPaper('a4', 'landscape');
-            return $pdf->download('certificado.pdf');
+            return $pdf->download('diplomas_ndc.pdf');
         }
     }
 
@@ -122,22 +122,22 @@ class capController extends Controller
 
                 $nombre = strtoupper($t[0]." ".$t[1]." ".$t[2]);
                 $rut = str_replace([".",","], "", $t[3]);
-                $sap = str_replace(["pendiente","N/A","S/S","",NULL," ","  ","Pendiente","PENDIENTE","N/a"],0, $t[4]);
-                if($sap==''){
-                    $sap=0;
-                }
-                $empresa = $t[5];
-                $curso = $t[6];
-                $empresa_mandante = $t[7];
-                $division = $t[8];
-                $horas_curso = $t[9];
-                $fecha_registro = $t[10];
+                // $sap = str_replace(["pendiente","N/A","S/S","",NULL," ","  ","Pendiente","PENDIENTE","N/a"],0, $t[4]);
+                // if($sap==''){
+                //     $sap=0;
+                // }
+                $empresa = $t[4];
+                $curso = $t[5];
+                $empresa_mandante = $t[6];
+                $division = $t[7];
+                $horas_curso = $t[8];
+                $fecha_registro = $t[9];
 
                 //tipo empresa
-                if($t[5]=='CODELCO'){
+                if($t[4]=='CODELCO'){
                     $tipo_empresa = "CODELCO";
                 }
-                else if($t[5]=='Teamwork' || $t[5]=='TEAMWORK' || $t[5]=='TEAM WORK' || $t[5]=='Team Work'){
+                else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work'){
                     $tipo_empresa = 'TEAMWORK';
                 }
                 else{
@@ -150,6 +150,16 @@ class capController extends Controller
                                                 ->where('fecha_registro',date("Y-m-d",strtotime($fecha_registro)))
                                                 ->where('curso',$curso)
                                                 ->first();
+
+                $sap = DB::connection('mysql')
+                        ->table('maestro_codelco')
+                            ->selectRaw('sap')
+                            ->where('rut',$rut)
+                            ->first();
+
+                if(empty($sap)){
+                    $sap=0;
+                }
 
                 if(is_null($reg_anterior)){
                 // registro planilla verde
@@ -165,7 +175,12 @@ class capController extends Controller
                                                     "asistencia_1"=>0,
                                                     "asistencia_2"=>0,
                                                     "asistencia_3"=>0,
+                                                    "asistencia_promedio"=>0,
+                                                    "nota_ini"=>0,
+                                                    "nota_fin"=>0,
+                                                    "nota_promedio"=>0,
                                                     "division"=>$division,
+                                                    "calificacion"=>'INASISTENTE',
                                                     "horas_curso"=>$horas_curso,
                                                     "tipo_empresa"=>$tipo_empresa,
                                                     "fecha_registro"=>date("Y-m-d",strtotime($fecha_registro)),
@@ -212,24 +227,28 @@ class capController extends Controller
     
                 $nombre = strtoupper($t[0]." ".$t[1]." ".$t[2]);
                 $rut = str_replace([".",","], "", $t[3]);
-                $sap = str_replace(["pendiente","N/A","S/S","",NULL," ","  ","Pendiente","PENDIENTE","N/a"],0, $t[4]);
-                if($sap==''){
+                $sap = DB::connection('mysql')
+                        ->table('maestro_codelco')
+                            ->selectRaw('sap')
+                            ->where('rut',$rut)
+                            ->first();
+                if(empty($sap)){
                     $sap=0;
                 }
-                $empresa = $t[5];
-                $curso = $t[6];
-                $empresa_mandante = $t[7];
-                $division = $t[8];
-                $horas_curso = $t[9];
-                $fecha_registro = $t[10];
-                $nota_ini = intval(str_replace("%","",$t[11]));
-                $fecha_ini = date("Y-m-d H:i:s",strtotime($t[12]));
+                $empresa = $t[4];
+                $curso = $t[5];
+                $empresa_mandante = $t[6];
+                $division = $t[7];
+                $horas_curso = $t[8];
+                $fecha_registro = $t[9];
+                $nota_ini = intval(str_replace("%","",$t[10]));
+                $fecha_ini = date("Y-m-d H:i:s",strtotime($t[11]));
     
                 //tipo empresa
-                if($t[5]=='CODELCO'){
+                if($t[4]=='CODELCO'){
                     $tipo_empresa = "CODELCO";
                 }
-                else if($t[5]=='Teamwork' || $t[5]=='TEAMWORK' || $t[5]=='TEAM WORK' || $t[5]=='Team Work'){
+                else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work'){
                     $tipo_empresa = 'TEAMWORK';
                 }
                 else{
@@ -237,7 +256,7 @@ class capController extends Controller
                 }
     
                 //asistencia
-                if($t[11]=!''){
+                if($t[10]=!''){
                     $asistencia = 100;
                 }
                 else{
@@ -314,26 +333,31 @@ class capController extends Controller
             
                 //formateo de datos
     
-                $nombre = strtoupper($t[0]." ".$t[1]." ".$t[2]);
-                $rut = str_replace([".",","], "", $t[3]);
-                $sap = str_replace(["pendiente","N/A","S/S","",NULL," ","  ","Pendiente","PENDIENTE","N/a"],0, $t[4]);
-                if($sap==''){
+                $nombre = strtoupper($t[0]);
+                $rut = str_replace([".",","], "", $t[1]);
+                $sap = DB::connection('mysql')
+                ->table('maestro_codelco')
+                    ->selectRaw('sap')
+                    ->where('rut',$rut)
+                    ->first();
+                    
+                if(empty($sap)){
                     $sap=0;
                 }
-                $empresa = $t[5];
-                $curso = $t[6];
-                $empresa_mandante = $t[7];
-                $division = $t[8];
-                $horas_curso = $t[9];
-                $fecha_registro = $t[10];
-                $nota_ini = intval(str_replace("%","",$t[11]));
-                $fecha_ini = date("Y-m-d H:i:s",strtotime($t[12]));
+                $empresa = $t[2];
+                $curso = $t[3];
+                $empresa_mandante = $t[4];
+                $division = $t[5];
+                $horas_curso = $t[6];
+                $fecha_registro = $t[7];
+                $nota_ini = intval(str_replace("%","",$t[8]));
+                $fecha_ini = date("Y-m-d H:i:s",strtotime($t[9]));
     
                 //tipo empresa
-                if($t[5]=='CODELCO'){
+                if($t[2]=='CODELCO'){
                     $tipo_empresa = "CODELCO";
                 }
-                else if($t[5]=='Teamwork' || $t[5]=='TEAMWORK' || $t[5]=='TEAM WORK' || $t[5]=='Team Work' || $t[5]=='Team-Work' || $t[5]=='Teamwork' || $t[5]=='Teamworks'){
+                else if($t[2]=='Teamwork' || $t[2]=='TEAMWORK' || $t[2]=='TEAM WORK' || $t[2]=='Team Work' || $t[2]=='Team-Work' || $t[2]=='Teamwork' || $t[2]=='Teamworks'){
                     $tipo_empresa = 'TEAMWORK';
                 }
                 else{
@@ -341,7 +365,7 @@ class capController extends Controller
                 }
     
                 //asistencia
-                if($t[11]=!''){
+                if($t[8]=!''){
                     $asistencia = 100;
                 }
                 else{
@@ -372,9 +396,6 @@ class capController extends Controller
                         ->where('rezagado',1)
                         ->update([
                                 "asistencia_2"=>$asistencia,
-                                "fecha_registro"=>date("Y-m-d",strtotime($fecha_registro)),
-                                "nota_ini"=>0,
-                                "fecha_ini"=>$fecha_ini,
                                 "estado"=>'Prueba 2',
                         ]);
                     }
@@ -424,24 +445,29 @@ class capController extends Controller
     
                 $nombre = strtoupper($t[0]." ".$t[1]." ".$t[2]);
                 $rut = str_replace([".",","], "", $t[3]);
-                $sap = str_replace(["pendiente","N/A","S/S","","#N/A",NULL," ","  ","Pendiente","PENDIENTE","N/a"],0, $t[4]);
-                if($sap==''){
+                $sap = DB::connection('mysql')
+                ->table('maestro_codelco')
+                    ->selectRaw('sap')
+                    ->where('rut',$rut)
+                    ->first();
+                    
+                if(empty($sap)){
                     $sap=0;
                 }
-                $empresa = $t[5];
-                $curso = $t[6];
-                $empresa_mandante = $t[7];
-                $division = $t[8];
-                $horas_curso = $t[9];
-                $fecha_registro = $t[10];
-                $nota_fin = intval(str_replace("%","",$t[11]));
-                $fecha_fin = date("Y-m-d H:i:s",strtotime($t[12]));
+                $empresa = $t[4];
+                $curso = $t[5];
+                $empresa_mandante = $t[6];
+                $division = $t[7];
+                $horas_curso = $t[8];
+                $fecha_registro = $t[9];
+                $nota_fin = intval(str_replace("%","",$t[10]));
+                $fecha_fin = date("Y-m-d H:i:s",strtotime($t[11]));
     
                 //tipo empresa
-                if($t[5]=='CODELCO'){
+                if($t[4]=='CODELCO'){
                     $tipo_empresa = "CODELCO";
                 }
-                else if($t[5]=='Teamwork' || $t[5]=='TEAMWORK' || $t[5]=='TEAM WORK' || $t[5]=='Team Work' || $t[5]=='Team-Work' || $t[5]=='Teamwork' || $t[5]=='Teamworks'){
+                else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work' || $t[4]=='Team-Work' || $t[4]=='Teamwork' || $t[4]=='Teamworks'){
                     $tipo_empresa = 'TEAMWORK';
                 }
                 else{
@@ -449,7 +475,7 @@ class capController extends Controller
                 }
     
                 //asistencia
-                if($t[11]=!''){
+                if($t[10]=!''){
                     $asistencia = 100;
                 }
                 else{
@@ -485,7 +511,6 @@ class capController extends Controller
                         ->where('rezagado',1)
                         ->update([
                                 "asistencia_3"=>$asistencia,
-                                "fecha_registro"=>date("Y-m-d",strtotime($fecha_registro)),
                                 "nota_fin"=>$nota_fin,
                                 "nota_promedio"=>$nota_fin,
                                 "fecha_fin"=>$fecha_fin,
@@ -523,25 +548,29 @@ class capController extends Controller
             //Calificacion 
 
             $asis = DB::connection('mysql')->table('registro_capacitaciones')
-            ->selectRaw('rut,asistencia_1,asistencia_2,asistencia_3')
+            ->selectRaw('rut,asistencia_1,asistencia_2,asistencia_3,nota_fin')
             ->whereNotIn('estado',['planilla verde'])
             ->where('rezagado',null)
             ->get();
+
+            $ar_rut = array();
                 
                 foreach($asis as $a){
-
+                    array_push($ar_rut,$a->rut);
                     $asistencia_promedio = ($a->asistencia_1+$a->asistencia_2+$a->asistencia_3)/3;
+                    $asistencia_promedio = intval($asistencia_promedio);
+                    $nota_promedio = intval($a->nota_fin);
 
-                    if($asistencia_promedio == 100 && $nota_fin>=80 && $curso == "Inducción de Seguridad y Salud Ocupacional"){
+                    if($asistencia_promedio == 100 && $nota_promedio>=80 && $curso == "Inducción de Seguridad y Salud Ocupacional"){
                         $calificacion = "APROBADO(A)";
                     }
-                    else if($asistencia_promedio == 100 && $nota_fin<80 && $curso == "Inducción de Seguridad y Salud Ocupacional"){
+                    else if($asistencia_promedio == 100 && $nota_promedio<80 && $curso == "Inducción de Seguridad y Salud Ocupacional"){
                         $calificacion = "REPROBADO(A)";
                     }
-                    else if($asistencia_promedio == 100 && $nota_fin>=80 && $curso != "Inducción de Seguridad y Salud Ocupacional"){
+                    else if($asistencia_promedio == 100 && $nota_promedio>=80 && $curso != "Inducción de Seguridad y Salud Ocupacional"){
                         $calificacion = "APROBADO(A)";
                     }
-                    else if($asistencia_promedio == 100 && $nota_fin<80 && $curso != "Inducción de Seguridad y Salud Ocupacional"){
+                    else if($asistencia_promedio == 100 && $nota_promedio<80 && $curso != "Inducción de Seguridad y Salud Ocupacional"){
                         $calificacion = "REPROBADO(A)";
                     }
                     else if($asistencia_promedio<100){
@@ -558,6 +587,19 @@ class capController extends Controller
                         'estado'=>'Prueba 3'
                     ]);
                 }
+
+                DB::connection('mysql')->table('registro_capacitaciones')
+                ->where('estado','planilla verde')
+                ->where('rezagado',null)
+                ->whereNotIn('rut',$ar_rut)
+                ->update([
+                    'estado'=>'Prueba 3'
+                ]);
+
+
+                DB::connection('mysql')->table('registro_capacitaciones')
+                    ->where('estado','planilla verde')
+                    ->delete();
 
        return redirect()->back()->with('message', ['type' => 'Success','text' => 'Archivo Subido Correctamente ',]);
     }
