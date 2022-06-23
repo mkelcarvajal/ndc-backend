@@ -105,6 +105,7 @@ class capController extends Controller
         return view('descargar_diplomas');
     }
 
+    
     public function importarExcel(request $request){
 
         $archivo = $request->file('excel');
