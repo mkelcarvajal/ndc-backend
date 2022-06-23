@@ -105,6 +105,7 @@ class capController extends Controller
         return view('descargar_diplomas');
     }
 
+    
     public function importarExcel(request $request){
 
         $archivo = $request->file('excel');
@@ -132,6 +133,8 @@ class capController extends Controller
                 $division = $t[7];
                 $horas_curso = $t[8];
                 $fecha_registro = $t[9];
+                $fecha_inicio = $t[10];
+                $fecha_fin = $t[11];
 
                 //tipo empresa
                 if($t[4]=='CODELCO'){
@@ -184,6 +187,8 @@ class capController extends Controller
                                                     "horas_curso"=>$horas_curso,
                                                     "tipo_empresa"=>$tipo_empresa,
                                                     "fecha_registro"=>date("Y-m-d",strtotime($fecha_registro)),
+                                                    "fecha_ini"=>date("Y-m-d",strtotime($fecha_inicio)),
+                                                    "fecha_fin"=>date("Y-m-d",strtotime($fecha_fin)),
                                                     "estado"=>'planilla verde'
                                                 ]);
                 }
@@ -202,6 +207,8 @@ class capController extends Controller
                                     "horas_curso"=>$horas_curso,
                                     "tipo_empresa"=>$tipo_empresa,
                                     "fecha_registro"=>date("Y-m-d",strtotime($fecha_registro)),
+                                    "fecha_ini"=>date("Y-m-d",strtotime($fecha_inicio)),
+                                    "fecha_fin"=>date("Y-m-d",strtotime($fecha_fin)),
                                     "estado"=>'planilla verde'
                                 ]);
                 }
@@ -595,7 +602,6 @@ class capController extends Controller
                 ->update([
                     'estado'=>'Prueba 3'
                 ]);
-
 
                 DB::connection('mysql')->table('registro_capacitaciones')
                     ->where('estado','planilla verde')

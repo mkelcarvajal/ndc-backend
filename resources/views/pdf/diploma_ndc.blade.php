@@ -1,3 +1,4 @@
+
 <style type="text/css">
 
 footer {
@@ -21,6 +22,7 @@ footer {
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        
     </head>
     <?php 
         $paginas = count($data);
@@ -32,7 +34,7 @@ footer {
         
         <center style="font-size: 36; color:#C0C0C0; " ><b style="margin-left:50px;">Certificado</b></center>
         <center style="font-size: 12; margin-top:60px;">Se otorga el presente certificado a:</center>
-        <center style="font-size: 20; margin-top:30px;"><b>@if(is_null($d->nombre))error @else{{$d->nombre}}@endif</b></center>
+        <center style="font-size: 20; margin-top:30px;"><b>@if(is_null($d->nombre))error @else{{mb_strtoupper($d->nombre,'utf-8')}}@endif</b></center>
         <center style="font-size: 10"><b>RUT: {{$d->rut}}</b></center>
         <center style="font-size: 10"><b>SAP: {{$d->sap}}</b></center>
         <center style="font-size: 12;margin-top:30px;">Por su <b>PARTICIPACIÓN y APROBACIÓN</b> en el curso:</center>

@@ -42,11 +42,11 @@ class homeController extends Controller
 
         }
     }
-
     function Salir(Request $request)
     {
         $request->session()->forget('usuario');
         return redirect()->route('login');
     }
 
+    
 }
