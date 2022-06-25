@@ -10,10 +10,6 @@
     "require": {
         "php": "^7.2.5|^8.0",
         "barryvdh/laravel-dompdf": "^1.0",
-<<<<<<< HEAD
-        "barryvdh/laravel-snappy": "^1.0",
-=======
->>>>>>> f644ec851057e12e2d0342c9aceeb8cae7274ecf
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",

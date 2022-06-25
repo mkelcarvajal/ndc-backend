@@ -127,7 +127,7 @@ class capController extends Controller
                 // if($sap==''){
                 //     $sap=0;
                 // }
-                $empresa = $t[4];
+                $empresa = '';
                 $curso = $t[5];
                 $empresa_mandante = $t[6];
                 $division = $t[7];
@@ -137,7 +137,7 @@ class capController extends Controller
                 $fecha_fin = $t[11];
 
                 //tipo empresa
-                if($t[4]=='CODELCO'){
+                if($t[4]=='CODELCO' || $t[4]=='Codelco' || $t[4]=='codelco' ){
                     $tipo_empresa = "CODELCO";
                 }
                 else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work'){
@@ -147,6 +147,16 @@ class capController extends Controller
                     $tipo_empresa = 'Contratistas';
                 }
                 
+                if($t[4]=='CODELCO' || $t[4]=='Codelco' || $t[4]=='codelco' ){
+                    $empresa = "CODELCO";
+                }
+                else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work'){
+                    $empresa = 'TEAMWORK';
+                }
+                else{
+                    $empresa = $t[4];
+                }
+
                 $reg_anterior = DB::connection('mysql')
                                         ->table('registro_capacitaciones')
                                                 ->where('rut',$rut)
@@ -162,6 +172,9 @@ class capController extends Controller
 
                 if(empty($sap)){
                     $sap=0;
+                }
+                else{
+                    $sap=$sap->sap;
                 }
 
                 if(is_null($reg_anterior)){
@@ -242,7 +255,11 @@ class capController extends Controller
                 if(empty($sap)){
                     $sap=0;
                 }
-                $empresa = $t[4];
+                else{
+                    $sap=$sap->sap;
+                }
+
+                $empresa = '';
                 $curso = $t[5];
                 $empresa_mandante = $t[6];
                 $division = $t[7];
@@ -252,7 +269,7 @@ class capController extends Controller
                 $fecha_ini = date("Y-m-d H:i:s",strtotime($t[11]));
     
                 //tipo empresa
-                if($t[4]=='CODELCO'){
+                if($t[4]=='CODELCO' || $t[4]=='Codelco' || $t[4]=='codelco' ){
                     $tipo_empresa = "CODELCO";
                 }
                 else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work'){
@@ -261,6 +278,17 @@ class capController extends Controller
                 else{
                     $tipo_empresa = 'Contratistas';
                 }
+
+                if($t[4]=='CODELCO' || $t[4]=='Codelco' || $t[4]=='codelco' ){
+                    $empresa = "CODELCO";
+                }
+                else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work'){
+                    $empresa = 'TEAMWORK';
+                }
+                else{
+                    $empresa = $t[4];
+                }
+
     
                 //asistencia
                 if($t[10]=!''){
@@ -351,6 +379,10 @@ class capController extends Controller
                 if(empty($sap)){
                     $sap=0;
                 }
+                else{
+                    $sap=$sap->sap;
+                }
+
                 $empresa = $t[2];
                 $curso = $t[3];
                 $empresa_mandante = $t[4];
@@ -361,7 +393,7 @@ class capController extends Controller
                 $fecha_ini = date("Y-m-d H:i:s",strtotime($t[9]));
     
                 //tipo empresa
-                if($t[2]=='CODELCO'){
+                if($t[2]=='CODELCO' || $t[2]=='Codelco' || $t[2]=='codelco' ){
                     $tipo_empresa = "CODELCO";
                 }
                 else if($t[2]=='Teamwork' || $t[2]=='TEAMWORK' || $t[2]=='TEAM WORK' || $t[2]=='Team Work' || $t[2]=='Team-Work' || $t[2]=='Teamwork' || $t[2]=='Teamworks'){
@@ -370,6 +402,17 @@ class capController extends Controller
                 else{
                     $tipo_empresa = 'Contratistas';
                 }
+
+                if($t[2]=='CODELCO' || $t[2]=='Codelco' || $t[2]=='codelco' ){
+                    $empresa = "CODELCO";
+                }
+                else if($t[2]=='Teamwork' || $t[2]=='TEAMWORK' || $t[2]=='TEAM WORK' || $t[2]=='Team Work'){
+                    $empresa = 'TEAMWORK';
+                }
+                else{
+                    $empresa = $t[2];
+                }
+
     
                 //asistencia
                 if($t[8]=!''){
@@ -461,6 +504,10 @@ class capController extends Controller
                 if(empty($sap)){
                     $sap=0;
                 }
+                else{
+                    $sap=$sap->sap;
+                }
+
                 $empresa = $t[4];
                 $curso = $t[5];
                 $empresa_mandante = $t[6];
@@ -471,7 +518,7 @@ class capController extends Controller
                 $fecha_fin = date("Y-m-d H:i:s",strtotime($t[11]));
     
                 //tipo empresa
-                if($t[4]=='CODELCO'){
+                if($t[4]=='CODELCO' || $t[4]=='Codelco' || $t[4]=='codelco' ){
                     $tipo_empresa = "CODELCO";
                 }
                 else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work' || $t[4]=='Team-Work' || $t[4]=='Teamwork' || $t[4]=='Teamworks'){
@@ -480,6 +527,17 @@ class capController extends Controller
                 else{
                     $tipo_empresa = 'Contratistas';
                 }
+
+                if($t[4]=='CODELCO' || $t[4]=='Codelco' || $t[4]=='codelco' ){
+                    $empresa = "CODELCO";
+                }
+                else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work'){
+                    $empresa = 'TEAMWORK';
+                }
+                else{
+                    $empresa = $t[4];
+                }
+
     
                 //asistencia
                 if($t[10]=!''){

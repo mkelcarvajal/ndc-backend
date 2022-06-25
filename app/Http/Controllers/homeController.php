@@ -22,7 +22,7 @@ class homeController extends Controller
     {
         $user=$_POST['userin'];
         $pass=$_POST['passin'];
-        $data=DB::connection('mysql_ndc')->table('ndccl_Encuestas.usr_acceso')->where('rut',$user)->where('pass',$pass)->get();
+        $data=DB::connection('mysql_ndc')->table('usr_acceso')->where('rut',$user)->where('pass',$pass)->get();
         // $data=DB::select('exec BD_ENTI_CORPORATIVA..login ?,?',[$user,$pass]);
         if(count($data)>0){
             if($data[0]->pass>0)
