@@ -104,37 +104,40 @@
             <div class="page-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Filtros </h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col">
-                                        <label for="select_calificacion"><b>Calificación: </b></label>
-                                        <select class="sel" name="select_calificacion" id="select_calificacion" onchange="cargar_calificaciones();">
-                                            <option>Seleccione un Ítem</option>
-                                            <option value="ct">CODELCO / TEAMWORK (Aprobados, Reprobados, Inasistentes</option>
-                                            <option value="ca">Contratistas (Aprobados)</option>
-                                            <option value="cr">Contratistas (Reprobados)</option>
-                                            <option value="ci">Contratistas (Inasistentes)</option>
-                                            <option value="r">Rezagados</option>
-                                        </select>
+                        <form action="addCorrelativo" method="post" id="form_correlativo">
+                            @csrf
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Filtros </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="select_calificacion"><b>Calificación: </b></label>
+                                            <select class="sel" name="select_calificacion" id="select_calificacion" onchange="cargar_calificaciones();">
+                                                <option>Seleccione un Ítem</option>
+                                                <option value="ct">CODELCO / TEAMWORK (Aprobados, Reprobados, Inasistentes)</option>
+                                                <option value="ca">Contratistas (Aprobados)</option>
+                                                <option value="cr">Contratistas (Reprobados)</option>
+                                                <option value="ci">Contratistas (Inasistentes)</option>
+                                                <option value="r">Rezagados</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Registrar Correlativos </h5>
-                                <button class="btn btn-xs btn-success ml-3" type="button" style="float: right;" onclick="CheckAll();" data-toggle="tooltip" data-placement="top" title="Seleccionar Todos"><i class="fas fa-check"></i></button>
-                                <button class="btn btn-xs btn-danger " type="button" style="float: right;" onclick="UncheckAll();" data-toggle="tooltip" data-placement="top" title="Deseleccionar Todos"><i class="fas fa-times"></i></button>
-                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Registrar Correlativos </h5>
+                                    <button class="btn btn-xs btn-success ml-3" type="button" style="float: right;" onclick="CheckAll();" data-toggle="tooltip" data-placement="top" title="Seleccionar Todos"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-xs btn-danger " type="button" style="float: right;" onclick="UncheckAll();" data-toggle="tooltip" data-placement="top" title="Deseleccionar Todos"><i class="fas fa-times"></i></button>
+                                </div>
 
-                            <div class="card-body" id="contenedor_tabla_correlativo">
-                    
+                                <div class="card-body" id="contenedor_tabla_correlativo">
+                        
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

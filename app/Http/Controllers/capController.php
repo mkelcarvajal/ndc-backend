@@ -72,7 +72,7 @@ class capController extends Controller
                         ->get();
         if(sizeof($data)>0){
             $pdf = PDF::loadView('pdf.certificados_ndc',compact('data'))->setPaper('a4', 'landscape');
-            return $pdf->download('certificado.pdf');
+            return $pdf->download('INFORME DE ASISTENCIA CODELCO DSAL '.$request->input('corr').'.pdf');
         }
         else{
             return redirect()->back()->with('message', ['type' => 'Error','text' => 'No Existe Correlativo',]);
@@ -93,10 +93,13 @@ class capController extends Controller
         }
         else{
             $pdf = PDF::loadView('pdf.diploma_ndc',compact('data'))->setPaper('a4', 'landscape');
-            return $pdf->download('diplomas_ndc.pdf');
+            return $pdf->download('Certificados '.$data[0]->tipo_documento.' '.$data[0]->curso.' '.
+                        date('d', strtotime($data[0]->fecha_ini)).'-'.
+                        date('d', strtotime($data[0]->fecha_ini.' +1 days')).'-'.
+                        date('d', strtotime($data[0]->fecha_ini.' +2 days')).
+                        '.pdf');
         }
     }
-
     public function desc_certificado(){
         return view('descargar_certificado');
     }
@@ -267,7 +270,8 @@ class capController extends Controller
                 $fecha_registro = $t[9];
                 $nota_ini = intval(str_replace("%","",$t[10]));
                 $fecha_ini = date("Y-m-d H:i:s",strtotime($t[11]));
-    
+                $fecha_fin = date("Y-m-d H:i:s",strtotime($t[12]));
+
                 //tipo empresa
                 if($t[4]=='CODELCO' || $t[4]=='Codelco' || $t[4]=='codelco' ){
                     $tipo_empresa = "CODELCO";
@@ -321,6 +325,7 @@ class capController extends Controller
                             "nota_ini"=>$nota_ini,
                             "nota_fin"=>0,
                             "fecha_ini"=>$fecha_ini,
+                            "fecha_fin"=>$fecha_fin,
                             "estado"=>'Prueba 1',
                         ]);
                     }
@@ -346,6 +351,7 @@ class capController extends Controller
                             "nota_ini"=>$nota_ini,
                             "nota_fin"=>0,
                             "fecha_ini"=>$fecha_ini,
+                            "fecha_fin"=>$fecha_fin,
                             "estado"=>'Prueba 1',
                             "rezagado"=>1
                         ]);
@@ -391,6 +397,7 @@ class capController extends Controller
                 $fecha_registro = $t[7];
                 $nota_ini = intval(str_replace("%","",$t[8]));
                 $fecha_ini = date("Y-m-d H:i:s",strtotime($t[9]));
+                $fecha_fin = date("Y-m-d H:i:s",strtotime($t[10]));
     
                 //tipo empresa
                 if($t[2]=='CODELCO' || $t[2]=='Codelco' || $t[2]=='codelco' ){
@@ -470,6 +477,7 @@ class capController extends Controller
                                 "nota_ini"=>0,
                                 "nota_fin"=>0,
                                 "fecha_ini"=>$fecha_ini,
+                                "fecha_fin"=>$fecha_fin,
                                 "estado"=>'Prueba 2',
                                 "rezagado"=>1
                             ]);
@@ -515,8 +523,9 @@ class capController extends Controller
                 $horas_curso = $t[8];
                 $fecha_registro = $t[9];
                 $nota_fin = intval(str_replace("%","",$t[10]));
-                $fecha_fin = date("Y-m-d H:i:s",strtotime($t[11]));
-    
+                $fecha_ini = date("Y-m-d H:i:s",strtotime($t[11]));
+                $fecha_fin = date("Y-m-d H:i:s",strtotime($t[12]));
+
                 //tipo empresa
                 if($t[4]=='CODELCO' || $t[4]=='Codelco' || $t[4]=='codelco' ){
                     $tipo_empresa = "CODELCO";
@@ -557,6 +566,7 @@ class capController extends Controller
                         ->where('estado','Prueba 2')
                         ->update([
                             "nota_fin"=>$nota_fin,
+                            "fecha_ini"=>$fecha_ini,
                             "fecha_fin"=>$fecha_fin,
                             "asistencia_3"=>$asistencia,
                             "nota_promedio"=>$nota_fin,
@@ -579,6 +589,7 @@ class capController extends Controller
                                 "nota_fin"=>$nota_fin,
                                 "nota_promedio"=>$nota_fin,
                                 "fecha_fin"=>$fecha_fin,
+                                "fecha_ini"=>$fecha_ini,
                                 "estado"=>'Prueba 3',
                         ]);
                     }
@@ -602,6 +613,7 @@ class capController extends Controller
                                 "nota_ini"=>0,
                                 "nota_fin"=>$nota_fin,
                                 "nota_promedio"=>$nota_fin,
+                                "fecha_ini"=>$fecha_ini,
                                 "fecha_fin"=>$fecha_fin,
                                 "estado"=>'Prueba 3',
                                 "rezagado"=>1
@@ -615,7 +627,6 @@ class capController extends Controller
             $asis = DB::connection('mysql')->table('registro_capacitaciones')
             ->selectRaw('rut,asistencia_1,asistencia_2,asistencia_3,nota_fin')
             ->whereNotIn('estado',['planilla verde'])
-            ->where('rezagado',null)
             ->get();
 
             $ar_rut = array();
@@ -644,7 +655,6 @@ class capController extends Controller
 
                     DB::connection('mysql')->table('registro_capacitaciones')
                     ->whereNotIn('estado',['planilla verde'])
-                    ->where('rezagado',null)
                     ->where('rut',$a->rut)
                     ->update([
                         'asistencia_promedio'=>$asistencia_promedio,
@@ -655,7 +665,6 @@ class capController extends Controller
 
                 DB::connection('mysql')->table('registro_capacitaciones')
                 ->where('estado','planilla verde')
-                ->where('rezagado',null)
                 ->whereNotIn('rut',$ar_rut)
                 ->update([
                     'estado'=>'Prueba 3'
@@ -742,11 +751,24 @@ class capController extends Controller
                 foreach($request->input('check_registro') as $check_correlativo){
                     if(isset($check_correlativo)){
         
+                        $documento = 'sin documento';
+
+                        if($request->input('select_calificacion')=='ct'){
+                            $documento = 'CODELCO';
+                        }
+                        else if($request->input('select_calificacion')=='ca'){
+                            $documento = 'CONTRATISTA';
+                        }
+                        else if($request->input('select_calificacion')=='r'){
+                            $documento = 'CONTRATISTAS REZAGADOS';
+                        }
+
                         DB::connection('mysql')
                             ->table('registro_capacitaciones')
                             ->where('id',$check_correlativo)
                             ->update([
                                         'cod_certificado'=>$request->input('cod_correlativo'),
+                                        'tipo_documento'=>$documento,
                                         'estado'=>'listo'
                                     ]);
                     }

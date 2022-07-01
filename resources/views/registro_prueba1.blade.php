@@ -146,7 +146,8 @@
                                         <th>SAP</th>
                                         <th>Empresa</th>
                                         <th>Nota</th>
-                                        <th>Fecha</th>
+                                        <th>Fecha Inicio</th>
+                                        <th>Fecha Fin</th>
                                         <th>Fecha Registro</th>
                                         <th>Curso</th>
                                     </thead>
@@ -163,6 +164,7 @@
                                                 <td>{{$p1->empresa}}</td>
                                                 <td>{{$p1->nota_ini}} %</td>
                                                 <td>{{date("d/m/Y",strtotime($p1->fecha_ini))}}</td>
+                                                <td>{{date("d/m/Y",strtotime($p1->fecha_fin))}}</td>
                                                 <td>{{date("d/m/Y",strtotime($p1->fecha_registro))}}</td>
                                                 <td>{{$p1->curso}}</td>
                                             </tr>

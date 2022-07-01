@@ -1,5 +1,3 @@
-<form action="addCorrelativo" method="post" id="form_correlativo">
-    @csrf
     <table class="table table-hover ">
         <thead class="bg-primary">
             <td>Seleccionar</td>
@@ -39,8 +37,6 @@
     @if(sizeof($data)>0)
         <button type="button" class="btn btn-block btn-success" data-toggle="modal" data-target="#modal_correlativo">Ingresar Correlativo</button>
     @endif
-    
-</form>
 <script>
     $("#form_correlativo").on("submit", function(){
         $('#modal_correlativo').modal("hide");
