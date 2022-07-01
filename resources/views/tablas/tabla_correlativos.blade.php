@@ -11,6 +11,7 @@
             <th>Curso</th>
         </thead>
         <tbody>
+            
             @if(sizeof($data)>0)
                 @foreach($data as $d)
                     <tr style="cursor: pointer;" class="text-center">
