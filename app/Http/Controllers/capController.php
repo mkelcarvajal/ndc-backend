@@ -59,7 +59,6 @@ class capController extends Controller
 
         $rezagados = DB::connection('mysql')
                         ->table('registro_capacitaciones')
-                        ->where('rezagado',1)
                         ->get();
 
         return view('rezagados',compact('rezagados'));

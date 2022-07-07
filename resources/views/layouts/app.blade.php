@@ -118,7 +118,7 @@
                   <nav class="pcoded-navbar">
                       <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
                       <div class="pcoded-inner-navbar main-menu">
-                          <div class="pcoded-navigation-label" data-i18n="nav.category.navigation" style="color: #0077B8">Menú</div>
+                          <div class="pcoded-navigation-label" data-i18n="nav.category.navigation" style="color: #0077B8">Ingreso de Datos</div>
                           <ul class="pcoded-item pcoded-left-item">
                             <li class="{{ ! Route::is('home') ?: 'active' }}">
                                 <a href="home" class="waves-effect waves-dark"  >
@@ -155,13 +155,6 @@
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                             </li>
-                            <li class="{{ ! Route::is('rezagados') ?: 'active' }}">
-                                <a href="rezagados" class="waves-effect waves-dark"  >
-                                      <span  class="pcoded-micon"><i class="fas fa-user-alt-slash"></i></span>
-                                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Rezagados</span>
-                                      <span class="pcoded-mcaret"></span>
-                                  </a>
-                            </li>
                             <li class="{{ ! Route::is('correlativo') ?: 'active' }}">
                                 <a href="correlativo" class="waves-effect waves-dark"  >
                                       <span  class="pcoded-micon"><i class="fas fa-list-ol"></i></span>
@@ -169,6 +162,9 @@
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                             </li>
+                          </ul>
+                          <div class="pcoded-navigation-label" data-i18n="nav.category.navigation" style="color: #0077B8">Descargar Informes</div>
+                          <ul class="pcoded-item pcoded-left-item">
                             <li class="{{ ! Route::is('desc_certificado') ?: 'active' }}">
                                 <a href="desc_certificado" class="waves-effect waves-dark"  >
                                       <span  class="pcoded-micon"><i class="fas fa-download"></i></span>
@@ -180,6 +176,16 @@
                                 <a href="desc_diplomas" class="waves-effect waves-dark"  >
                                       <span  class="pcoded-micon"><i class="fas fa-download"></i></span>
                                       <span class="pcoded-mtext" data-i18n="nav.dash.main">Descargar Diplomas</span>
+                                      <span class="pcoded-mcaret"></span>
+                                  </a>
+                            </li>
+                          </ul>
+                          <div class="pcoded-navigation-label" data-i18n="nav.category.navigation" style="color: #0077B8">Base de Datos</div>
+                          <ul class="pcoded-item pcoded-left-item">
+                            <li class="{{ ! Route::is('rezagados') ?: 'active' }}">
+                                <a href="rezagados" class="waves-effect waves-dark"  >
+                                      <span  class="pcoded-micon"><i class="fas fa-database"></i></span>
+                                      <span class="pcoded-mtext" data-i18n="nav.dash.main">Datos Registrados</span>
                                       <span class="pcoded-mcaret"></span>
                                   </a>
                             </li>
