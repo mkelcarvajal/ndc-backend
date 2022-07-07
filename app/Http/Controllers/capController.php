@@ -79,6 +79,47 @@ class capController extends Controller
         }
     }
 
+    public function nombre_mes($numero){
+
+        if($numero=='01'){
+            return 'enero';
+        }
+        if($numero=='02'){
+            return 'febrero';
+        }
+        if($numero=='03'){
+            return 'marzo';
+        }
+        if($numero=='04'){
+            return 'abril';
+        }
+        if($numero=='05'){
+            return 'mayo';
+        }
+        if($numero=='06'){
+            return 'junio';
+        }
+        if($numero=='07'){
+            return 'julio';
+        }
+        if($numero=='08'){
+            return 'agosto';
+        }
+        if($numero=='09'){
+            return 'septiembre';
+        }
+        if($numero=='10'){
+            return 'octubre';
+        }
+        if($numero=='11'){
+            return 'noviembre';
+        }
+        if($numero=='12'){
+            return 'diciembre';
+        }
+
+    }
+
     public function pdf_diploma(request $request){
 
         $data = DB::connection('mysql')
@@ -87,17 +128,35 @@ class capController extends Controller
                         ->where('estado','listo')
                         ->where('calificacion','APROBADO(A)')
                         ->get();
-                    
+        
+
+
         if(sizeof($data)<=0){
-            return redirect()->back()->with('message', ['type' => 'Error','text' => 'No Existe Correlativo',]);
+            return redirect()->back()->with('message', ['type' => 'Error','text' => 'No Existe Correlativo']);
         }
         else{
             $pdf = PDF::loadView('pdf.diploma_ndc',compact('data'))->setPaper('a4', 'landscape');
-            return $pdf->download('Certificados '.$data[0]->tipo_documento.' '.$data[0]->curso.' '.
-                        date('d', strtotime($data[0]->fecha_ini)).'-'.
-                        date('d', strtotime($data[0]->fecha_ini.' +1 days')).'-'.
-                        date('d', strtotime($data[0]->fecha_ini.' +2 days')).
-                        '.pdf');
+
+            $mes = $this->nombre_mes(date('m', strtotime($data[0]->fecha_ini)));
+
+
+            if($data[0]->tipo_documento == 'CONTRATISTAS REZAGADOS'){
+                return $pdf->download('Certificados CONTRATISTAS '.$data[0]->curso.' '.
+                date('d', strtotime($data[0]->fecha_ini)).'-'.
+                date('d', strtotime($data[0]->fecha_ini.' +1 days')).'-'.
+                date('d', strtotime($data[0]->fecha_ini.' +2 days')).' '.
+                $mes.' Rezagados(as)'.
+                '.pdf');
+            }
+            else{
+                return $pdf->download('Certificados '.$data[0]->tipo_documento.' '.$data[0]->curso.' '.
+                date('d', strtotime($data[0]->fecha_ini)).'-'.
+                date('d', strtotime($data[0]->fecha_ini.' +1 days')).'-'.
+                date('d', strtotime($data[0]->fecha_ini.' +2 days')).' '.
+                $mes.
+                '.pdf');
+            }
+   
         }
     }
     public function desc_certificado(){
@@ -140,20 +199,20 @@ class capController extends Controller
                 $fecha_fin = $t[11];
 
                 //tipo empresa
-                if($t[4]=='CODELCO' || $t[4]=='Codelco' || $t[4]=='codelco' ){
+                if(str_contains($t[4],'CODELCO') || str_contains($t[4],'Codelco') || str_contains($t[4],'codelco') ){
                     $tipo_empresa = "CODELCO";
                 }
-                else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work'){
+                else if(str_contains($t[4],'Teamwork') || str_contains($t[4],'TEAMWORK') || str_contains($t[4],'TEAM WORK') || str_contains($t[4],'Team Work')){
                     $tipo_empresa = 'TEAMWORK';
                 }
                 else{
                     $tipo_empresa = 'Contratistas';
                 }
                 
-                if($t[4]=='CODELCO' || $t[4]=='Codelco' || $t[4]=='codelco' ){
+                if(str_contains($t[4],'CODELCO') || str_contains($t[4],'Codelco') || str_contains($t[4],'codelco') ){
                     $empresa = "CODELCO";
                 }
-                else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work'){
+                else if(str_contains($t[4],'Teamwork') || str_contains($t[4],'TEAMWORK') || str_contains($t[4],'TEAM WORK') || str_contains($t[4],'Team Work')){
                     $empresa = 'TEAMWORK';
                 }
                 else{
@@ -273,20 +332,20 @@ class capController extends Controller
                 $fecha_fin = date("Y-m-d H:i:s",strtotime($t[12]));
 
                 //tipo empresa
-                if($t[4]=='CODELCO' || $t[4]=='Codelco' || $t[4]=='codelco' ){
+                if(str_contains($t[4],'CODELCO') || str_contains($t[4],'Codelco') || str_contains($t[4],'codelco') ){
                     $tipo_empresa = "CODELCO";
                 }
-                else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work'){
+                else if(str_contains($t[4],'Teamwork') || str_contains($t[4],'TEAMWORK') || str_contains($t[4],'TEAM WORK') || str_contains($t[4],'Team Work')){
                     $tipo_empresa = 'TEAMWORK';
                 }
                 else{
                     $tipo_empresa = 'Contratistas';
                 }
 
-                if($t[4]=='CODELCO' || $t[4]=='Codelco' || $t[4]=='codelco' ){
+                if(str_contains($t[4],'CODELCO') || str_contains($t[4],'Codelco') || str_contains($t[4],'codelco') ){
                     $empresa = "CODELCO";
                 }
-                else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work'){
+                else if(str_contains($t[4],'Teamwork') || str_contains($t[4],'TEAMWORK') || str_contains($t[4],'TEAM WORK') || str_contains($t[4],'Team Work')){
                     $empresa = 'TEAMWORK';
                 }
                 else{
@@ -400,20 +459,20 @@ class capController extends Controller
                 $fecha_fin = date("Y-m-d H:i:s",strtotime($t[10]));
     
                 //tipo empresa
-                if($t[2]=='CODELCO' || $t[2]=='Codelco' || $t[2]=='codelco' ){
+                if(str_contains($t[2],'CODELCO') || str_contains($t[2],'Codelco') || str_contains($t[2],'codelco') ){
                     $tipo_empresa = "CODELCO";
                 }
-                else if($t[2]=='Teamwork' || $t[2]=='TEAMWORK' || $t[2]=='TEAM WORK' || $t[2]=='Team Work' || $t[2]=='Team-Work' || $t[2]=='Teamwork' || $t[2]=='Teamworks'){
+                else if(str_contains($t[2],'Teamwork') || str_contains($t[2],'TEAMWORK') || str_contains($t[2],'TEAM WORK') || str_contains($t[2],'Team Work')){
                     $tipo_empresa = 'TEAMWORK';
                 }
                 else{
                     $tipo_empresa = 'Contratistas';
                 }
 
-                if($t[2]=='CODELCO' || $t[2]=='Codelco' || $t[2]=='codelco' ){
+                if(str_contains($t[2],'CODELCO') || str_contains($t[2],'Codelco') || str_contains($t[2],'codelco') ){
                     $empresa = "CODELCO";
                 }
-                else if($t[2]=='Teamwork' || $t[2]=='TEAMWORK' || $t[2]=='TEAM WORK' || $t[2]=='Team Work'){
+                else if(str_contains($t[2],'Teamwork') || str_contains($t[2],'TEAMWORK') || str_contains($t[2],'TEAM WORK') || str_contains($t[2],'Team Work')){
                     $empresa = 'TEAMWORK';
                 }
                 else{
@@ -503,6 +562,7 @@ class capController extends Controller
     
                 $nombre = strtoupper($t[0]." ".$t[1]." ".$t[2]);
                 $rut = str_replace([".",","], "", $t[3]);
+
                 $sap = DB::connection('mysql')
                 ->table('maestro_codelco')
                     ->selectRaw('sap')
@@ -527,20 +587,20 @@ class capController extends Controller
                 $fecha_fin = date("Y-m-d H:i:s",strtotime($t[12]));
 
                 //tipo empresa
-                if($t[4]=='CODELCO' || $t[4]=='Codelco' || $t[4]=='codelco' ){
+                if(str_contains($t[4],'CODELCO') || str_contains($t[4],'Codelco') || str_contains($t[4],'codelco') ){
                     $tipo_empresa = "CODELCO";
                 }
-                else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work' || $t[4]=='Team-Work' || $t[4]=='Teamwork' || $t[4]=='Teamworks'){
+                else if(str_contains($t[4],'Teamwork') || str_contains($t[4],'TEAMWORK') || str_contains($t[4],'TEAM WORK') || str_contains($t[4],'Team Work')){
                     $tipo_empresa = 'TEAMWORK';
                 }
                 else{
                     $tipo_empresa = 'Contratistas';
                 }
 
-                if($t[4]=='CODELCO' || $t[4]=='Codelco' || $t[4]=='codelco' ){
+                if(str_contains($t[4],'CODELCO') || str_contains($t[4],'Codelco') || str_contains($t[4],'codelco') ){
                     $empresa = "CODELCO";
                 }
-                else if($t[4]=='Teamwork' || $t[4]=='TEAMWORK' || $t[4]=='TEAM WORK' || $t[4]=='Team Work'){
+                else if(str_contains($t[4],'Teamwork') || str_contains($t[4],'TEAMWORK') || str_contains($t[4],'TEAM WORK') || str_contains($t[4],'Team Work')){
                     $empresa = 'TEAMWORK';
                 }
                 else{
@@ -549,21 +609,19 @@ class capController extends Controller
 
     
                 //asistencia
-                if($t[10]=!''){
+                if(!empty($t[10])){
                     $asistencia = 100;
                 }
                 else{
                     $asistencia = 0;
                 }
 
-         
-
                 $pv = $this->getPlanillaVerde($rut,$curso,$fecha_registro);
 
                 if(sizeof($pv)>0){
                         DB::connection('mysql')->table('registro_capacitaciones')
                         ->where('rut',$rut)    
-                        ->where('estado','Prueba 2')
+                        ->whereIn('estado',['Prueba 2','Prueba 1'])
                         ->update([
                             "nota_fin"=>$nota_fin,
                             "fecha_ini"=>$fecha_ini,
@@ -621,7 +679,7 @@ class capController extends Controller
                         }
                     }
                 }
-        }
+            }
             //Calificacion 
 
             $asis = DB::connection('mysql')->table('registro_capacitaciones')
