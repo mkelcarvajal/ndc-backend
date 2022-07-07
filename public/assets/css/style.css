@@ -6221,9 +6221,9 @@ table tbody .border-bottom-info td {
     top: 14px;
     padding: 4px; }
     .header-navbar .navbar-wrapper .navbar-container .badge:after, .header-navbar .navbar-wrapper .navbar-container .badge:before {
+      font-size: 18px;;
       content: "";
       width: 100%;
-      height: 100%;
       border-radius: 50%;
       position: absolute;
       top: 0;

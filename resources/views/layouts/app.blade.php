@@ -97,8 +97,8 @@
                       </ul>
                       <ul class="nav-right">
                           <li class="user-profile header-notification">
-                              <a href="#!" class="waves-effect waves-light">
-                                  <span>{{session('nombre')}}</span>
+                              <a href="#!" >
+                                  <span style="font-size: 15px; padding:9px;" class="badge badge-pill badge-light">{{session('nombre')}}</span>
                                   <i class="ti-angle-down"></i>
                               </a>
                               <ul class="show-notification profile-notification">
