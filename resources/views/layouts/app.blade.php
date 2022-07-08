@@ -219,7 +219,6 @@
         </div>
     </div>
 
-
     <script type="text/javascript" src="{{ URL::to('assets/js/jquery/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::to('assets/js/popper.js/popper.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::to('assets/js/bootstrap/js/bootstrap.min.js ') }}"></script>

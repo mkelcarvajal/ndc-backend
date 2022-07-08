@@ -65,10 +65,13 @@ class capController extends Controller
     }
 
     public function pdf_correlativo(request $request){
+
         $data = DB::connection('mysql')
                         ->table('registro_capacitaciones')
                         ->where('cod_certificado',$request->input('corr'))
+                        ->orderBy('nombre','ASC')
                         ->get();
+
         if(sizeof($data)>0){
             $pdf = PDF::loadView('pdf.certificados_ndc',compact('data'))->setPaper('a4', 'landscape');
             return $pdf->download('INFORME DE ASISTENCIA CODELCO DSAL '.$request->input('corr').'.pdf');
@@ -76,6 +79,7 @@ class capController extends Controller
         else{
             return redirect()->back()->with('message', ['type' => 'Error','text' => 'No Existe Correlativo',]);
         }
+        
     }
 
     public function nombre_mes($numero){
@@ -116,7 +120,6 @@ class capController extends Controller
         if($numero=='12'){
             return 'diciembre';
         }
-
     }
 
     public function pdf_diploma(request $request){
@@ -126,21 +129,28 @@ class capController extends Controller
                         ->where('cod_certificado',$request->input('corr'))
                         ->where('estado','listo')
                         ->where('calificacion','APROBADO(A)')
+                        ->orderBy('nombre','ASC')
                         ->get();
-        
-
 
         if(sizeof($data)<=0){
             return redirect()->back()->with('message', ['type' => 'Error','text' => 'No Existe Correlativo']);
         }
+
         else{
+
             $pdf = PDF::loadView('pdf.diploma_ndc',compact('data'))->setPaper('a4', 'landscape');
-
             $mes = $this->nombre_mes(date('m', strtotime($data[0]->fecha_ini)));
+            $curso = '';
 
+            if($data[0]->curso == 'Inducción de Seguridad y Salud Ocupacional'){
+                $curso = 'SSO';
+            }
+            else{
+                $curso = $data[0]->curso;
+            }
 
             if($data[0]->tipo_documento == 'CONTRATISTAS REZAGADOS'){
-                return $pdf->download('Certificados CONTRATISTAS '.$data[0]->curso.' '.
+                return $pdf->download('Certificados CONTRATISTAS '.$curso.' '.
                 date('d', strtotime($data[0]->fecha_ini)).'-'.
                 date('d', strtotime($data[0]->fecha_ini.' +1 days')).'-'.
                 date('d', strtotime($data[0]->fecha_ini.' +2 days')).' '.
@@ -148,14 +158,13 @@ class capController extends Controller
                 '.pdf');
             }
             else{
-                return $pdf->download('Certificados '.$data[0]->tipo_documento.' '.$data[0]->curso.' '.
+                return $pdf->download('Certificados '.$data[0]->tipo_documento.' '.$curso.' '.
                 date('d', strtotime($data[0]->fecha_ini)).'-'.
                 date('d', strtotime($data[0]->fecha_ini.' +1 days')).'-'.
                 date('d', strtotime($data[0]->fecha_ini.' +2 days')).' '.
                 $mes.
                 '.pdf');
             }
-   
         }
     }
     public function desc_certificado(){
@@ -166,7 +175,6 @@ class capController extends Controller
         return view('descargar_diplomas');
     }
 
-    
     public function importarExcel(request $request){
 
         $archivo = $request->file('excel');
