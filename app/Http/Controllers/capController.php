@@ -271,7 +271,8 @@ class capController extends Controller
                                                     "fecha_registro"=>date("Y-m-d",strtotime($fecha_registro)),
                                                     "fecha_ini"=>date("Y-m-d",strtotime($fecha_inicio)),
                                                     "fecha_fin"=>date("Y-m-d",strtotime($fecha_fin)),
-                                                    "estado"=>'planilla verde'
+                                                    "estado"=>'planilla verde',
+                                                    "calificador"=>'NDC'
                                                 ]);
                 }
                 else{
@@ -393,6 +394,7 @@ class capController extends Controller
                             "fecha_ini"=>$fecha_ini,
                             "fecha_fin"=>$fecha_fin,
                             "estado"=>'Prueba 1',
+                            "calificador"=>'NDC'
                         ]);
                     }
                 }
@@ -419,7 +421,9 @@ class capController extends Controller
                             "fecha_ini"=>$fecha_ini,
                             "fecha_fin"=>$fecha_fin,
                             "estado"=>'Prueba 1',
-                            "rezagado"=>1
+                            "rezagado"=>1,
+                            "calificador"=>'NDC'
+
                         ]);
                     }
                 }
@@ -545,7 +549,9 @@ class capController extends Controller
                                 "fecha_ini"=>$fecha_ini,
                                 "fecha_fin"=>$fecha_fin,
                                 "estado"=>'Prueba 2',
-                                "rezagado"=>1
+                                "rezagado"=>1,
+                                "calificador"=>'NDC'
+
                             ]);
                         }
                     }
@@ -681,7 +687,9 @@ class capController extends Controller
                                 "fecha_ini"=>$fecha_ini,
                                 "fecha_fin"=>$fecha_fin,
                                 "estado"=>'Prueba 3',
-                                "rezagado"=>1
+                                "rezagado"=>1,
+                                "calificador"=>'NDC'
+
                             ]);  
                         }
                     }
