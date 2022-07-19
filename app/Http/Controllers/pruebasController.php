@@ -3515,8 +3515,6 @@ class pruebasController extends Controller
                 }
             }
 
-            dd($O);
-
             //G
             $mas_g=array();
             $menos_g=array();
@@ -3861,7 +3859,6 @@ class pruebasController extends Controller
                      $perfil_riesgo= "No Recomendable";
                  }
  
-
 
                 $pdf=PDF::loadView('pruebas.pdf_sosia_estrategico',compact('data','resultado_asc','resultado_res','resultado_est','resultado_soc','resultado_AE',
                 'resultado_cau','resultado_vit','resultado_ori','resultado_com',
