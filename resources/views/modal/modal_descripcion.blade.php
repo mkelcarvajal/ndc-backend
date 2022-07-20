@@ -30,6 +30,7 @@
                                 <input type="text" readonly class="form-control mt-2" id="fecha_termino">
                             </div>
                         </div>
+                        
                         <div class="row">
                             <div class="col">
                                 <label for="nota_promedio" class=" mt-2">Fecha Vigencia:</label>
