@@ -123,7 +123,7 @@
                     $("#header").append("<h5 class='modal-title'>"+data.curso+"</h5>");
                     $("#id").val(data.id);
                     $("#nota_promedio").val(data.nota_promedio+"%");
-                    $("#asistencia_promedio").val(data.nota_promedio+"%");
+                    $("#asistencia_promedio").val(data.asistencia_promedio+"%");
                     $("#fecha_inicio").val(moment(data.fecha_ini).format('DD/MM/YYYY'));
                     $("#fecha_termino").val(moment(data.fecha_fin).format('DD/MM/YYYY'));
                     $("#fecha_vigencia").val(moment(data.vigencia).format('DD/MM/YYYY'));
