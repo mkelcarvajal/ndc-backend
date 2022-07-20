@@ -18,13 +18,13 @@
                         <div class="row">
                             <div class="col">
                                 <input type="hidden" class="form-control" id="id" name="id">
-                                <label for="nota_promedio" class=" mt-2">Nota Promedio:</label>
+                                <label for="nota_promedio" class=" mt-2">Nota:</label>
                                 <input type="text" readonly class="form-control mt-2" id="nota_promedio">
                                 <label for="nota_promedio" class=" mt-2">Fecha Inicio:</label>
                                 <input type="text" readonly class="form-control mt-2" id="fecha_inicio">
                             </div>
                             <div class="col">
-                                <label for="nota_promedio" class=" mt-2">Asistencia Promedio:</label>
+                                <label for="nota_promedio" class=" mt-2">Asistencia :</label>
                                 <input type="text" readonly class="form-control mt-2" id="asistencia_promedio">
                                 <label for="nota_promedio" class=" mt-2">Fecha Termino:</label>
                                 <input type="text" readonly class="form-control mt-2" id="fecha_termino">
