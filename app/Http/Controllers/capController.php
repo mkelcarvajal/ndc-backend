@@ -700,7 +700,7 @@ class capController extends Controller
 
             $asis = DB::connection('mysql')->table('registro_capacitaciones')
             ->selectRaw('rut,asistencia_1,asistencia_2,asistencia_3,nota_fin')
-            ->whereNotIn('estado',['planilla verde'])
+            ->whereNotIn('estado',['planilla verde','listo'])
             ->get();
 
             $ar_rut = array();
