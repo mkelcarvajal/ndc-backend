@@ -167,6 +167,7 @@ class capController extends Controller
             }
         }
     }
+    
     public function desc_certificado(){
         return view('descargar_certificado');
     }
@@ -803,7 +804,6 @@ class capController extends Controller
         else if($request->input('calificacion')=='r'){
             $data = DB::connection('mysql')
                                 ->table('registro_capacitaciones')
-                                ->where('tipo_empresa','Contratistas')
                                 ->where('rezagado',1)
                                 ->where('estado','Prueba 3')
                                 ->get();
