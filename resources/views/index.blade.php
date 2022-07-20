@@ -118,11 +118,8 @@
                 },
                 beforeSend: function() {
                     $("#header").html("");
-                    $('#modal_spinner').modal({backdrop: 'static', keyboard: false})  
-                    $("#modal_spinner").modal("show");
                 },
                 success: function(data) {
-                    $("#modal_spinner").modal("hide");
                     $("#header").append("<h5 class='modal-title'>"+data.curso+"</h5>");
                     $("#id").val(data.id);
                     $("#nota_promedio").val(data.nota_promedio+"%");
