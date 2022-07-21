@@ -232,6 +232,7 @@ class capController extends Controller
                                                 ->where('rut',$rut)
                                                 ->where('fecha_registro',date("Y-m-d",strtotime($fecha_registro)))
                                                 ->where('curso',$curso)
+                                                ->where('estado','<>','listo')
                                                 ->first();
 
                 $sap = DB::connection('mysql')
@@ -280,6 +281,7 @@ class capController extends Controller
                     DB::connection('mysql')
                     ->table('registro_capacitaciones')
                         ->where('id',$reg_anterior->id)
+                        ->where('estado','<>','listo')
                         ->update([
                                     "rut"=>$rut,
                                     "nombre"=>$nombre,
@@ -522,6 +524,7 @@ class capController extends Controller
                         DB::connection('mysql')->table('registro_capacitaciones')
                         ->where('rut',$rut)
                         ->where('rezagado',1)
+                        ->where('estado','<>','listo')
                         ->update([
                                 "asistencia_2"=>$asistencia,
                                 "estado"=>'Prueba 2',
@@ -649,6 +652,7 @@ class capController extends Controller
 
                     $rez=DB::connection('mysql')->table('registro_capacitaciones')
                         ->where('rut',$rut)
+                        ->where('estado','<>','listo')
                         ->where('rezagado',1)
                         ->get();
 
@@ -656,6 +660,7 @@ class capController extends Controller
                         DB::connection('mysql')->table('registro_capacitaciones')
                         ->where('rut',$rut)
                         ->where('rezagado',1)
+                        ->where('estado','<>','listo')
                         ->update([
                                 "asistencia_3"=>$asistencia,
                                 "nota_fin"=>$nota_fin,
@@ -728,7 +733,7 @@ class capController extends Controller
                     }
 
                     DB::connection('mysql')->table('registro_capacitaciones')
-                    ->whereNotIn('estado',['planilla verde'])
+                    ->whereNotIn('estado',['planilla verde','listo'])
                     ->where('rut',$a->rut)
                     ->update([
                         'asistencia_promedio'=>$asistencia_promedio,
@@ -838,6 +843,7 @@ class capController extends Controller
 
                         DB::connection('mysql')
                             ->table('registro_capacitaciones')
+                            ->where('estado','<>','listo')
                             ->where('id',$check_correlativo)
                             ->update([
                                         'cod_certificado'=>$request->input('cod_correlativo'),
