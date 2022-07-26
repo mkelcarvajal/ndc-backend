@@ -2,9 +2,8 @@
     input[readonly] {
         background-color: white !important;
     }
-    .modal-dialog {
+    .modal {
         overflow-y: auto;
-        max-height: calc(100vh - 210px);
     }
    
    </style>
