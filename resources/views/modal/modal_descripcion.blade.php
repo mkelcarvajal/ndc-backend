@@ -3,8 +3,10 @@
         background-color: white !important;
     }
     .modal-dialog {
-    margin: 20vh auto 0px auto
-}
+    margin: 20vh auto 0px auto;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto; 
+    }
    </style>
    <div class="modal fade" style="overflow-y: auto;"  id="modal_desc" tabindex="-1" aria-labelledby="modal_desc" aria-hidden="true">
         <div class="modal-dialog modal-lg">
