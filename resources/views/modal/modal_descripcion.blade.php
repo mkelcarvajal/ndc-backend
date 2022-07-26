@@ -3,7 +3,6 @@
         background-color: white !important;
     }
     .modal-dialog {
-        margin: 20vh auto 0px auto;
         overflow-y: auto;
         max-height: calc(100vh - 210px);
     }
