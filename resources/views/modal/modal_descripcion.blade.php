@@ -4,7 +4,8 @@
     }
     .modal-dialog {
         margin: 20vh auto 0px auto;
-        overflow-y: auto; 
+        overflow-y: auto;
+        max-height: calc(100vh - 210px);
     }
     .modal-body {
         max-height: calc(100vh - 210px);
