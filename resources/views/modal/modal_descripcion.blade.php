@@ -6,7 +6,7 @@
     margin: 20vh auto 0px auto
 }
    </style>
-   <div class="modal fade"  id="modal_desc" tabindex="-1" aria-labelledby="modal_desc" aria-hidden="true">
+   <div class="modal fade" style="overflow-y: auto;"  id="modal_desc" tabindex="-1" aria-labelledby="modal_desc" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header" >
