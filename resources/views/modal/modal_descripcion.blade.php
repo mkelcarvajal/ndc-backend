@@ -44,9 +44,7 @@
                             <div class="d-grid gap-2">
                             </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-block btn-success"><i class="fa-solid fa-file-arrow-down"></i> Descargar Diploma  </button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    <div class="modal-footer" id="pie">
                     </div>
                 </form>
 

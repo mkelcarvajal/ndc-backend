@@ -15,6 +15,7 @@ class registroController extends Controller
                 ->where('rut',$rut)
                 ->where('estado','listo')
                 ->where('calificacion','APROBADO(A)')
+                ->orderBy('fecha_ini','DESC')
                 ->get();
 
         return view('index',compact('data'));

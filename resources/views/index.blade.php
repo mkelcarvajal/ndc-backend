@@ -88,11 +88,20 @@
     </div>
     @foreach($data as $d)
         @if($d->calificacion == 'APROBADO(A)')
-            <div class="card border-success mb-3" style="margin:10px;" onclick="descripcion('{{$d->id}}','{{$d->rut}}');">
-                <div class="card-header text-white" style="background-color:#23BE75" >
-                    APROBADO(A)
-                    <i class="far fa-check-circle fa-2x mt-3" style="float: right"></i> 
-                    <b><h3>{{$d->curso}}</h3></b>
+       
+            <div class="card border-default mb-3" style="margin:10px;" onclick="descripcion('{{$d->id}}','{{$d->rut}}');">
+                @if(date("Y-m-d",strtotime($d->fecha_ini.' + 4 year'))<date("Y-m-d"))
+                    <div class="card-header text-white" style="background-color:#e0e0e0" >
+                        <b>No Vigente</b> <br>
+                        <i class="fa-solid fa-circle-xmark fa-2x mt-3" style="float: right"></i> 
+                        APROBADO(A)
+                @else
+                    <div class="card-header text-white" style="background-color:#23BE75" >
+                        <i class="far fa-check-circle fa-2x mt-3" style="float: right"></i> 
+                        APROBADO(A)
+                @endif
+                    <br>
+                    <b>{{$d->curso}}</b>
                 </div>
             </div>
         @endif
@@ -118,6 +127,7 @@
                 },
                 beforeSend: function() {
                     $("#header").html("");
+                    $("#pie").html("");
                 },
                 success: function(data) {
                     $("#header").append("<h5 class='modal-title'>"+data.curso+"</h5>");
@@ -127,6 +137,14 @@
                     $("#fecha_inicio").val(moment(data.fecha_ini).format('DD/MM/YYYY'));
                     $("#fecha_termino").val(moment(data.fecha_fin).format('DD/MM/YYYY'));
                     $("#fecha_vigencia").val(moment(data.vigencia).format('DD/MM/YYYY'));
+                    if(moment(data.vigencia).format('DD/MM/YYYY') < moment(new Date()).format("DD/MM/YYYY")){
+                        $("#pie").append('<button type="submit" disabled  class="btn btn-block btn-default"><i class="fa-solid fa-file-arrow-down"></i> No Vigente</button>\
+                                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
+                    }
+                    else{
+                        $("#pie").append('<button type="submit" class="btn btn-block btn-success"><i class="fa-solid fa-file-arrow-down"></i> Descargar Diploma  </button>\
+                                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
+                    }
                     $("#modal_desc").modal('show');
                 },
                 error: function(data) {
