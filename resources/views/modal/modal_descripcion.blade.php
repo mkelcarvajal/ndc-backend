@@ -3,7 +3,7 @@
         background-color: white !important;
     }
     .modal {
-        overflow-y: auto;
+        overflow-y: scroll;
     }
    
    </style>
