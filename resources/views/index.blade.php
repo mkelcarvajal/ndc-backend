@@ -147,6 +147,8 @@
                         $("#pie").append('<button type="submit" class="btn btn-block btn-success"><i class="fa-solid fa-file-arrow-down"></i> Descargar Diploma  </button>\
                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
                     }
+                    $('body').addClass('modal-open');
+                    $('#modal_desc').css('overflow-y', 'auto');
                     $("#modal_desc").modal('show');
                 },
                 error: function(data) {
