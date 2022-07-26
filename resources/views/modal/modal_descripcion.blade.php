@@ -7,13 +7,12 @@
     }
    
    </style>
-   <div class="modal fade" style="overflow-y: auto;"  id="modal_desc" tabindex="-1" aria-labelledby="modal_desc" aria-hidden="true">
+   <div class="modal fade"  id="modal_desc" tabindex="-1" aria-labelledby="modal_desc" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header" >
-                <div id="header">
-                    
-                </div>
+                    <div id="header">
+                    </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="{{$data[0]->rut}}/pdf_diploma">
