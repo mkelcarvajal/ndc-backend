@@ -137,7 +137,9 @@
                     $("#fecha_inicio").val(moment(data.fecha_ini).format('DD/MM/YYYY'));
                     $("#fecha_termino").val(moment(data.fecha_fin).format('DD/MM/YYYY'));
                     $("#fecha_vigencia").val(moment(data.vigencia).format('DD/MM/YYYY'));
-                    if(moment(data.vigencia).format('DD/MM/YYYY') < moment(new Date()).format("DD/MM/YYYY")){
+                    $("#cargo").val(data.cargo);
+                    $("#gerencia").val(data.gerencia);
+                    if(moment(data.vigencia).format('DD/MM/YYYY') > moment(new Date()).format("DD/MM/YYYY")){
                         $("#pie").append('<button type="submit" disabled  class="btn btn-block btn-default"><i class="fa-solid fa-file-arrow-down"></i> No Vigente</button>\
                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
                     }

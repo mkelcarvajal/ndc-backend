@@ -24,9 +24,18 @@ class registroController extends Controller
     public function getDatosCurso(request $request){
 
         $data = DB::table('registro_capacitaciones as cap')
-        ->selectRaw('id,curso,nota_promedio,fecha_ini,fecha_fin,asistencia_promedio, DATE_ADD(fecha_fin, INTERVAL 4 YEAR) as vigencia')
-        ->where('id',$request->input('id'))
-        ->where('estado','listo')
+        ->selectRaw('cap.id,
+                     cap.curso,
+                     cap.nota_promedio,
+                     cap.fecha_ini,
+                     cap.fecha_fin,
+                     cap.asistencia_promedio,
+                     DATE_ADD(cap.fecha_fin, INTERVAL 4 YEAR) as vigencia,
+                     c.gerencia,
+                     c.cargo')
+        ->leftJoin('maestro_codelco as c','cap.rut','=','c.rut')
+        ->where('cap.id',$request->input('id'))
+        ->where('cap.estado','listo')
         ->first();
 
         return json_encode($data);
