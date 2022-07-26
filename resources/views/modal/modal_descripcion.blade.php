@@ -4,10 +4,11 @@
     }
     .modal {
         overflow-y: scroll;
+        position: fixed !important;
     }
-   
+    
    </style>
-   <div class="modal fade"  id="modal_desc" tabindex="-1" aria-labelledby="modal_desc" aria-hidden="true">
+   <div class="modal fade"  id="modal_desc" role="dialog" tabindex="-1" aria-labelledby="modal_desc" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header" >
@@ -62,7 +63,6 @@
                     <div class="modal-footer" id="pie">
                     </div>
                 </form>
-
             </div>
         </div>
     </div>
