@@ -130,6 +130,9 @@
                     $("#pie").html("");
                 },
                 success: function(data) {
+                    var $d = new Date();
+                    var $hoy = $d.getFullYear() + "/" + ($d.getMonth()+1) + "/" + $d.getDate();
+
                     $("#header").append("<h5 class='modal-title'>"+data.curso+"</h5>");
                     $("#id").val(data.id);
                     $("#nota_promedio").val(data.nota_promedio+"%");
@@ -139,14 +142,16 @@
                     $("#fecha_vigencia").val(moment(data.vigencia).format('DD/MM/YYYY'));
                     $("#cargo").val(data.cargo);
                     $("#gerencia").val(data.gerencia);
-                    if(moment(data.vigencia).format('DD/MM/YYYY') > moment(new Date()).format("DD/MM/YYYY")){
-                        $("#pie").append('<button type="submit" disabled  class="btn btn-block btn-default"><i class="fa-solid fa-file-arrow-down"></i> No Vigente</button>\
+
+                    if(new Date(data.vigencia) > new Date($hoy)){
+                        $("#pie").append('<button type="submit"  class="btn btn-block btn-success"><i class="fa-solid fa-file-arrow-down"></i> Descargar Diploma  </button>\
                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
                     }
                     else{
-                        $("#pie").append('<button type="submit" class="btn btn-block btn-success"><i class="fa-solid fa-file-arrow-down"></i> Descargar Diploma  </button>\
+                        $("#pie").append('<button type="submit" disabled class="btn btn-block btn-default"><i class="fa-solid fa-file-arrow-down"></i> No Vigente</button>\
                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
                     }
+
                     $('body').addClass('modal-open');
                     $('#modal_desc').css('overflow-y', 'auto');
                     $("#modal_desc").modal('show');
