@@ -102,7 +102,7 @@
                 @endif
                     <br>
                     <b>{{$d->curso}}</b>
-                    <br>
+                    <br><br>
                 </div>
             </div>
         @endif
