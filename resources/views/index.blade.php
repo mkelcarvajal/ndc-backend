@@ -97,13 +97,13 @@
                         APROBADO(A)
                         <br>
                         <b>{{$d->curso}}</b>
-                        <br><br>
                 @else
                     <div class="card-header text-white" style="background-color:#23BE75" >
                         <i class="far fa-check-circle fa-2x mt-3" style="float: right"></i> 
                         APROBADO(A)
                         <br>
                         <b>{{$d->curso}}</b>
+                        <br><br>
                 @endif
                 </div>
             </div>
