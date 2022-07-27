@@ -21,19 +21,19 @@
                             @csrf
                             @if($data[0]->tipo_empresa == 'CODELCO')
                                 <center><img src="../img/codelco.jpg"  width="100"  style="border-radius:7px;"></center>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="cargo" class=" mt-2">Cargo:</label>
+                                        <input type="text" readonly class="form-control mt-2" id="cargo">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="gerencia" class=" mt-2 ">Gerencia:</label>
+                                        <input type="text" readonly class="form-control mt-2" id="gerencia">
+                                    </div>
+                                </div>
                             @endif
-                            <div class="row">
-                                <div class="col">
-                                    <label for="cargo" class=" mt-2">Cargo:</label>
-                                    <input type="text" readonly class="form-control mt-2" id="cargo">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label for="gerencia" class=" mt-2 ">Gerencia:</label>
-                                    <input type="text" readonly class="form-control mt-2" id="gerencia">
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col">
                                     <input type="hidden" class="form-control" id="id" name="id">
