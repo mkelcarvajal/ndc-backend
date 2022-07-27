@@ -60,6 +60,17 @@
     
     
 </style>
+<?php 
+function diferencia($fecha1,$fecha2){
+    
+    $date1 = new DateTime($fecha1);
+    $date2 = new DateTime($fecha2);
+    $diff = $date1->diff($date2);
+    // will output 2 days
+    return  $diff->days;
+}
+?>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -88,24 +99,29 @@
     </div>
     @foreach($data as $d)
         @if($d->calificacion == 'APROBADO(A)')
-       
             <div class="card border-default mb-3" style="margin:10px;" onclick="descripcion('{{$d->id}}','{{$d->rut}}');">
-                @if(date("Y-m-d",strtotime($d->fecha_ini.' + 4 year'))<date("Y-m-d"))
+                @if(date("Y-m-d",strtotime($d->fecha_fin.' + 4 year'))<date("Y-m-d"))
                     <div class="card-header text-white" style="background-color:#e0e0e0" >
-                        <b>No Vigente</b> <br>
                         <i class="fa-solid fa-circle-xmark fa-2x mt-3" style="float: right"></i> 
+                        <b>No Vigente</b> <br>
                         APROBADO(A)
                         <br>
                         <b>{{$d->curso}}</b>
+                    </div>              
                 @else
                     <div class="card-header text-white" style="background-color:#23BE75" >
                         <i class="far fa-check-circle fa-2x mt-3" style="float: right"></i> 
                         APROBADO(A)
                         <br>
                         <b>{{$d->curso}}</b>
-                        <br><br>
+                        @if(diferencia(date("Y-m-d",strtotime($d->fecha_fin.' + 4 year')),date("Y-m-d"))<=60 && diferencia(date("Y-m-d",strtotime($d->fecha_fin.' + 4 year')),date("Y-m-d")) >30)
+                            <br><span class="badge badge-pill badge-warning bg-warning" style="padding-bottom:-2px;">Quedan <?php echo diferencia(date("Y-m-d",strtotime($d->fecha_fin.' + 4 year')),date("Y-m-d")) ?> días para Caducar</span> 
+                        @elseif(diferencia(date("Y-m-d",strtotime($d->fecha_fin.' + 4 year')),date("Y-m-d"))<=30)
+                            <br><span class="badge badge-pill badge-danger bg-danger" style="padding-bottom:-2px;">Quedan <?php echo diferencia(date("Y-m-d",strtotime($d->fecha_fin.' + 4 year')),date("Y-m-d")) ?> días para Caducar</span> 
+                        @endif
+                        <br>
+                    </div>
                 @endif
-                </div>
             </div>
         @endif
     @endforeach
