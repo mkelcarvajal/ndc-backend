@@ -95,14 +95,17 @@
                         <b>No Vigente</b> <br>
                         <i class="fa-solid fa-circle-xmark fa-2x mt-3" style="float: right"></i> 
                         APROBADO(A)
+                        <br>
+                        <b>{{$d->curso}}</b>
+                        <br><br>
                 @else
                     <div class="card-header text-white" style="background-color:#23BE75" >
                         <i class="far fa-check-circle fa-2x mt-3" style="float: right"></i> 
                         APROBADO(A)
+                        <br>
+                        <b>{{$d->curso}}</b>
                 @endif
-                    <br>
-                    <b>{{$d->curso}}</b>
-                    <br><br>
+                 
                 </div>
             </div>
         @endif
