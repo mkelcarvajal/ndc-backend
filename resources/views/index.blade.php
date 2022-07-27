@@ -99,10 +99,10 @@
                     <div class="card-header text-white" style="background-color:#23BE75" >
                         <i class="far fa-check-circle fa-2x mt-3" style="float: right"></i> 
                         APROBADO(A)
-                        <br><br>
                 @endif
                     <br>
                     <b>{{$d->curso}}</b>
+                    <br>
                 </div>
             </div>
         @endif
