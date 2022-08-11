@@ -144,6 +144,7 @@ function diferencia($fecha1,$fecha2){
                 data: {
                   'id':id,
                 },
+                async:true,
                 beforeSend: function() {
                     $("#header").html("");
                     $("#pie").html("");
@@ -162,7 +163,11 @@ function diferencia($fecha1,$fecha2){
                     $("#cargo").val(data.cargo);
                     $("#gerencia").val(data.gerencia);
 
-                    if(new Date(data.vigencia) > new Date($hoy)){
+                    var h = new Date($hoy.replace(/-/g, "/"));
+                    var v = new Date(data.vigencia.replace(/-/g, "/"));
+
+
+                    if(v > h){
                         $("#pie").append('<button type="submit"  class="btn btn-block btn-success"><i class="fa-solid fa-file-arrow-down"></i> Descargar Diploma  </button>\
                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
                     }
