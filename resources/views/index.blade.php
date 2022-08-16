@@ -132,6 +132,7 @@ function diferencia($fecha1,$fecha2){
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="    https://cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js"></script>
     <script>
         function descripcion(id,rut){
             $.ajax({
@@ -150,10 +151,7 @@ function diferencia($fecha1,$fecha2){
                     $("#pie").html("");
                 },
                 success: function(data) {
-                    var $d = new Date();
-                    var $v = new Date(data.vigencia);
-                    var $hoy = ($d.getMonth()+1) + "/" + $d.getDate()+ "/" +$d.getFullYear();
-                    var $vig = ($v.getMonth()+1) + "/" + $v.getDate()+ "/" +$v.getFullYear();
+   
                     $("#header").append("<h5 class='modal-title'>"+data.curso+"</h5>");
                     $("#id").val(data.id);
                     $("#nota_promedio").val(data.nota_promedio+"%");
@@ -164,11 +162,7 @@ function diferencia($fecha1,$fecha2){
                     $("#cargo").val(data.cargo);
                     $("#gerencia").val(data.gerencia);
 
-                    hoy = new Date($hoy.replace(/-/g, "/"));
-                    vig = new Date(data.vigencia.replace(/-/g, "/"));
-
-
-                    if(vig>hoy){
+                    if(data.vigencia > moment().format("YYYY-MM-DD HH:MM:SS")){
                         $("#pie").append('<button type="submit"  class="btn btn-block btn-success"><i class="fa-solid fa-file-arrow-down"></i> Descargar Diploma  </button>\
                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
                     }
@@ -183,7 +177,7 @@ function diferencia($fecha1,$fecha2){
                 },
                 error: function(data) {
                     console.log(data);
-                }   
+                }
             });
         }    
     </script>  
