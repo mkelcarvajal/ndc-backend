@@ -164,14 +164,15 @@ function diferencia($fecha1,$fecha2){
                     $("#cargo").val(data.cargo);
                     $("#gerencia").val(data.gerencia);
 
-                    
-                    var arr = moment().format("YYYY-MM-DD HH:MM:SS").split(/[- :]/),
-                    hoy = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4], arr[5]);
+                    function parseDate(input, format) {
+                        format = format || 'yyyy-mm-dd'; 
+                        var parts = input.match(/(\d+)/g), 
+                            i = 0, fmt = {};
+                        format.replace(/(yyyy|dd|mm)/g, function(part) { fmt[part] = i++; });
+                        return new Date(parts[fmt['yyyy']], parts[fmt['mm']]-1, parts[fmt['dd']]);
+                    }
 
-                    var arr2 = data.vigencia.split(/[- :]/),
-                    vig = new Date(arr2[0], arr2[1]-1, arr2[2], arr2[3], arr2[4], arr2[5]);
-
-                    if(vig > hoy){
+                    if(parseDate(data.vigencia,'yyyy/dd/mm') > parseDate(moment().format("YYYY/MM/DD"),'yyyy/dd/mm')){
                         $("#pie").append('<button type="submit"  class="btn btn-block btn-success"><i class="fa-solid fa-file-arrow-down"></i> Descargar Diploma  </button>\
                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
                     }
