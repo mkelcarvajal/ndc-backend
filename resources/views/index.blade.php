@@ -152,8 +152,9 @@ function diferencia($fecha1,$fecha2){
                 success: function(data) {
                     var $d = new Date();
                     var $v = new Date(data.vigencia);
-                    var $hoy = ($d.getMonth()+1) + "/" + $d.getDate()+ "/" +$d.getFullYear();
-                    var $vig = ($v.getMonth()+1) + "/" + $v.getDate()+ "/" +$v.getFullYear();
+                    var $hoy = ($d.getMonth()+1) + "-" + $d.getDate()+ "-" +$d.getFullYear();
+                    var $vig = ($v.getMonth()+1) + "-" + $v.getDate()+ "-" +$v.getFullYear();
+
                     $("#header").append("<h5 class='modal-title'>"+data.curso+"</h5>");
                     $("#id").val(data.id);
                     $("#nota_promedio").val(data.nota_promedio+"%");
@@ -164,8 +165,7 @@ function diferencia($fecha1,$fecha2){
                     $("#cargo").val(data.cargo);
                     $("#gerencia").val(data.gerencia);
 
-                    
-                    if($v > $hoy){
+                    if(new Date($v) > new Date($hoy)){
                         $("#pie").append('<button type="submit"  class="btn btn-block btn-success"><i class="fa-solid fa-file-arrow-down"></i> Descargar Diploma  </button>\
                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
                     }
