@@ -160,12 +160,9 @@ function diferencia($fecha1,$fecha2){
                     $("#fecha_termino").val(moment(data.fecha_fin).format('DD/MM/YYYY'));
                     $("#fecha_vigencia").val(moment(data.vigencia).format('DD/MM/YYYY'));
                     $("#cargo").val(data.cargo);
-                    $("#gerencia").val(data.gerencia);
+                    $("#gerencia").val(data.gerencia);                    
 
-                    var hoy = moment(moment(), 'YYYY-MM-DD HH:mm').toDate();
-                    var vigencia = moment(data.vigencia , 'YYYY-MM-DD HH:mm').toDate();
-
-                    if(vigencia > hoy){
+                    if(data.validacion == 'valido'){
                         $("#pie").append('<button type="submit"  class="btn btn-block btn-success"><i class="fa-solid fa-file-arrow-down"></i> Descargar Diploma  </button>\
                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
                     }
