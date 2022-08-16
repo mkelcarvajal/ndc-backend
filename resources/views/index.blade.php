@@ -165,7 +165,7 @@ function diferencia($fecha1,$fecha2){
                     $("#gerencia").val(data.gerencia);
 
                     
-                    if(new Date($v) > new Date($hoy)){
+                    if($v > $hoy){
                         $("#pie").append('<button type="submit"  class="btn btn-block btn-success"><i class="fa-solid fa-file-arrow-down"></i> Descargar Diploma  </button>\
                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
                     }
@@ -180,7 +180,7 @@ function diferencia($fecha1,$fecha2){
                 },
                 error: function(data) {
                     console.log(data);
-                }
+                }   
             });
         }    
     </script>  
