@@ -31,6 +31,7 @@ class registroController extends Controller
                      cap.fecha_fin,
                      cap.asistencia_promedio,
                      DATE_ADD(cap.fecha_fin, INTERVAL 4 YEAR) as vigencia,
+                     CASE WHEN DATE_ADD(cap.fecha_fin, INTERVAL 4 YEAR) > now() then "valido" else "invalido" end as validacion,
                      c.gerencia,
                      c.cargo')
         ->leftJoin('maestro_codelco as c','cap.rut','=','c.rut')
