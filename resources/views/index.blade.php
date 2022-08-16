@@ -164,7 +164,7 @@ function diferencia($fecha1,$fecha2){
 
                     alert(data.validacion);
 
-                    if(data.validacion === 'valido'){
+                    if(data.validacion.slice(0, -1) == "valido"){
                         $("#pie").append('<button type="submit"  class="btn btn-block btn-success"><i class="fa-solid fa-file-arrow-down"></i> Descargar Diploma  </button>\
                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
                     }
