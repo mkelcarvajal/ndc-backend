@@ -162,16 +162,7 @@ function diferencia($fecha1,$fecha2){
                     $("#cargo").val(data.cargo);
                     $("#gerencia").val(data.gerencia);
 
-                    function convertDateForIos(date) {
-                        var arr = date.split(/[- :]/);
-                        date = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4], arr[5]);
-                        return date;
-                    }
-
-                    let hoy = convertDateForIos(data.vigencia);
-                    let vig = convertDateForIos(moment().format("YYYY-MM-DD HH:MM:SS"));
-
-                    if(vig > hoy){
+                    if(data.vigencia > moment().format("YYYY-MM-DD HH:MM:SS")){
                         $("#pie").append('<button type="submit"  class="btn btn-block btn-success"><i class="fa-solid fa-file-arrow-down"></i> Descargar Diploma  </button>\
                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
                     }
