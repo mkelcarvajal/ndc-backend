@@ -107,8 +107,9 @@
     <img src="loginpu/img/liebherr.jpg" width="140" style="float:left;padding-top:10px;">
     <img src="loginpu/img/ndc.png" width="130" style="float:right; ">
     <br>
-    <center ><b style="font-size:16px;">INFORME PSICOLABORAL</b></center>
-<br>
+    <u style="text-decoration-color:#4D928F">
+        <center ><b style="font-size:16px; ">INFORME PSICOLABORAL</b></center>
+    </u><br>
 </head>
 <body>
     <br>
@@ -475,7 +476,9 @@
     <img src="loginpu/img/liebherr.jpg" width="140" style="float:left;padding-top:10px;">
     <img src="loginpu/img/ndc.png" width="130" style="float:right; ">
     <br>
-    <center ><b style="font-size:16px;">ANEXO - COMPETENCIAS</b></center>
+    <u>
+        <center ><b style="font-size:16px;">ANEXO - COMPETENCIAS</b></center>
+    </u>
     <br><br><br><br>
     <br><br>
     <table style="width:100%" >
