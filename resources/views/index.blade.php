@@ -132,6 +132,7 @@ function diferencia($fecha1,$fecha2){
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="    https://cdnjs.cloudflare.com/ajax/libs/datejs/1.0/date.min.js"></script>
     <script>
         function descripcion(id,rut){
             $.ajax({
@@ -144,14 +145,13 @@ function diferencia($fecha1,$fecha2){
                 data: {
                   'id':id,
                 },
+                async:true,
                 beforeSend: function() {
                     $("#header").html("");
                     $("#pie").html("");
                 },
                 success: function(data) {
-                    var $d = new Date();
-                    var $hoy = $d.getFullYear() + "/" + ($d.getMonth()+1) + "/" + $d.getDate();
-
+   
                     $("#header").append("<h5 class='modal-title'>"+data.curso+"</h5>");
                     $("#id").val(data.id);
                     $("#nota_promedio").val(data.nota_promedio+"%");
@@ -160,9 +160,11 @@ function diferencia($fecha1,$fecha2){
                     $("#fecha_termino").val(moment(data.fecha_fin).format('DD/MM/YYYY'));
                     $("#fecha_vigencia").val(moment(data.vigencia).format('DD/MM/YYYY'));
                     $("#cargo").val(data.cargo);
-                    $("#gerencia").val(data.gerencia);
+                    $("#gerencia").val(data.gerencia);                    
 
-                    if(new Date(data.vigencia) > new Date($hoy)){
+                    alert(data.validacion);
+
+                    if(data.validacion.slice(0, -1) == "valido"){
                         $("#pie").append('<button type="submit"  class="btn btn-block btn-success"><i class="fa-solid fa-file-arrow-down"></i> Descargar Diploma  </button>\
                                           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>')
                     }
