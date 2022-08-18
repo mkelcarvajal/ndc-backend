@@ -3369,6 +3369,7 @@ class pruebasController extends Controller
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
 
+        
         $sheet->getStyle('A1:E1')
             ->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
