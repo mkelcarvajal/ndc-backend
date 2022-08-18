@@ -3380,6 +3380,7 @@ class pruebasController extends Controller
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="BD_Socia.xlsx"');
         $writer->save('php://output');
+     
         
     }
 
