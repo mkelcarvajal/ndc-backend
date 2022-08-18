@@ -3310,7 +3310,17 @@ class pruebasController extends Controller
     public function SosiaExcel(request $request){
 
         $data = DB::table('resultados as r')
-        ->selectRaw('r.id_resultado as id,r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,e.nombre as nombre_e, r.fecha as fecha_r,r.tipo_usuario as tipo,r.detalle as detalle_r, e.detalle as detalle_e, r.id_encuesta as id_en, r.codigo_usuario as cod_usu')
+        ->selectRaw('r.id_resultado as id,
+                    r.nombre as nombre_r,
+                    r.apellido as apellido_r, 
+                    r.rut as rut_r,
+                    e.nombre as nombre_e, 
+                    r.fecha as fecha_r,
+                    r.tipo_usuario as tipo,
+                    r.detalle as detalle_r, 
+                    e.detalle as detalle_e, 
+                    r.id_encuesta as id_en, 
+                    r.codigo_usuario as cod_usu')
         ->where('r.id_encuesta','4')
         ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
         ->orderby('r.fecha','ASC')
@@ -3332,9 +3342,10 @@ class pruebasController extends Controller
             $sheet->setCellValue('E'.$cont,date("d-m-Y H:i:s",strtotime($d->fecha_r)));
 
             $letra_respuestas='F';
-
             
-            $res = $respuesta['usuariosStructs'][0]['respuestasStructs'];
+            if(isset($respuesta['usuariosStructs'][0]['respuestasStructs'])){
+                $res = $respuesta['usuariosStructs'][0]['respuestasStructs'];
+            }
 
             if (is_array($res) || is_object($res)){
                 foreach ($res as $r){
@@ -3369,7 +3380,6 @@ class pruebasController extends Controller
         header('Content-Disposition: attachment; filename="BD_Socia.xlsx"');
         $writer->save('php://output');
         
-        die;
     }
 
     // public function indexPrueba()
