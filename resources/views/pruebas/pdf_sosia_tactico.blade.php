@@ -319,6 +319,7 @@
         </thead>
         <tbody style="text-align: center;">
         <tr>
+            
                 <td>ASCENDENCIA</td>
                 <td>{{$resultado_asc->resultado}}</td>
                 <td>7</td>
