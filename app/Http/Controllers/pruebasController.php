@@ -1204,6 +1204,7 @@ class pruebasController extends Controller
                             $c++;
                             $categoria_c += $correctas[$c1] == $respondidas[$c1];
                         }
+                        
                         for($c1 = 11; $c1 <= 11; $c1++){
                             $total_top_2++;
                             $topico2 += $correctas[$c1] == $respondidas[$c1];
