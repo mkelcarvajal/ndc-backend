@@ -3754,6 +3754,7 @@ class pruebasController extends Controller
 
                $porc_ajuste=($ajuste*100)/7;
                
+               
                $riesgo=0;
                $perfil_riesgo="";
 
