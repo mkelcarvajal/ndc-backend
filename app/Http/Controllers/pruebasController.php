@@ -1185,6 +1185,7 @@ class pruebasController extends Controller
 
                         $c=0;
 
+                        
                         for($c1 = 0; $c1 <= 2; $c1++){
                             $total_top_1++;
                             $topico1 += $correctas[$c1] == $respondidas[$c1];
