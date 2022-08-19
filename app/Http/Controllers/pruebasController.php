@@ -4013,6 +4013,7 @@ class pruebasController extends Controller
 
         die;
 
+        
     }
 
     // public function indexPrueba()
