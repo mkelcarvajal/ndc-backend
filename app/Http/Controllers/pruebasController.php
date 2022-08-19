@@ -1374,6 +1374,7 @@ class pruebasController extends Controller
                         $sheet->setCellValue('J'.$num,intval(substr($json[3], 1, -2)).'%');
                         $sheet->setCellValue('K'.$num,intval(substr($json[4], 1, -2)).'%');
                         $sheet->setCellValue('L'.$num,intval(substr($json[5], 1, -2)).'%');
+
                     }
                     $num++;
                 }
@@ -3937,8 +3938,6 @@ class pruebasController extends Controller
                 return $pdf->stream('Informe SOSIA Estrategico.pdf');
             }
     }
-
-
     public function SosiaExcel(request $request){
         ini_set('max_execution_time', 300);
         $data = DB::table('resultados as r')
@@ -3978,7 +3977,6 @@ class pruebasController extends Controller
             if(isset($respuesta['usuariosStructs'][0]['respuestasStructs'])){
                 $res = $respuesta['usuariosStructs'][0]['respuestasStructs'];
             }
-
             if (is_array($res) || is_object($res)){
                 foreach ($res as $r){
                     if (is_array($r) || is_object($r)){
@@ -4015,6 +4013,7 @@ class pruebasController extends Controller
 
         die;
 
+        
     }
 
     // public function indexPrueba()
