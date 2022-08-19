@@ -3714,7 +3714,7 @@ class pruebasController extends Controller
                 'vit_riesgo','cau_riesgo','c_riesgo','i_riesgo','v_riesgo','perfil_riesgo','riesgo',
                 'titulo','cargo'));
                
-                return $pdf->stream('sosia.pdf');
+                return $pdf->stream('Informe SOSIA Operativo.pdf');
             }
             else if($request->select=='tactico'){
 
@@ -3935,7 +3935,7 @@ class pruebasController extends Controller
                 'titulo','cargo'));
 
                
-                return $pdf->stream('sosia.pdf');
+                return $pdf->stream('Informe SOSIA Estrategico.pdf');
             }
     }
 
