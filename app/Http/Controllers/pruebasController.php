@@ -4017,7 +4017,7 @@ class pruebasController extends Controller
         header('Content-Disposition: attachment; filename="BD_Socia.xlsx"');
         $writer->save('php://output');
 
-
+        die;
 
     }
 
