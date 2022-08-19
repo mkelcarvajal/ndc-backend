@@ -1452,7 +1452,6 @@ class pruebasController extends Controller
                         $sheet->setCellValue('J'.$num,intval(substr($json[3], 1, -2)).'%');
                         $sheet->setCellValue('K'.$num,intval(substr($json[4], 1, -2)).'%');
                         $sheet->setCellValue('L'.$num,intval(substr($json[5], 1, -2)).'%');
-    
                     }
                     $num++;
                 }
@@ -3714,7 +3713,7 @@ class pruebasController extends Controller
                 'vit_riesgo','cau_riesgo','c_riesgo','i_riesgo','v_riesgo','perfil_riesgo','riesgo',
                 'titulo','cargo'));
                
-                return $pdf->stream('sosia.pdf');
+                return $pdf->stream('Informe SOSIA Operativo.pdf');
             }
             else if($request->select=='tactico'){
 
@@ -3935,11 +3934,10 @@ class pruebasController extends Controller
                 'titulo','cargo'));
 
                
-                return $pdf->stream('sosia.pdf');
+                return $pdf->stream('Informe SOSIA Estrategico.pdf');
             }
     }
 
-    
     public function SosiaExcel(request $request){
         ini_set('max_execution_time', 300);
         $data = DB::table('resultados as r')
