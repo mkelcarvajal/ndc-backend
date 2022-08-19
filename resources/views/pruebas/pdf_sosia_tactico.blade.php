@@ -436,10 +436,8 @@
                         </div>
                     </div>
                     <div class="offer-content">
-                        <h3 >
                             Los resultados de la Evaluación Psicolaboral de <b>  {{$data->nombre_r}} {{$data->apellido_r}} </b> es considerado/a
                             <b>{{$categoria}}</b> para el cargo {{$cargo}} de nivel <b>Táctico</b> para las operaciones de la empresa <b>LIEBHERR.</b> 
-                        </h3>                            
                     </div>
                 </div>
                 @elseif($categoria == 'Apto con Observaciones')
@@ -450,11 +448,13 @@
                         </div>
                     </div>
                     <div class="offer-content">
-                        <h3 >
                             Los resultados de la Evaluación Psicolaboral de <b>  {{$data->nombre_r}} {{$data->apellido_r}} </b> es considerado/a
                             <b>{{$categoria}}</b> para el cargo {{$cargo}} de nivel <b>Táctico</b> para las operaciones de la empresa <b>LIEBHERR.</b> 
+<<<<<<< HEAD
+=======
                         </h3>                            
 
+>>>>>>> 4b4960b10df4fa35cebf93dbc78c6c478300fcf9
                     </div>
                 </div>
                 @else
