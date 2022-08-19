@@ -2,6 +2,8 @@
 
 @section('content')
 <style>
+<<<<<<< HEAD
+=======
 .tooltip-wrapper {
   display: inline-block; /* display: block works as well */
 }
@@ -126,6 +128,7 @@
   transition: all .2s ease;
 }
 =======
+>>>>>>> 4b4960b10df4fa35cebf93dbc78c6c478300fcf9
   .tooltip-wrapper {
     display: inline-block; /* display: block works as well */
   }
@@ -250,6 +253,73 @@
     transition: all .2s ease;
   }
 </style>
+<<<<<<< HEAD
+<br>
+@if (\Session::has('success'))
+    <div class="alert alert-success">
+      <center>
+            <span style="color:white;">{!! \Session::get('success') !!}</span>
+    </center>
+      </div>
+@endif
+@if (\Session::has('error'))
+    <div class="alert alert-danger">
+      <center>
+            <span style="color:white;">{!! \Session::get('error') !!}</span>
+    </center>
+      </div>
+@endif
+<br>
+<button class="btn btn-block btn-success" data-toggle="modal" data-target="#modal_agregar" ><i data-feather="plus"></i> Agregar Usuario</button>  
+<br>
+<div class="card">
+    <div class="card-header bg-primary" style="color:white;">
+       <b> Lista de Usuarios</b>
+    </div>
+    <div class="card-body">
+        <table class="table table-borderer table-striped">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Nombre</th>
+                    <th>Rol</th>
+                    <th>Firma</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($usuarios as $u)
+                    <tr>
+                        <td>
+                            {{$u->rut}}
+                        </td>
+                        <td>
+                            {{$u->nombre}}
+                        </td>
+                        <td>
+                            {{$u->rol}}
+                        </td>
+                        <td>
+                            <button class="btn btn-success" data-toggle="modal" data-target="#modal_firma"  onclick="firma('{{$u->rut}}');"><i data-feather="pen-tool"></i></button>
+                        </td>
+                        <td>
+                            @if( $session_rut == $u->rut || $session_rol == 'admin')
+                                <button class="btn btn-warning" data-toggle="modal" data-target="#modal_modificar" onclick="mod('{{$u->id}}','{{$u->rut}}','{{$u->nombre}}','{{$u->rol}}');">Modificar</button>
+                            @else
+                                <div class="tooltip-wrapper" data-title="Válido para Administrador">
+                                 <button class="btn btn-warning" disabled>Modificar</button>
+                                <div>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+=======
   <div class="modal fade" id="modal_modificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -299,8 +369,14 @@
     </div>
   </div>
 </div>
+>>>>>>> 4b4960b10df4fa35cebf93dbc78c6c478300fcf9
 
 
+<<<<<<< HEAD
+@include('modal.modal_agr');
+@include('modal.modal_mod');
+
+=======
 <div class="modal fade" id="modal_agregar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -356,22 +432,24 @@
 @include('modal.modal_mod');
 
 >>>>>>> master
+>>>>>>> 4b4960b10df4fa35cebf93dbc78c6c478300fcf9
 @endsection
 @section('script')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-    
-    $(function() {
-        $('.tooltip-wrapper').tooltip({position: "bottom"});
-    });
 
+<<<<<<< HEAD
+  function mod(id,rut,nombre,rol){
+=======
     function mod(id,rut,nombre,rol){
 
+>>>>>>> 4b4960b10df4fa35cebf93dbc78c6c478300fcf9
         $("#usuario_usr").val("");
         $("#nombre_usr").val("");
         $("#rol_usr").val("");
         $("#id_usr").val("");
+        
         $('.file-upload-input').replaceWith($('.file-upload-input').clone());
         $('.file-upload-content').hide();
         $('.image-upload-wrap').show();
@@ -388,6 +466,8 @@
 
     }
 
+<<<<<<< HEAD
+=======
     function readURL(input) {
         if (input.files && input.files[0]) {
 
@@ -456,5 +536,6 @@
       });  
     }
 
+>>>>>>> 4b4960b10df4fa35cebf93dbc78c6c478300fcf9
 </script>
 @endsection

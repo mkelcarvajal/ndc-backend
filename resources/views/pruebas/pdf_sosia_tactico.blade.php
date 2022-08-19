@@ -58,6 +58,7 @@
    * {
             font-family: Verdana, Arial, sans-serif;
             font-size: 5;
+            padding:0;
         }
         .page_break { page-break-before: always; }
 
@@ -113,7 +114,6 @@
     <div style="background-color:#4D928F; text-align:center; border-radius:7px;"  >
         <span><div style="margin:5px;color:white;"><b>Antecedentes Personales</b></div></span>
     </div>
-    <br>
     <center>
         <table style="width: 100%">
             <thead style="text-align: center;">
@@ -166,7 +166,6 @@
     <div style="background-color:#4D928F; text-align:center; border-radius:7px;"  >
         <span><div style="margin:5px;color:white;"><b>Análisis de Competencias</b></div></span>
     </div>
-    <br>
     <center>
         <img height="290"  src="https://quickchart.io/chart?c=
             {
@@ -277,11 +276,13 @@
     
             }">
     </center>
-    <br>
     <div style="background-color:#4D928F; text-align:center; border-radius:7px;"  >
         <span><div style="margin:5px;color:white;"><b>Descripción de Competencias</b></div></span>
     </div>
     <br>
+    <div style="background-color:#CAE3E1; text-align:center; border-radius:3px;text-align: justify; padding:2px;"  >
+        <b>Ascendencia:</b>{{$informe_ascendencia->descripcion}}
+    </div><br>
     <div style="background-color:#CAE3E1; text-align:center; border-radius:3px;text-align: justify; padding:2px;"  >
         <b>Independencia:</b> {{$informe_independencia->descripcion}}
     </div><br>
@@ -307,7 +308,7 @@
     <div style="background-color:#4D928F; text-align:center; border-radius:7px;"  >
         <span><div style="margin:5px;color:white;"><b>Perfil de competencias - Táctico</b></div></span>
     </div>
-    <br>    <table style="width: 100%">
+    <table style="width: 100%">
         <thead style="text-align: center;">
             <tr>
                 <th style="background-color:#CAE3E1;" >Competencias</th>
@@ -317,6 +318,13 @@
             </tr>
         </thead>
         <tbody style="text-align: center;">
+        <tr>
+            
+                <td>ASCENDENCIA</td>
+                <td>{{$resultado_asc->resultado}}</td>
+                <td>7</td>
+                <td <?php color($resultado_asc->resultado,7) ?> >{{$ascendencia}}</td>
+            </tr> 
             <tr>
                 <td>METAS</td>
                 <td>{{$resultado_g->resultado}}</td>
@@ -370,7 +378,7 @@
     <div style="background-color:#4D928F; text-align:center; border-radius:7px;"  >
         <span><div style="margin:5px;color:white;"><b>Perfil de Riesgo </b></div></span>
     </div>
-    <br>    <table style="width: 100%">
+    <table style="width: 100%">
         <thead style="text-align: center;">
             <tr>
                 <th style="background-color:#CAE3E1;" >Competencias</th>
@@ -428,10 +436,8 @@
                         </div>
                     </div>
                     <div class="offer-content">
-                        <h3 >
                             Los resultados de la Evaluación Psicolaboral de <b>  {{$data->nombre_r}} {{$data->apellido_r}} </b> es considerado/a
                             <b>{{$categoria}}</b> para el cargo {{$cargo}} de nivel <b>Táctico</b> para las operaciones de la empresa <b>LIEBHERR.</b> 
-                        </h3>                            
                     </div>
                 </div>
                 @elseif($categoria == 'Apto con Observaciones')
@@ -442,11 +448,13 @@
                         </div>
                     </div>
                     <div class="offer-content">
-                        <h3 >
                             Los resultados de la Evaluación Psicolaboral de <b>  {{$data->nombre_r}} {{$data->apellido_r}} </b> es considerado/a
                             <b>{{$categoria}}</b> para el cargo {{$cargo}} de nivel <b>Táctico</b> para las operaciones de la empresa <b>LIEBHERR.</b> 
+<<<<<<< HEAD
+=======
                         </h3>                            
 
+>>>>>>> 4b4960b10df4fa35cebf93dbc78c6c478300fcf9
                     </div>
                 </div>
                 @else
@@ -471,7 +479,6 @@
                 @endif
             </div>
         </div>
-
         <div class="page_break"></div>
     <img src="loginpu/img/liebherr.jpg" width="140" style="float:left;padding-top:10px;">
     <img src="loginpu/img/ndc.png" width="130" style="float:right; ">
