@@ -3943,7 +3943,7 @@ class pruebasController extends Controller
     }
     
     public function SosiaExcel(request $request){
-
+        ini_set('max_execution_time', 300);
         $data = DB::table('resultados as r')
         ->selectRaw('r.id_resultado as id,
                     r.nombre as nombre_r,
