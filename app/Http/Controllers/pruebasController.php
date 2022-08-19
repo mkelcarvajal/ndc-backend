@@ -1452,7 +1452,6 @@ class pruebasController extends Controller
                         $sheet->setCellValue('J'.$num,intval(substr($json[3], 1, -2)).'%');
                         $sheet->setCellValue('K'.$num,intval(substr($json[4], 1, -2)).'%');
                         $sheet->setCellValue('L'.$num,intval(substr($json[5], 1, -2)).'%');
-    
                     }
                     $num++;
                 }
@@ -3939,7 +3938,7 @@ class pruebasController extends Controller
             }
     }
 
-    
+
     public function SosiaExcel(request $request){
         ini_set('max_execution_time', 300);
         $data = DB::table('resultados as r')
@@ -3975,7 +3974,6 @@ class pruebasController extends Controller
             $sheet->setCellValue('E'.$cont,date("d-m-Y H:i:s",strtotime($d->fecha_r)));
 
             $letra_respuestas='F';
-
             
             if(isset($respuesta['usuariosStructs'][0]['respuestasStructs'])){
                 $res = $respuesta['usuariosStructs'][0]['respuestasStructs'];
