@@ -3571,10 +3571,10 @@ class pruebasController extends Controller
                 if($de<=3){
                     return 1;
                 }
-                elseif($de<=3 && $de<=7){
+                elseif($de>3 && $de<7){
                     return 2;
                 }
-                else{
+                else if ($de>=7){
                     return 3;
                 }
             }
@@ -3589,6 +3589,7 @@ class pruebasController extends Controller
             $informe_independencia = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Independencia')->where('puntaje',polarizado($resultado_i->resultado))->first();
             $informe_variedad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Variedad')->where('puntaje',polarizado($resultado_v->resultado))->first();
             $informe_benevolencia = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Benevolencia')->where('puntaje',polarizado($resultado_b->resultado))->first();
+
 
             $informe_cautela = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Cautela')->where('puntaje',polarizado($resultado_cau->resultado))->first();
             $informe_originalidad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Originalidad')->where('puntaje',polarizado($resultado_ori->resultado))->first();
@@ -3671,8 +3672,6 @@ class pruebasController extends Controller
                      {$v_riesgo = "ADECUADO";}
                  else 
                      {$v_riesgo = "INADECUADO"; $riesgo++;}
- 
-
 
                  if($riesgo <= 2){
                      $perfil_riesgo = "Recomendable";
@@ -3683,8 +3682,6 @@ class pruebasController extends Controller
                  else if ($riesgo >=5){
                      $perfil_riesgo= "No Recomendable";
                  }
- 
-                
 
                 $pdf=PDF::loadView('pruebas.pdf_sosia_operativo',compact('data','resultado_asc','resultado_res','resultado_est','resultado_soc','resultado_AE',
                 'resultado_cau','resultado_vit','resultado_ori','resultado_com',
@@ -3728,8 +3725,9 @@ class pruebasController extends Controller
                $liderazgo=$resultado_l->resultado-7;
                $benevolencia=$resultado_b->resultado-6;
                $responsabilidad=$resultado_res->resultado-6;
-               
-               $competencias=array($metas,$orden,$cautela,$desicion,$liderazgo,$benevolencia,$responsabilidad);
+               $ascendencia= $resultado_asc->resultado - 7;
+
+               $competencias=array($metas,$orden,$cautela,$desicion,$liderazgo,$benevolencia,$responsabilidad,$ascendencia);
                $ajuste=0;
                $ajuste_negativo=0;
                foreach ($competencias as $x){
@@ -3820,13 +3818,13 @@ class pruebasController extends Controller
                 'informe_conformidad',
                 'informe_liderazgo',
 
-                'metas','orden','cautela','desicion','liderazgo','benevolencia','responsabilidad',
+                'metas','orden','cautela','desicion','liderazgo','benevolencia','responsabilidad','ascendencia',
                 'ajuste','categoria','fondo','porc_ajuste','ajuste_negativo',
                 'vit_riesgo','cau_riesgo','c_riesgo','i_riesgo','v_riesgo','perfil_riesgo','riesgo',
                 'titulo','cargo'));
 
 
-                return $pdf->stream('sosia.pdf');
+                return $pdf->stream('Informe SOSIA Tactico.pdf');
             }
             else{
 
@@ -3940,9 +3938,10 @@ class pruebasController extends Controller
                 return $pdf->stream('sosia.pdf');
             }
     }
+
     
     public function SosiaExcel(request $request){
-
+        ini_set('max_execution_time', 300);
         $data = DB::table('resultados as r')
         ->selectRaw('r.id_resultado as id,
                     r.nombre as nombre_r,
@@ -3976,11 +3975,11 @@ class pruebasController extends Controller
             $sheet->setCellValue('E'.$cont,date("d-m-Y H:i:s",strtotime($d->fecha_r)));
 
             $letra_respuestas='F';
+
             
             if(isset($respuesta['usuariosStructs'][0]['respuestasStructs'])){
                 $res = $respuesta['usuariosStructs'][0]['respuestasStructs'];
             }
-
 
             if (is_array($res) || is_object($res)){
                 foreach ($res as $r){
@@ -4015,7 +4014,9 @@ class pruebasController extends Controller
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="BD_Socia.xlsx"');
         $writer->save('php://output');
-        
+
+        die;
+
     }
 
     // public function indexPrueba()
