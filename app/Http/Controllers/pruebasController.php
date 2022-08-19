@@ -3728,8 +3728,9 @@ class pruebasController extends Controller
                $liderazgo=$resultado_l->resultado-7;
                $benevolencia=$resultado_b->resultado-6;
                $responsabilidad=$resultado_res->resultado-6;
-               
-               $competencias=array($metas,$orden,$cautela,$desicion,$liderazgo,$benevolencia,$responsabilidad);
+               $ascendencia= $resultado_asc->resultado - 7;
+
+               $competencias=array($metas,$orden,$cautela,$desicion,$liderazgo,$benevolencia,$responsabilidad,$ascendencia);
                $ajuste=0;
                $ajuste_negativo=0;
                foreach ($competencias as $x){
@@ -3820,13 +3821,13 @@ class pruebasController extends Controller
                 'informe_conformidad',
                 'informe_liderazgo',
 
-                'metas','orden','cautela','desicion','liderazgo','benevolencia','responsabilidad',
+                'metas','orden','cautela','desicion','liderazgo','benevolencia','responsabilidad','ascendencia',
                 'ajuste','categoria','fondo','porc_ajuste','ajuste_negativo',
                 'vit_riesgo','cau_riesgo','c_riesgo','i_riesgo','v_riesgo','perfil_riesgo','riesgo',
                 'titulo','cargo'));
 
 
-                return $pdf->stream('sosia.pdf');
+                return $pdf->stream('Informe SOSIA Tactico.pdf');
             }
             else{
 
@@ -4017,7 +4018,7 @@ class pruebasController extends Controller
         $writer->save('php://output');
 
 
-        
+
     }
 
     // public function indexPrueba()
