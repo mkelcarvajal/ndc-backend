@@ -3240,7 +3240,7 @@ class pruebasController extends Controller
                     array_push($mas_cau,$r['respuesta'][0]);
                     array_push($menos_cau,$r['respuesta'][1]);
                 }
-            }    
+            }
             foreach($cau as $key=>$c){
                 if(similar_text($c->mas,$mas_cau[$key][2])>0){
                     $CAU++;
@@ -3249,7 +3249,6 @@ class pruebasController extends Controller
                     $CAU++;
                 }
             }
-
             //ORI
             $mas_ori=array();
             $menos_ori=array();
@@ -3754,7 +3753,6 @@ class pruebasController extends Controller
 
                $porc_ajuste=($ajuste*100)/7;
                
-               
                $riesgo=0;
                $perfil_riesgo="";
 
@@ -3826,7 +3824,7 @@ class pruebasController extends Controller
                 'titulo','cargo'));
 
 
-                return $pdf->stream('Informe SOSIA Tactico.pdf');
+               return $pdf->stream('Informe SOSIA Tactico.pdf');
             }
             else{
 

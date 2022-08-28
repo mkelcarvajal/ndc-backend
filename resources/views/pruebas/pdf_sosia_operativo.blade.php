@@ -170,7 +170,7 @@
     </div>
     <br>
     <center>
-        <img height="290"  src="https://quickchart.io/chart?c=
+        <img height="290" width="100%"  src="https://quickchart.io/chart?c=
             {
                 type:'line',
                 options: {
@@ -185,13 +185,17 @@
                       },
                     },
                     scales: {
-                        yAxes: [{
-                            display: true,
-                            ticks: {
-                                min: 0, // minimum value
-                                max: 10 // maximum value
+                        yAxes: [
+                            {
+                                display: true,
+                                ticks: {
+                                    min: 0, // minimum value
+                                    max: 10 // maximum value
+                                },
+                                fontFamily: 'Serif',
+                                fontStyle: 'italic',
                             }
-                        }]
+                        ],
                     }
                   },                
                 data:{
@@ -245,7 +249,9 @@
                                 5
                             ],
                             fill:false,
-                            borderColor:'red',
+                            borderColor: 'rgb(255, 126, 2)',
+                            borderWidth: 1,
+                            pointRadius: 2,
                         },
                         {
                             label:'Perfil Operativo',
@@ -272,7 +278,10 @@
                             {{$resultado_l->resultado}},    
                             ],
                             fill:false,
-                            borderColor:'orange',
+                            borderColor: 'rgb(55, 154, 53)',
+                            
+                            borderWidth: 1,
+                            pointRadius: 2,
                         }
                        
                     ],
@@ -280,6 +289,20 @@
     
             }">
     </center>
+    <!-- 
+        Opcion 1
+                            borderColor: 'rgb(146,208,80)',
+                            borderColor: 'rgb(0,176,240)',
+
+        Opcion 2 
+                            borderColor: 'rgb( 140, 37, 50)',
+                            borderColor: 'rgb(79, 146, 136)',
+
+        Opcion 3 
+                            borderColor: 'rgb(255, 126, 2)',
+                            borderColor: 'rgb(55, 154, 53)',
+    -->
+
     <br>
     <div style="background-color:#4D928F; text-align:center; border-radius:7px;"  >
         <span><div style="margin:5px;color:white"><b>Descripción de Competencias</b></div></span>
