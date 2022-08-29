@@ -19,6 +19,7 @@
     <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <link href="css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/fontawesome/css/all.css" rel="stylesheet" type="text/css" />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" type="text/css" />
 </head>
@@ -114,7 +115,19 @@
 
                                     </a>
                                 </li>
-                     
+                                <li style="cursor:pointer">
+                                    <a href="solicitud" >
+                                    <i class="fa-solid fa-user-gear"></i>
+                                    <span> Realizar Solicitud </span>
+                                    </a>
+                                </li>
+                                <li style="cursor:pointer">
+                                    <a href="pendientes" >
+                                    <i class="fa-solid fa-comments-question-check"></i>
+                                    <span> Solicitudes Pendientes </span>
+                                    </a>
+                                </li>
+                                
                             </ul>
                         </div>
                     </nav>
@@ -161,6 +174,7 @@
         <script src="js/select2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="./assets/libs/fontawesome/js/all.js"></script>
 
         <script>
         function sosia(){

@@ -30,7 +30,15 @@ Route::group(['middleware' => 'auth'], function ()
     Route::post('modificar_user', 'usuariosController@modificar_user');
     Route::post('agregar_user', 'usuariosController@agregar_user');
 
+    //SOLICITUDES
 
+    Route::get('solicitud','solicitudController@index');
+    Route::get('pendientes','solicitudController@pendientes');
+    Route::post('verificarCodigo','solicitudController@verificarCodigo');
+    Route::post('insertSolicitud','solicitudController@insertSolicitud');
+    Route::post('getProcesosAbiertos','solicitudController@getProcesosAbiertos');
+
+    
 });
 
 

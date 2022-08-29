@@ -269,9 +269,8 @@ class pruebasController extends Controller
                 }
 
                 //Electrica OHT
-                 if($d->id_en == 17){ 
+                 if($d->id_en == 17){
 
-                        
                     $sheet->setCellValue('A'.$num,$d->cod_usu);
                     $sheet->setCellValue('B'.$num,$d->nombre_e);
                     $sheet->setCellValue('C'.$num, $d->nombre_r);
@@ -961,7 +960,6 @@ class pruebasController extends Controller
                 }
                 //Mecanica Reman
                 if($d->id_en == 19){ 
-            
 
                             // $sheet->setCellValue('A'.$num,$d->cod_usu);
                             // $sheet->setCellValue('B'.$num,$d->nombre_e);
@@ -1185,6 +1183,7 @@ class pruebasController extends Controller
 
                         $c=0;
 
+                        
                         for($c1 = 0; $c1 <= 2; $c1++){
                             $total_top_1++;
                             $topico1 += $correctas[$c1] == $respondidas[$c1];
@@ -1203,6 +1202,7 @@ class pruebasController extends Controller
                             $c++;
                             $categoria_c += $correctas[$c1] == $respondidas[$c1];
                         }
+                        
                         for($c1 = 11; $c1 <= 11; $c1++){
                             $total_top_2++;
                             $topico2 += $correctas[$c1] == $respondidas[$c1];
@@ -1431,6 +1431,21 @@ class pruebasController extends Controller
                         $sheet->setCellValue('J'.$num,divnum($topico1,$total_top_1));
                         $sheet->setCellValue('K'.$num,divnum($topico2,$total_top_2));
                         $sheet->setCellValue('L'.$num,divnum($topico3,$total_top_3));
+                        $sheet->setCellValue('M'.$num,divnum($topico4,$total_top_4));
+                        $sheet->setCellValue('N'.$num,divnum($topico5,$total_top_5));
+                        $sheet->setCellValue('O'.$num,divnum($topico6,$total_top_6));
+                        $sheet->setCellValue('P'.$num,divnum($topico7,$total_top_7));
+                        $sheet->setCellValue('Q'.$num,divnum($topico8,$total_top_8));
+                        $sheet->setCellValue('R'.$num,divnum($topico9,$total_top_9));
+                        $sheet->setCellValue('S'.$num,divnum($topico10,$total_top_10));
+                        $sheet->setCellValue('T'.$num,divnum($topico11,$total_top_11));
+                        $sheet->setCellValue('U'.$num,divnum($topico12,$total_top_12));
+                        $sheet->setCellValue('V'.$num,divnum($topico13,$total_top_13));
+                        $sheet->setCellValue('W'.$num,divnum($topico14,$total_top_14));
+                        $sheet->setCellValue('X'.$num,divnum($topico15,$total_top_15));
+                        $sheet->setCellValue('Y'.$num,divnum($topico16,$total_top_16));
+                        $sheet->setCellValue('Z'.$num,divnum($topico17,$total_top_17));
+                        $sheet->setCellValue('AA'.$num,divnum($topico18,$total_top_18));
                     }
                     else{
                         $json = explode(',', $d->detalle_r);
@@ -1452,8 +1467,22 @@ class pruebasController extends Controller
                         $sheet->setCellValue('J'.$num,intval(substr($json[3], 1, -2)).'%');
                         $sheet->setCellValue('K'.$num,intval(substr($json[4], 1, -2)).'%');
                         $sheet->setCellValue('L'.$num,intval(substr($json[5], 1, -2)).'%');
-    
+                        $sheet->setCellValue('M'.$num,intval(substr($json[6], 1, -2)).'%');
+                        $sheet->setCellValue('N'.$num,intval(substr($json[7], 1, -2)).'%');
+                        $sheet->setCellValue('O'.$num,intval(substr($json[8], 1, -2)).'%');
+                        $sheet->setCellValue('P'.$num,intval(substr($json[9], 1, -2)).'%');
+                        $sheet->setCellValue('R'.$num,intval(substr($json[10], 1, -2)).'%');
+                        $sheet->setCellValue('S'.$num,intval(substr($json[11], 1, -2)).'%');
+                        $sheet->setCellValue('T'.$num,intval(substr($json[12], 1, -2)).'%');
+                        $sheet->setCellValue('U'.$num,intval(substr($json[13], 1, -2)).'%');
+                        $sheet->setCellValue('V'.$num,intval(substr($json[14], 1, -2)).'%');
+                        $sheet->setCellValue('W'.$num,intval(substr($json[15], 1, -2)).'%');
+                        $sheet->setCellValue('X'.$num,intval(substr($json[16], 1, -2)).'%');
+                        $sheet->setCellValue('Y'.$num,intval(substr($json[17], 1, -2)).'%');
+                        $sheet->setCellValue('Z'.$num,intval(substr($json[18], 1, -2)).'%');
+                        $sheet->setCellValue('AA'.$num,intval(substr($json[19], 1, -2)).'%');
                     }
+
                     $num++;
                 }
                 // HEX 9800
@@ -1585,8 +1614,7 @@ class pruebasController extends Controller
                         
                         $total_preguntas=160;
                         $porc_a=intval(substr($json[0], 1, -2));
-                        $porc_b=intval(substr($json[1], 1, -2));
-                        
+                        $porc_b=intval(substr($json[1], 1, -2));                        
                         $sheet->setCellValue('A'.$num,$d->cod_usu);
                         $sheet->setCellValue('B'.$num,$d->nombre_e);
                         $sheet->setCellValue('C'.$num, $d->nombre_r);
@@ -1595,20 +1623,13 @@ class pruebasController extends Controller
                         $sheet->setCellValue('F'.$num,date("d/m/Y",strtotime($d->fecha_r)));
                         $sheet->setCellValue('G'.$num,round($porc_a).'%');
                         $sheet->setCellValue('H'.$num,round($porc_b).'%');
-                        $sheet->setCellValue('I'.$num,'N/A');
-                        $sheet->setCellValue('J'.$num,intval(substr($json[2], 1, -2)).'%');
-                        $sheet->setCellValue('K'.$num,intval(substr($json[3], 1, -2)).'%');
-                        $sheet->setCellValue('L'.$num,intval(substr($json[4], 1, -2)).'%');
-                        $sheet->setCellValue('M'.$num,intval(substr($json[5], 1, -2)).'%');
-                        $sheet->setCellValue('N'.$num,intval(substr($json[6], 1, -2)).'%');
-                        $sheet->setCellValue('O'.$num,intval(substr($json[7], 1, -2)).'%');
-                        $sheet->setCellValue('P'.$num,intval(substr($json[8], 1, -2)).'%');
+                        $sheet->setCellValue('I'.$num,round($porc_c).'%');
+                        $sheet->setCellValue('J'.$num,intval(substr($json[3], 1, -2)).'%');
+                        $sheet->setCellValue('K'.$num,intval(substr($json[4], 1, -2)).'%');
+                        $sheet->setCellValue('L'.$num,intval(substr($json[5], 1, -2)).'%');
     
                     }
-
-
                     $num++;
-
                 }
                 // HEX ASESOR
                 if($d->id_en == 21){ 
@@ -3239,7 +3260,7 @@ class pruebasController extends Controller
                     array_push($mas_cau,$r['respuesta'][0]);
                     array_push($menos_cau,$r['respuesta'][1]);
                 }
-            }    
+            }
             foreach($cau as $key=>$c){
                 if(similar_text($c->mas,$mas_cau[$key][2])>0){
                     $CAU++;
@@ -3248,7 +3269,6 @@ class pruebasController extends Controller
                     $CAU++;
                 }
             }
-
             //ORI
             $mas_ori=array();
             $menos_ori=array();
@@ -3687,13 +3707,34 @@ class pruebasController extends Controller
                 'resultado_cau','resultado_vit','resultado_ori','resultado_com',
                 'resultado_s','resultado_c','resultado_r','resultado_i','resultado_b','resultado_l',
                 'resultado_p','resultado_a','resultado_v','resultado_d','resultado_o','resultado_g',
-                'informe_independencia','informe_variedad','informe_orden','informe_cautela','informe_conformidad','informe_metas','informe_resultados',
+
+                'informe_ascendencia',
+                'informe_estabilidad',
+                'informe_vitalidad',
+                'informe_responsabilidad',
+                'informe_resultados',
+                'informe_reconocimiento',
+                'informe_independencia',
+                'informe_variedad',
+                'informe_benevolencia',
+                'informe_cautela',
+                'informe_originalidad',
+                'informe_practicidad',
+                'informe_decision',
+                'informe_orden',
+                'informe_metas',
+                'informe_sociabilidad',
+                'informe_comprension',
+                'informe_estimulo',
+                'informe_conformidad',
+                'informe_liderazgo',
+
                 'independencia','variedad','orden','cautela','conformidad','metas','resultado',
                 'ajuste','categoria','fondo','porc_ajuste','ajuste_negativo',
                 'vit_riesgo','cau_riesgo','c_riesgo','i_riesgo','v_riesgo','perfil_riesgo','riesgo',
                 'titulo','cargo'));
                
-                return $pdf->stream('sosia.pdf');
+                return $pdf->stream('Informe SOSIA Operativo.pdf');
             }
             else if($request->select=='tactico'){
 
@@ -3704,8 +3745,9 @@ class pruebasController extends Controller
                $liderazgo=$resultado_l->resultado-7;
                $benevolencia=$resultado_b->resultado-6;
                $responsabilidad=$resultado_res->resultado-6;
-               
-               $competencias=array($metas,$orden,$cautela,$desicion,$liderazgo,$benevolencia,$responsabilidad);
+               $ascendencia= $resultado_asc->resultado - 7;
+
+               $competencias=array($metas,$orden,$cautela,$desicion,$liderazgo,$benevolencia,$responsabilidad,$ascendencia);
                $ajuste=0;
                $ajuste_negativo=0;
                foreach ($competencias as $x){
@@ -3774,14 +3816,35 @@ class pruebasController extends Controller
                 'resultado_cau','resultado_vit','resultado_ori','resultado_com',
                 'resultado_s','resultado_c','resultado_r','resultado_i','resultado_b','resultado_l',
                 'resultado_p','resultado_a','resultado_v','resultado_d','resultado_o','resultado_g',
-                'informe_independencia','informe_variedad','informe_orden','informe_cautela','informe_conformidad','informe_metas','informe_resultados',
-                'metas','orden','cautela','desicion','liderazgo','benevolencia','responsabilidad',
+
+                'informe_ascendencia',
+                'informe_estabilidad',
+                'informe_vitalidad',
+                'informe_responsabilidad',
+                'informe_resultados',
+                'informe_reconocimiento',
+                'informe_independencia',
+                'informe_variedad',
+                'informe_benevolencia',
+                'informe_cautela',
+                'informe_originalidad',
+                'informe_practicidad',
+                'informe_decision',
+                'informe_orden',
+                'informe_metas',
+                'informe_sociabilidad',
+                'informe_comprension',
+                'informe_estimulo',
+                'informe_conformidad',
+                'informe_liderazgo',
+
+                'metas','orden','cautela','desicion','liderazgo','benevolencia','responsabilidad','ascendencia',
                 'ajuste','categoria','fondo','porc_ajuste','ajuste_negativo',
                 'vit_riesgo','cau_riesgo','c_riesgo','i_riesgo','v_riesgo','perfil_riesgo','riesgo',
                 'titulo','cargo'));
 
 
-                return $pdf->stream('sosia.pdf');
+               return $pdf->stream('Informe SOSIA Tactico.pdf');
             }
             else{
 
@@ -3864,21 +3927,52 @@ class pruebasController extends Controller
                 'resultado_cau','resultado_vit','resultado_ori','resultado_com',
                 'resultado_s','resultado_c','resultado_r','resultado_i','resultado_b','resultado_l',
                 'resultado_p','resultado_a','resultado_v','resultado_d','resultado_o','resultado_g',
-                'informe_cautela','informe_responsabilidad','informe_ascendencia','informe_independencia','informe_variedad','informe_practicidad','informe_vitalidad',
+
+                'informe_ascendencia',
+                'informe_estabilidad',
+                'informe_vitalidad',
+                'informe_responsabilidad',
+                'informe_resultados',
+                'informe_reconocimiento',
+                'informe_independencia',
+                'informe_variedad',
+                'informe_benevolencia',
+                'informe_cautela',
+                'informe_originalidad',
+                'informe_practicidad',
+                'informe_decision',
+                'informe_orden',
+                'informe_metas',
+                'informe_sociabilidad',
+                'informe_comprension',
+                'informe_estimulo',
+                'informe_conformidad',
+                'informe_liderazgo',
+
                 'cautela','responsabilidad','ascendencia','independencia','variedad','practicidad','vitalidad',
                 'ajuste','categoria','fondo','porc_ajuste','ajuste_negativo',
                 'vit_riesgo','cau_riesgo','c_riesgo','i_riesgo','v_riesgo','perfil_riesgo','riesgo',
                 'titulo','cargo'));
 
                
-                return $pdf->stream('sosia.pdf');
+                return $pdf->stream('Informe SOSIA Estrategico.pdf');
             }
     }
 
     public function SosiaExcel(request $request){
-
+        ini_set('max_execution_time', 300);
         $data = DB::table('resultados as r')
-        ->selectRaw('r.id_resultado as id,r.nombre as nombre_r,r.apellido as apellido_r, r.rut as rut_r,e.nombre as nombre_e, r.fecha as fecha_r,r.tipo_usuario as tipo,r.detalle as detalle_r, e.detalle as detalle_e, r.id_encuesta as id_en, r.codigo_usuario as cod_usu')
+        ->selectRaw('r.id_resultado as id,
+                    r.nombre as nombre_r,
+                    r.apellido as apellido_r, 
+                    r.rut as rut_r,
+                    e.nombre as nombre_e, 
+                    r.fecha as fecha_r,
+                    r.tipo_usuario as tipo,
+                    r.detalle as detalle_r, 
+                    e.detalle as detalle_e, 
+                    r.id_encuesta as id_en, 
+                    r.codigo_usuario as cod_usu')
         ->where('r.id_encuesta','4')
         ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
         ->orderby('r.fecha','ASC')
@@ -3901,8 +3995,12 @@ class pruebasController extends Controller
 
             $letra_respuestas='F';
 
-            $res = $respuesta['usuariosStructs'][0]['respuestasStructs'];
 
+            
+            if(isset($respuesta['usuariosStructs'][0]['respuestasStructs'])){
+                $res = $respuesta['usuariosStructs'][0]['respuestasStructs'];
+            }
+            
             if (is_array($res) || is_object($res)){
                 foreach ($res as $r){
                     if (is_array($r) || is_object($r)){
@@ -3925,6 +4023,7 @@ class pruebasController extends Controller
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
 
+        
         $sheet->getStyle('A1:E1')
             ->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
@@ -3935,8 +4034,9 @@ class pruebasController extends Controller
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="BD_Socia.xlsx"');
         $writer->save('php://output');
-        
+
         die;
+
     }
 
     // public function indexPrueba()
