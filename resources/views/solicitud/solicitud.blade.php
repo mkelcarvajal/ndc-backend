@@ -14,10 +14,10 @@
         <div class="col-3">
             <div class="card">
                 <div class="card-head text-center">
-                    <h3>Generar Solicitud</h3>
+                    <h3> <i class="fas fa-folder-plus"></i> Generar Solicitud </h3>
                 </div>
                 <div class="card-body">
-                    <label for="codigo">Codigo:</label>
+                    <label for="codigo">Código:</label>
                     <div class="input-group ">
                     <input type="text" class="form-control" readonly name="codigo" id="codigo">
                     <div class="input-group-append">
@@ -217,27 +217,45 @@
                                                 $("#postulantes").css("display","block");
                                             }
                                             else{
-                                                alert("seleccione una cantidad");
+                                                Swal.fire({
+                                                icon: 'error',
+                                                text: 'Seleccione una Cantidad',
+                                                })
                                             }
                                         }
                                         else{
-                                            alert("indique una empresa");
+                                            Swal.fire({
+                                            icon: 'error',
+                                            text: 'Ingrese una Empresa',
+                                            })
                                         }
                                     }
                                     else{
-                                        alert("seleccione una fecha de caducidad");
+                                        Swal.fire({
+                                        icon: 'error',
+                                        text: 'Seleccione la fecha de caducidad',
+                                        })
                                     }
                                 }
                                 else{
-                                    alert("seleccione las pruebas a aplicar");
+                                    Swal.fire({
+                                    icon: 'error',
+                                    text: 'Seleccione la(s) Prueba(s) a Aplicar',
+                                    })
                                 }
                             }
                             else{
-                                alert("Seleccione un nivel");
+                                Swal.fire({
+                                icon: 'error',
+                                text: 'Seleccione un Nivel',
+                                })
                             }
                         }
                         else{
-                            alert("Ingrese un Cargo");
+                            Swal.fire({
+                            icon: 'error',
+                            text: 'Seleccione un Cargo',
+                            })
                         }
                     }
                     else{

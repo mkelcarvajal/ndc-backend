@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class solicitudController extends Controller
 {
@@ -162,7 +163,11 @@ class solicitudController extends Controller
                     "estado"=>0
                 ]);
             }
+
+            $this->sendMail($request->input('correo')[$key],$request->input('nombre')[$key],$request->input('codigo'),$request->input('pruebas'));
          }
+
+
 
          return redirect()->back()->with('success', 'Ingreso Correcto');   
 
@@ -171,7 +176,16 @@ class solicitudController extends Controller
     public function getProcesosAbiertos(request $request){
 
         $data = DB::table('procesos as p')
-                ->selectRaw('p.id,p.rut,p.nombre,p.correo,p.cargo,p.nivel,p.fecha,r.detalle,e.nombre as encuesta')
+                ->selectRaw('
+                        p.id,
+                        p.rut,
+                        p.nombre,
+                        p.correo,
+                        p.cargo,
+                        p.nivel,
+                        p.fecha,
+                        r.detalle,
+                        e.nombre as encuesta')
                 ->leftJoin('resultados as r', function ($join){
                         $join->on('p.codigo','=','r.codigo_usuario');
                         $join->on('p.rut','=','r.rut');
@@ -182,7 +196,54 @@ class solicitudController extends Controller
                 ->where('estado',0)
                 ->where('codigo',$request->input('codigo'))
                 ->get();
+        $codigo = $request->input('codigo');
+        return view('tablas.tabla_pendientes',compact('data','codigo'));
+    }
 
-        return view('tablas.tabla_pendientes',compact('data'));
+    public function sendMail($correo,$nombre,$codigo,$pruebas){
+
+
+        $cursos = DB::table('encuestas')->selectRaw('nombre')->whereIn('id_encuesta',[$pruebas])->get();
+
+        $cuerpo='<span style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px">
+                    Estimada/o: 
+                    <br><br>
+                    A nombre de nuestro cliente: LIEBHERR<br><br>
+                    Le damos la cordial bienvenida a nuestros portales de evaluaciones y le invitamos a poder realizar las siguientes pruebas para cumplir con su proceso en el cual usted se encuentra participando.<br><br>
+                    La Batería de Evaluaciones son las siguientes:<br><br>';
+        $lista = '';
+        foreach($cursos as $c){
+            $lista=$lista.'<br>
+                -'.$c->nombre.'<br><br>
+            ';
+        }
+        $cuerpo.=$lista;
+        $cuerpo.='</span>';
+
+        $mail = new PHPMailer;
+        $mail->Host = 'smtp.office365.com';                    // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'evaluaciones@ndc.cl';               // SMTP username
+        $mail->Password = 'Kar20065';                           // SMTP password
+        $mail->Port = 587;                                      // TCP port to connect to
+        $mail->SMTPSecure = 'STARTTLS';                            // Enable encryption, 'ssl' also accepted
+
+        $mail->From = 'evaluaciones@ndc.cl';
+        $mail->FromName = 'Prueba';
+        $mail->addAddress($correo);            
+        $mail->Subject = $nombre;
+        $mail->Body    = $cuerpo;
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+        if(!$mail->send()) {
+            echo 'Message could not be sent.';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        } else {
+            echo 'Message has been sent';
+        }
+    }
+    public function cerrarProceso(request $request){
+        DB::table('procesos')->where('codigo',$request->input('codigo'))->update(['estado'=>1]);
+        return 'ok';
     }
 }

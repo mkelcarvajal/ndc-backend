@@ -390,25 +390,25 @@
         <tbody style="text-align: center;">
             <tr>
                 <td>VITALIDAD</td>
-                <td>{{$resultado_g->resultado}}</td>
+                <td>{{$resultado_vit->resultado}}</td>
                 <td> &lt; 8 </td>
                 <td <?php  if($vit_riesgo=='ADECUADO') {echo 'style="background-color: #D7F5CC"';} else{'style="background-color: #FBDCDA"';} ?>  >{{$vit_riesgo}}</td>
             </tr>
             <tr>
                 <td>CAUTELA</td>
-                <td>{{$resultado_o->resultado}}</td>
+                <td>{{$resultado_cau->resultado}}</td>
                 <td> &gt; 3</td>
                 <td <?php  if($cau_riesgo=='ADECUADO') {echo 'style="background-color: #D7F5CC"';} else{'style="background-color: #FBDCDA"';} ?> >{{$cau_riesgo}}</td>
             </tr> 
             <tr>
                 <td>CONFORMIDAD</td>
-                <td>{{$resultado_cau->resultado}}</td>
+                <td>{{$resultado_c->resultado}}</td>
                 <td>&gt; 3</td>
                 <td <?php  if($c_riesgo=='ADECUADO') {echo 'style="background-color: #D7F5CC"';} else{'style="background-color: #FBDCDA"';} ?>>{{$c_riesgo}}</td>
             </tr> 
             <tr>
                 <td>INDEPENDENCIA</td>
-                <td>{{$resultado_d->resultado}}</td>
+                <td>{{$resultado_i->resultado}}</td>
                 <td>  &lt; 8</td>
                 <td <?php  if($i_riesgo=='ADECUADO') {echo 'style="background-color: #D7F5CC"';} else{'style="background-color: #FBDCDA"';} ?>>{{$i_riesgo}}</td>
             </tr> 

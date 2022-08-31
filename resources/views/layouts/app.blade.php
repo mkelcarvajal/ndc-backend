@@ -20,6 +20,7 @@
     <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
     <link href="css/select2.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/libs/fontawesome/css/all.css" rel="stylesheet" type="text/css" />
+    <link href="css/fuente.css" rel="stylesheet" type="text/css" />
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" type="text/css" />
 </head>

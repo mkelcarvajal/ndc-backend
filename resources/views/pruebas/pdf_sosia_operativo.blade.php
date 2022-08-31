@@ -170,7 +170,7 @@
     </div>
     <br>
     <center>
-        <img height="290" width="100%"  src="https://quickchart.io/chart?c=
+        <img width="100%" src="https://quickchart.io/chart?width=550&height=220&c=
             {
                 type:'line',
                 options: {
@@ -183,17 +183,32 @@
                           size: 1,
                         },
                       },
+                      
                     },
+                    legend: {
+                        position: 'top',
+                        labels: {
+                          fontSize: 10,
+                          fontStyle: 'bold',
+                        }
+                      },
                     scales: {
+                        xAxes: [
+                            {
+                                display: true,
+                                ticks: {
+                                    fontSize: 7
+                                },
+                            }
+                        ],
                         yAxes: [
                             {
                                 display: true,
                                 ticks: {
                                     min: 0, // minimum value
-                                    max: 10 // maximum value
+                                    max: 10, // maximum value
+                                    fontSize: 7
                                 },
-                                fontFamily: 'Serif',
-                                fontStyle: 'italic',
                             }
                         ],
                     }
@@ -249,13 +264,14 @@
                                 5
                             ],
                             fill:false,
-                            borderColor: 'rgb(255, 126, 2)',
+                            borderColor: 'rgb(96, 161, 210)',
                             borderWidth: 1,
                             pointRadius: 2,
                         },
                         {
-                            label:'Perfil Operativo',
-                            data:[{{$resultado_asc->resultado}},
+                            label:'{{$data->nombre_r}} {{$data->apellido_r}}',
+                            data:[
+                            {{$resultado_asc->resultado}},
                             {{$resultado_est->resultado}},
                             {{$resultado_AE->decatipo}},    
                             {{$resultado_vit->resultado}},    
@@ -278,8 +294,7 @@
                             {{$resultado_l->resultado}},    
                             ],
                             fill:false,
-                            borderColor: 'rgb(55, 154, 53)',
-                            
+                            borderColor: 'rgb(255, 117, 71)',
                             borderWidth: 1,
                             pointRadius: 2,
                         }
@@ -408,25 +423,25 @@
         <tbody style="text-align: center;">
             <tr>
                 <td>VITALIDAD</td>
-                <td>{{$resultado_g->resultado}}</td>
+                <td>{{$resultado_vit->resultado}}</td>
                 <td> &lt; 8 </td>
                 <td <?php  if($vit_riesgo=='ADECUADO') {echo 'style="background-color: #D7F5CC"';} else{'style="background-color: #FBDCDA"';} ?>  >{{$vit_riesgo}}</td>
             </tr>
             <tr>
                 <td>CAUTELA</td>
-                <td>{{$resultado_o->resultado}}</td>
+                <td>{{$resultado_cau->resultado}}</td>
                 <td> &gt; 3</td>
                 <td <?php  if($cau_riesgo=='ADECUADO') {echo 'style="background-color: #D7F5CC"';} else{'style="background-color: #FBDCDA"';} ?> >{{$cau_riesgo}}</td>
             </tr> 
             <tr>
                 <td>CONFORMIDAD</td>
-                <td>{{$resultado_cau->resultado}}</td>
+                <td>{{$resultado_c->resultado}}</td>
                 <td>&gt; 3</td>
                 <td <?php  if($c_riesgo=='ADECUADO') {echo 'style="background-color: #D7F5CC"';} else{'style="background-color: #FBDCDA"';} ?>>{{$c_riesgo}}</td>
             </tr> 
             <tr>
                 <td>INDEPENDENCIA</td>
-                <td>{{$resultado_d->resultado}}</td>
+                <td>{{$resultado_i->resultado}}</td>
                 <td>  &lt; 8</td>
                 <td <?php  if($i_riesgo=='ADECUADO') {echo 'style="background-color: #D7F5CC"';} else{'style="background-color: #FBDCDA"';} ?>>{{$i_riesgo}}</td>
             </tr> 
@@ -505,7 +520,7 @@
         <tbody >
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white; "><b style="font-size:11px;">1.- Ascendencia</b></div></span>
                     </div>
                 </td>
@@ -517,7 +532,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;" >2.- Estabilidad</b></div></span>
                     </div>
                 </td>
@@ -529,7 +544,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">3.- Vitalidad</b></div></span>
                     </div>
                 </td>
@@ -541,7 +556,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">4.- Responsabilidad</b></div></span>
                     </div>
                 </td>
@@ -553,7 +568,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">5.- Resultados</b></div></span>
                     </div>
                 </td>
@@ -565,7 +580,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">6.- Reconocimiento</b></div></span>
                     </div>
                 </td>
@@ -577,7 +592,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">7.- Independencia</b></div></span>
                     </div>
                 </td>
@@ -589,7 +604,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">8.- Variedad</b></div></span>
                     </div>
                 </td>
@@ -601,7 +616,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">9.- Benevolencia</b></div></span>
                     </div>
                 </td>
@@ -613,7 +628,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">10.- Cautela</b></div></span>
                     </div>
                 </td>
@@ -625,7 +640,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">11.- Originalidad</b></div></span>
                     </div>
                 </td>
@@ -637,7 +652,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">12.- Practicidad</b></div></span>
                     </div>
                 </td>
@@ -649,7 +664,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">13.- Decision</b></div></span>
                     </div>
                 </td>
@@ -661,7 +676,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">14.- Orden</b></div></span>
                     </div>
                 </td>
@@ -673,7 +688,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:7px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">15.- Metas</b></div></span>
                     </div>
                 </td>
@@ -685,7 +700,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:7px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">16.- Sociabilidad</b></div></span>
                     </div>
                 </td>
@@ -697,7 +712,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:7px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">17.- Comprension</b></div></span>
                     </div>
                 </td>
@@ -709,7 +724,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:7px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">18.- Estimulo</b></div></span>
                     </div>
                 </td>
@@ -721,7 +736,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:7px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">19.- Conformidad</b></div></span>
                     </div>
                 </td>
@@ -733,7 +748,7 @@
             </tr>
             <tr>
                 <td>
-                    <div style="background-color:#4D928F; padding-left:15px; border-radius:7px;"  >
+                    <div style="background-color:#4D928F; padding-left:7px; border-radius:7px;"  >
                         <span><div style="margin:5px;color:white;"><b style="font-size:11px;">20.- Liderazgo</b></div></span>
                     </div>
                 </td>
