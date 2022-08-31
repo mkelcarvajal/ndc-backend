@@ -25,7 +25,7 @@
                     </div>
                     </div>
                     <br>
-                    <label for="cargo">Cargo:</label>
+                    <label for="cargo">Cargos:</label>
                     <input type="text" class="form-control" id="cargo" name="cargo">
                     <br>
                     <label for="nivel">Nivel:</label>
