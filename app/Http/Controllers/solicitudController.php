@@ -220,15 +220,15 @@ class solicitudController extends Controller
         $cuerpo.=$lista;
         $cuerpo.='</span>';
 
-        $mail = new PHPMailer;
+        $mail = new PHPMailer(true);
         $mail->isSMTP();
         $mail->Host = 'smtp.office365.com';                    // Specify main and backup SMTP servers
         // $mail->SMTPAuth = true;                               // Enable SMTP authentication
         $mail->Username = 'evaluaciones@ndc.cl';               // SMTP username
         $mail->Password = 'Kar20065';                           // SMTP password
         $mail->Port = 587;                                      // TCP port to connect to
-        $mail->SMTPSecure = 'STARTTLS';                            // Enable encryption, 'ssl' also accepted
-
+        $mail->SMTPSecure = 'tls';
+        $mail->SMTPAuth   = true;
         $mail->From = 'evaluaciones@ndc.cl';
         $mail->FromName = 'Prueba';
         $mail->addAddress($correo);            
