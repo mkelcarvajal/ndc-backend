@@ -209,7 +209,8 @@ class solicitudController extends Controller
                     A nombre de nuestro cliente: LIEBHERR<br><br>
                     Le damos la cordial bienvenida a nuestros portales de evaluaciones y le invitamos a poder realizar las siguientes pruebas para cumplir con su proceso en el cual usted se encuentra participando.<br><br>
                     La Batería de Evaluaciones son las siguientes:<br><br>';
-        $lista = '';
+        
+        $lista = '';       
         foreach($cursos as $c){
             $lista=$lista.'<br>
                 -'.$c->nombre.'<br><br>
