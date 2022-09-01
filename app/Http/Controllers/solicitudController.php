@@ -223,7 +223,7 @@ class solicitudController extends Controller
         $mail = new PHPMailer(true);
         $mail->isSMTP();
         $mail->Host = 'tls://smtp.office365.com';                    // Specify main and backup SMTP servers
-        // $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
         $mail->Username = 'evaluaciones@ndc.cl';               // SMTP username
         $mail->Password = 'Kar20065';                           // SMTP password
         $mail->Port = 587;                                      // TCP port to connect to
@@ -234,7 +234,7 @@ class solicitudController extends Controller
         $mail->addAddress($correo);            
         $mail->Subject = $nombre;
         $mail->Body    = $cuerpo;
-        $mail->SMTPDebug = 2;
+       // $mail->SMTPDebug = 2;
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
         if(!$mail->send()) {
