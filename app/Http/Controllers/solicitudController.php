@@ -221,6 +221,7 @@ class solicitudController extends Controller
         $cuerpo.='</span>';
 
         $mail = new PHPMailer;
+        $mail->isSMTP();
         $mail->Host = 'smtp.office365.com';                    // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
         $mail->Username = 'evaluaciones@ndc.cl';               // SMTP username
