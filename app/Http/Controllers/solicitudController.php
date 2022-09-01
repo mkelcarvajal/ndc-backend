@@ -167,9 +167,7 @@ class solicitudController extends Controller
             $this->sendMail($request->input('correo')[$key],$request->input('nombre')[$key],$request->input('codigo'),$request->input('pruebas'));
          }
 
-
-
-         //return redirect()->back()->with('success', 'Ingreso Correcto');   
+         return redirect()->back()->with('success', 'Ingreso Correcto');   
 
     }
 
