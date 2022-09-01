@@ -169,7 +169,7 @@ class solicitudController extends Controller
 
 
 
-         return redirect()->back()->with('success', 'Ingreso Correcto');   
+         //return redirect()->back()->with('success', 'Ingreso Correcto');   
 
     }
 
@@ -234,6 +234,7 @@ class solicitudController extends Controller
         $mail->addAddress($correo);            
         $mail->Subject = $nombre;
         $mail->Body    = $cuerpo;
+        $mail->SMTPDebug = 2;
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
         if(!$mail->send()) {
