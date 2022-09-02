@@ -232,7 +232,7 @@ class solicitudController extends Controller
         <html width='100px'>
         <head>
         </head>
-        <body style='width:650px;'>
+        <body style='width:850px;'>
             <div class='contenedor'>
                 <div style='border: 30px solid #00a29b;padding:30px;'>
                 <center>
@@ -245,15 +245,27 @@ class solicitudController extends Controller
                 <br><br>
                 La Batería de Evaluaciones son las siguientes:  <br><br>
         ";
-        $cuerpo .='<table class="customTable" style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:16px">
+        $cuerpo .='<table class="customTable" style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:16px;                width: 100%;
+        background-color: #FFFFFF;
+        border-collapse: collapse;
+        border-width: 2px;
+        border-color: #5CB89C;
+        border-style: solid;
+        color: #000000;
+        text-align: center;
+        font: font-family:Verdana, Arial, Helvetica, sans-serif; 
+        ">
             <thead>
-                <th>Pruebas</th>
+                <th style="background-color: #65C9AB;">Pruebas</th>
             </thead>
             <tbody >';
 
             $lista = '';       
             foreach($cursos as $c){
-                $lista=$lista.'<tr><td>'.$c->nombre.'</td></tr>';
+                $lista=$lista.'<tr><td style="border-width: 2px;
+                border-color: #5CB89C;
+                border-style: solid;
+                padding: 5px;">'.$c->nombre.'</td></tr>';
             }
             $cuerpo.=$lista.'</tbody></table>';
         $cuerpo.="
