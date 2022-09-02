@@ -25,6 +25,13 @@
                 <h3>Participantes</h3>
             </div>
             <div class="card-body">
+                <div class="fa-4x">
+                    <div class="card" id="spinner" style="display:none;">
+                        <div class="card-body">
+                            <center><i class="fas fa-cog fa-spin" ></i></center>
+                        </div>
+                    </div>
+                </div>
                 <div id="contenedor_tabla">
 
                 </div>
@@ -53,10 +60,12 @@
             },
             beforeSend:function(){
                 $("#contenedor_tabla").html("");
+                $("#spinner").css('display',"block");
 
             },
             success: function(data)
             {
+                $("#spinner").css('display',"none");
                 $("#contenedor_tabla").html(data);
             },
             error:function(data){

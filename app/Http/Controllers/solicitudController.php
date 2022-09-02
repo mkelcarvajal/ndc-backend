@@ -163,7 +163,7 @@ class solicitudController extends Controller
                     "estado"=>0
                 ]);
             }
-            $this->sendMail($request->input('correo')[$key],$request->input('nombre')[$key],$request->input('codigo'),$request->input('pruebas'));
+            $this->sendMail($request->input('correo')[$key],$request->input('nombre')[$key],$request->input('codigo'),$request->input('pruebas'),$request->input('nivel'));
          }
          return redirect()->back()->with('success', 'Ingreso Correcto');   
     }
@@ -195,7 +195,7 @@ class solicitudController extends Controller
         return view('tablas.tabla_pendientes',compact('data','codigo'));
     }
 
-    public function sendMail($correo,$nombre,$codigo,$pruebas){
+    public function sendMail($correo,$nombre,$codigo,$pruebas,$nivel){
         
         $cursos = DB::table('encuestas')->selectRaw('nombre')->whereIn('id_encuesta',$pruebas)->get();
         $cuerpo = 
@@ -299,7 +299,7 @@ class solicitudController extends Controller
                 Posterior a ello deberá completar con su <b>nombre, apellidos y RUT/DNI</b> (RUT/DNI completo con dígito verificador sin puntos y guion)<br>
                 </li>
                 <li>
-                Luego deberá elegir tipo de usuario: <b>operativo</b> <br>
+                Luego deberá elegir tipo de usuario: <b>".$nivel."</b> <br>
                 </li>
                 <li>
                 Deberá contestar primero la prueba PRP y HR SOSIA <br>
@@ -324,17 +324,18 @@ class solicitudController extends Controller
             </div>
             </body>
             </html>
+            <br>
             <img src='cid:firma'>
             ";
 
 
         $mail = new PHPMailer(true);
-        $mail->isSMTP();
+        //$mail->isSMTP();
         $mail->AddEmbeddedImage('css/img/ndc.png', 'ndc');
         $mail->Host = 'tls://smtp.office365.com';                    // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = 'evaluaciones@ndc.cl';               // SMTP username
-        $mail->Password = 'Kar20065';                           // SMTP password
+        $mail->Username = '';               // SMTP username
+        $mail->Password = '';                           // SMTP password
         $mail->Port = 587;                                      // TCP port to connect to
         $mail->SMTPSecure = 'tls';
         $mail->SMTPAuth   = true;

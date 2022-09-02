@@ -56,6 +56,13 @@
             </div>
         </div>
         <div class="col-9">
+            <div class="fa-4x">
+                <div class="card" id="spinner" style="display:none;">
+                    <div class="card-body">
+                        <center><i class="fas fa-cog fa-spin" ></i></center>
+                    </div>
+                </div>
+            </div>
         <div class="card" id="postulantes" style="display:none;">
         <br>
             <div class="card-head text-center">
@@ -84,7 +91,7 @@
                     </div>
                 <div class="row mt-4">
                     <div class="col">
-                        <button class="btn btn-block btn-success">Enviar</button>
+                        <button class="btn btn-block btn-success" id="enviar">Enviar</button>
                     </div>
                 </div>
             </div>
@@ -187,6 +194,11 @@
             $("#cantidad").val($cantidad-1);
         });
 
+        $(document).on("click", "#enviar", function() {
+            $("#postulantes").css("display","none");
+            $("#spinner").css('display',"block");
+        });
+
         function verificar_datos(){
             
             $.ajax({
@@ -200,10 +212,13 @@
                 },
                 beforeSend: function() {
                     $("#contenedor_postulante").html("");
+                    $("#spinner").css('display',"block");
                     $("#postulantes").css("display","none");
            
                 },
                 success: function(data) {
+                    $("#spinner").css('display',"none");
+                    $("#postulantes").css("display","block");
                     if(data==""){
                         if($("#cargo").val()!=""){
                             if($("#nivel").val()!=""){

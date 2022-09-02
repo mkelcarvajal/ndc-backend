@@ -9,6 +9,7 @@
             <td>Prueba</td>
             <td>Fecha Caducidad</td>
             <td>Descargar Informe</td>
+            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -28,11 +29,17 @@
                              Sin Informe
                         </button> 
                     @else 
-                        <button type="button" class="btn btn-success btn-sm" disabled>
+                        <button type="button" class="btn btn-success btn-xs" disabled>
                             <i class="fas fa-check"></i> 
                              Descargar
                         </button> 
                     @endif
+                </td>
+                <td>
+                    <button type="button" class="btn btn-info btn-xs" >
+                        <i class="fas fa-paper-plane"></i>
+                        Re-Enviar Correo
+                    </button> 
                 </td>
             </tr>
         @endforeach
