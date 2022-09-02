@@ -273,7 +273,6 @@ class solicitudController extends Controller
                 •	Clave/Contraseña: <b>123456</b> <br>
                 <br>
             </div>
-            
             <br><br>
             <b style='color:#00a29b;'>2.- EVALUACIÓNES NDC: </b><br><br>
             Para ingresar a las evaluaciones HR SOSIA y PRP, ingresar al siguiente link:<br>
@@ -330,12 +329,12 @@ class solicitudController extends Controller
         $mail->AddEmbeddedImage('css/img/firma.JPG', 'firma');
         $mail->CharSet = 'UTF-8';
         $mail->From = 'evaluaciones@ndc.cl';
-        $mail->FromName = 'Prueba';
+        $mail->FromName = 'Evaluaciones NDC';
         $mail->addAddress($correo);            
         $mail->Subject = $nombre;
         $mail->Body    = $cuerpo;
        // $mail->SMTPDebug = 2;
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $mail->AltBody = 'Pruebas a realizar NDC';
 
         if(!$mail->send()) {
             echo 'Message could not be sent.';
