@@ -325,10 +325,8 @@ class solicitudController extends Controller
             </body>
             </html>
             <br>
-            <img src='cid:firma'>
-            ";
-
-
+            <img src='cid:firma'>";
+            
         $mail = new PHPMailer(true);
         //$mail->isSMTP();
         $mail->AddEmbeddedImage('css/img/ndc.png', 'ndc');
