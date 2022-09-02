@@ -165,7 +165,7 @@ class solicitudController extends Controller
             }
             $this->sendMail($request->input('correo')[$key],$request->input('nombre')[$key],$request->input('codigo'),$request->input('pruebas'));
          }
-         //return redirect()->back()->with('success', 'Ingreso Correcto');   
+         return redirect()->back()->with('success', 'Ingreso Correcto');   
     }
 
     public function getProcesosAbiertos(request $request){
@@ -318,8 +318,8 @@ class solicitudController extends Controller
 
 
         $mail = new PHPMailer(true);
-        // $mail->isSMTP();
-         $mail->AddEmbeddedImage('css/img/ndc.png', 'ndc');
+        $mail->isSMTP();
+        $mail->AddEmbeddedImage('css/img/ndc.png', 'ndc');
         $mail->Host = 'tls://smtp.office365.com';                    // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
         $mail->Username = 'evaluaciones@ndc.cl';               // SMTP username
