@@ -201,7 +201,7 @@ class solicitudController extends Controller
         $cuerpo = 
         "<style>
            .contenedor{
-                border: 30px  ;
+                border: 20px  ;
                 border-radius: 25px;
                 padding:30px;
                 font: font-family:Verdana, Arial, Helvetica, sans-serif; 
@@ -232,7 +232,7 @@ class solicitudController extends Controller
         <html width='100px'>
         <head>
         </head>
-        <body style='width:400px;'>
+        <body style='width:650px;'>
             <div class='contenedor'>
                 <div style='border: 30px solid #00a29b;padding:30px;'>
                 <center>
