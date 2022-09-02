@@ -163,12 +163,9 @@ class solicitudController extends Controller
                     "estado"=>0
                 ]);
             }
-
             $this->sendMail($request->input('correo')[$key],$request->input('nombre')[$key],$request->input('codigo'),$request->input('pruebas'));
          }
-
-         return redirect()->back()->with('success', 'Ingreso Correcto');   
-
+         //return redirect()->back()->with('success', 'Ingreso Correcto');   
     }
 
     public function getProcesosAbiertos(request $request){
@@ -199,28 +196,130 @@ class solicitudController extends Controller
     }
 
     public function sendMail($correo,$nombre,$codigo,$pruebas){
-
-
-        $cursos = DB::table('encuestas')->selectRaw('nombre')->whereIn('id_encuesta',[$pruebas])->get();
-
-        $cuerpo='<span style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px">
-                    Estimada/o: 
-                    <br><br>
-                    A nombre de nuestro cliente: LIEBHERR<br><br>
-                    Le damos la cordial bienvenida a nuestros portales de evaluaciones y le invitamos a poder realizar las siguientes pruebas para cumplir con su proceso en el cual usted se encuentra participando.<br><br>
-                    La Batería de Evaluaciones son las siguientes:<br><br>';
         
-        $lista = '';       
-        foreach($cursos as $c){
-            $lista=$lista.'<br>
-                -'.$c->nombre.'<br><br>
-            ';
-        }
-        $cuerpo.=$lista;
-        $cuerpo.='</span>';
+        $cursos = DB::table('encuestas')->selectRaw('nombre')->whereIn('id_encuesta',$pruebas)->get();
+        $cuerpo = 
+        "<style>
+           .contenedor{
+                border: 30px  ;
+                border-radius: 25px;
+                padding:30px;
+                font: font-family:Verdana, Arial, Helvetica, sans-serif; 
+            }
+            table.customTable {
+                            width: 100%;
+                            background-color: #FFFFFF;
+                            border-collapse: collapse;
+                            border-width: 2px;
+                            border-color: #5CB89C;
+                            border-style: solid;
+                            color: #000000;
+                            text-align: center;
+                            font: font-family:Verdana, Arial, Helvetica, sans-serif; 
+                            font-size:12px;
+                            }
+                            
+                            table.customTable td, table.customTable th {
+                            border-width: 2px;
+                            border-color: #5CB89C;
+                            border-style: solid;
+                            padding: 5px;
+                            }
+                            table.customTable thead {
+                            background-color: #65C9AB;
+                            }
+        </style>
+        <html width='100px'>
+        <head>
+        </head>
+        <body style='width:400px;'>
+            <div class='contenedor'>
+                <div style='border: 30px solid #00a29b;padding:30px;'>
+                <center>
+                    <img src='cid:ndc'><br>  
+                </center>
+                <span style='font-family:Verdana, Arial, Helvetica, sans-serif; font-size:16px;  text-justify: inter-word;                text-align: justify;'>
+                Estimada/o: ".$nombre."<br><br>
+                A nombre de nuestro cliente <b>LIEBHERR</b><br><br>
+                Le damos la cordial bienvenida a nuestros portales de evaluaciones y le invitamos a poder realizar las siguientes pruebas para cumplir con su proceso en el cual usted se encuentra participando.
+                <br><br>
+                La Batería de Evaluaciones son las siguientes:  <br><br>
+        ";
+        $cuerpo .='<table class="customTable" style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:16px">
+            <thead>
+                <th>Pruebas</th>
+            </thead>
+            <tbody >';
+
+            $lista = '';       
+            foreach($cursos as $c){
+                $lista=$lista.'<tr><td>'.$c->nombre.'</td></tr>';
+            }
+            $cuerpo.=$lista.'</tbody></table>';
+        $cuerpo.="
+            <br><br>
+            <b style='color:#00a29b;'>INSTRUCCIONES:</b> <br>
+            <br>
+            En este proceso deberá contestar ".sizeof($pruebas)." pruebas en línea y en 2 portales diferentes. A continuación, se le indican la forma de contestar cada uno de ellos.
+            <br><br>
+            
+            <b style='color:#00a29b;'>EVALUACIÓN 1: FIX </b> <br><br>
+            Para ingresar a la evaluación debe hacer click en el siguiente link:<br>
+            http://74.124.10.53/Candidate/ShortURL.aspx?URLExtension=FIXA&SiteCode=NDCF<br>
+            <br>
+            <div style='margin-left:20px;'>
+                <p style='margin-bottom:2px;'>Deberá ingresar los siguientes antecedentes:</p>
+                •	Usuario: <b>AA1033003anonymous</b><br>
+                •	Clave/Contraseña: <b>123456</b> <br>
+                <br>
+            </div>
+            
+            <br><br>
+            <b style='color:#00a29b;'>2.- EVALUACIÓNES NDC: </b><br><br>
+            Para ingresar a las evaluaciones HR SOSIA y PRP, ingresar al siguiente link:<br>
+            https://ndc.cl/NdcTestv14/  <br><br>
+
+            Esto lo puede realizar desde un computador o puede descargar la APP NDC TEST desde su gcelular en (APP Store o Google Play) y realizar los siguientes pasos: <br><br>
+            <ul>
+                <li>
+                Deberá registrar el código: <b style='color:#00a29b;'> HC7D9</b> y hacer click en Ingresar <br>
+                </li>
+                <li>
+                Posterior a ello deberá completar con su <b>nombre, apellidos y RUT/DNI</b> (RUT/DNI completo con dígito verificador sin puntos y guion)<br>
+                </li>
+                <li>
+                Luego deberá elegir tipo de usuario: <b>operativo</b> <br>
+                </li>
+                <li>
+                Deberá contestar primero la prueba PRP y HR SOSIA <br>
+                </li>
+                <li>
+                Luego le pedirá los primero 4 dígitos de su <b>RUT/DNI</b> para comenzar el test. <br>
+                </li>
+            </ul>
+            <br>
+            <b style='color:#00a29b;'>EVALUACIÓN 2 : PRP</b><br><br>
+            En la presente prueba deberá elegir la respuesta que más lo representa o se pueda inclinar.<br><br>
+            Finalizada dicha evaluación, deberá ingresar nuevamente los datos anteriormente señalados y elegir la SIGUIENTE.<br><br>
+            <b style='color:#00a29b;'>EVALUACIÓN 3: HR SOSIA</b> <br><br>
+            En la presente prueba deberá elegir la respuesta que más lo representa o se inclina y la que menos lo representa.<br><br>
+            Una vez finalizada la prueba, quedará listo su proceso de evaluación.<br><br>
+            Al finalizar todo el proceso, le agradecería poder enviar correo electrónico señalando su finalización de los test. <br><br>
+            Bueno, cualquier duda puede responderme el presente correo<br><br>
+             Saludos Cordiales. <br><br>
+            
+            </span> 
+            </div>
+            </div>
+            </body>
+            </html>
+            <img src='cid:firma'>
+            ";
+
 
         $mail = new PHPMailer(true);
-        $mail->isSMTP();
+        // $mail->isSMTP();
+         $mail->AddEmbeddedImage('css/img/ndc.png', 'ndc');
         $mail->Host = 'tls://smtp.office365.com';                    // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
         $mail->Username = 'evaluaciones@ndc.cl';               // SMTP username
@@ -228,6 +327,8 @@ class solicitudController extends Controller
         $mail->Port = 587;                                      // TCP port to connect to
         $mail->SMTPSecure = 'tls';
         $mail->SMTPAuth   = true;
+        $mail->AddEmbeddedImage('css/img/firma.JPG', 'firma');
+        $mail->CharSet = 'UTF-8';
         $mail->From = 'evaluaciones@ndc.cl';
         $mail->FromName = 'Prueba';
         $mail->addAddress($correo);            

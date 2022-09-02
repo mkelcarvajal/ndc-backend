@@ -264,7 +264,7 @@
                                 5
                             ],
                             fill:false,
-                            borderColor: 'rgb(96, 161, 210)',
+                            borderColor: 'rgb(146,208,80)',
                             borderWidth: 1,
                             pointRadius: 2,
                         },
@@ -294,7 +294,7 @@
                             {{$resultado_l->resultado}},    
                             ],
                             fill:false,
-                            borderColor: 'rgb(255, 117, 71)',
+                            borderColor: 'rgb(0,176,240)',
                             borderWidth: 1,
                             pointRadius: 2,
                         }
@@ -665,7 +665,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">13.- Decision</b></div></span>
+                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">13.- Desición</b></div></span>
                     </div>
                 </td>
                 <td>
@@ -713,7 +713,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:7px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">17.- Comprension</b></div></span>
+                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">17.- Comprensión</b></div></span>
                     </div>
                 </td>
                 <td>
@@ -725,7 +725,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:7px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">18.- Estimulo</b></div></span>
+                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">18.- Estímulo</b></div></span>
                     </div>
                 </td>
                 <td>
