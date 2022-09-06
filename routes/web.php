@@ -29,6 +29,10 @@ Route::group(['middleware' => 'usersession'], function ()
     Route::post('addCorrelativo', 'capController@addCorrelativo')->name('addCorrelativo');
     Route::post('getInfoRezagados', 'capController@getInfoRezagados')->name('getInfoRezagados');
     Route::post('ActualizarRezagado', 'capController@ActualizarRezagado')->name('ActualizarRezagado');
+    Route::post('getBusquedaCorrelativo', 'capController@getBusquedaCorrelativo')->name('getBusquedaCorrelativo');
+    Route::post('deleteCorrelativo', 'capController@deleteCorrelativo')->name('deleteCorrelativo');
+
+    
 
 });
 

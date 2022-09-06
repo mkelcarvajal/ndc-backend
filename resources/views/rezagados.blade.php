@@ -2,12 +2,6 @@
 
 @section('content')
 
-<style>
-    
-
-
-</style>
-
 @include('modal.modal_spinner')
 <div class="pcoded-inner-content">
     <div class="main-body">
@@ -17,45 +11,31 @@
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-header ">
-                                <h5>Datos Registrados</h5>
+                                <h5>Buscar por Certificado</h5>
                             </div>
                             <div class="card-body ">
-                                    <table class="table table-hover"  id="tabla_rezagados">
-                                        <thead class="bg-info">
-                                            <th>RUT</th>
-                                            <th >Nombre</th>
-                                            <th>SAP</th>
-                                            <th>Empresa</th>
-                                            <th>Curso</th>
-                                            <th>Nota Inicial</th>
-                                            <th>Nota Final</th>
-                                            <th>Nota Promedio</th>
-                                            <th>Fecha Inicio (Prueba)</th>
-                                            <th>Fecha Fin (Prueba)</th>
-                                            <th>Calificación</th>
-                                            <th>Fecha Registro</th>
-                                            <th></th>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($rezagados as $res)
-                                                <tr style="cursor: pointer;" class="text-center">
-                                                    <td>{{$res->rut}}</td>
-                                                    <td>{{$res->nombre}}</td>
-                                                    <td>{{$res->sap}}</td>
-                                                    <td>{{$res->empresa}}</td>
-                                                    <td>{{$res->curso}}</td>
-                                                    <td>{{$res->nota_ini}}</td>
-                                                    <td>{{$res->nota_fin}}</td>
-                                                    <td>{{$res->nota_promedio}}</td>
-                                                    <td>{{date("d/m/Y",strtotime($res->fecha_ini))}}</td>
-                                                    <td>{{date("d/m/Y",strtotime($res->fecha_fin))}}</td>
-                                                    <td>{{$res->calificacion}}</td>
-                                                    <td>{{date("d/m/Y",strtotime($res->fecha_registro))}}</td>
-                                                    <td><button data-toggle="tooltip" data-placement="top" title="Modificar" class="btn btn-warning" onclick="modal_rezagados({{$res->id}});"><i class="fas fa-pencil-alt"></i></button></td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="number" class="form-control" id="certificado" name="certificado">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="button" onclick="getResultadosBusqueda();" class="btn btn-success btn-block mt-3">Buscar</button>
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" onclick="deleteCorrelativo();" class="btn btn-danger btn-block mt-3">Eliminar</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header ">
+                                <h5>Datos Registrados</h5>
+                            </div>
+                            <div class="card-body" id="contenedor_resultado">
+                                
                             </div>
                         </div>
                     </div>
@@ -86,9 +66,8 @@
     </script>
 @endif
 <script>
-
     $(document).ready(function () {
-        $('#tabla_rezagados').DataTable({
+        $('#tabla_resultados').DataTable({
             language: {
                 "decimal": "",
                 "emptyTable": "No hay información",
@@ -111,6 +90,88 @@
             },
         });
     });
+
+    function deleteCorrelativo(){
+
+        Swal.fire({
+            title: '¿Desea eliminar los registros correspondientes al correlativo '+$("#certificado").val()+'?',
+            showDenyButton: true,
+            confirmButtonText: 'Borrar',
+            denyButtonText: `No Borrar`,
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({                        
+                    url: "deleteCorrelativo",
+                    type: "POST",
+                    headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data:{
+                    'codigo':$("#certificado").val(),
+                        },
+                    beforeSend:function(){
+                    },
+                    success: function(data)
+                    {
+                        if(data == 'ok'){
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Registro eliminado correctamente',
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then((result)=>{
+                                location.reload();
+                            })
+                        }
+                        else{
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: 'No se encontro el registro',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
+
+                    },
+                    error:function(data){
+                        console.log(data);
+                    }
+                });
+            } else if (result.isDenied) {
+                Swal.fire('No se registraron cambios', '', 'info')
+            }
+        })
+
+
+    }
+
+    function getResultadosBusqueda(){
+
+        $.ajax({                        
+            url: "getBusquedaCorrelativo",
+            type: "POST",
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType:'html',
+            data:{
+            'codigo':$("#certificado").val(),
+                },
+            beforeSend:function(){
+                $("#contenedor_resultado").html("");
+            },
+            success: function(data)
+            {
+                $("#contenedor_resultado").html(data);
+            },
+            error:function(data){
+                console.log(data);
+            }
+        }); 
+
+    }
 
     $("#form_cap").on("submit", function(){
             $('#modal_spiner').modal({
@@ -158,6 +219,8 @@
                 $("#fecha_fin").val("");
                 $("#calificacion").val("");
                 $("#id").val("");
+                $("#division").val("");
+
             },
             success: function(data)
             {
@@ -173,6 +236,7 @@
                 $("#asis_2").val(data.asistencia_2);
                 $("#asis_3").val(data.asistencia_3);
                 $("#nota_promedio").val(data.nota_promedio);
+                $("#division").val(data.division);
                 document.getElementById('fecha_ini').value = moment(data.fecha_ini).format("YYYY-MM-DD");
                 document.getElementById('fecha_fin').value = moment(data.fecha_fin).format("YYYY-MM-DD");
                 if(data.calificacion != null){

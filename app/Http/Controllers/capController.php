@@ -10,15 +10,31 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class capController extends Controller
 {
-
     public function index()
         {
-            $planilla_verde=DB::connection('mysql')
-                            ->table('registro_capacitaciones')
-                            ->where('estado','planilla verde')
-                            ->get();
+            $reg = DB::table('registro_capacitaciones')
+                        ->selectRaw('rut,sap')
+                        ->get();
 
-            return view('registro_cap',compact('planilla_verde'));
+            foreach($reg as $r){
+
+                $codelco = DB::table('maestro_codelco')
+                                ->where('rut',$r->rut)
+                                ->first();
+
+                if(!empty($codelco)){
+                    DB::table('registro_capacitaciones')
+                    ->where('rut',$r->rut)
+                    ->update(['sap'=>$codelco->sap]);
+                }
+
+            }
+            // $planilla_verde=DB::connection('mysql')
+            //                 ->table('registro_capacitaciones')
+            //                 ->where('estado','planilla verde')
+            //                 ->get();
+
+            // return view('registro_cap',compact('planilla_verde'));
         }
 
     public function prueba1(){
@@ -57,11 +73,28 @@ class capController extends Controller
 
     public function rezagados(){
 
-        $rezagados = DB::connection('mysql')
-                        ->table('registro_capacitaciones')
-                        ->get();
+        return view('rezagados');
+    }
 
-        return view('rezagados',compact('rezagados'));
+    public function getBusquedaCorrelativo(request $request){
+
+        $data = DB::table('registro_capacitaciones')->where('cod_certificado',$request->input('codigo'))->get();
+
+        return view('tablas.tabla_busqueda',compact('data'));
+
+    }
+
+    public function deleteCorrelativo(request $request){
+
+        $existe = DB::table('registro_capacitaciones')->where('cod_certificado',$request->input('codigo'))->get();
+
+        if(sizeof($existe)>0){
+            DB::table('registro_capacitaciones')->where('cod_certificado',$request->input('codigo'))->delete();
+            return 'ok';
+        }
+        else{
+            return 'not ok';
+        }
     }
 
     public function pdf_correlativo(request $request){
@@ -882,6 +915,7 @@ class capController extends Controller
                     'empresa'=>$request->input('empresa'),
                     'nota_ini'=>$request->input('nota_ini'),
                     'nota_fin'=>$request->input('nota_fin'),
+                    'division'=>$request->input('division'),
                     'nota_promedio'=>$request->input('nota_promedio'),
                     'asistencia_promedio'=>$asis_promedio,
                     'calificacion'=>$request->input('calificacion'),

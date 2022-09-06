@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Rezagados</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Actualizar información</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -77,6 +77,12 @@
                             <option value="INASISTENTE">INASISTENTE</option>
                             <option value="CANCELADO POR OTIC">CANCELADO POR OTIC</option>
                         </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label>División</label>
+                        <input type="text" class="form-control" id="division" name="division">
                     </div>
                 </div>
             </div>
