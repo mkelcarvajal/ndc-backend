@@ -3269,6 +3269,7 @@ class pruebasController extends Controller
                     $CAU++;
                 }
             }
+
             //ORI
             $mas_ori=array();
             $menos_ori=array();
@@ -3587,18 +3588,18 @@ class pruebasController extends Controller
             $resultado_g=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$G)->where('prueba','G')->first();
             $comprobacion_spv = ($P+$A+$V+$D+$O+$G);
 
-            function polarizado($de){
+            function polarizado($de){   
                 if($de<=3){
                     return 1;
                 }
-                elseif($de>3 && $de<7){
+                else if($de>3 && $de<7){
                     return 2;
                 }
                 else if ($de>=7){
                     return 3;
                 }
             }
-
+            
             $informe_ascendencia = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Ascendencia')->where('puntaje',polarizado($resultado_asc->resultado))->first();
             $informe_estabilidad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Estabilidad Emocional')->where('puntaje',polarizado($resultado_est->resultado))->first();
             $informe_vitalidad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Vitalidad')->where('puntaje',polarizado($resultado_vit->resultado))->first();
@@ -3609,7 +3610,6 @@ class pruebasController extends Controller
             $informe_independencia = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Independencia')->where('puntaje',polarizado($resultado_i->resultado))->first();
             $informe_variedad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Variedad')->where('puntaje',polarizado($resultado_v->resultado))->first();
             $informe_benevolencia = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Benevolencia')->where('puntaje',polarizado($resultado_b->resultado))->first();
-
 
             $informe_cautela = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Cautela')->where('puntaje',polarizado($resultado_cau->resultado))->first();
             $informe_originalidad = DB::table('datos_informe')->selectRaw('descripcion,puntaje')->where('caracteristica','Originalidad')->where('puntaje',polarizado($resultado_ori->resultado))->first();

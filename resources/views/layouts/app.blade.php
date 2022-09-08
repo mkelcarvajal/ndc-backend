@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
 
-    <title>Reporteria NDC</title>
+    <title>NDC TEST</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
@@ -36,7 +36,7 @@
                     <a href="indexReportes" class="navbar-brand mr-0 mr-md-2 logo">
                         <span class="logo-lg">
                             <img src="assets/images/ndc.png" alt="" height="50" />
-                            <span class="d-inline h5 ml-1 text-logo">Reporteria NDC</span>
+                            <span class="d-inline h5 ml-1 text-logo">NDC TEST</span>
 
                         </span>
                         <span class="logo-sm">
@@ -93,13 +93,18 @@
                         <div class="collapse navbar-collapse" id="topnav-menu-content">
                             <ul class="metismenu" id="menu-bar">
                                 <li class="menu-title">Navigation</li>
-                                {{-- <li>
-                                    <a href="indexPrueba">
-                                        <i data-feather="home"></i>
-                                        <span class="badge badge-success float-right">1</span>
-                                         <span> OTH Electrica </span>
+                                <li style="cursor:pointer">
+                                    <a href="solicitud" >
+                                    <i class="fa-solid fa-user-gear"></i>
+                                    <span> Realizar Solicitud </span>
                                     </a>
-                                </li> --}}
+                                </li>
+                                <li style="cursor:pointer">
+                                    <a href="pendientes" >
+                                    <i class="fa-solid fa-comments-question-check"></i>
+                                    <span> Solicitudes Pendientes </span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="indexReportes">
                                         <i data-feather="file-text"></i>
@@ -113,22 +118,8 @@
                                         <i data-feather="download"></i>
                                         <span class="badge badge-success float-right">1</span>
                                          <span> BD - Prueba Sosia </span>
-
                                     </a>
                                 </li>
-                                <li style="cursor:pointer">
-                                    <a href="solicitud" >
-                                    <i class="fa-solid fa-user-gear"></i>
-                                    <span> Realizar Solicitud </span>
-                                    </a>
-                                </li>
-                                <li style="cursor:pointer">
-                                    <a href="pendientes" >
-                                    <i class="fa-solid fa-comments-question-check"></i>
-                                    <span> Solicitudes Pendientes </span>
-                                    </a>
-                                </li>
-                                
                             </ul>
                         </div>
                     </nav>

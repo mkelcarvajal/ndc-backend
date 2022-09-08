@@ -8,7 +8,7 @@
     }
 </style>
 <br>
-<form method="post" action="insertSolicitud">
+<form method="post" action="insertSolicitud" id="solicitud_form">
     @csrf
     <div class="row">
         <div class="col-3">
@@ -57,13 +57,13 @@
         </div>
         <div class="col-9">
             <div class="fa-4x">
-                <div class="card" id="spinner" style="display:none;">
+                <div class="card" id="spinner" style="display: none;" >
                     <div class="card-body">
                         <center><i class="fas fa-cog fa-spin" ></i></center>
                     </div>
                 </div>
             </div>
-        <div class="card" id="postulantes" style="display:none;">
+        <div class="card" id="postulantes" style="display: none;" >
         <br>
             <div class="card-head text-center">
                 <h3>Postulantes</h3>
@@ -72,26 +72,37 @@
                     <div class="row">
                         <div class="col-2">
                             <label>RUT:</label>
-                            <input type="text" class="form-control" name="rut[]" required>
+                            <input type="text" class="form-control" name="rut[]" >
                         </div>
                         <div class="col">
                             <label>Nombre:</label>
-                            <input type="text" class="form-control" name="nombre[]" required>
+                            <input type="text" class="form-control" name="nombre[]" >
                         </div>
                         <div class="col">
                             <label>Correo:</label>
-                            <input type="email" class="form-control" name="correo[]" required>
+                            <input type="email" class="form-control" name="correo[]" >
                         </div>
-                        <div class="col-1">
+                        <div class="col">
+                            <label >Cargo Técnico:</label>
+                            <select name='cargo_tecnico[]' class='select2' >
+                                <option value='supervisor'>Supervisor</option>
+                                <option value='em-a'>Electromecanico A</option>
+                                <option value='em-b'>Electromecanico B</option>
+                                <option value='em-c'>Electromecanico C</option>
+                                <option value='otro'>Otro</option>
+                            </select>
+                            <br><br>
+                        </div>
+                        <div class="col-1" style="margin:0; padding:0;">
                             <label style="color:white;">Fila:</label>
-                            <button type="button" class="btn btn-success" onclick="agregarFila('si');"><i class="fa-solid fa-circle-plus"></i></button>
+                            <button type="button" class="btn btn-success mt-4" onclick="agregarFila('si');"><i class="fa-solid fa-circle-plus"></i></button>
                         </div>
                     </div>
-                    <div id="contenedor_postulante">
+                    <div id="contenedor_postulante" >
                     </div>
                 <div class="row mt-4">
                     <div class="col">
-                        <button class="btn btn-block btn-success" id="enviar">Enviar</button>
+                        <button type="submit" class="btn btn-block btn-success" id="enviar">Enviar</button>
                     </div>
                 </div>
             </div>
@@ -102,6 +113,9 @@
 
 @section('script')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+
+
 @if (\Session::has('success'))
     <script>
         Swal.fire({
@@ -112,11 +126,25 @@
         timer: 1500
         })
     </script>
+@elseif(\Session::has('error'))
+<script>
+    Swal.fire({
+    position: 'center',
+    icon: 'info',
+    title: 'Complete los campos faltantes',
+    showConfirmButton: false,
+    timer: 1500
+    })
+</script>
+
 @endif
+
 <script>
     $( document ).ready(function() {
         makeid(5);
+
     });
+
 
         $('.select2').select2({
             language: {
@@ -128,7 +156,7 @@
                     }
                 }
         });
-
+        
         function makeid(length) {
             $("#codigo").val("");
             var result           = '';
@@ -143,18 +171,29 @@
 
         function agregarFila(suma){
             if(suma == "si"){
-                $("#contenedor_postulante").append('<div class="row mt-3">\
+                $("#contenedor_postulante").append('<div class="row mt-3" style="margin:0; padding:0;">\
                         <div class="col-2">\
                             <label>RUT:</label>\
-                            <input type="text" class="form-control" name="rut[]" id="rut">\
+                            <input type="text" class="form-control" name="rut[]"  >\
                         </div>\
                         <div class="col">\
                             <label>Nombre:</label>\
-                            <input type="text" class="form-control" name="nombre[]" id="nombre">\
+                            <input type="text" class="form-control" name="nombre[]" >\
                         </div>\
                         <div class="col">\
                             <label>Correo:</label>\
-                            <input type="email" class="form-control" name="correo[]" id="correo">\
+                            <input type="email" class="form-control" name="correo[]" >\
+                        </div>\
+                        <div class="col">\
+                            <label for="cargo">Cargo Técnico:</label>\
+                            <select  class="form-control" name="cargo_tecnico[]"  >\
+                                <option value="supervisor">Supervisor</option>\
+                                <option value="em-a">Electromecanico A</option>\
+                                <option value="em-b">Electromecanico B</option>\
+                                <option value="em-c">Electromecanico C</option>\
+                                <option value="otro">Otro</option>\
+                            </select>\
+                            <br><br>\
                         </div>\
                         <div class="col-1">\
                             <label style="color:white;">Fila:</label>\
@@ -165,18 +204,29 @@
                     $("#cantidad").val($cantidad+1);
             }
             else{
-                $("#contenedor_postulante").append('<div class="row mt-3">\
+                $("#contenedor_postulante").append('<div class="row mt-3" style="margin:0; padding:0;">\
                         <div class="col-2">\
                             <label>RUT:</label>\
-                            <input type="text" class="form-control" name="rut[]" id="rut">\
+                            <input type="text" class="form-control" name="rut[]" >\
                         </div>\
                         <div class="col">\
                             <label>Nombre:</label>\
-                            <input type="text" class="form-control" name="nombre[]" id="nombre">\
+                            <input type="text" class="form-control" name="nombre[]" >\
                         </div>\
                         <div class="col">\
                             <label>Correo:</label>\
-                            <input type="email" class="form-control" name="correo[]" id="correo">\
+                            <input type="email" class="form-control" name="correo[]"  >\
+                        </div>\
+                        <div class="col">\
+                            <label for="cargo">Cargo Técnico:</label>\
+                            <select  class="form-control" name="cargo_tecnico[]" >\
+                                <option value="supervisor">Supervisor</option>\
+                                <option value="em-a">Electromecanico A</option>\
+                                <option value="em-b">Electromecanico B</option>\
+                                <option value="em-c">Electromecanico C</option>\
+                                <option value="otro">Otro</option>\
+                            </select>\
+                            <br><br>\
                         </div>\
                         <div class="col-1">\
                             <label style="color:white;">Fila:</label>\
@@ -185,7 +235,16 @@
                     </div>');
             }
 
-           
+            $('.select2').select2({
+            language: {
+                    noResults: function() {
+                    return "No hay resultados";        
+                    },
+                    searching: function() {
+                    return "Buscando..";
+                    }
+                }
+        });
         }
 
         $(document).on("click", ".remove", function() {
@@ -197,6 +256,7 @@
         $(document).on("click", "#enviar", function() {
             $("#postulantes").css("display","none");
             $("#spinner").css('display',"block");
+
         });
 
         function verificar_datos(){
@@ -218,7 +278,7 @@
                 },
                 success: function(data) {
                     $("#spinner").css('display',"none");
-                    $("#postulantes").css("display","block");
+                    // $("#postulantes").css("display","block");
                     if(data==""){
                         if($("#cargo").val()!=""){
                             if($("#nivel").val()!=""){

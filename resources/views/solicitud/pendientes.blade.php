@@ -11,11 +11,22 @@
                 <h3>Procesos Abiertos</h3>
             </div>
             <div class="card-body">
-                @foreach($procesos as $p)
-                <div class="alert text-center" role="alert" style="background-color:#49917b; cursor:pointer;" onclick="getPendientes('{{$p->codigo}}')">
-                   <h3 style="color:white;"> Proceso Código {{$p->codigo}}  <i class="fa-solid fa-hand-pointer" style="float:right;"></i></h3>
-                </div>
-                @endforeach
+                <table id="table_pend" class="table">
+                    <thead>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        @foreach($procesos as $p)
+                            <tr>
+                                <td>
+                                    <div class="alert text-center" role="alert" style="background-color:#49917b; cursor:pointer;" onclick="getPendientes('{{$p->codigo}}')">
+                                        <h3 style="color:white;"> Proceso Código {{$p->codigo}}  <i class="fa-solid fa-hand-pointer" style="float:right;"></i></h3>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -73,7 +84,29 @@
             }
         });  
     }
-
+    $('#table_pend').DataTable({
+        pageLength: 5,    
+        language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "Mostrar _MENU_ Entradas",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+        });
 </script>
 @endsection
 @endsection

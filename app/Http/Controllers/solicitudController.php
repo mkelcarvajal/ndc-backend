@@ -30,109 +30,117 @@ class solicitudController extends Controller
     }
 
     public function insertSolicitud(request $request){
+        $valido='';
+        
+        if(in_array("", $request->input('rut')) || in_array("", $request->input('nombre')) || in_array("", $request->input('correo')) || in_array("", $request->input('cargo_tecnico')) ){
+            $valido='no';
+        }
+        else{
+            $valido='si';
+        }
+        if($valido == 'si'){
+             DB::table("codigos")->insert([
+                "Codigo"=>$request->input("codigo"),
+                "Empresa"=>$request->input("empresa"),
+                "Cantidad"=>$request->input("cantidad"),
+                "EncuestaNormal"=>0,
+                "EncuestaFIX"=>0,
+                "EncuestaOI"=>0,
+                "EncuestaHRSOSIA"=>0,
+                "EncuestaCreate"=>0,
+                "TestWondwelic"=>0,
+                "EntradaMecanica"=>0,
+                "EntradaElectrica"=>0,
+                "OHT_Electrica"=>0,
+                "OHT_Mecanica"=>0,
+                "Reman_Mecanica"=>0,
+                "Reman_Electrica"=>0,
+                "Hex_Asesor"=>0,
+                "Hex_9800"=>0,
+                "Fecha"=>$request->input('fecha')
+            ]);
 
-        DB::table("codigos")->insert([
-                                "Codigo"=>$request->input("codigo"),
-                                "Empresa"=>$request->input("empresa"),
-                                "Cantidad"=>$request->input("cantidad"),
-                                "EncuestaNormal"=>0,
-                                "EncuestaFIX"=>0,
-                                "EncuestaOI"=>0,
-                                "EncuestaHRSOSIA"=>0,
-                                "EncuestaCreate"=>0,
-                                "TestWondwelic"=>0,
-                                "EntradaMecanica"=>0,
-                                "EntradaElectrica"=>0,
-                                "OHT_Electrica"=>0,
-                                "OHT_Mecanica"=>0,
-                                "Reman_Mecanica"=>0,
-                                "Reman_Electrica"=>0,
-                                "Hex_Asesor"=>0,
-                                "Hex_9800"=>0,
-                                "Fecha"=>$request->input('fecha')
-                            ]);
+            $test_wonderlic = 0;
+            $reman_electrica = 0;
+            $reman_mecanica = 0;
+            $oht_electrica = 0;
+            $oht_mecanica = 0;
+            $entrada_electrica = 0;
+            $entrada_mecanica = 0;
+            $hex_9800 = 0;
+            $hex_asesor = 0;
+            $prp = 0;
+            $oi = 0;
+            $multiple = 0;
+            $sosia = 0;
+            $fix = 0;
+            $create = 0;
 
-        $test_wonderlic = 0;
-        $reman_electrica = 0;
-        $reman_mecanica = 0;
-        $oht_electrica = 0;
-        $oht_mecanica = 0;
-        $entrada_electrica = 0;
-        $entrada_mecanica = 0;
-        $hex_9800 = 0;
-        $hex_asesor = 0;
-        $prp = 0;
-        $oi = 0;
-        $multiple = 0;
-        $sosia = 0;
-        $fix = 0;
-        $create = 0;
-
-        foreach($request->input('pruebas') as $p){
+            foreach($request->input('pruebas') as $p){
 
             if($p == 'Test Wonderlic'){
-                $test_wonderlic = 1;
+            $test_wonderlic = 1;
             }
 
             if($p == 'Reman Mecánica'){
-                $reman_mecanica = 1;
+            $reman_mecanica = 1;
             }
 
             if($p == 'Reman Eléctrica'){
-                $reman_electrica = 1;
+            $reman_electrica = 1;
             }
-        
+
             if($p == 'Prueba OHT Mecánica'){
-                $oht_mecanica = 1;
+            $oht_mecanica = 1;
             }
 
             if($p == 'Prueba OHT Eléctrica'){
-                $oht_electrica = 1;
+            $oht_electrica = 1;
             }
-        
+
             if($p == 'Prueba de entrada Mecánica'){
-                $entrada_mecanica = 1;
+            $entrada_mecanica = 1;
             }
-       
+
             if($p == 'Prueba de entrada Eléctrica'){
-                $entrada_electrica = 1;
+            $entrada_electrica = 1;
             }
 
             if($p == 'Hex Asesor'){
-                $hex_asesor = 1;
+            $hex_asesor = 1;
             }
 
             if($p == 'Hex 9800'){
-                $hex_9800 = 1;
+            $hex_9800 = 1;
             }
 
             if($p == 'Encuesta PRP'){
-                $prp = 1;
+            $prp = 1;
             }
 
             if($p == 'Encuesta OI'){
-                $oi = 1;
+            $oi = 1;
             }
 
             if($p == 'Encuesta múltiple'){
-                $multiple = 1;
+            $multiple = 1;
             }
-          
+
             if($p == 'Encuesta HR SOSIA'){
-                $sosia = 1;
+            $sosia = 1;
             }
-            
+
             if($p == 'Encuesta FIX'){
-                $fix = 1;
+            $fix = 1;
             }
 
             if($p == 'Encuesta Create'){
-                $create = 1;
+            $create = 1;
             }
 
-        }
+            }
 
-         DB::table("codigos")->where('Codigo',$request->input('codigo'))->update([
+            DB::table("codigos")->where('Codigo',$request->input('codigo'))->update([
             "EncuestaNormal"=>0,
             "EncuestaFIX"=>$fix,
             "EncuestaOI"=>$oi,
@@ -147,25 +155,30 @@ class solicitudController extends Controller
             "Reman_Electrica"=>$reman_electrica,
             "Hex_Asesor"=>$hex_asesor,
             "Hex_9800"=>$hex_9800
-         ]);
+            ]);
 
-         foreach($request->input("rut") as $key => $rut){
+            foreach($request->input("rut") as $key => $rut){
             foreach($request->input("pruebas") as $p){
-                DB::table("procesos")->insert([
-                    "codigo"=>$request->input("codigo"),
-                    "fecha"=>$request->input("fecha"),
-                    "rut"=>$rut,
-                    "nombre"=>$request->input("nombre")[$key],
-                    "correo"=>$request->input("correo")[$key],
-                    "cargo"=>$request->input("cargo"),
-                    "nivel"=>$request->input("nivel"),
-                    "id_encuesta"=>$p,
-                    "estado"=>0
-                ]);
+            DB::table("procesos")->insert([
+                "codigo"=>$request->input("codigo"),
+                "fecha"=>$request->input("fecha"),
+                "rut"=>$rut,
+                "nombre"=>$request->input("nombre")[$key],
+                "correo"=>$request->input("correo")[$key],
+                "cargo"=>$request->input("cargo"),
+                "nivel"=>$request->input("nivel"),
+                "cargo_tecnico"=>$request->input('cargo_tecnico')[$key],
+                "id_encuesta"=>$p,
+                "estado"=>0
+            ]);
             }
             $this->sendMail($request->input('correo')[$key],$request->input('nombre')[$key],$request->input('codigo'),$request->input('pruebas'),$request->input('nivel'));
-         }
-         return redirect()->back()->with('success', 'Ingreso Correcto');   
+            }
+            return redirect()->back()->with('success', 'Ingreso Correcto');   
+        }
+        else{
+            return redirect()->back()->with('error', 'Ingreso Correcto')->withInput();   
+        }
     }
 
     public function getProcesosAbiertos(request $request){
@@ -179,7 +192,10 @@ class solicitudController extends Controller
                         p.cargo,
                         p.nivel,
                         p.fecha,
+                        p.cargo_tecnico,
                         r.detalle,
+                        r.id_resultado,
+                        r.email,
                         e.nombre as encuesta')
                 ->leftJoin('resultados as r', function ($join){
                         $join->on('p.codigo','=','r.codigo_usuario');
@@ -260,8 +276,12 @@ class solicitudController extends Controller
             </thead>
             <tbody >';
 
-            $lista = '';       
+            $lista = '';
+            $enlistado = '';
+            $arr_cursos = array();
             foreach($cursos as $c){
+                array_push($arr_cursos,$c->nombre);
+                $enlistado = $enlistado.$c->nombre.',';
                 $lista=$lista.'<tr><td style="border-width: 2px;
                 border-color: #5CB89C;
                 border-style: solid;
@@ -286,8 +306,9 @@ class solicitudController extends Controller
                 <br>
             </div>
             <br><br>
+
             <b style='color:#00a29b;'>2.- EVALUACIÓNES NDC: </b><br><br>
-            Para ingresar a las evaluaciones HR SOSIA y PRP, ingresar al siguiente link:<br>
+            Para ingresar a las evaluaciones ".$enlistado." debe ingresar al siguiente link:<br>
             https://ndc.cl/NdcTestv14/  <br><br>
 
             Esto lo puede realizar desde un computador o puede descargar la APP NDC TEST desde su gcelular en (APP Store o Google Play) y realizar los siguientes pasos: <br><br>
@@ -309,22 +330,48 @@ class solicitudController extends Controller
                 </li>
             </ul>
             <br>
-            <b style='color:#00a29b;'>EVALUACIÓN 2 : PRP</b><br><br>
-            En la presente prueba deberá elegir la respuesta que más lo representa o se pueda inclinar.<br><br>
-            Finalizada dicha evaluación, deberá ingresar nuevamente los datos anteriormente señalados y elegir la SIGUIENTE.<br><br>
-            <b style='color:#00a29b;'>EVALUACIÓN 3: HR SOSIA</b> <br><br>
-            En la presente prueba deberá elegir la respuesta que más lo representa o se inclina y la que menos lo representa.<br><br>
-            Una vez finalizada la prueba, quedará listo su proceso de evaluación.<br><br>
-            Al finalizar todo el proceso, le agradecería poder enviar correo electrónico señalando su finalización de los test. <br><br>
-            Bueno, cualquier duda puede responderme el presente correo<br><br>
-             Saludos Cordiales. <br><br>
-            
+            ";
+            if(array_search("Test Wonderlic",$arr_cursos)  !== false){
+                $cuerpo.="
+                <b style='color:#00a29b;'>EVALUACIÓN  : WONDERLIC</b><br><br>
+                o	En esta prueba deberá resolver problemas sin ayuda de calculadoras u otros dispositivos que faciliten la solución de éstos.<br><br>
+                o	Contiene 50 preguntas las cuales es poco probable que pueda contestarlas todas, pero trate de contestar las que más pueda. Contará con 15 minutos para realizarla.<br><br>
+                o	No conteste demasiado rápido, ya que podría cometer errores<br><br>
+                ";
+            }
+            $tecnicos = array("Prueba de entrada Mecánica", 'Prueba de entrada Eléctrica','Prueba OHT Eléctrica','Prueba OHT Mecánica','Reman Mecánica','Hex Asesor','Hex 9800','Reman Eléctrica');
+            $intersection = array_intersect($tecnicos, $arr_cursos);
+            if($intersection){
+                $cuerpo.="
+                <b style='color:#00a29b;'>EVALUACIÓN  : MECÁNICA Y ELECTRICA</b><br><br>
+                o   En la presente prueba deberá marcar una alternativa correcta frente a cada pregunta. No podrá omitir ninguna de ellas de lo contrario no podrá avanzar con la siguiente pregunta..<br><br>
+                ";
+    
+            }
+            if(array_search("Encuesta PRP",$arr_cursos)  !== false){
+                
+                $cuerpo.="
+                <b style='color:#00a29b;'>EVALUACIÓN  : PRP</b><br><br>
+                o    En la presente prueba deberá elegir la respuesta que más lo representa o se pueda inclinar.<br><br>
+                Finalizada dicha evaluación, deberá ingresar nuevamente los datos anteriormente señalados y elegir la SIGUIENTE.<br><br>
+                ";
+            }
+            if(array_search("Encuesta HR SOSIA",$arr_cursos)  !== false){
+                $cuerpo.="
+                    <b style='color:#00a29b;'>EVALUACIÓN : HR SOSIA</b> <br><br>
+                    o    En la presente prueba deberá elegir la respuesta que más lo representa o se inclina y la que menos lo representa.<br><br>
+                    Una vez finalizada la prueba, quedará listo su proceso de evaluación.<br><br>
+                    Al finalizar todo el proceso, le agradecería poder enviar correo electrónico señalando su finalización de los test. <br><br>
+                    Bueno, cualquier duda puede responderme el presente correo<br><br>
+                    Saludos Cordiales. <br><br>";
+            }
+            $cuerpo.="
             </span> 
             </div>
             </div>
             </body>
             </html>
-            <br>
+            <br><br><br>
             <img src='cid:firma'>";
             
         $mail = new PHPMailer(true);
@@ -358,4 +405,6 @@ class solicitudController extends Controller
         DB::table('procesos')->where('codigo',$request->input('codigo'))->update(['estado'=>1]);
         return 'ok';
     }
+
+
 }

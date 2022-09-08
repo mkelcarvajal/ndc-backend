@@ -8,7 +8,7 @@
             <td>Nivel</td>
             <td>Prueba</td>
             <td>Fecha Caducidad</td>
-            <td>Descargar Informe</td>
+            <td></td>
             <td></td>
         </tr>
     </thead>
@@ -28,17 +28,22 @@
                             <i class="fas fa-times"></i> 
                              Sin Informe
                         </button> 
-                    @else 
-                        <button type="button" class="btn btn-success btn-xs" disabled>
-                            <i class="fas fa-check"></i> 
-                             Descargar
+                    @else
+                    <center>
+                        <div class="fa-2x" style="display:none;" id="spinner_{{$d->id_resultado}}">
+                            <i class="fas fa-cog fa-spin"></i>
+                        </div>
+                    </center>
+                        <button type="button" class="btn btn-success btn-xs" id="{{$d->id_resultado}}" onclick="descargarInforme('{{$d->id_resultado}}','{{$d->nivel}}','{{$d->cargo}}','{{$d->cargo_tecnico}}','{{$d->email}}','{{$d->encuesta}}');">
+                            <i class="fas fa-download"></i> 
+                             <p style="margin:0">Descargar</p>
                         </button> 
                     @endif
                 </td>
                 <td>
                     <button type="button" class="btn btn-info btn-xs" >
                         <i class="fas fa-paper-plane"></i>
-                        Re-Enviar Correo
+                        <p style="margin:0">Enviar</p>
                     </button> 
                 </td>
             </tr>
@@ -54,6 +59,45 @@
     </div>
 </div>
 <script>
+
+    function descargarInforme(id,nivel,cargo,cargo_tecnico,email,encuesta){
+        if(encuesta == 4){
+            window.open("SosiaPdf/"+id+'/'+nivel+'/'+cargo+'/'+cargo);
+        }
+        else{
+            cargarResultados(id,cargo_tecnico,email);
+        }
+    }
+
+    function cargarResultados(id,cargo_tecnico,email){
+                  
+                  let carga = document.getElementById("overlay");
+                     $.ajax({
+                             url: "registroPdf",
+                             type: "post",
+                             headers: {
+                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                             },
+                             data: {
+                                 'id': id,
+                                 'cargo': cargo_tecnico,
+                                 'email':email,
+                             },
+                             beforeSend: function() {
+                                $("#"+id).css("display",'none');
+                                $("#spinner_"+id).css("display",'block');
+                             },
+                             success: function(data) {
+                                $("#"+id).css("display",'block');
+                                $("#spinner_"+id).css("display",'none');
+                                 window.open('reportes/'+data+'.pdf');
+                             },
+                             error: function(data) {
+                                 console.log(data);
+                             }
+                         });
+                 }
+
     $(document).ready(function () {
         $('#tabla_pendientes').DataTable({
             language: {
