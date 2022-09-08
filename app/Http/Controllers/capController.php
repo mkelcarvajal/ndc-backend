@@ -12,29 +12,29 @@ class capController extends Controller
 {
     public function index()
         {
-            $reg = DB::table('registro_capacitaciones')
-                        ->selectRaw('rut,sap')
-                        ->get();
+            // $reg = DB::table('registro_capacitaciones')
+            //             ->selectRaw('rut,sap')
+            //             ->get();
 
-            foreach($reg as $r){
+            // foreach($reg as $r){
 
-                $codelco = DB::table('maestro_codelco')
-                                ->where('rut',$r->rut)
-                                ->first();
+            //     $codelco = DB::table('maestro_codelco')
+            //                     ->where('rut',$r->rut)
+            //                     ->first();
 
-                if(!empty($codelco)){
-                    DB::table('registro_capacitaciones')
-                    ->where('rut',$r->rut)
-                    ->update(['sap'=>$codelco->sap]);
-                }
+            //     if(!empty($codelco)){
+            //         DB::table('registro_capacitaciones')
+            //         ->where('rut',$r->rut)
+            //         ->update(['sap'=>$codelco->sap]);
+            //     }
 
-            }
-            // $planilla_verde=DB::connection('mysql')
-            //                 ->table('registro_capacitaciones')
-            //                 ->where('estado','planilla verde')
-            //                 ->get();
+            // }
+            $planilla_verde=DB::connection('mysql')
+                            ->table('registro_capacitaciones')
+                            ->where('estado','planilla verde')
+                            ->get();
 
-            // return view('registro_cap',compact('planilla_verde'));
+            return view('registro_cap',compact('planilla_verde'));
         }
 
     public function prueba1(){
