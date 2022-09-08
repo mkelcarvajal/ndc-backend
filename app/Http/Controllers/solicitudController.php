@@ -375,12 +375,12 @@ class solicitudController extends Controller
             <img src='cid:firma'>";
             
         $mail = new PHPMailer(true);
-        //$mail->isSMTP();
+        $mail->isSMTP();
         $mail->AddEmbeddedImage('css/img/ndc.png', 'ndc');
         $mail->Host = 'tls://smtp.office365.com';                    // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = '';               // SMTP username
-        $mail->Password = '';                           // SMTP password
+        $mail->Username = 'evaluaciones@ndc.cl';               // SMTP username
+        $mail->Password = '@Ndc.20191899.@';                           // SMTP password
         $mail->Port = 587;                                      // TCP port to connect to
         $mail->SMTPSecure = 'tls';
         $mail->SMTPAuth   = true;
