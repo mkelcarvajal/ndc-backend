@@ -32,8 +32,6 @@ class homeController extends Controller
                     Session::put('usuario', $data->rut);
                     Session::put('nombre', $data->nombre);
                     Session::put('id_usuario', $data->id);
-                    Session::put('rol',$data->rol);
-                    Auth::loginUsingId($data->id, true);
                     return redirect()->intended('home');
             } 
             else {
