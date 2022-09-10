@@ -37,7 +37,7 @@ class HomeController extends Controller
                     Session::put('codigo',$data->codigo_prueba);
                     Session::put('rol',$data->rol);
                     Auth::loginUsingId($data->id, true);
-                    return redirect()->intended('indexReportes');
+                    return redirect()->intended('home');
             } 
             else {
 
