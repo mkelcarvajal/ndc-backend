@@ -42,7 +42,7 @@
         <form method="post" action="GetUser">
             {{ csrf_field() }}
             <img src="img/office_team.png">
-          <h2 class="title" style="font-size:1.6rem;">Gestión de Capacitaciones</h2>
+          <h2 class="title" style="font-size:1.6rem;">Gestión de Capacitacioness</h2>
           <!-- <a href="#">Forgot Password?</a> -->
             <input class="form-control mb-2" name="userin" placeholder="Usuario" style="border-radius: 25px;">
             <input class="form-control" name="passin" type="password" placeholder="Contraseña" style="border-radius: 25px;">
