@@ -25,9 +25,9 @@ class homeController extends Controller
 
     public function GetUser(request $request){
         //DB::connection('sda')
-        $data=DB::connection('mysql_ndc')->table('usr_acceso')->where('rut',$request->input('user'))->first();
+        $data=DB::connection('mysql_ndc')->table('usr_acceso')->where('rut',$request->input('userin'))->first();
         if(isset($data)){
-            if($data->pass == $request->input('password')){
+            if($data->pass == $request->input('passin')){
                     Session::put('usuario', $data->rut);
                     Session::put('nombre', $data->nombre);
                     Session::put('id_usuario', $data->id);

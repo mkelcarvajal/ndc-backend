@@ -64,6 +64,7 @@
         
       </div>
     </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if(\Session::has('clave'))
       <script>
         Swal.fire({
