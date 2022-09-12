@@ -4056,6 +4056,8 @@ class pruebasController extends Controller
         ->orderby('r.fecha','DESC')
         ->get();
 
+        $arr_datos = array();
+
         $asc = DB::table('correccion_sosia')
         ->selectRaw('mas,menos')
         ->where('correccion','ASC')
@@ -4635,10 +4637,39 @@ class pruebasController extends Controller
             $sheet->setCellValue($letra_respuestas++.$cont,$resultado_l->resultado );
 
             // $sheet->setCellValue($letra_respuestas++.$cont,$resultado_AE->decatipo );
+            
 
+            array_push($arr_datos,[$d->id,
+                                    $d->nombre_r.' '.$d->apellido_r,
+                                    $d->rut_r,
+                                    $d->tipo,
+                                    date("d-m-Y H:i:s",strtotime($d->fecha_r)),
+                                    $resultado_asc->resultado,
+                                    $resultado_est->resultado,
+                                    $resultado_vit->resultado,
+                                    $resultado_res->resultado,
+                                    $resultado_a->resultado,
+                                    $resultado_r->resultado,
+                                    $resultado_i->resultado,
+                                    $resultado_v->resultado,
+                                    $resultado_b->resultado,
+                                    $resultado_cau->resultado,
+                                    $resultado_ori->resultado,
+                                    $resultado_p->resultado,
+                                    $resultado_o->resultado,
+                                    $resultado_g->resultado,
+                                    $resultado_soc->resultado,
+                                    $resultado_com->resultado,
+                                    $resultado_s->resultado,
+                                    $resultado_c->resultado,
+                                    $resultado_l->resultado,
+                                    $resultado_b->resultado
+            ]);
 
             $cont++;
         }
+
+        
 
         $sheet->setCellValue('A1','N°');
         $sheet->setCellValue('B1','Nombre Completo');
@@ -4667,8 +4698,6 @@ class pruebasController extends Controller
         $sheet->setCellValue('Y1','LIDERAZGO');
         // $sheet->setCellValue('Z1','AUTOESTIMA');
 
-
-
         foreach(range('A','Z') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
@@ -4678,7 +4707,7 @@ class pruebasController extends Controller
             ->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()
-            ->setARGB(91, 155, 213, 1);
+            ->setARGB('91, 155, 213, 1');
 
         $writer = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

@@ -380,7 +380,7 @@ class solicitudController extends Controller
         $mail->Host = 'tls://smtp.office365.com';                    // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
         $mail->Username = 'evaluaciones@ndc.cl';               // SMTP username
-        $mail->Password = '@Ndc.20191899.@';                           // SMTP password
+        $mail->Password = '@@Ndc.20191899.@@';                           // SMTP password
         $mail->Port = 587;                                      // TCP port to connect to
         $mail->SMTPSecure = 'tls';
         $mail->SMTPAuth   = true;

@@ -213,7 +213,6 @@ select::-ms-expand {
                 ]).draw();
                 }
                 else{
-            
                     table.row.add([
                         data[index]['codigo_usuario'],
                         data[index]['nombre']+" "+data[index]['apellido'],
