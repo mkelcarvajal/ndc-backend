@@ -315,7 +315,7 @@ class solicitudController extends Controller
             Esto lo puede realizar desde un computador o puede descargar la APP NDC TEST desde su gcelular en (APP Store o Google Play) y realizar los siguientes pasos: <br><br>
             <ul>
                 <li>
-                Deberá registrar el código: <b style='color:#00a29b;'> HC7D9</b> y hacer click en Ingresar <br>
+                Deberá registrar el código: <b style='color:#00a29b;'>".$codigo."</b> y hacer click en Ingresar <br>
                 </li>
                 <li>
                 Posterior a ello deberá completar con su <b>nombre, apellidos y RUT/DNI</b> (RUT/DNI completo con dígito verificador sin puntos y guion)<br>
