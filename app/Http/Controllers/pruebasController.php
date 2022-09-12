@@ -4669,12 +4669,12 @@ class pruebasController extends Controller
 
 
 
-        foreach(range('A','Y') as $columnID) {
+        foreach(range('A','Z') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true);
         }
 
         
-        $sheet->getStyle('A1:Y1')
+        $sheet->getStyle('A1:Z1')
             ->getFill()
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()
