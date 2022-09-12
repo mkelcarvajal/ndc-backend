@@ -35,7 +35,7 @@
                             <i class="fas fa-cog fa-spin"></i>
                         </div>
                     </center>
-                        <button type="button" class="btn btn-success btn-xs" id="{{$d->id_resultado}}" onclick="descargarInforme('{{$d->id_resultado}}','{{$d->nivel}}','{{$d->cargo}}','{{$d->cargo_tecnico}}','{{$d->email}}','{{$d->encuesta}}');">
+                        <button type="button" class="btn btn-success btn-xs" id="{{$d->id_resultado}}" onclick="descargarInforme('{{$d->id_resultado}}','{{$d->nivel}}','{{$d->cargo}}','{{$d->cargo_tecnico}}','{{$d->email}}','{{$d->id_encuesta}}');">
                             <i class="fas fa-download"></i> 
                              <p style="margin:0">Descargar</p>
                         </button> 

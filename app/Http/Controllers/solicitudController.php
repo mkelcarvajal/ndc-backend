@@ -196,7 +196,8 @@ class solicitudController extends Controller
                         r.detalle,
                         r.id_resultado,
                         r.email,
-                        e.nombre as encuesta')
+                        e.nombre as encuesta,
+                        e.id_encuesta id_encuesta')
                 ->leftJoin('resultados as r', function ($join){
                         $join->on('p.codigo','=','r.codigo_usuario');
                         $join->on('p.rut','=','r.rut');
