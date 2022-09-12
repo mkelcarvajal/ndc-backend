@@ -31,9 +31,9 @@
                     <label for="nivel">Nivel:</label>
                     <select class="select2" id="nivel" name="nivel">
                         <option></option>
-                        <option>Estrategico</option>
-                        <option>Operativo</option>
-                        <option>Tactico</option>
+                        <option value="estrategico">Estrategico</option>
+                        <option value="operativo">Operativo</option>
+                        <option value="tactico">Tactico</option>
                     </select>
                     <br><br>
                     <label>Pruebas:</label>

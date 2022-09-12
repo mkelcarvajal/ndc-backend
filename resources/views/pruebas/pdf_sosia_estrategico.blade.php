@@ -272,7 +272,7 @@
                             pointRadius: 2,
                             },
                         {
-                            label:'Perfil Estrategico',
+                            label:'{{$data->nombre_r}} {{$data->apellido_r}}',
                             data:[{{$resultado_asc->resultado}},
                             {{$resultado_est->resultado}},
                             {{$resultado_AE->decatipo}},    
