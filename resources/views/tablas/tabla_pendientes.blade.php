@@ -29,8 +29,9 @@
                              Sin Informe
                         </button> 
                     @else
-                    <center>
-                        <div class="fa-2x" style="display:none;" id="spinner_{{$d->id_resultado}}">
+                    <center id="spinner_{{$d->id_resultado}}" style="display:none;">
+                        Cargando<br>
+                        <div class="fa-2x" >
                             <i class="fas fa-cog fa-spin"></i>
                         </div>
                     </center>

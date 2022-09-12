@@ -3847,8 +3847,6 @@ class pruebasController extends Controller
                return $pdf->stream('Informe SOSIA Tactico.pdf');
             }
             else{
-
-
                 $cautela = $resultado_cau->resultado - 5;
                 $responsabilidad = $resultado_res->resultado - 6;
                 $ascendencia= $resultado_asc->resultado - 7;
@@ -4029,6 +4027,658 @@ class pruebasController extends Controller
             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
             ->getStartColor()
             ->setARGB('5b9bd5');
+
+        $writer = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="BD_Socia.xlsx"');
+        $writer->save('php://output');
+
+        die;
+
+    }
+
+    public function SosiaInformeResultados(){
+
+        $data = DB::table('resultados as r')
+        ->selectRaw('r.id_resultado as id,
+                    r.nombre as nombre_r,
+                    r.apellido as apellido_r, 
+                    r.rut as rut_r,
+                    e.nombre as nombre_e, 
+                    r.fecha as fecha_r,
+                    r.tipo_usuario as tipo,
+                    r.detalle as detalle_r, 
+                    e.detalle as detalle_e, 
+                    r.id_encuesta as id_en, 
+                    r.codigo_usuario as cod_usu')
+        ->where('r.id_encuesta','4')
+        ->join('encuestas as e','r.id_encuesta','=','e.id_encuesta')
+        ->orderby('r.fecha','DESC')
+        ->get();
+
+        $asc = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','ASC')
+        ->get();
+
+        $res_ = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','RES')
+        ->get();
+
+        $est = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','EST')
+        ->get();
+
+        $soc = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','SOC')
+        ->get();
+
+        $cau = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','CAU')
+        ->get();
+
+        $ori = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','ORI')
+        ->get();
+        
+        $com = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','COM')
+        ->get();
+
+        $vit = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','VIT')
+        ->get();
+
+        $Sv = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','S')
+        ->get();
+
+        $Cv = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','C')
+        ->get();
+
+        $Rv = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','R')
+        ->get();
+
+        $Iv = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','I')
+        ->get();
+
+        $Bv = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','B')
+        ->get();
+        
+        $Lv = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','L')
+        ->get();
+
+        $P_s = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','P')
+        ->get();
+
+        $A_s = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','A')
+        ->get();
+
+        $V_s = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','V')
+        ->get();
+
+        $D_s = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','D')
+        ->get();
+
+        $O_s = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','O')
+        ->get();
+
+        $G_s = DB::table('correccion_sosia')
+        ->selectRaw('mas,menos')
+        ->where('correccion','G')
+        ->get();
+        
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $cont=2;
+        $titulo=1;
+        foreach($data as $d){
+        $puntuacion_deca =0;
+            $respuesta = json_decode($d->detalle_r,true);    
+
+            $sheet->setCellValue('A'.$cont,$d->id);
+            $sheet->setCellValue('B'.$cont,$d->nombre_r.' '.$d->apellido_r);
+            $sheet->setCellValue('C'.$cont,$d->rut_r);
+            $sheet->setCellValue('D'.$cont,$d->tipo);
+            $sheet->setCellValue('E'.$cont,date("d-m-Y H:i:s",strtotime($d->fecha_r)));
+
+            $letra_respuestas='F';
+
+            if(isset($respuesta['usuariosStructs'][0]['respuestasStructs'])){
+                $res = $respuesta['usuariosStructs'][0]['respuestasStructs'];
+            }
+
+            //ASC
+
+            $mas = array();
+            $menos = array();
+            $ASC=0;
+            if(is_array($res)){
+                foreach ($res as $r){
+                    if(is_array($r) || is_object($r)){
+                            array_push($mas,$r['respuesta'][0][2] ?? '');
+                            array_push($menos,$r['respuesta'][1][2] ?? '');
+                    }
+                }
+            }    
+
+            foreach($asc as $key=>$a){
+                if(similar_text($a->mas,$mas[$key])>0){
+                    $ASC++;
+                }
+                if(similar_text($a->menos,$menos[$key])>0){
+                    $ASC++;
+                }
+            }
+
+            //RES
+            $mas_res=array();
+            $menos_res=array();
+            $RES=0;
+
+            if(is_array($res)){
+                foreach ($res as $r){
+                    if(is_array($r) || is_object($r)){
+                            array_push($mas_res,$r['respuesta'][0][2] ?? '');
+                            array_push($menos_res,$r['respuesta'][1][2] ?? '');
+                    }
+                }
+            }
+            
+            foreach($res_ as $key=>$re){
+                if(similar_text($re->mas,$mas_res[$key])>0){
+                    $RES++;
+                }
+                if(similar_text($re->menos,$menos_res[$key])>0){
+                    $RES++;
+                }
+            }
+
+            //EST
+            $mas_est=array();
+            $menos_est=array();
+            $EST=0;
+            if(is_array($res)){
+                foreach ($res as $r){
+                    if(is_array($r) || is_object($r)){
+                            array_push($mas_est,$r['respuesta'][0][2] ?? '');
+                            array_push($menos_est,$r['respuesta'][1][2] ?? '');
+                    }
+                }
+            }   
+            foreach($est as $key=>$e){
+                if(similar_text($e->mas,$mas_est[$key])>0){
+                    $EST++;
+                }
+                if(similar_text($e->menos,$menos_est[$key])>0){
+                    $EST++;
+                }
+            }
+
+            //SOC
+            $mas_soc=array();
+            $menos_soc=array();
+            $SOC=0;
+            if(is_array($res)){
+                foreach ($res as $r){
+                    if(is_array($r) || is_object($r)){
+                            array_push($mas_soc,$r['respuesta'][0][2] ?? '');
+                            array_push($menos_soc,$r['respuesta'][1][2] ?? '');
+                    }
+                }
+            } 
+            foreach($soc as $key=>$s){
+                if(similar_text($s->mas,$mas_soc[$key])>0){
+                    $SOC++;
+                }
+                if(similar_text($s->menos,$menos_soc[$key])>0){
+                    $SOC++;
+                }
+            }
+        
+                //CAU
+                $mas_cau=array();
+                $menos_cau=array();
+                $CAU=0;
+                if(is_array($res)){
+                    foreach ($res as $key=> $r){
+                        if(is_array($r) || is_object($r)){
+                            if($key>=18){
+                                array_push($mas_cau,$r['respuesta'][0][2] ?? '');
+                                array_push($menos_cau,$r['respuesta'][1][2] ?? '');
+                            }
+                        }
+                    }
+                } 
+                foreach($cau as $key=>$c){
+                    if(similar_text($c->mas,$mas_cau[$key])>0){
+                        $CAU++;
+                    }
+                    if(similar_text($c->menos,$menos_cau[$key])>0){
+                        $CAU++;
+                    }
+                }
+
+                //ORI
+                $mas_ori=array();
+                $menos_ori=array();
+                $ORI=0;
+                if(is_array($res)){
+                    foreach ($res as $key=> $r){
+                        if(is_array($r) || is_object($r)){
+                            if($key>=18){
+                                array_push($mas_ori,$r['respuesta'][0][2] ?? '');
+                                array_push($menos_ori,$r['respuesta'][1][2] ?? '');
+                            }
+                        }
+                    }
+                }   
+                foreach($ori as $key=>$o){
+                    if(similar_text($o->mas,$mas_ori[$key])>0){
+                        $ORI++;
+                    }
+                    if(similar_text($o->menos,$menos_ori[$key])>0){
+                        $ORI++;
+                    }
+                }
+
+                //COM
+                $mas_com=array();
+                $menos_com=array();
+                $COM=0;
+                if(is_array($res)){
+                    foreach ($res as $key=> $r){
+                        if(is_array($r) || is_object($r)){
+                            if($key>=18){
+                                array_push($mas_com,$r['respuesta'][0][2] ?? '');
+                                array_push($menos_com,$r['respuesta'][1][2] ?? '');
+                            }
+                        }
+                    }
+                }   
+                foreach($com as $key=>$co){
+                    if(similar_text($co->mas,$mas_com[$key])>0){
+                        $COM++;
+                    }
+                    if(similar_text($co->menos,$menos_com[$key])>0){
+                        $COM++;
+                    }
+                }
+
+                //VIT
+                $mas_vit=array();
+                $menos_vit=array();
+                $VIT=0;
+                if(is_array($res)){
+                    foreach ($res as $key => $r){
+                        if(is_array($r) || is_object($r)){
+                            if($key>=18){
+                                array_push($mas_vit,$r['respuesta'][0][2] ?? '');
+                                array_push($menos_vit,$r['respuesta'][1][2] ?? '');
+                            }
+                        }
+                    }
+                }   
+                foreach($vit as $key=>$v){
+                    if(similar_text($v->mas,$mas_vit[$key])>0){
+                        $VIT++;
+                    }
+                    if(similar_text($v->menos,$menos_vit[$key])>0){
+                        $VIT++;
+                    }
+                }
+
+                //S
+                $mas_s=array();
+                $menos_s=array();
+                $S=0;
+                foreach($res as $key=>$r){
+                    if(in_array($key,[38,41,42,46,47,48,49,51,53,55,57,59,60,62,66])){
+                        array_push($mas_s,$r['respuesta'][0][2] ?? '');
+                        array_push($menos_s,$r['respuesta'][1][2] ?? '');
+                    }
+                }    
+                foreach($Sv as $key=>$si){
+                    if(similar_text($si->mas,$mas_s[$key])>0){
+                        $S++;
+                    }
+                    if(similar_text($si->menos,$menos_s[$key])>0){
+                        $S++;
+                    }
+                }
+
+                //C
+                $mas_c=array();
+                $menos_c=array();
+                $C=0;
+                foreach($res as $key=>$r){
+                    if(in_array($key,[39,40,42,44,46,48,49,53,55,56,58,59,64,66,67])){
+                        array_push($mas_c,$r['respuesta'][0][2] ?? '');
+                        array_push($menos_c,$r['respuesta'][1][2] ?? '');
+                    }
+                }    
+                foreach($Cv as $key=>$ci){
+                    if(similar_text($ci->mas,$mas_c[$key])>0){
+                        $C++;
+                    }
+                    if(similar_text($ci->menos,$menos_c[$key])>0){
+                        $C++;
+                    }
+                }
+
+                //R
+                $mas_r=array();
+                $menos_r=array();
+                $R=0;
+                foreach($res as $key=>$r){
+                    if(in_array($key,[39,41,44,45,47,50,52,54,61,63,64,65,67])){
+                        array_push($mas_r,$r['respuesta'][0][2] ?? '');
+                        array_push($menos_r,$r['respuesta'][1][2] ?? '');
+                    }
+                }    
+                foreach($Rv as $key=>$ri){
+                    if(similar_text($ri->mas,$mas_r[$key])>0){
+                        $R++;
+                    }
+                    if(similar_text($ri->menos,$menos_r[$key])>0){
+                        $R++;
+                    }
+                }
+
+                //I
+                $mas_i=array();
+                $menos_i=array();
+                $I=0;
+                foreach($res as $key=>$r){
+                    if(in_array($key,[38,39,41,43,45,49,50,52,54,56,58,60,62,63,65,67])){
+                        array_push($mas_i,$r['respuesta'][0][2] ?? '');
+                        array_push($menos_i,$r['respuesta'][1][2] ?? '');
+                    }
+                }    
+                foreach($Iv as $key=>$ii){
+                    if(similar_text($ii->mas,$mas_i[$key])>0){
+                        $I++;
+                    }
+                    if(similar_text($ii->menos,$menos_i[$key])>0){
+                        $I++;
+                    }
+                }
+                //B
+                $mas_b=array();
+                $menos_b=array();
+                $B=0;
+                foreach($res as $key=>$r){
+                    if(in_array($key,[38,40,43,45,47,51,52,54,55,57,58,61,62,64,66])){
+                        array_push($mas_b,$r['respuesta'][0][2] ?? '');
+                        array_push($menos_b,$r['respuesta'][1][2] ?? '');
+                    }
+                }    
+                foreach($Bv as $key=>$bi){
+                    if(similar_text($bi->mas,$mas_b[$key])>0){
+                        $B++;
+                    }
+                    if(similar_text($bi->menos,$menos_b[$key])>0){
+                        $B++;
+                    }
+                }
+
+                //L
+                $mas_l=array();
+                $menos_l=array();
+                $L=0;
+                foreach($res as $key=>$r){
+                    if(in_array($key,[40,42,43,44,46,47,50,51,53,56,57,59,60,61,63,65])){
+                        array_push($mas_l,$r['respuesta'][0][2] ?? '');
+                        array_push($menos_l,$r['respuesta'][1][2] ?? '');
+                    }
+                }    
+                foreach($Lv as $key=>$li){
+                    if(similar_text($li->mas,$mas_l[$key])>0){
+                        $L++;
+                    }
+                    if(similar_text($li->menos,$menos_l[$key])>0){
+                        $L++;
+                    }
+                }
+
+                //P
+                $mas_p=array();
+                $menos_p=array();
+                $P=0;
+                foreach($res as $key=>$r){
+                    if(in_array($key,[69,70,73,75,76,79,82,83,85,88,90,92,93,95,96])){
+                        array_push($mas_p,$r['respuesta'][0][2] ?? '');
+                        array_push($menos_p,$r['respuesta'][1][2] ?? '');
+                    }
+                }    
+                foreach($P_s as $key=>$pi){
+                    if(similar_text($pi->mas,$mas_p[$key])>0){
+                        $P++;
+                    }
+                    if(similar_text($pi->menos,$menos_p[$key])>0){
+                        $P++;
+                    }
+                }
+
+                //A
+                $mas_a=array();
+                $menos_a=array();
+                $A=0;
+                foreach($res as $key=>$r){
+                    if(in_array($key,[68,69,71,74,77,80,81,83,84,87,90,93,94,95,97])){
+                        array_push($mas_a,$r['respuesta'][0][2] ?? '');
+                        array_push($menos_a,$r['respuesta'][1][2] ?? '');
+                    }
+                }    
+                foreach($A_s as $key=>$ai){
+                    if(similar_text($ai->mas,$mas_a[$key])>0){
+                        $A++;
+                    }
+                    if(similar_text($ai->menos,$menos_a[$key])>0){
+                        $A++;
+                    }
+                }
+
+                //V
+                $mas_v=array();
+                $menos_v=array();
+                $V=0;
+                foreach($res as $key=>$r){
+                    if(in_array($key,[69,71,74,76,77,78,80,81,84,86,87,89,90,93,97])){
+                        array_push($mas_v,$r['respuesta'][0][2] ?? '');
+                        array_push($menos_v,$r['respuesta'][1][2] ?? '');
+                    }
+                }    
+                foreach($V_s as $key=>$vi){
+                    if(similar_text($vi->mas,$mas_v[$key])>0){
+                        $V++;
+                    }
+                    if(similar_text($vi->menos,$menos_v[$key])>0){
+                        $V++;
+                    }
+                }
+
+
+                //D
+                $mas_d=array();
+                $menos_d=array();
+                $D=0;
+                foreach($res as $key=>$r){
+                    if(in_array($key,[70,72,73,75,78,79,82,85,88,89,91,92,94,96])){
+                        array_push($mas_d,$r['respuesta'][0][2] ?? '');
+                        array_push($menos_d,$r['respuesta'][1][2] ?? '');
+                    }
+                }    
+                foreach($D_s as $key=>$di){
+                    if(similar_text($di->mas,$mas_d[$key])>0){
+                        $D++;
+                    }
+                    if(similar_text($di->menos,$menos_d[$key])>0){
+                        $D++;
+                    }
+                }
+
+                //O
+                $mas_o=array();
+                $menos_o=array();
+                $O=0;
+                foreach($res as $key=>$r){
+                    if(in_array($key,[68,72,74,75,76,79,80,82,84,85,86,89,91,92,94,96])){
+                        array_push($mas_o,$r['respuesta'][0][2] ?? '');
+                        array_push($menos_o,$r['respuesta'][1][2] ?? '');
+                    }
+                }    
+                foreach($O_s as $key=>$oi){
+                    if(similar_text($oi->mas,$mas_o[$key])>0){
+                        $O++;
+                    }
+                    if(similar_text($oi->menos,$menos_o[$key])>0){
+                        $O++;
+                    }
+                }
+
+                //G
+                $mas_g=array();
+                $menos_g=array();
+                $G=0;
+                foreach($res as $key=>$r){
+                    if(in_array($key,[68,70,71,72,73,77,78,81,83,86,87,88,91,95,97])){
+                        array_push($mas_g,$r['respuesta'][0][2] ?? '');
+                        array_push($menos_g,$r['respuesta'][1][2] ?? '');
+                    }
+                }    
+                foreach($G_s as $key=>$gi){
+                    if(similar_text($gi->mas,$mas_g[$key])>0){
+                        $G++;
+                    }
+                    if(similar_text($gi->menos,$menos_g[$key])>0){
+                        $G++;
+                    }
+                }
+
+            $puntuacion_deca = intval($ASC+$RES+$EST+$SOC);
+            
+            $resultado_asc=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$ASC)->where('prueba','ASC')->first();
+            $resultado_res=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$RES)->where('prueba','RES')->first();
+            $resultado_est=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$EST)->where('prueba','EST')->first();
+            $resultado_soc=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$SOC)->where('prueba','SOC')->first();           
+            $resultado_AE=DB::table('pa_decatipo')->selectRaw('decatipo')->where('puntuacion_autoestima',$puntuacion_deca)->first();
+            $resultado_cau=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$CAU)->where('prueba','CAU')->first();
+            $resultado_ori=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$ORI)->where('prueba','ORI')->first();
+            $resultado_com=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$COM)->where('prueba','COM')->first();
+            $resultado_vit=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$VIT)->where('prueba','VIT')->first();
+            $resultado_s=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$S)->where('prueba','S')->first();
+            $resultado_c=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$C)->where('prueba','C')->first();
+            $resultado_r=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$R)->where('prueba','R')->first();
+            $resultado_i=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$I)->where('prueba','I')->first();
+            $resultado_b=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$B)->where('prueba','B')->first();
+            $resultado_l=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$L)->where('prueba','L')->first();
+            $resultado_p=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$P)->where('prueba','P')->first();
+            $resultado_a=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$A)->where('prueba','A')->first();
+            $resultado_v=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$V)->where('prueba','V')->first();
+            $resultado_d=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$D)->where('prueba','D')->first();
+            $resultado_o=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$O)->where('prueba','O')->first();
+            $resultado_g=DB::table('puntos_sosia')->selectRaw('resultado')->where('puntuacion',$G)->where('prueba','G')->first();
+            
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_asc->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_est->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_vit->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_res->resultado );
+
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_a->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_r->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_i->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_v->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_b->resultado );
+
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_cau->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_ori->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_p->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_d->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_o->resultado );
+
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_g->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_soc->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_com->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_s->resultado );
+
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_c->resultado );
+            $sheet->setCellValue($letra_respuestas++.$cont,$resultado_l->resultado );
+
+            // $sheet->setCellValue($letra_respuestas++.$cont,$resultado_AE->decatipo );
+
+
+            $cont++;
+        }
+
+        $sheet->setCellValue('A1','N°');
+        $sheet->setCellValue('B1','Nombre Completo');
+        $sheet->setCellValue('C1','RUT');
+        $sheet->setCellValue('D1','Tipo de Usuario');
+        $sheet->setCellValue('E1','Fecha');
+        $sheet->setCellValue('F1','ASCENDENCIA');
+        $sheet->setCellValue('G1','ESTABILIDAD');
+        $sheet->setCellValue('H1','VITALIDAD');
+        $sheet->setCellValue('I1','RESPONSABILIDAD');
+        $sheet->setCellValue('J1','RESULTADOS');
+        $sheet->setCellValue('K1','RECONOCIMIENTO');
+        $sheet->setCellValue('L1','INDEPENDENCIA');
+        $sheet->setCellValue('M1','VARIEDAD');
+        $sheet->setCellValue('N1','BENEVOLENCIA');
+        $sheet->setCellValue('O1','CAUTELA');
+        $sheet->setCellValue('P1','ORIGINALIDAD');
+        $sheet->setCellValue('Q1','PRACTICIDAD');
+        $sheet->setCellValue('R1','DECISION');
+        $sheet->setCellValue('S1','ORDEN');
+        $sheet->setCellValue('T1','METAS');
+        $sheet->setCellValue('U1','SOCIABILIDAD');
+        $sheet->setCellValue('V1','COMPRENSION');
+        $sheet->setCellValue('W1','ESTIMULO');
+        $sheet->setCellValue('X1','CONFORMIDAD');
+        $sheet->setCellValue('Y1','LIDERAZGO');
+        // $sheet->setCellValue('Z1','AUTOESTIMA');
+
+
+
+        foreach(range('A','Y') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true);
+        }
+
+        
+        $sheet->getStyle('A1:Y1')
+            ->getFill()
+            ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+            ->getStartColor()
+            ->setARGB(91, 155, 213, 1);
 
         $writer = new Xlsx($spreadsheet);
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
