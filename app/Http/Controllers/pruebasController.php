@@ -3066,7 +3066,6 @@ class pruebasController extends Controller
             $file_location = public_path()."/reportes/".$data->rut_r.".pdf";
             file_put_contents($file_location,$pdf);
             return $data->rut_r;
-        
     }
 
 
