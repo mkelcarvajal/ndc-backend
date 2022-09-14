@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const {check} = require('express-validator');
 const {fieldValidator} = require("../middlewares/field-validate");
-const {getAllUser, getUserById,updateUser, deleteUser, patchUser, createUserMicrosoftGlobal, getAllHistoric, generateUserCertificate, verifyCertificate, patchHistoricoById, getUserByEmail, getUserByRut, verifyCertificateCodelco, patchUserById, verifyCertificateLms, getCursoById, getCursos, createCurso, patchCursoById, updatePlantilla, getCursoByClave, getUserBySerial, generateUserExternosCertificate, verifyCertificateExternos, verifyVersion} = require("../controllers/user");
+const {getAllUser, getUserById,updateUser, deleteUser, patchUser, createUserMicrosoftGlobal, getAllHistoric, generateUserCertificate, verifyCertificate, patchHistoricoById, getUserByEmail, getUserByRut, verifyCertificateCodelco, patchUserById, verifyCertificateLms, getCursoById, getCursos, createCurso, patchCursoById, updatePlantilla, getCursoByClave, getUserBySerial, generateUserExternosCertificate, verifyCertificateExternos, verifyVersion, getAllUserExternos, createUserExternosMicrosoftGlobal, patchUserExternosById, deleteExternoById, getUserExternosByRut } = require("../controllers/user");
 const {roleExist, emailExist, userExist} = require("../helpers/db-validator");
 const {validateJWT} = require("../middlewares/validate-jwt");
 const {isAdminRole, haveRole} = require("../middlewares/validate-roles");
@@ -64,10 +64,20 @@ router.get('/verifyUserByRut/:rut', [
     fieldValidator
 ], getUserByRut);
 
+router.get('/verifyUserExternosByRut/:rut', [
+    validateJWT,
+    fieldValidator
+], getUserExternosByRut);
+
 router.get('/', [
     validateJWT,
     fieldValidator
 ], getAllUser);
+
+router.get('/externos', [
+    validateJWT,
+    fieldValidator
+], getAllUserExternos);
 
 
 router.get('/getAllHistoric', [
@@ -110,6 +120,18 @@ router.patch('/updateUser/:id', [
     haveRole("ADMIN_ROLE"),
     fieldValidator
 ], patchUserById);
+
+router.delete('/externos/:id', [
+    validateJWT,
+    haveRole("ADMIN_ROLE"),
+    fieldValidator
+], deleteExternoById);
+
+router.patch('/updateUserExternos/:id', [
+    validateJWT,
+    haveRole("ADMIN_ROLE"),
+    fieldValidator
+], patchUserExternosById);
 
 router.patch('/updateHistoric/:id', [
     validateJWT,
@@ -190,14 +212,33 @@ router.post('/', [
     fieldValidator
 ], createUserMicrosoftGlobal);
 
+router.post('/externos', [
+    validateJWT,
+    // //isAdminRole,
+    // check('name', 'The name is required').not().isEmpty(),
+    // check('email', 'This email is not valid').isEmail(),
+    // check('password', 'The password must be higher to 6 character').isLength({min: 6}),
+    haveRole("ADMIN_ROLE"),
+    // //check('role').custom(role => roleExist(role)),
+    // check('email').custom(email => emailExist(email)),
+    fieldValidator
+], createUserExternosMicrosoftGlobal);
+
+// router.delete('/:id', [
+//     validateJWT,
+//     //isAdminRole,
+//     haveRole("ADMIN_ROLE", "SALE_ROLE"),
+//     check('id').custom(id => userExist(id)),
+//     fieldValidator
+// ], deleteUser);
+
 router.delete('/:id', [
     validateJWT,
     //isAdminRole,
-    haveRole("ADMIN_ROLE", "SALE_ROLE"),
-    check('id').custom(id => userExist(id)),
+    haveRole("ADMIN_ROLE"),
     fieldValidator
 ], deleteUser);
 
-router.patch('/', patchUser);
+// router.patch('/', deleteUser);
 
 module.exports = router;

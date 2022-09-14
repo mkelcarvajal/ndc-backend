@@ -15,16 +15,17 @@ const crearCursoRepository = async (req, res) => {
         organismo_ejecutador,
         oc_numero,
         empresa,
-        rut_empresa
+        rut_empresa,
+        correlativo
     } = req.body;
 
     try {
 
-        await pool.query('INSERT INTO cursos_manual (nombre_curso, duracion, codigo_sence, lugarexamen, fecha_inicio, hora_inicio, fecha_fin, hora_fin, facilitador, organismo_ejecutador, oc_numero, empresa, rut_empresa) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)', [nombre_curso, duracion, codigo_sence, lugarExamen, fecha_inicio, hora_inicio, fecha_fin, hora_fin, facilitador, organismo_ejecutador, oc_numero, empresa, rut_empresa]);
+        await pool.query('INSERT INTO cursos_manual (nombre_curso, duracion, codigo_sence, lugarexamen, fecha_inicio, hora_inicio, fecha_fin, hora_fin, facilitador, organismo_ejecutador, oc_numero, empresa, rut_empresa, correlativo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)', [nombre_curso, duracion, codigo_sence, lugarExamen, fecha_inicio, hora_inicio, fecha_fin, hora_fin, facilitador, organismo_ejecutador, oc_numero, empresa, rut_empresa, correlativo]);
         return {
             message: 'Curso agregado',
             body: {
-                curso: { nombre_curso, duracion, codigo_sence, lugarExamen, fecha_inicio, hora_inicio, fecha_fin, hora_fin, facilitador, organismo_ejecutador, oc_numero, empresa, rut_empresa }
+                curso: { nombre_curso, duracion, codigo_sence, lugarExamen, fecha_inicio, hora_inicio, fecha_fin, hora_fin, facilitador, organismo_ejecutador, oc_numero, empresa, rut_empresa, correlativo }
             }
         }
     } catch (error) {
@@ -210,9 +211,9 @@ const patchCalificacionByIdRepository = async (id_user, id_cursomanual, data) =>
 
 const deleteRepository = async (id_user, id_cursomanual) => {
     try {
-        await pool.query('delete from cursomanual_x_user WHERE id_user = $1 AND id_cursomanual = $2', [id_user, id_cursomanual]);
+        await pool.query('DELETE from cursomanual_x_user WHERE id_user = $1 AND id_cursomanual = $2', [id_user, id_cursomanual]);
         return {
-            message: 'Curso eliminado con exito',
+            message: 'Usuario eliminado del curso con exito',
             curso: true
         }
     } catch (error) {
@@ -220,6 +221,38 @@ const deleteRepository = async (id_user, id_cursomanual) => {
     }
 };
 
+const updateVigenciaCursosRepository = async (id, data) => {
+    try {
+        await pool.query('UPDATE cursos_manual SET nombre_curso = $1, duracion = $2, codigo_sence = $3, lugarexamen = $4, fecha_inicio = $5, hora_inicio = $6, fecha_fin = $7, hora_fin = $8, facilitador = $9, organismo_ejecutador = $10, oc_numero = $11, empresa = $12, rut_empresa = $13 WHERE id = $14', [data.nombre_curso, data.duracion, data.codigo_sence, data.lugarExamen, data.fecha_inicio, data.hora_inicio, data.fecha_fin, data.hora_fin, data.facilitador, data.organismo_ejecutador, data.oc_numero, data.empresa, data.rut_empresa, id]);
+
+        await pool.query('UPDATE cursos_externos SET nombre_curso = $1 WHERE id = $2;', [data.nombre_curso, id]);
+        return {
+            message: 'Curso actualizada con exito',
+            curso: true
+        }
+    } catch (error) {
+        return error;
+    }
+}
+
+
+const deleteCursoExternosRepository = async (id) => {
+    try {
+        
+        await pool.query('DELETE FROM cursos_externos WHERE id = $1', [id]);
+        await pool.query('DELETE FROM cursos_manual WHERE id = $1', [id]);
+        await pool.query('DELETE FROM id_cursomanual WHERE id_cursomanual = $1', [id]);
+       
+        return {
+            message: 'Curso eliminado con exito',
+            curso: true
+        }
+    } catch (error) {
+        return error;
+    }
+}
+
+        
 module.exports = {
     crearCursoRepository,
     getCursosRepository,
@@ -233,5 +266,7 @@ module.exports = {
     getCursoByIdRepository2,
     patchCalificacionByIdRepository,
     updateCursoRepository,
-    deleteRepository
+    deleteRepository,
+    updateVigenciaCursosRepository,
+    deleteCursoExternosRepository
 };

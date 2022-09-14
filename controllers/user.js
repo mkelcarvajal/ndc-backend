@@ -1,6 +1,6 @@
 const { request, response } = require('express');
 const User = require('../models/user').default;
-const { createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository, getUserByRutRepository, getAllUsersRepository, patchUserByIdRepository, getCursoByIdRepository, getCursosByRepository, createCursoRepository, patchCursoByIdRepository, getCursoByClaveRepository, getUserBySerialRepository, getUserVerifyRepository } = require('../repository/user.repository');
+const { createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository, getUserByRutRepository, getAllUsersRepository, patchUserByIdRepository, getCursoByIdRepository, getCursosByRepository, createCursoRepository, patchCursoByIdRepository, getCursoByClaveRepository, getUserBySerialRepository, getUserVerifyRepository, getAllUsersExternosRepository, createUserExternosRepositoryMicrosoftGlobal, patchUserExternosByIdRepository, deleteUserExternosByIdRepository, getUserExternosByRutRepository, deleteUserByIdRepository} = require('../repository/user.repository');
 const { getCursoByIdRepository2 } = require('../repository/curso.repository');
 const { encryptPassword } = require('../helpers/utils');
 const sgMail = require('@sendgrid/mail')
@@ -24,6 +24,14 @@ const getAllUser = async (req = request, res = response) => {
     });
 }
 
+const getAllUserExternos = async (req = request, res = response) => {
+
+    const users = await getAllUsersExternosRepository();
+    res.json({
+        users
+    });
+}
+
 const getUserById = async (req = request, res = response) => {
 
     const id = req.params.id;
@@ -40,6 +48,17 @@ const getUserByRut = async (req = request, res = response) => {
     const id = req.params.rut;
 
     const user = await getUserByRutRepository(id);
+
+    res.json({
+        user
+    });
+}
+
+const getUserExternosByRut = async (req = request, res = response) => {
+
+    const id = req.params.rut;
+
+    const user = await getUserExternosByRutRepository(id);
 
     res.json({
         user
@@ -83,6 +102,22 @@ const getUserByEmail = async (req = request, res = response) => {
 const patchUserById = async (req = request, res = response) => {
     const id = req.params.id;
     const user = await patchUserByIdRepository(id, req.body);
+    res.json({
+        user
+    });
+}
+
+const deleteExternoById = async (req = request, res = response) => {
+    const id = req.params.id;
+    const user = await deleteUserExternosByIdRepository(id);
+    res.json({
+        user
+    });
+}
+
+const patchUserExternosById = async (req = request, res = response) => {
+    const id = req.params.id;
+    const user = await patchUserExternosByIdRepository(id, req.body);
     res.json({
         user
     });
@@ -184,19 +219,33 @@ const createUserMicrosoftGlobal = async (req = request, res = response) => {
     }
 }
 
+const createUserExternosMicrosoftGlobal = async (req = request, res = response) => {
+    try {
+
+        // Save in DB
+        const result = await createUserExternosRepositoryMicrosoftGlobal(req);
+
+        res.json({
+            msg: 'post API - Controller',
+            result
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 const deleteUser = async (req = request, res = response) => {
 
     try {
         const id = req.params.id;
-        const user = await User.findByIdAndUpdate(id, { state: false });
-        const userPetition = req.userPetition;
-        await user.save();
+        await deleteUserByIdRepository(id);
         res.json({
-            user,
-            userPetition
+            msg: "Eliminado con exito"
         });
     } catch (e) {
-        console.log(e);
+        res.json({
+            msg: "error"
+        });
     }
 }
 
@@ -1013,5 +1062,10 @@ module.exports = {
     getUserBySerial,
     generateUserExternosCertificate,
     verifyCertificateExternos,
-    verifyVersion
+    verifyVersion,
+    getAllUserExternos,
+    createUserExternosMicrosoftGlobal,
+    patchUserExternosById,
+    deleteExternoById,
+    getUserExternosByRut
 }

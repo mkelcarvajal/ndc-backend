@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const {check} = require('express-validator');
 const {fieldValidator} = require("../middlewares/field-validate");
-const {getCursos, createCurso, getCursoById, asignarAlumno, getAsignadoById, generarCertificado, verificarCertificacion, getCursosExternos, createCursoExternos, patchCursoById, getCursoByClave, patchCalificacionById, patchCursoManualById, deleteUser} = require("../controllers/curso");
+const {getCursos, createCurso, getCursoById, asignarAlumno, getAsignadoById, generarCertificado, verificarCertificacion, getCursosExternos, createCursoExternos, patchCursoById, getCursoByClave, patchCalificacionById, patchCursoManualById, deleteUser, updateVigenciaCursos, deleteCursoExternos} = require("../controllers/curso");
 const {validateJWT} = require("../middlewares/validate-jwt");
 const {isAdminRole, haveRole} = require("../middlewares/validate-roles");
 
@@ -112,5 +112,15 @@ router.delete('/deleteUser/:id_user/:id_curso', [
     validateJWT,
     fieldValidator
 ], deleteUser);
+
+router.patch('/updateVigenciaCurso/:id', [
+    validateJWT,
+    fieldValidator
+], updateVigenciaCursos);
+
+router.delete('/deleteCursosExternos/:id', [
+    validateJWT,
+    fieldValidator
+], deleteCursoExternos);
 
 module.exports = router;

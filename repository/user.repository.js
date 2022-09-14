@@ -34,6 +34,39 @@ const createUserRepositoryMicrosoftGlobal = async (req) => {
     }
 };
 
+
+const createUserExternosRepositoryMicrosoftGlobal = async (req) => {
+    const nombreempresa = req.body.nombreempresa;
+    const nombrecompleto = req.body.nombrecompleto;
+    const primernombre = req.body.primernombre;
+    const puestotrabajo = req.body.puestotrabajo;
+    const correopersonal = req.body.correopersonal;
+    const telefonopersonal = req.body.telefonopersonal;
+    const rut = req.body.rut;
+    const rutempresa = req.body.rutempresa;
+    const apellidos = req.body.apellidos;
+    const correondc = req.body.correondc;
+    const giro = req.body.giro;
+    const sap = req.body.sap;
+    const cliente = req.body.cliente;
+    try {
+        await pool.query('INSERT INTO users_externos (rut, nombreempresa, rutempresa, nombrecompleto, primernombre, puestotrabajo, correopersonal, telefonopersonal, apellidos, rol, fecha_creacion, cliente, giro, sap) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)', [rut, nombreempresa, rutempresa, nombrecompleto, primernombre, puestotrabajo, correopersonal, telefonopersonal, apellidos, 'USER_ROLE', new Date(), cliente, giro, sap]);
+        return {
+            message: 'Usuario agregado',
+            body: {
+                user: { id, rut, rutempresa, nombreempresa, nombrecompleto, primernombre, puestotrabajo, correopersonal, telefonopersonal, apellidos, correondc }
+            }
+        }
+    } catch (error) {
+        return {
+            message: 'Error al crear el usuario',
+            body: {
+                error: error
+            }
+        }
+    }
+};
+
 const createUserRepositoryMicrosoft = async (req) => {
     const id = req.body.id;
     const nombreempresa = '';
@@ -80,7 +113,7 @@ const getUserByIdRepository = async (id) => {
 
 const getUserBySerialRepository = async (id) => {
     try {
-        const response = await pool.query('SELECT * FROM users WHERE id_serial = $1', [id]);
+        const response = await pool.query('SELECT * FROM users_externos WHERE id_serial = $1', [id]);
         return {
             message: 'Usuario encontrado con exito',
             user: response.rows[0]
@@ -93,6 +126,20 @@ const getUserBySerialRepository = async (id) => {
 const getAllUsersRepository = async () => {
     try {
         const response = await pool.query('SELECT * FROM users ORDER BY fecha_creacion DESC;');
+        return {
+            message: 'Usuarios encontrados con exito',
+            body: {
+                user: response.rows
+            }
+        }
+    } catch (error) {
+        return 0;
+    }
+};
+
+const getAllUsersExternosRepository = async () => {
+    try {
+        const response = await pool.query('SELECT * FROM users_externos ORDER BY fecha_creacion DESC;');
         return {
             message: 'Usuarios encontrados con exito',
             body: {
@@ -127,12 +174,69 @@ const getUserByRutRepository = async (id) => {
     }
 };
 
+const getUserExternosByRutRepository = async (id) => {
+    try {
+        const response = await pool.query('SELECT * FROM users_externos WHERE rut = $1', [id]);
+        if (response.rows.length > 0) {
+            return {
+                message: 'Usuario encontrado con exito',
+                body: {
+                    user: response.rows[0]
+                }
+            }
+        } else {
+            return {
+                message: 'Usuario no encontrado',
+                body: {
+                    user: 0
+                }
+            }
+        }
+    } catch (error) {
+        return 0;
+    }
+};
+
 const patchUserByIdRepository = async (id, data) => {
     try {
         const response = await pool.query('UPDATE users SET nombrecompleto = $1, rut = $2, rutempresa = $3, nombreempresa = $4, correopersonal = $5,  telefonopersonal = $6, puestotrabajo = $7, primernombre = $8, apellidos = $9, sap = $10, giro = $11, cliente = $12, rol = $13 WHERE id_serial = $14', [data.nombre + " " + data.apellidos, data.rut, data.rutempresa, data.nombreempresa, data.correopersonal, data.telefonopersonal, data.puestotrabajo, data.nombre, data.apellidos, data.sap, data.giro, data.cliente, data.rol, parseInt(id)]);
         return {
             message: 'Usuario actualizado con exito',
             user: response.rows[0]
+        }
+    } catch (error) {
+        return 0;
+    }
+};
+
+const patchUserExternosByIdRepository = async (id, data) => {
+    try {
+        const response = await pool.query('UPDATE users_externos SET nombrecompleto = $1, rut = $2, rutempresa = $3, nombreempresa = $4, correopersonal = $5,  telefonopersonal = $6, puestotrabajo = $7, primernombre = $8, apellidos = $9, sap = $10, giro = $11, cliente = $12, rol = $13 WHERE id_serial = $14', [data.nombre + " " + data.apellidos, data.rut, data.rutempresa, data.nombreempresa, data.correopersonal, data.telefonopersonal, data.puestotrabajo, data.nombre, data.apellidos, data.sap, data.giro, data.cliente, data.rol, parseInt(id)]);
+        return {
+            message: 'Usuario actualizado con exito',
+            user: response.rows[0]
+        }
+    } catch (error) {
+        return 0;
+    }
+};
+
+const deleteUserExternosByIdRepository = async (id) => {
+    try {
+        await pool.query('DELETE FROM users_externos WHERE id_serial = $1', [parseInt(id)]);
+        return {
+            message: 'eliminado',
+        }
+    } catch (error) {
+        return 0;
+    }
+};
+
+const deleteUserByIdRepository = async (id) => {
+    try {
+        await pool.query('DELETE FROM users WHERE id_serial = $1', [parseInt(id)]);
+        return {
+            message: 'eliminado',
         }
     } catch (error) {
         return 0;
@@ -302,5 +406,11 @@ module.exports = {
     patchCursoByIdRepository,
     getCursoByClaveRepository,
     getUserBySerialRepository,
-    getUserVerifyRepository
+    getUserVerifyRepository,
+    getAllUsersExternosRepository,
+    createUserExternosRepositoryMicrosoftGlobal,
+    patchUserExternosByIdRepository,
+    deleteUserExternosByIdRepository,
+    getUserExternosByRutRepository,
+    deleteUserByIdRepository
 };
