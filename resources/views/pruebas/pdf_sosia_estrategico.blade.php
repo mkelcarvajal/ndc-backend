@@ -497,10 +497,10 @@
         </div>
     </div>
     <br><br>
-    <center>
-        <b>NDC PERSSO GROUP </b>- Departamento de Reclutamiento y Selección<br>
-        Los resultados expresados en el siguiente informe son de carácter confidencial y tendrán una vigencia de 1 año a contar de la fecha de evaluación.
-    </center>
+        <center>
+            <b>NDC PERSSO GROUP </b>- Departamento de Reclutamiento y Selección<br>
+            Los resultados expresados en el siguiente informe son de carácter confidencial y tendrán una vigencia de 1 año a contar de la fecha de evaluación.
+        </center>
     <div class="page_break"></div>
     <img src="loginpu/img/liebherr.jpg" width="140" style="float:left;padding-top:10px;">
     <img src="loginpu/img/ndc.png" width="130" style="float:right; ">
@@ -755,4 +755,10 @@
         </tbody>
     </table>
 </body>
+<footer>
+    <center>
+        <b>NDC PERSSO GROUP </b>- Departamento de Reclutamiento y Selección<br>
+        Los resultados expresados en el siguiente informe son de carácter confidencial y tendrán una vigencia de 1 año a contar de la fecha de evaluación.
+    </center>
+</footer>
 </html>

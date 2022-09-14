@@ -492,7 +492,7 @@
                 <center>
                     <img src="img_firmas/{{Session::get('usuario')}}.jpg" width="60px;" height="30px;" style="margin-left: 60px;"><br>
                     ______________________________________ <br>
-                    <span>{{Session::get('nombre')}}</span>
+                    <span>{{Session::get('nombre')}}</span><br>
                     <b>Psicólogo</b>
                 </center>
                 @endif
@@ -756,4 +756,10 @@
         </tbody>
     </table>
 </body>
+<footer>
+    <center>
+        <b>NDC PERSSO GROUP </b>- Departamento de Reclutamiento y Selección<br>
+        Los resultados expresados en el siguiente informe son de carácter confidencial y tendrán una vigencia de 1 año a contar de la fecha de evaluación.
+    </center>
+</footer>
 </html>
