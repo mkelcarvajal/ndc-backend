@@ -32,7 +32,7 @@
             <br><br>
           <img src="{{asset('loginpu/img/ndc.png')}}" class="responsive" style="width:220px; height:100px; margin-top:-380px;">
 
-            <b><h1 class="mb-3" style="color: #56b5b1; font-family: Optima,Segoe,Segoe UI,Candara,Calibri,Arial,sans-serif;  ">NDC TEST</h1></b>
+            <b><h1 class="mb-3" style="color: #00a29b; font-family: Optima,Segoe,Segoe UI,Candara,Calibri,Arial,sans-serif;  ">NDC TEST</h1></b>
             <p class="mb-5"> &reg;</p>
 
             <main class="py-4" id="vueValidate">
