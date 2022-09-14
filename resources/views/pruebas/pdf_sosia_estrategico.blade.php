@@ -496,7 +496,7 @@
             </div>
         </div>
     </div>
-    <br><br>
+    <br>
         <center>
             <b>NDC PERSSO GROUP </b>- Departamento de Reclutamiento y Selección<br>
             Los resultados expresados en el siguiente informe son de carácter confidencial y tendrán una vigencia de 1 año a contar de la fecha de evaluación.
@@ -756,6 +756,7 @@
     </table>
 </body>
 <footer>
+    <br><br><br><br><br>
     <center>
         <b>NDC PERSSO GROUP </b>- Departamento de Reclutamiento y Selección<br>
         Los resultados expresados en el siguiente informe son de carácter confidencial y tendrán una vigencia de 1 año a contar de la fecha de evaluación.
