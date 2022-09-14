@@ -3425,7 +3425,7 @@ class pruebasController extends Controller
              $menos_l=array();
              $L=0;
              foreach($resp as $key=>$r){
-                 if(in_array($key,[40,42,43,44,46,47,50,51,53,56,57,59,60,61,63,65])){
+                 if(in_array($key,[40,42,43,44,46,48,50,51,53,56,57,59,60,61,63,65])){
                      array_push($mas_l,$r['respuesta'][0]);
                      array_push($menos_l,$r['respuesta'][1]);
                  }
