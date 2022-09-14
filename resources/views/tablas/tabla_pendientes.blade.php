@@ -42,7 +42,7 @@
                     @endif
                 </td>
                 <td>
-                    <button type="button" class="btn btn-info btn-xs" >
+                    <button type="button" class="btn btn-info btn-xs"  onclick="reenviarCorreo('{{$d->correo}}','{{$d->nombre}}','{{$codigo}}','{{$d->id_encuesta}}','{{$d->nivel}}','{{$d->id_fix}}')">
                         <i class="fas fa-paper-plane"></i>
                         <p style="margin:0">Enviar</p>
                     </button> 
@@ -56,7 +56,7 @@
         <button class="btn btn-block btn-danger mt-4" type="button" onclick="cerrarProceso('{{$codigo}}');"><i class="fas fa-folder-minus"></i> Cerrar Proceso</button>
     </div>
     <div class="col">
-        <button class="btn btn-block btn-info mt-4"><i class="fas fa-envelope"></i> Enviar Correos</button>
+        <button class="btn btn-block btn-info mt-4" type="button" ><i class="fas fa-envelope"></i> Enviar Correos</button>
     </div>
 </div>
 <script>
@@ -161,5 +161,33 @@
             Swal.fire('No se efectuaron cambios', '', 'info')
         }
         })
+    }
+
+    function reenviarCorreo(correo,nombre,codigo,pruebas,nivel,fix){
+        $.ajax({                        
+                url: "resendMail",
+                type: "post",
+                headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data:{
+                    'correo': correo,
+                    'nombre': nombre,
+                    'codigo': codigo,
+                    'pruebas': pruebas,
+                    'nivel': nivel,
+                    'fix': fix,
+                },
+                beforeSend:function(){
+
+                },
+                success: function(data)
+                {
+                    Swal.fire('Correo Re-Enviado', '', 'success');
+                },
+                error:function(data){
+                    console.log(data);
+                }
+            }); 
     }
 </script>

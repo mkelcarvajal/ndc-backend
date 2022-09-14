@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function ()
     Route::get('solicitud','solicitudController@index');
     Route::get('pendientes','solicitudController@pendientes');
     Route::get('sendMail','solicitudController@sendMail');
+    Route::post('resendMail','solicitudController@resendMail');
     Route::post('verificarCodigo','solicitudController@verificarCodigo');
     Route::post('insertSolicitud','solicitudController@insertSolicitud');
     Route::post('getProcesosAbiertos','solicitudController@getProcesosAbiertos');

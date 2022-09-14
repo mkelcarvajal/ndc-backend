@@ -93,6 +93,10 @@
                             </select>
                             <br><br>
                         </div>
+                        <div class="col-2">
+                            <label >Codigo FIX:</label>
+                            <input type="text" class="form-control" name="fix[]">
+                        </div>
                         <div class="col-1" style="margin:0; padding:0;">
                             <label style="color:white;">Fila:</label>
                             <button type="button" class="btn btn-success mt-4" onclick="agregarFila('si');"><i class="fa-solid fa-circle-plus"></i></button>
@@ -195,6 +199,10 @@
                             </select>\
                             <br><br>\
                         </div>\
+                        <div class="col-2">\
+                            <label >Codigo FIX:</label>\
+                            <input type="text" class="form-control" name="fix[]" >\
+                        </div>\
                         <div class="col-1">\
                             <label style="color:white;">Fila:</label>\
                             <button type="button" class="btn btn-danger remove"><i class="fa-solid fa-circle-minus"></i></i></button>\
@@ -227,6 +235,10 @@
                                 <option value="otro">Otro</option>\
                             </select>\
                             <br><br>\
+                        </div>\
+                        <div class="col-2">\
+                            <label >Codigo FIX:</label>\
+                            <input type="text" class="form-control" name="fix[]" >\
                         </div>\
                         <div class="col-1">\
                             <label style="color:white;">Fila:</label>\

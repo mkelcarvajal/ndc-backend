@@ -503,10 +503,16 @@
                     <img src="img_firmas/{{Session::get('usuario')}}.jpg" width="60px;" height="30px;" style="margin-left: 60px;"><br>
                     ______________________________________ <br>
                     <span>{{Session::get('nombre')}}</span>
+                    <b>Psicólogo</b>
                 </center>
                 @endif
             </div>
         </div>
+        <br><br><br>
+        <center>
+            <b>NDC PERSSO GROUP </b>- Departamento de Reclutamiento y Selección<br>
+            Los resultados expresados en el siguiente informe son de carácter confidencial y tendrán una vigencia de 1 año a contar de la fecha de evaluación.
+        </center>
         <div class="page_break"></div>
     <img src="loginpu/img/liebherr.jpg" width="140" style="float:left;padding-top:10px;">
     <img src="loginpu/img/ndc.png" width="130" style="float:right; ">
@@ -521,7 +527,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white; "><b style="font-size:11px;">1.- Ascendencia</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white; "><b style="font-size:11px;">1.- Ascendencia</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -533,7 +539,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;" >2.- Estabilidad</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;" >2.- Estabilidad</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -545,7 +551,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">3.- Vitalidad</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">3.- Vitalidad</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -557,7 +563,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">4.- Responsabilidad</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">4.- Responsabilidad</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -569,7 +575,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">5.- Resultados</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">5.- Resultados</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -581,7 +587,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">6.- Reconocimiento</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">6.- Reconocimiento</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -593,7 +599,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">7.- Independencia</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">7.- Independencia</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -605,7 +611,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">8.- Variedad</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">8.- Variedad</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -617,7 +623,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">9.- Benevolencia</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">9.- Benevolencia</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -629,7 +635,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">10.- Cautela</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">10.- Cautela</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -641,7 +647,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">11.- Originalidad</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">11.- Originalidad</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -653,7 +659,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">12.- Practicidad</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">12.- Practicidad</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -665,7 +671,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">13.- Desición</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">13.- Desición</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -677,7 +683,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:10px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">14.- Orden</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">14.- Orden</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -689,7 +695,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:7px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">15.- Metas</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">15.- Metas</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -701,7 +707,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:7px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">16.- Sociabilidad</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">16.- Sociabilidad</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -713,7 +719,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:7px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">17.- Comprensión</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">17.- Comprensión</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -725,7 +731,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:7px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">18.- Estímulo</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">18.- Estímulo</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -737,7 +743,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:7px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">19.- Conformidad</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">19.- Conformidad</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
@@ -749,7 +755,7 @@
             <tr>
                 <td>
                     <div style="background-color:#4D928F; padding-left:7px; border-radius:7px;"  >
-                        <span><div style="margin:5px;color:white;"><b style="font-size:11px;">20.- Liderazgo</b></div></span>
+                        <nobr><span><div style="margin:5px;color:white;"><b style="font-size:11px;">20.- Liderazgo</b></div></span></nobr>
                     </div>
                 </td>
                 <td>
