@@ -380,7 +380,7 @@ class solicitudController extends Controller
             <img src='cid:firma'>";
             
         $mail = new PHPMailer(true);
-        // $mail->isSMTP();
+        $mail->isSMTP();
         $mail->AddEmbeddedImage('css/img/ndc.png', 'ndc');
         $mail->Host = 'tls://smtp.office365.com';                    // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
@@ -578,7 +578,7 @@ class solicitudController extends Controller
             <img src='cid:firma'>";
             
         $mail = new PHPMailer(true);
-        // $mail->isSMTP();
+        $mail->isSMTP();
         $mail->AddEmbeddedImage('css/img/ndc.png', 'ndc');
         $mail->Host = 'tls://smtp.office365.com';                    // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
