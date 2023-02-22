@@ -1,6 +1,6 @@
 const { request, response } = require('express');
 const User = require('../models/user').default;
-const { createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository, getUserByRutRepository, getAllUsersRepository, patchUserByIdRepository, getCursoByIdRepository, getCursosByRepository, createCursoRepository, patchCursoByIdRepository, getCursoByClaveRepository, getUserBySerialRepository, getUserVerifyRepository, getAllUsersExternosRepository, createUserExternosRepositoryMicrosoftGlobal, patchUserExternosByIdRepository, deleteUserExternosByIdRepository, getUserExternosByRutRepository, deleteUserByIdRepository} = require('../repository/user.repository');
+const { createUserRepositoryMicrosoft, createUserRepositoryMicrosoftGlobal, getUserByIdRepository, getUserByEmailRepository, getAllHistoricRepository, getUserByData, patchHistoricByIdRepository, getUserByRutRepository, getAllUsersRepository, patchUserByIdRepository, getCursoByIdRepository, getCursosByRepository, createCursoRepository, patchCursoByIdRepository, getCursoByClaveRepository, getUserBySerialRepository, getUserVerifyRepository, getAllUsersExternosRepository, createUserExternosRepositoryMicrosoftGlobal, patchUserExternosByIdRepository, deleteUserExternosByIdRepository, getUserExternosByRutRepository, deleteUserByIdRepository, getByDaysHistoricRepository, getBySpecificDaysHistoricRepository} = require('../repository/user.repository');
 const { getCursoByIdRepository2 } = require('../repository/curso.repository');
 const { encryptPassword } = require('../helpers/utils');
 const sgMail = require('@sendgrid/mail')
@@ -148,7 +148,6 @@ const updateUser = async (req = request, res = response) => {
     }
 
     const updateUser = await User.findById(id);
-    console.log(updateUser);
     res.json({
         msg: 'put API - Controller',
         updateUser
@@ -257,6 +256,22 @@ const patchUser = (req = request, res = response) => {
 
 const getAllHistoric = async (req = request, res = response) => {
     const result = await getAllHistoricRepository();
+    res.json({
+        result
+    });
+}
+
+const getByDaysHistoric = async (req = request, res = response) => {
+    const days = Number(req.params.days);
+    const result = await getByDaysHistoricRepository(days);
+    res.json({
+        result
+    });
+}
+
+const getBySpecificDaysHistoric = async (req = request, res = response) => {
+    const date = req.params.date;
+    const result = await getBySpecificDaysHistoricRepository(date);
     res.json({
         result
     });
@@ -1067,5 +1082,7 @@ module.exports = {
     createUserExternosMicrosoftGlobal,
     patchUserExternosById,
     deleteExternoById,
-    getUserExternosByRut
+    getUserExternosByRut,
+    getByDaysHistoric,
+    getBySpecificDaysHistoric
 }

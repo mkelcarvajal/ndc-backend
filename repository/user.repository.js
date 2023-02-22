@@ -1,5 +1,7 @@
 const pool = require('../database/configpg');
 const { generateCertificate } = require('../helpers/utils');
+const moment = require('moment');
+moment.locale('es');
 
 const createUserRepositoryMicrosoftGlobal = async (req) => {
     const id = req.body.id;
@@ -295,9 +297,37 @@ const generateUserCertificateRepository = async (req) => {
     await generateCertificate(req);
 };
 
-const getAllHistoricRepository = async () => {
+const getByDaysHistoricRepository = async (days) => {
+    const date = moment().subtract(days, 'days').format("YYYY-MM-DD").toString();
     try {
-        const response = await pool.query('select * from public.historicocert h where h.fechavencimiento::date >= CURRENT_DATE order by rutempresa;');
+        const response = await pool.query(`select * from public.historicocert h where h.fechafinalizacion::date >= '${date}' order by rutempresa;`);
+        return {
+            message: 'Lista entregada con exito',
+            body: response.rows
+        }
+    } catch (error) {
+        return 0;
+    }
+};
+
+const getBySpecificDaysHistoricRepository = async (dateParam) => {
+    const date = moment(dateParam).format("YYYY-MM-DD").toString();
+    try {
+        const response = await pool.query(`select * from public.historicocert h where h.fechafinalizacion::date >= '${date}' order by rutempresa;`);
+        return {
+            message: 'Lista entregada con exito',
+            body: response.rows
+        }
+    } catch (error) {
+        return 0;
+    }
+};
+
+const getAllHistoricRepository = async () => {
+    const date = moment().subtract(75, 'days').tz('America/Santiago').format("YYYY-MM-DD").toString();
+    console.log(date);
+    try {
+        const response = await pool.query(`select * from public.historicocert h where h.fechavencimiento::date >= CURRENT_DATE order by rutempresa;`);
         return {
             message: 'Lista entregada con exito',
             body: response.rows
@@ -412,5 +442,7 @@ module.exports = {
     patchUserExternosByIdRepository,
     deleteUserExternosByIdRepository,
     getUserExternosByRutRepository,
-    deleteUserByIdRepository
+    deleteUserByIdRepository,
+    getByDaysHistoricRepository,
+    getBySpecificDaysHistoricRepository
 };
